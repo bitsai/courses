@@ -1,0 +1,19 @@
+#include "lessthan.dyna"
+:- pragma(keep_best_antecedents(item)).
+:- structure(cons(int,list)).
+:- item(item, double, -inf).
+
+% Define interesting lists
+interesting(Xs)	max= input(Xs).
+interesting(Xs)	max= interesting([X|Xs]).
+
+% Define numbers we need
+zero		:= 0.
+one		:= 1.
+
+% Recursive definition of LIS
+lis([], K)	max= zero whenever lessthan(K,_).
+lis([X|Xs], K)	max= lessthan(K,X) + lis(Xs, X) + one whenever interesting([X|Xs]).
+lis([X|Xs], K)	max= lis(Xs, K) whenever interesting([X|Xs]).
+
+goal		max= lis(X, -1) whenever input(X).

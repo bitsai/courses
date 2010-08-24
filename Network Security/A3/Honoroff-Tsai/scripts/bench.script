@@ -1,0 +1,21 @@
+# Simnet, version 0.8
+# COPYRIGHT Seny Kamara, Darren Davis, Fabian Monrose, 2002-2003
+# Please read the DISCLAIMER
+
+verbose 4
+
+# Basic startup script for testing DNS.  Load a topology and start the nodes.
+
+load networks/a3.net
+start all
+usp
+
+# select a node
+s BLAZE
+
+verbose add DNS
+
+plug in A3.Benchmark 1
+benchmark
+
+#exit

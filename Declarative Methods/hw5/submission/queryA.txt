@@ -1,0 +1,43 @@
+goal = 13
+  times(times(times(person(1,"FRANKLIN DELANO ROOSEVELT 1882-1945"),person(2,"ANNA ELEANOR ROOSEVELT 1884-1962")),pathto("FRANKLIN DELANO ROOSEVELT 1882-1945","Nicholas Roosevelt 1658-1742")),pathto("ANNA ELEANOR ROOSEVELT 1884-1962","Nicholas Roosevelt 1658-1742"))
+    times(times(person(1,"FRANKLIN DELANO ROOSEVELT 1882-1945"),person(2,"ANNA ELEANOR ROOSEVELT 1884-1962")),pathto("FRANKLIN DELANO ROOSEVELT 1882-1945","Nicholas Roosevelt 1658-1742"))
+      times(person(1,"FRANKLIN DELANO ROOSEVELT 1882-1945"),person(2,"ANNA ELEANOR ROOSEVELT 1884-1962"))
+        person(1,"FRANKLIN DELANO ROOSEVELT 1882-1945") = 0
+        person(2,"ANNA ELEANOR ROOSEVELT 1884-1962") = 0
+      pathto("FRANKLIN DELANO ROOSEVELT 1882-1945","Nicholas Roosevelt 1658-1742") = 6
+        times(pathto("FRANKLIN DELANO ROOSEVELT 1882-1945","Jacobus Roosevelt 1692-1776"),child("Jacobus Roosevelt 1692-1776","Nicholas Roosevelt 1658-1742"))
+          pathto("FRANKLIN DELANO ROOSEVELT 1882-1945","Jacobus Roosevelt 1692-1776") = 5
+            times(pathto("FRANKLIN DELANO ROOSEVELT 1882-1945","Isaac Roosevelt 1726-1794"),child("Isaac Roosevelt 1726-1794","Jacobus Roosevelt 1692-1776"))
+              pathto("FRANKLIN DELANO ROOSEVELT 1882-1945","Isaac Roosevelt 1726-1794") = 4
+                times(pathto("FRANKLIN DELANO ROOSEVELT 1882-1945","James Roosevelt 1760-1847"),child("James Roosevelt 1760-1847","Isaac Roosevelt 1726-1794"))
+                  pathto("FRANKLIN DELANO ROOSEVELT 1882-1945","James Roosevelt 1760-1847") = 3
+                    times(pathto("FRANKLIN DELANO ROOSEVELT 1882-1945","Isaac Roosevelt 1790-1863"),child("Isaac Roosevelt 1790-1863","James Roosevelt 1760-1847"))
+                      pathto("FRANKLIN DELANO ROOSEVELT 1882-1945","Isaac Roosevelt 1790-1863") = 2
+                        times(pathto("FRANKLIN DELANO ROOSEVELT 1882-1945","James Roosevelt 1828-1900"),child("James Roosevelt 1828-1900","Isaac Roosevelt 1790-1863"))
+                          pathto("FRANKLIN DELANO ROOSEVELT 1882-1945","James Roosevelt 1828-1900") = 1
+                            child("FRANKLIN DELANO ROOSEVELT 1882-1945","James Roosevelt 1828-1900") = 1
+                          child("James Roosevelt 1828-1900","Isaac Roosevelt 1790-1863") = 1
+                      child("Isaac Roosevelt 1790-1863","James Roosevelt 1760-1847") = 1
+                  child("James Roosevelt 1760-1847","Isaac Roosevelt 1726-1794") = 1
+              child("Isaac Roosevelt 1726-1794","Jacobus Roosevelt 1692-1776") = 1
+          child("Jacobus Roosevelt 1692-1776","Nicholas Roosevelt 1658-1742") = 1
+    pathto("ANNA ELEANOR ROOSEVELT 1884-1962","Nicholas Roosevelt 1658-1742") = 7
+      times(pathto("ANNA ELEANOR ROOSEVELT 1884-1962","Johannes Roosevelt 1689-1750"),child("Johannes Roosevelt 1689-1750","Nicholas Roosevelt 1658-1742"))
+        pathto("ANNA ELEANOR ROOSEVELT 1884-1962","Johannes Roosevelt 1689-1750") = 6
+          times(pathto("ANNA ELEANOR ROOSEVELT 1884-1962","Jacobus Roosevelt 1724-1777"),child("Jacobus Roosevelt 1724-1777","Johannes Roosevelt 1689-1750"))
+            pathto("ANNA ELEANOR ROOSEVELT 1884-1962","Jacobus Roosevelt 1724-1777") = 5
+              times(pathto("ANNA ELEANOR ROOSEVELT 1884-1962","Jacobus (James J.) Roosevelt 1759-1840"),child("Jacobus (James J.) Roosevelt 1759-1840","Jacobus Roosevelt 1724-1777"))
+                pathto("ANNA ELEANOR ROOSEVELT 1884-1962","Jacobus (James J.) Roosevelt 1759-1840") = 4
+                  times(pathto("ANNA ELEANOR ROOSEVELT 1884-1962","Cornelius Van Schaick Roosevelt 1794-1871"),child("Cornelius Van Schaick Roosevelt 1794-1871","Jacobus (James J.) Roosevelt 1759-1840"))
+                    pathto("ANNA ELEANOR ROOSEVELT 1884-1962","Cornelius Van Schaick Roosevelt 1794-1871") = 3
+                      times(pathto("ANNA ELEANOR ROOSEVELT 1884-1962","Theodore Roosevelt 1831-1878"),child("Theodore Roosevelt 1831-1878","Cornelius Van Schaick Roosevelt 1794-1871"))
+                        pathto("ANNA ELEANOR ROOSEVELT 1884-1962","Theodore Roosevelt 1831-1878") = 2
+                          times(pathto("ANNA ELEANOR ROOSEVELT 1884-1962","Elliott Roosevelt 1860-1894"),child("Elliott Roosevelt 1860-1894","Theodore Roosevelt 1831-1878"))
+                            pathto("ANNA ELEANOR ROOSEVELT 1884-1962","Elliott Roosevelt 1860-1894") = 1
+                              child("ANNA ELEANOR ROOSEVELT 1884-1962","Elliott Roosevelt 1860-1894") = 1
+                            child("Elliott Roosevelt 1860-1894","Theodore Roosevelt 1831-1878") = 1
+                        child("Theodore Roosevelt 1831-1878","Cornelius Van Schaick Roosevelt 1794-1871") = 1
+                    child("Cornelius Van Schaick Roosevelt 1794-1871","Jacobus (James J.) Roosevelt 1759-1840") = 1
+                child("Jacobus (James J.) Roosevelt 1759-1840","Jacobus Roosevelt 1724-1777") = 1
+            child("Jacobus Roosevelt 1724-1777","Johannes Roosevelt 1689-1750") = 1
+        child("Johannes Roosevelt 1689-1750","Nicholas Roosevelt 1658-1742") = 1

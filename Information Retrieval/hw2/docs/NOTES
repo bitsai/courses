@@ -1,0 +1,154 @@
+
+NOTES ON HOMEWORK #2
+====================
+
+0) You can run the sample program as follows:
+
+      perl vectror1.prl
+
+--------------------------------------------------------- 
+
+1) Calculation of Precision and Recall - a very brief summary
+
+  Step 1 - Rank all the documents in the corpus by their
+           similarity scores (for the given query).
+
+  Step 2 - Determine the position in this list of the
+           *relevant* documents for the query. Call this
+           position the "rank" of the relevant documents.
+
+  For example, consider the case where there are 8 relevant
+  documents, which are ranked by your system as 
+  (1,2,3,6,16,54,230,2664).
+  
+  Step 3  - compute a list of recall and precision values
+            as follows for (i=1..TOTAL_RELEVANT)
+
+		REC_i =  i / TOTAL_RELEVANT
+ 
+                PREC_i = i / Rank_i 
+      
+    i =   1  Rank=    1  REC= 0.125  PREC= 1.000  Doc#= 3075
+    i =   2  Rank=    2  REC= 0.250  PREC= 1.000  Doc#= 2266
+    i =   3  Rank=    3  REC= 0.375  PREC= 1.000  Doc#= 1601
+    i =   4  Rank=    6  REC= 0.500  PREC= 0.667  Doc#= 2973
+    i =   5  Rank=   16  REC= 0.625  PREC= 0.312  Doc#= 2714
+    i =   6  Rank=   54  REC= 0.750  PREC= 0.111  Doc#= 3156
+    i =   7  Rank=  230  REC= 0.875  PREC= 0.030  Doc#= 3175
+    i =   8  Rank= 2664  REC= 1.000  PREC= 0.003  Doc#= 2664
+
+   If you want to compute precision at a recall value
+   not listed in your table (e.g. 0.200), interpolate between
+   known values (0.125 and 0.250). In the case of recall
+   values less than the minimum computed (e.g. 0.100 < 0.125), 
+   extrapolate from the slope of the two lowest recall values 
+   computed (e.g. 0.125 and 0.250). 
+
+   Your code should not die on the case where there is only
+   1 relevant document.
+   
+--------------------------------------------------------- 
+
+2)  Note that the value of $corpus_freq{$term} is not used
+    in the program, but may be used by you in an extended term weighting
+    method. $corpus_freq{$term} is the total number of times the word
+    occurs in the corpus, while the $doc_freq{$term} is the total
+    number of documents containing the term.
+      
+--------------------------------------------------------- 
+
+3) Notes on Part 3 - mostly a summary of what has been said in class
+
+    - If you are interested in using SVD, there is a code
+      package (SVDPACK) in the course directory. The C version
+      is in the subdirectory 'svdpackc'. See guide.ps.
+
+      Some very good papers on SVD are:
+
+   http://www.cs.utk.edu/~library/TechReports/1994/ut-cs-94-270.ps.Z
+   http://www.cs.utk.edu/~berry/sc95/sc95.html
+
+
+   - If you are interested in using a thesaurus for term expansion,
+     a copy of Roget's thesaurus (1911 edition) is located in
+     the 'thesaurus' subdirectory. See 'README' for notes on the
+     subject and a simple method of using the code.
+
+
+   - Adding bigrams to the vector models is relatively straightforward.
+
+     As noted in class, you can easily generate a list of bigrams
+     by the unix command:
+
+       tail +2 cacm.tokenized | paste cacm.tokenized - 
+
+     You could feed this through make_hist.prl and treat it as
+     a second corpus (like the stemmed version), with the additional
+     constraint that a bigram is considered a "stopword" if either
+     of the two words in the bigram are stopwords.
+
+     However, you will achieve better performance if you include
+     both unigrams and bigrams in your vector models. This is also
+     straightforward to do. Just write a simple Perl program to 
+     print a stream of the following form (with both unigrams and 
+     bigrams, and treat this just as a stream of tokens in a
+     new expanded document. 
+
+                ----------------
+		.I 1
+		.T
+		preliminary
+		report
+		-                   ==>
+		international
+		algebraic
+		language
+		.A
+		perlis
+                ----------------
+
+                ------------------------------
+		.I 1
+		.I 1          .T
+		.T
+		.T            preliminary
+		preliminary
+		preliminary   report
+		report
+		report        -
+		-
+		-             international
+		international
+		international algebraic
+		algebraic
+		algebraic     language
+		language
+		language      .A
+		.A
+		.A            perlis 
+		perlis
+		perlis        ,
+                ------------------------------
+
+   makehist.prl will compute corpus and document frequencies
+   for both the unigram and bigram tokens (without modification),
+   and in the simplest implementation you can do term weighting 
+   ignoring whether a token is a unigram or bigram (except in
+   the case of stopword pruning).
+
+   Note: For ease of processing, you may want to replace the tab character
+   in the bigram with a character like '_' (e.g. 'algebraic	language'
+   ==> 'algebraic_language'.
+            
+
+--------------------------------------------------------- 
+
+Finally, note that when evaluating your work in part 3, I will
+be interested both in the creativity/substance of your extension
+AND the quantitative performance improvement it achieves. 
+Don't avoid interesting extensions simply because you are afraid
+that they won't improve performance, but do aim for as much
+of a quantitative improvement as possible.
+
+
+

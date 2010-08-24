@@ -1,0 +1,157 @@
+Benny Tsai
+A.I.
+Homework 2
+
+*** Programming Portion ***
+The program will detect whether an expression is tautological or not.
+
+7.5)
+
+*** I interpreted the question to be asking: "How many truth value assignments for the 4 variables will result in the expression being true?"
+
+a.	8
+b.	12
+c.	4
+
+7.8)
+a.	Smoke => Smoke == ~Smoke v Smoke (Implication Elimination)
+	Valid
+b.	[Smoke = True, Fire = True] returns True
+	[Smoke = True, Fire = False] returns False
+	Neither
+c.	[Smoke = True, Fire = True] returns True
+	[Smoke = False, Fire = True] returns False
+	Neither
+d.	In any possible assignment, either ~Fire or Fire will be True
+	Valid
+e.	All possible assignments returns True
+	Valid
+f.	All possible assignments returns True
+	Valid
+g.	All possible assignments returns True
+	Valid
+h.	[Big = True, Dumb = True] returns True
+	[Big = False, Dumb = True] returns False
+	Neither
+
+7.9)	The statement looks like this:
+	Mythical -> Immortal
+	~Mythical -> Mortal ^ Mammal
+	Immortal v Mammal -> Horned
+	Horned -> Magical
+
+	The statement does not imply whether or not the unicorn is mythical.  However, whether the unicorn is mythical or not it is horned (if the unicorn is mythical, then it's immortal, and immortals are horned.  If it's not mythical, then it's mortal and a mammal, and mammals are horned).  And since horned implies magical, we know the unicorn is magical as well.  To recap, we don't know whether the unicorn is mythical or not, but we do know it's horned and magical.
+
+8.6)
+Predicates:
+Spring2001(x) = event x happened in Spring of 2001
+Take(x, y) = student x takes class y
+Pass(x, y) = student x passes class y
+Higher(x, y) = number x is higher than number y
+Buy(x, y) = person x buys object y
+Smart(x) = person x is smart
+Expensive(x) = object x is expensive
+Agent(x) = person x is an agent
+Sell(x, y, z) = person x sells person y object z
+Insured(x) = person x is insured
+Barber(x) = person x is a barber
+Man(x) = person x is a man
+InTown(x) = object x is in town
+Shave(x, y) = person x shaves person y
+BornIn(x, y) = person x born in country y
+Parent(x, y) = person x is parent of person y
+Citizen(x, y) = person x is citizen of country y
+Resident(x, y) = person x is resident of country y
+ByBirth(x) = x is true by birth
+ByDescent(x) = x is true by descent
+Politician(x) = person x is a politician
+Fool(x, y, t) = person x fools person y at time t
+
+Function:
+BestScore(x) = returns best score in class x
+
+Symbols: I think they're all self-explanatory.
+
+a.	Ex,y (x != y) ^ Spring2001(Take(x,French) ^ Take(y,French))
+b.	Ax Take(x,French) -> Pass(x,French)
+c.	ExAy Spring2001(Take(x,Greek)) ^ [Spring2001(Take(y,Greek)) -> x = y]
+d.	Higher(BestScore(Greek),BestScore(French))
+e.	Ax Buy(x,Policy) -> Smart(x)
+f.	~Ex Buy(x,Expensive(Policy))
+g.	ExAy Agent(x) ^ [Sell(x,y,Policy) <-> ~Insured(y)]
+h.	ExAy Barber(x) ^ [Man(y) ^ InTown(y) ^ ~Shave(y,y) -> Shave(x,y)]
+i.	Ax BornIn(x,UK) ^ [Ay Parent(y,x) -> Citizen(y,UK) v Resident(y,UK)] -> ByBirth(Citizen(x,UK))
+j.	Ax ~BornIn(x,UK) ^ [Ey Parent(y,x) ^ ByBirth(Citizen(y,UK))] -> ByDescent(Citizen(x,UK))
+k.	Ax Politician(x) -> [EyAt Fool(x,y,t)] ^ [AyEt Fool(x,y,t)] ^ ~[AyAt Fool(x,y,t)]
+
+8.11)
+--- Defining Predicates ---
+GrandChild: Ac,g GrandChild(c,g) <-> GrandParent(g,c)
+GreatGrandParent: Ac,gg GreatGrandParent(gg,c) <-> Eg Parent(gg,g) ^ GrandParent(g,c)
+Brother: Ab,s Brother(b,s) <-> Male(b) ^ Sibling(b,s)
+Sister: As,b Sister(s,b) <-> Female(s) ^ Sibling(s,b)
+Daughter: Ad,p Daughter(d,p) <-> Female(d) ^ Child(d,p)
+Son: As,p Son(s,p) <-> Male(s) ^ Child(s,p)
+Aunt: Aa,c Aunt(a,c) <-> [Ep Parent(p,c) ^ Sister(a,p)] v [Ep,u Parent(p,c) ^ Brother(u,p) ^ Wife(a,u)]
+Uncle: Au,c Uncle(u,c) <-> [Ep Parent(p,c) ^ Brother(u,p)] v [Ep,a Parent(p,c) ^ Sister(a,p) ^ Husband(u,a)]
+BrotherInLaw: Ab,p BrotherInLaw(b,p) <-> [Es Sister(s,p) ^ Husband(b,s)]
+SisterInLaw: As,p SisterInLaw(s,p) <-> [Eb Brother(b,p) ^ Wife(s,b)]
+FirstCousin: Ac,p FirstCousin(c,p) <-> [Epc,pp Parent(pc,c) ^ Parent(pp,p) ^ Sibling(pc,pp)]
+
+--- mth Cousin nth Removed ---
+
+First, let us define an "Ancestor" predicate such that:
+Ancestor(x,y,n): person x is ancestor of person y, and x is n generations older than y
+Ancestor(x,y,1) == Parent(x,y), Ancestor(x,y,2) == GrandParent(x,y), Ancestor(x,y,3) == GreatGrandParent(x,y), etc.
+
+mth Cousin, nth Removed: Vx,y [mth Cousin, nth Removed(x,y)] <-> [Ea [Ancestor(a,x,m+1) ^ Ancestor(a,y,m+1+n)] v [Ancestor(a,x,m+1+n) ^ Ancestor(a,y,m+1)]]
+
+--- Family Tree ---
+
+Tell(KB, Husband(George,Mum) ^ Husband(Spencer,Kydd) ^ Husband(Philip,Elizabeth) ^ Husband(Charles,Diana) ^ Husband(Mark,Anne) ^ Husband(Andrew,Sarah))
+Tell(KB, Father(George,Elizabeth) ^ Father(George,Margaret))
+Tell(KB, Father(Spencer,Diana))
+Tell(KB, Father(Philip,Charles) ^ Father(Philip,Anne) ^ Father(Philip,Andrew) ^ Father(Philip,Edward))
+Tell(KB, Father(Charles,William) ^ Father(Charles,Harry))
+Tell(KB, Father(Mark,Peter) ^ Father(Mark,Zara))
+Tell(KB, Father(Andrew,Beatrice) ^ Father(Andrew,Eugenie))
+
+Ask(KB, Ex GrandChild(x,Elizabeth))
+Ask(KB, Ex BrotherInLaw(x,Diana))
+Ask(KB, Ex GreatGrandParent(x,Zara))
+
+9.4)
+a.	Theta = {x/A,y/B,z/B}
+b.	Cannot be unified in original form.
+	But we can standardize-apart the two expressions to get:
+		Q(y,G(A,B)) and Q(G(x,x),z)
+	Now we can unify with:
+		Theta = {y/G(x,x),z/G(A,B)}
+c.	Theta = {x/John,y/John}
+d.	Cannot be unified.
+
+9.12)
+[Criminal(West)]
+	|
+[American(West),Weapon(y),Sells(West,y,z),Hostile(z)]
+	|
+[Weapon(y),Sells(West,y,z),Hostile(z)]
+	|
+[Missile(y),Sells(West,y,z),Hostile(z)]
+	|
+[Sells(West,M1,z),Hostile(z)]
+	|
+[Missile(M1),Owns(Nono,M1),Hostile(Nono)]
+	|
+[Owns(Nono,M1),Hostile(Nono)]
+	|
+[Hostile(Nono)]
+	|
+[Enemy(Nono,America)]
+	|
+	[]
+
+9.13)
+a.	Query: P(A,[1,2,3])	Solutions: 1, 2, 3
+	Query: P(2,[1,A.3])	Solutions: 2
+b.	P represents list membership test operation.

@@ -1,0 +1,21 @@
+R. Chapman. SPARK - a state-of-the-practice approach to the Common Criteria implementation requirements. Presented at the 2nd International Common Criteria Conference, July 2001.
+
+H. Chen, D. Dean, and D. Wagner. Model checking one million lines of C code. In Proceedings of the 11th Annual Network and Distributed System Security Symposium, 2004.
+
+H. Chen and D. Wagner. MOPS: an Infrastructure for Examining Security Properties of Software. In Proceedings of the ACM Computer and Communications Security (CCS) Conference, pages 235-244, November 2002.
+
+C. Cowan. Software Security for Open Source Systems. IEEE Security & Privacy Magazine, February 2003.
+
+D. Evans and D. Larochelle. Improving security using extensible lightweight static analysis. IEEE Software, 19(1): 42-51, February 2002.
+
+W. Goerigk. Towards Rigorous Compiler Implementation Verification. In Proceedings of the 1997 Workshop on Programming Languages and Fundamentals of Programming, pages 118-126, November 1997.
+
+A. Hall and R. Chapman. Correctness by Construction: Developing a Commercial Secure System. IEEE Software 19(1): 18-25, 2002.
+
+S. Savage, M. Burrows, G. Nelson, and P. Sobalvarro. Eraser: A Dynamic Data Race Detector for Multithreaded Programs. ACM Transactions on Computer Systems 15(4): 391-411, 1997.
+
+J. Viega, J.T. Bloch, T. Kohno and G. McGraw. ITS4 : A Static Vulnerability Scanner for C and C++ Code. Annual Computer Security Applications Conference, December 2000.
+
+J. Wilander and M. Kamkar. A comparison of publicly available tools for dynamic buffer overflow prevention. In Proceedings of the 10th Annual Network and Distributed System Security Symposium, 2003.
+
+J. Wilander and M. Kamkar. A comparison of publicly available tools for static intrusion detection. In Proceedings of the Nordic Workshop on Secure IT Systems, pages 68-84, November 2002.

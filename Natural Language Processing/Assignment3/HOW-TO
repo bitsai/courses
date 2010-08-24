@@ -1,0 +1,6 @@
+Benny Tsai
+600.465
+Intro. to NLP
+Assignment 3
+
+Once all the files are extracted from the compressed archive file, there should be two directories; "earley" and "earley2".  Please compile the java files in these two directories before attempting to run the scripts "parse" or "parse2".  To compile, execute "javac earley/*.java" and "javac earley2/*.java".

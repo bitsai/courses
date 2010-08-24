@@ -1,0 +1,26 @@
+
+
+Attached (appended) is a file called html2corpus.prl... it will take a
+directory full of html files and turn them into a corpus, creating the
+necessary 5 files if run on hops, barley or malt, which are:
+
+corpus.raw
+corpus.stemmed
+corpus.stemmed.hist
+corpus.tokenized
+corpus.tokenized.hist
+
+.. syntax is:
+
+./html2corpus.prl ./directory/with/files corpus
+
+
+The following field partitions are used.
+
+.T = title tag
+.K = keywords META tag (used by search engines, very common)
+.W = previously abstract, now description META tag (also common)
+.A = previously author, now the body text with all HTML markup stripped
+
+
+

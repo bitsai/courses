@@ -1,0 +1,37 @@
+<project name="OOS Assignment 1" basedir="." default="build">
+	
+  <property name="dir.build"   value="${basedir}/build"/>
+  <property name="dir.src"     value="${basedir}/src"/>
+  <property name="dir.apidocs" value="${basedir}/documentation/api"/>
+
+  <path id="project.class.path">
+    <pathelement path="${java.class.path}"/>
+    <pathelement location="${dir.build}"/>
+  </path>
+
+
+  <target name="build">
+    <mkdir dir="${dir.build}"/>
+    <javac debug ="yes" srcdir="${dir.src}" destdir="${dir.build}"/>
+  </target>
+
+  <target name="run.main" depends="build">
+    <java classname="cs421.SuperHello" fork ="yes">
+      <classpath refid="project.class.path"/>
+    </java>
+  </target>
+
+  <target name="javadoc" depends="build">
+    <mkdir dir="${dir.apidocs}"/>
+    <javadoc sourcepath="${dir.src}" 
+             destdir="${dir.apidocs}"
+             packagenames="cs421.*"/>
+  </target>
+  <target name="clean">
+    <delete dir="${dir.build}"/>
+    <delete dir="${dir.apidocs}"/>
+  </target>
+
+</project>
+
+

@@ -1,0 +1,315 @@
+  ************************************************************
+  Documents Most Similar To Query number 1
+  ************************************************************
+  Similarity   Doc#  Author      Title
+  ==========   ==== ========     =============================
+  0.31096498   1938 Stimler      #  Some Criteria for Time-Sha
+  0.23582180   2629 Ritchie      #  The UNIX Time-Sharing syst
+* 0.23459853   1572 Nielsen      #  The Simulation of Time sha
+  0.20584542   1071 Rosenberg    #  Computer-Usage Accounting 
+  0.19653142   1844 Baskin       #  A Modular Computer Sharing
+
+  ************************************************************
+  Documents Most Similar To Query number 1
+  ************************************************************
+  Similarity   Doc#  Author      Title
+  ==========   ==== ========     =============================
+  0.31096498   1938 Stimler      #  Some Criteria for Time-Sha
+  0.23582180   2629 Ritchie      #  The UNIX Time-Sharing syst
+* 0.23459853   1572 Nielsen      #  The Simulation of Time sha
+  0.20584542   1071 Rosenberg    #  Computer-Usage Accounting 
+  0.19653142   1844 Baskin       #  A Modular Computer Sharing
+
+  ************************************************************
+  Documents Most Similar To Query number 1
+  ************************************************************
+  Similarity   Doc#  Author      Title
+  ==========   ==== ========     =============================
+  0.31096498   1938 Stimler      #  Some Criteria for Time-Sha
+  0.23582180   2629 Ritchie      #  The UNIX Time-Sharing syst
+* 0.23459853   1572 Nielsen      #  The Simulation of Time sha
+  0.20584542   1071 Rosenberg    #  Computer-Usage Accounting 
+  0.19653142   1844 Baskin       #  A Modular Computer Sharing
+
+  ************************************************************
+  Documents Most Similar To Query number 1
+  ************************************************************
+  Similarity   Doc#  Author      Title
+  ==========   ==== ========     =============================
+  0.31096498   1938 Stimler      #  Some Criteria for Time-Sha
+  0.23582180   2629 Ritchie      #  The UNIX Time-Sharing syst
+* 0.23459853   1572 Nielsen      #  The Simulation of Time sha
+  0.20584542   1071 Rosenberg    #  Computer-Usage Accounting 
+  0.19653142   1844 Baskin       #  A Modular Computer Sharing
+
+  ************************************************************
+  Documents Most Similar To Query number 1
+  ************************************************************
+  Similarity   Doc#  Author      Title
+  ==========   ==== ========     =============================
+  0.31096498   1938 Stimler      #  Some Criteria for Time-Sha
+  0.23582180   2629 Ritchie      #  The UNIX Time-Sharing syst
+* 0.23459853   1572 Nielsen      #  The Simulation of Time sha
+  0.20584542   1071 Rosenberg    #  Computer-Usage Accounting 
+  0.19653142   1844 Baskin       #  A Modular Computer Sharing
+
+  ************************************************************
+  Documents Most Similar To Query number 1
+  ************************************************************
+  Similarity   Doc#  Author      Title
+  ==========   ==== ========     =============================
+  0.31096498   1938 Stimler      #  Some Criteria for Time-Sha
+  0.23582180   2629 Ritchie      #  The UNIX Time-Sharing syst
+
+============================================================
+Term		1			1938			Docfreq
+============================================================
+system	5.92741703996626	19.2641053798903	728
+time	3.97076116255189	37.7222310442429	440
+share	6.51994190563167	61.9394481035008	123
+oper	4.2587118661231	8.5174237322462	381
+articl	9.62811754033354	4.81405877016677	26
+============================================================
+Term		1			2629			Docfreq
+============================================================
+system	5.92741703996626	23.709668159865	728
+time	3.97076116255189	13.8976640689316	440
+comput	2.48256214708414	1.24128107354207	926
+share	6.51994190563167	22.8197966697108	123
+oper	4.2587118661231	12.7761355983693	381
+  ************************************************************
+  Documents Most Similar To Query number 12
+  ************************************************************
+  Similarity   Doc#  Author      Title
+  ==========   ==== ========     =============================
+* 0.59004536   3127 Cheriton     #  Thoth, a Portable Real-Tim
+* 0.54030915   2246 Brown        #  Levels of Language for Por
+  0.25249786   1930 Kruskal      #  Extremely Portable Random 
+  0.17734412   2593 Canaday      #  A Back-end Computer for Da
+  0.15727866   1461 --           #  Discussion Summary on Oper
+  0.14688132   2317 Rosen        #  Programming Systems and La
+  0.14430382   1750 Fuchel       #  Considerations in the Desi
+* 0.13250781   2629 Ritchie      #  The UNIX Time-Sharing syst
+  0.12353486   2319 Lynch        #  Operating System Performan
+  0.12336820   2597 Hoare        #  Monitors: An Operating Sys
+  0.12329596   3068 Popek        #  A Model for Verification o
+  0.11396419   2542 Graham       #  A Software Design and Eval
+  0.11293552   1462 Orchard      #  Multilevel Operating Syste
+  0.11194502   2379 Liskov       #  The Design of the Venus Op
+  0.11159442   1680 Engvold      #  A General-Purpose Display 
+  0.11058644   2311 Benjamin     #  A Generational Perspective
+  0.10740494   1749 Dijkstra     #  The Structure of the "THE"
+  0.10625806   2378 Gaines       #  An Operating System Based 
+  0.10582870   2777 Parnas       #  On a Solution to the Cigar
+  0.10579843   1591 Engvold      #  A Model for a Multifunctio
+
+============================================================
+Term		12			3127			Docfreq
+============================================================
+portabl	12.5607916779204	56.5235625506418	6
+system	2.96370851998313	14.8185425999156	728
+oper	4.2587118661231	17.0348474644924	381
+============================================================
+Term		12			2246			Docfreq
+============================================================
+portabl	12.5607916779204	50.2431667116816	6
+oper	4.2587118661231	2.12935593306155	381
+============================================================
+Term		12			1930			Docfreq
+============================================================
+portabl	12.5607916779204	37.6823750337612	6
+============================================================
+Term		12			2593			Docfreq
+============================================================
+portabl	12.5607916779204	25.1215833558408	6
+system	2.96370851998313	1.48185425999156	728
+============================================================
+Term		12			1461			Docfreq
+============================================================
+system	2.96370851998313	4.44556277997469	728
+oper	4.2587118661231	6.38806779918465	381
+============================================================
+Term		12			2317			Docfreq
+============================================================
+system	2.96370851998313	23.709668159865	728
+oper	4.2587118661231	12.7761355983693	381
+============================================================
+Term		12			1750			Docfreq
+============================================================
+system	2.96370851998313	31.1189394598228	728
+oper	4.2587118661231	25.5522711967386	381
+============================================================
+Term		12			2629			Docfreq
+============================================================
+system	2.96370851998313	23.709668159865	728
+oper	4.2587118661231	12.7761355983693	381
+============================================================
+Term		12			2319			Docfreq
+============================================================
+system	2.96370851998313	25.1915224198566	728
+oper	4.2587118661231	23.422915263677	381
+============================================================
+Term		12			2597			Docfreq
+============================================================
+system	2.96370851998313	17.7822511198988	728
+oper	4.2587118661231	17.0348474644924	381
+  ************************************************************
+  Documents Most Similar To Query number 8
+  ************************************************************
+  Similarity   Doc#  Author      Title
+  ==========   ==== ========     =============================
+  0.43479392   1685 Schurmann    #  GAN, a System for Generati
+  0.40253534   2371 Walden       #  A System for Interprocess 
+* 0.38264949   2625 Fabry        #  Capability-Based Addressin
+  0.35521481   2499 Hamlet       #  Efficient Multiprogramming
+  0.33662550   2500 Frailey      #  A Practical Approach to Ma
+  0.32155871   2197 Nielsen      #  The Merit of Regional Comp
+  0.31958396   2194 Richards     #  How To Keep the Addresses 
+  0.31317368   2858 Frieder      #  A Process for the Determin
+  0.30350660   2614 Crandall     #  Arrow to Precedence Networ
+  0.29698383   2951 Mamrak       #  Dynamic Response Time Pred
+  0.28322677   1505 Dahm         #  A System Organization for 
+  0.28033495   2776 Chambers     #  Computer Networks in Highe
+  0.27779887   2949 Tajibnapis   #  A Correctness Proof of a T
+  0.27256343   1611 Klein        #  Scheduling Project Network
+  0.26862944   1752 Oppenheimer  #  Resource Management for a 
+  0.26298374   492  Schay        #  Analysis of a File Address
+  0.25043720   2515 Corneil      #  Minimal Event-Node Network
+  0.24827630   1261 Larsen       #  Modeling and Simulation of
+  0.24156261   1723 Fisher       #  Computer Construction of P
+  0.24144575   1877 Habermann    #  Prevention of System Deadl
+
+  ************************************************************
+  Documents Most Similar To Query number 1
+  ************************************************************
+  Similarity   Doc#  Author      Title
+  ==========   ==== ========     =============================
+  30.30871984   2629 Ritchie      #  The UNIX Time-Sharing syst
+  7.08971614   2151 Nemeth       #  User Program Measurement i
+* 4.14598518   1572 Nielsen      #  The Simulation of Time sha
+* 3.87788657   1410 Coffman      #  Interarrival Statistics fo
+  2.82311845   1752 Oppenheimer  #  Resource Management for a 
+
+  ************************************************************
+  Documents Most Similar To Query number 1
+  ************************************************************
+  Similarity   Doc#  Author      Title
+  ==========   ==== ========     =============================
+  0.31096498   1938 Stimler      #  Some Criteria for Time-Sha
+  0.23582180   2629 Ritchie      #  The UNIX Time-Sharing syst
+* 0.23459853   1572 Nielsen      #  The Simulation of Time sha
+  0.20584542   1071 Rosenberg    #  Computer-Usage Accounting 
+  0.19653142   1844 Baskin       #  A Modular Computer Sharing
+
+  ************************************************************
+  Documents Most Similar To Query number 1
+  ************************************************************
+  Similarity   Doc#  Author      Title
+  ==========   ==== ========     =============================
+  0.00276090   598  Hicks        #  The COBOL Librarian - A Ke
+  0.00197913   1278 Bellman      #  Wengert's Numerical Method
+  0.00165104   2688 Rothnie      #  Attribute Based File Organ
+  0.00085280   1333 Ross         #  Reducing Truncation Errors
+     1    Perlis       #  Preliminary Report-Interna
+
+  ************************************************************
+  Documents Most Similar To Query number 1
+  ************************************************************
+  Similarity   Doc#  Author      Title
+  ==========   ==== ========     =============================
+  0.31096498   1938 Stimler      #  Some Criteria for Time-Sha
+  0.23582180   2629 Ritchie      #  The UNIX Time-Sharing syst
+* 0.23459853   1572 Nielsen      #  The Simulation of Time sha
+  0.20584542   1071 Rosenberg    #  Computer-Usage Accounting 
+  0.19653142   1844 Baskin       #  A Modular Computer Sharing
+
+  ************************************************************
+  Documents Most Similar To Query number 1
+  ************************************************************
+  Similarity   Doc#  Author      Title
+  ==========   ==== ========     =============================
+  0.31096498   1938 Stimler      #  Some Criteria for Time-Sha
+  0.23582180   2629 Ritchie      #  The UNIX Time-Sharing syst
+* 0.23459853   1572 Nielsen      #  The Simulation of Time sha
+  0.20584542   1071 Rosenberg    #  Computer-Usage Accounting 
+  0.19653142   1844 Baskin       #  A Modular Computer Sharing
+
+  ************************************************************
+  Documents Most Similar To Query number 1
+  ************************************************************
+  Similarity   Doc#  Author      Title
+  ==========   ==== ========     =============================
+  0.35411844   2629 Ritchie      #  The UNIX Time-Sharing syst
+  0.34195309   1657 Harrison     #  Implementation of the SHAR
+  0.28698201   1523 Harrison     #  SHARER, a Time Sharing Sys
+  0.27842302   1591 Engvold      #  A Model for a Multifunctio
+  0.27822502   1544 Conway       #  Tele-CUPL: A Telephone Tim
+  0.25471391   1749 Dijkstra     #  The Structure of the "THE"
+  0.25018511   2319 Lynch        #  Operating System Performan
+  0.24287602   2219 Bernstein    #  A Policy-Driven Scheduler 
+* 0.24023937   1605 Schatzoff    #  An Experimental Comparison
+  0.23973165   1571 Betyar       #  A User-Oriented Time-Share
+
+  ************************************************************
+  Documents Most Similar To Query number 1
+  ************************************************************
+  Similarity   Doc#  Author      Title
+  ==========   ==== ========     =============================
+  0.29960409   1523 Harrison     #  SHARER, a Time Sharing Sys
+  0.29302642   1033 Hellerman    #  Experimental Personalized 
+  0.28983680   1657 Harrison     #  Implementation of the SHAR
+  0.28177925   2629 Ritchie      #  The UNIX Time-Sharing syst
+  0.27668578   1440 Fike         #  Starting Approximations fo
+  0.27363522   1393 Collins      #  PM, A System for Polynomia
+  0.25690999   1591 Engvold      #  A Model for a Multifunctio
+  0.25489806   1544 Conway       #  Tele-CUPL: A Telephone Tim
+  0.23335329   2319 Lynch        #  Operating System Performan
+  0.22843573   1749 Dijkstra     #  The Structure of the "THE"
+  0.22613350   275  Sams         #  Dynamic Storage Allocation
+  0.22551929   2542 Graham       #  A Software Design and Eval
+  0.22383074   1264 Landwehr     #  BLNSYS-A 1401 Operating Sy
+  0.22120050   1506 Drew         #  The LACONIQ Monitor: Time 
+  0.21812571   1071 Rosenberg    #  Computer-Usage Accounting 
+  0.21481243   1750 Fuchel       #  Considerations in the Desi
+  0.21223817   2153 Oldehoeft    #  Experiments with an Automa
+  0.20983808   2560 Shedler      #  A Queuing Model of a Multi
+  0.20664207   2747 Cranston     #  A Simplified Recombination
+  0.20457581   1698 Denning      #  A Statistical Model for Co
+
+  ************************************************************
+  Documents Most Similar To Query number 1
+  ************************************************************
+  Similarity   Doc#  Author      Title
+  ==========   ==== ========     =============================
+  0.35411844   2629 Ritchie      #  The UNIX Time-Sharing syst
+  0.34195309   1657 Harrison     #  Implementation of the SHAR
+  0.28698201   1523 Harrison     #  SHARER, a Time Sharing Sys
+  0.27842302   1591 Engvold      #  A Model for a Multifunctio
+  0.27822502   1544 Conway       #  Tele-CUPL: A Telephone Tim
+  0.25471391   1749 Dijkstra     #  The Structure of the "THE"
+  0.25018511   2319 Lynch        #  Operating System Performan
+  0.24287602   2219 Bernstein    #  A Policy-Driven Scheduler 
+* 0.24023937   1605 Schatzoff    #  An Experimental Comparison
+  0.23973165   1571 Betyar       #  A User-Oriented Time-Share
+  0.23814483   1519 Oestreicher  #  GEORGE 3-A General Purpose
+  0.23777531   2542 Graham       #  A Software Design and Eval
+  0.23570226   1440 Fike         #  Starting Approximations fo
+  0.23190036   1750 Fuchel       #  Considerations in the Desi
+  0.22623976   1033 Hellerman    #  Experimental Personalized 
+  0.22561565   1752 Oppenheimer  #  Resource Management for a 
+  0.21706768   1542 Weber        #  A Microprogrammed Implemen
+  0.21449799   2868 Lampson      #  Reflections on an Operatin
+  0.21360565   1161 McCormack    #  1401 Compatibility Feature
+  0.21170244   414  Wheeling     #  IBM 1440 Data Processing S
+
+  ************************************************************
+  Documents Most Similar To Query number 1
+  ************************************************************
+  Similarity   Doc#  Author      Title
+  ==========   ==== ========     =============================
+  0.10584166   195  Patterson    #  What is a Code? 
+  0.05619019   248  Smith        #  What is Proprietary In Mat
+  0.04380394   2909 Wirth        #  What Can We Do about the U
+  0.02885986   2340 Martin       #  A Boolean Matrix Method fo
+  0.01873022   3142 Sterling     #  Consumer Difficulties With
+

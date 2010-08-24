@@ -1,0 +1,53 @@
+# Simnet, version 0.8
+# COPYRIGHT Seny Kamara, Darren Davis, Fabian Monrose, 2002-2003
+# Please read the DISCLAIMER
+
+load networks/test.net
+
+s JHU
+usp
+start all
+
+# make all routers VPNRouters
+plug in all A1.VPNRouter
+
+# dump all packets on ANS3 and SPRINT
+s ANS3
+plug in simnet.PacketDump 1
+dump any any
+s SPRINT
+plug in simnet.PacketDump 1
+dump any any
+
+# open 3 tunnels from SPRINT
+open_tunnel BBN RIPE 16 DEC 16
+open_tunnel ANS1 DEC 16 ANS1 16
+open_tunnel RIPE ATT 16 CAIS 16
+
+# open some more tunnels
+s GOODNET
+open_tunnel ANS1 GOODNET 16 ANS1 16
+open_tunnel SPRINT GOODNET 16 SPRINT 16
+
+
+wait 1000
+
+# dump states of SPRINT and ANS1
+s SPRINT
+dump_vpn_state
+s ANS1
+dump_vpn_state
+
+# plug in echo server on PARC and echo client on JHU
+s PARC
+plug in submission.Demo.TCPEchoServer 4
+open 80
+s JHU
+plug in submission.Demo.TCPEchoClient 5
+
+# send an echo from JHU to PARC through the ANS1-SPRINT tunnel.  We
+# verify that the packets go through the tunnel by looking at the ANS3.log  
+
+connect PARC
+echo Hello,World!
+

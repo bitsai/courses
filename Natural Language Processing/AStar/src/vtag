@@ -1,0 +1,5 @@
+#!/usr/local/bin/perl -w
+$train = $ARGV[0];
+$test = $ARGV[1];
+
+system("java -Xmx256m Vtag $train $test");

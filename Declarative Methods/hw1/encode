@@ -1,0 +1,259 @@
+#!/usr/local/bin/perl -w
+
+my $puzzleFile = shift;
+my $wordsFile = shift;
+
+my $rows = 0; # number of rows
+my $columns = 0; # number of columns
+my %tiles = (); # stores the original puzzle configuration
+my @spaces = (); # array of arrays, storing series of spaces where words should go
+
+my %letters = (); # hash of hashes, storing letters from words of a certain length having a certain prefix
+my %prefixes = (); # hash of hashes, storing prefixes of a certain length belonging to words of a certain length
+
+### Main code ###
+
+&readPuzzle;
+
+&readWords;
+
+#&printTiles;
+
+#&printSpaces;
+
+#&printLetters;
+
+#&printPrefixes;
+
+&makeDictionaryConstraints;
+
+&makeLetterConstraints;
+
+&makeTileConstraints;
+
+### Subroutines ###
+
+# Process puzzle file
+sub readPuzzle {
+	open PUZZLE, $puzzleFile or die;
+	
+	my $dimensions = <PUZZLE>;
+	$dimensions =~ /([0-9]+) ([0-9]+)/;
+
+	$rows = $1;
+	$columns = $2;
+	
+	for (my $row = 0; $row < $rows; $row++) {
+		my $line = uc <PUZZLE>;
+	
+		for (my $column = 0; $column < $columns; $column++) {
+			my $tile = substr($line, $column, 1);
+			$tiles{"$column\_$row"} = $tile;
+		}
+	}
+	
+	# Scan horizontally	
+	&scanSpaces($rows, $columns, 0);
+	
+	# Scan vertically
+	&scanSpaces($rows, $columns, 1);
+	
+	close PUZZLE;
+}
+
+# Scan horizontally (or vertically, depending on the 3rd argument) over tiles,
+# looking for spaces where words go, and store result in array of arrays
+# for later processing.
+sub scanSpaces {
+	my $uMax = shift;
+	my $vMax = shift;
+	my $vertical = shift;
+
+	for (my $u = 0; $u < $uMax; $u++) {
+		my @array = ();
+	
+		for (my $v = 0; $v < $vMax; $v++) {
+			my $coordinates;
+			if ($vertical) { $coordinates = "$u\_$v"; }
+			else { $coordinates = "$v\_$u"; }
+			
+			my $tile = $tiles{$coordinates};
+			
+			if ($tile eq "#") {
+				if (scalar(@array) > 1) {
+					push(@spaces, [@array]);
+				}
+
+				@array = ();
+			}
+			elsif ($v == $vMax - 1) {
+				push(@array, $coordinates);
+
+				if (scalar(@array) > 1) {
+					push(@spaces, [@array]);
+				}
+
+				@array = ();
+			}
+			else {
+				push(@array, $coordinates);
+			}
+		}
+	}
+}
+
+# Read dictionary file, and populate the letters and prefixes hashes (of hashes)
+sub readWords {
+	open WORDS, $wordsFile or die;
+
+	while (my $line = uc <WORDS>) {
+		if ($line =~ /(^[a-zA-Z]+)$/)
+		{
+			my $word = $1;
+			my $length = length $word;
+			
+			for (my $index = 0; $index < $length; $index++) {
+				my $prefix = substr($word, 0, $index);
+				my $letter = substr($word, $index, 1);
+				&addToHashOfHashes(\%letters, "$length $prefix", $letter);
+				&addToHashOfHashes(\%prefixes, "$length $index", $prefix);
+			}
+		}
+	}
+
+	close WORDS;
+}
+
+# Generic function for inserting values into a hash of hashes
+sub addToHashOfHashes {
+	my $hash = shift;
+	my $key = shift;
+	my $value = shift;
+
+	if ($hash->{$key}) {
+		my $subHash = $hash->{$key};		
+		$subHash->{$value} = 1;
+	}
+	else {
+		my %subHash = ($value => 1);
+		$hash->{$key} = \%subHash;
+	}
+}
+
+# Create dictionary constraints
+sub makeDictionaryConstraints {
+	foreach my $array (@spaces) {
+		my $wordLength = scalar(@{$array});
+		
+		for (my $prefixLength = 0; $prefixLength < $wordLength; $prefixLength++) {
+			my $space = @{$array}[$prefixLength];
+
+			foreach my $prefix (sort keys %{$prefixes{"$wordLength $prefixLength"}}) {
+				for (my $index = 0; $index < $prefixLength; $index++) {
+					my $previousSpace = @{$array}[$index];
+					my $prefixLetter = substr($prefix, $index, 1);
+			
+					print "~$prefixLetter\_$previousSpace v ";
+				}
+
+				my $isFirstLetter = 1;
+
+				foreach my $letter (sort keys %{$letters{$wordLength." ".$prefix}}) {
+					if ($isFirstLetter) { 
+						print "$letter\_$space";
+						$isFirstLetter = 0;
+					}
+					else { print " v $letter\_$space"; }
+				}
+				
+				print " &\n";
+			}
+		}
+	}	
+}
+
+# Create constraints forcing each eligible tile to hold at least one letter, and at most one letter
+sub makeLetterConstraints {
+	my @alphabet = ("A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z");
+
+	for (my $row = 0; $row < $rows; $row++) {
+		for (my $column = 0; $column < $columns; $column++) {
+			if ($tiles{"$column\_$row"} =~ /[A-Z\.]/) {
+				foreach my $letter (@alphabet) {
+					if ($letter =~ /[A-Y]/) { print "$letter\_$column\_$row v "; }
+					else { print "$letter\_$column\_$row &\n"; }
+				}
+
+				for (my $first = 0; $first < 26; $first++) {
+					my $firstLetter = $alphabet[$first];
+
+					for (my $second = 0; $second < 26; $second++) {
+						my $secondLetter = $alphabet[$second];
+
+						if ($firstLetter eq $secondLetter) { next; }
+
+						print "~$firstLetter\_$column\_$row v ~$secondLetter\_$column\_$row &\n";
+					}
+				}
+			}
+		}
+	}
+}
+
+# Create constraints so that tiles retain their original value from the puzzle specification
+sub makeTileConstraints {
+	for (my $row = 0; $row < $rows; $row++) {
+		for (my $column = 0; $column < $columns; $column++) {
+			my $tile = $tiles{"$column\_$row"};
+			if ($tile =~ /[A-Z]/) { print "$tile\_$column\_$row &\n"; }
+		}
+	}
+}
+
+sub printTiles {
+	print "$rows $columns\n";
+
+	for (my $row = 0; $row < $rows; $row++) {
+		for (my $column = 0; $column < $columns; $column++) {
+			print $tiles{"$column\_$row"};
+		}
+		print "\n";
+	}
+}
+
+sub printSpaces {
+	print "\n";
+
+	foreach my $array (@spaces) {	
+		foreach my $space (@{$array}) {
+			print "|$space|";
+		}
+		print "\n";
+	}
+}
+
+sub printLetters {
+	my $length = 10;
+	my $prefix = "ABB";
+
+	print "\nNext letter in $length-letter words with prefix $prefix:";
+
+	foreach my $letter (sort keys %{$letters{"$length $prefix"}}) {
+		print " $letter";
+	}
+
+	print "\n";
+}
+
+sub printPrefixes {
+	my $wordLength = 3;
+	my $prefixLength = 2;
+
+	print "\nPrefixes of length $prefixLength for words of length $wordLength:";
+
+	foreach my $prefix (sort keys %{$prefixes{"$wordLength $prefixLength"}}) {
+		print " $prefix";
+	}
+
+	print "\n";
+}

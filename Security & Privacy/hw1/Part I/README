@@ -1,0 +1,16 @@
+Benny Tsai
+benny.tsai@gmail.com
+600.443
+Assignment 1
+
+*** First, my apologies.  As you can see, there's no setup script or makefile or anything helpful like that.  Up until this assignment, I've never done CGI programming before, so I don't know nearly enough to write any installation helper files.  The best I can do is describe what I did to install the program on Barley, where I did my development.  I hope this will be enough to let you know what you need to do for your environment. ***
+
+- Directories: I placed all 4 files under the public_html/cgi-bin directory under my home directory.
+
+- Permissions: I gave the public_html and cgi-bin directories permission 711, the script files permission 700, and the text files permission 600.  I think I was able to deny group and world access to the files because of the CGI-wrapping used on Barley.  You may need to give the files group and/or world permissions to run the program correctly, depending on your environment; use the minimum necessary permission settings.  When a new user registers, the program creates <username>.history and <username>.portfolio files in the same directory as the other files, and gives these two new files permission 600.  Again, you may need to change this; the relevant code is in controller.pl's doRegistration subroutine.
+
+- Perl: On Barley, the Perl interpreter can be found at /usr/local/bin/perl.  You may need to change the path of the Perl interpreter at the top of both script files.  FYI, Barley runs Perl 5.6.1.
+
+- $ENV{'PATH'}: Controller.pl invokes system calls on several occassions, and with taint-checking on (which is enabled for both scripts), the $ENV{'PATH'} needs to be set correctly for your environment.  You can find this at the top of controller.pl.  Tweak as necessary.
+
+- Accessing the program: Go to index.pl to access the program.  For me, the correct URL was <http://hops.cs.jhu.edu/cgi-bin/cgiwrap/~btsai/index.pl>.  Your mileage may vary.

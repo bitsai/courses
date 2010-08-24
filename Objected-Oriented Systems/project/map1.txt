@@ -1,0 +1,7 @@
+100 100 5 // width, length, map grid size
+50 50 0 3 // a Clear hill of elevation 3
+25 33 3 0 // a Heavy wood of elevation 0
+25 66 3 0 // a Heavy wood of elevation 0
+75 25 2 0 // a Light wood of elevation 0
+75 50 2 0 // a Light wood of elevation 0
+75 75 2 0 // a Light wood of elevation 0

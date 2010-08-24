@@ -1,0 +1,5 @@
+Bioware		BWR	45.34	42.96
+Firaxis		FRX	65.44	56.54
+Interplay	ITP	78.98	81.32
+Origin		ORG	12.65	19.98
+Square		SQR	109.65	95.95

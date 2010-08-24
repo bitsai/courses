@@ -1,0 +1,89 @@
+# Simnet, version 0.8
+# COPYRIGHT Seny Kamara, Darren Davis, Fabian Monrose, 2002-2003
+# Please read the DISCLAIMER
+
+# Test script to load the example TCP echo client and echo server,
+# from JHU to MIT, with a packet dumper running at MIT.
+
+verbose 0
+
+# uncomment the next line for A LOT more output
+# verbose add *
+
+# load a network with no latency or bandwidth
+load networks/test.net
+start all
+usp
+slp all all 0 0 0 0
+
+plug in @GOODNET A2.SynkillRouter
+
+# load a packet dumper on all nodes
+
+
+plug in all simnet.PacketDump 1
+
+# start the packet dumper and echo server on MIT
+s MIT
+dump any any
+plug in submission.Demo.TCPEchoServer 2
+open 123
+
+
+
+# start the packet dumper and enco client on JHU
+s JHU
+dump any any
+plug in submission.Demo.TCPEchoClient 2
+
+# connect to MIT and send a messsage
+connect MIT 123
+connect MIT 123
+connect MIT 123
+wait 1000
+
+echo hello
+wait 1000
+
+# dump the tcp state on JHU and MIT
+dump_tcp_state
+s MIT
+dump_tcp_state
+wait 1000
+
+# finally, close the connection
+s JHU
+#close
+
+synflood 5.6.7.8 1000 MIT 80 5
+synflood 1.2.3.4 1000 MIT 80 5
+
+s GOODNET
+# should be GOOD GOOD
+dumpSynkill 
+# s JHU
+
+wait 30000
+s GOODNET
+# should be NEW NEW
+dumpSynkill
+s JHU
+echo hello2 
+s GOODNET
+# should be GOOD GOOD
+wait 2000
+dumpSynkill
+
+
+wait 37000
+# should be BAD BAD
+dumpSynkill
+s JHU
+echo hello3
+
+# <src_name|src_id> <port> <dest_name|dest_id> <port> <total>
+
+s GOODNET
+dumpSynkill
+exit
+

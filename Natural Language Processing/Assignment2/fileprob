@@ -1,0 +1,109 @@
+#!/usr/local/bin/perl
+
+# Sample program for HW2.
+# CS465 at Johns Hopkins University.
+
+use Probs;
+use strict;
+
+my($COURSE_DIR) = "/usr/local/data/cs465/";
+
+if (@ARGV < 2)
+{  # too few arguments; print usage message.
+	die <<EOM
+
+Prints the log-probability and perplexity-per-word of each file under a 
+smoothed n-gram model.
+
+Usage:   $0 smoother trainpath files...
+Example: $0 add0.01 switchboard-small ${COURSE_DIR}hw2/speech/sample*
+
+Possible values for smoother: uniform, add1, backoff_add1, backoff_wb
+  (the \"1\" in these names can be replaced with any real lambda >= 0)
+trainpath is the location of the training corpus
+  (the search path for this includes "<<DEFAULT_TRAINING_DIR<<")
+EOM
+}
+
+set_smoother(shift(@ARGV));
+train(shift(@ARGV));
+warn "warning: no input files specified\n" unless @ARGV;
+
+foreach my $testfile (@ARGV)
+{
+	my $filelogprob = filelogprob($testfile);
+	print "\nLog2Probability: $filelogprob\t$testfile\n";
+
+	my $perplexity = perplexity($testfile, $filelogprob);
+	print "Perplexity/Word: $perplexity\t$testfile\n";
+}
+
+# ======================================================================
+
+# Computes the log probability of the sequence of tokens in file,
+# according to a trigram model.  The training source is specified by
+# the currently open corpus, and the smoothing method used by
+# prob() is specified by the global variable "smoother".
+
+sub filelogprob
+{
+	my($filename) = @_;
+	open(TEST,$filename) || die "couldn't open file $filename";
+
+  # As we loop, xyz are the last three tokens seen; we keep a running
+  # total of p(z|xy).  At the start of the file, before we've seen 3
+  # tokens, the context tokens x and y will be the special word BOC
+  # ("Beginning of Corpus").  At the end of the file, the last token
+  # z will be the special word EOC ("End of Corpus").
+  # ("Beginning of Corpus").
+
+	my($logprob) = 0;	# keep running total here
+	my($x,$y) = ($BOC, $BOC);
+
+	while (<TEST>)	# for each line
+	{
+		foreach my $z (split)	# for each word z on the line
+		{
+			$logprob += log2(prob($x,$y,$z));
+			$x=$y; $y=$z;
+		}
+	}
+
+	$logprob += log2(prob($x,$y,$EOC));
+	close(TEST);
+	return $logprob;
+}
+
+sub log2	# log base 2
+{
+	my($x) = @_;
+	return log($x)/log(2);
+}
+
+sub perplexity
+{
+	my($testfile) = shift;
+	my($filelogprob) = shift;
+	my $wordcount = filewordcount($testfile);
+	my $perplexity = 2**($filelogprob * -1 / $wordcount);
+
+	return($perplexity);
+}
+
+sub filewordcount
+{
+	my($filename) = @_;
+	my $word_count = 0;
+	open(TEST,$filename) || die "couldn't open file $filename";
+
+	while (<TEST>)	# for each line
+	{
+		foreach my $z (split)	# for each word z on the line
+		{
+			$word_count++;
+		}
+	}
+
+	close(TEST);
+	return $word_count;
+}

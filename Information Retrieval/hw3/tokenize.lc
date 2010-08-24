@@ -1,0 +1,18 @@
+#!/bin/sh
+
+#####################################################################
+#
+# Usage:  tokenize.lc filename
+#
+#    Input:   filename.raw        (raw text file)
+#    Output:  filename.tokenized  (tokenized with one word or symbol per line,
+#			           with words converted to lower case)
+#
+#####################################################################
+
+token1 < $1.raw | 
+sed 's/[ 	]*$//' | 
+tr 'A-Z' 'a-z' |
+sed -e 's/^[.]i/.I/' -e 's/^[.]t/.T/' -e 's/^[.]a/.A/' -e 's/^[.]w/.W/' -e 's/^[.]k/.K/' |
+egrep . > $1.tokenized
+

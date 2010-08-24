@@ -1,0 +1,133 @@
+Benny Tsai
+600.425
+Declarative Methods
+Homework 5
+
+*** Part A ***
+
+1)	See "problem1.ecl" for solution.
+
+2)	a.	See "problem2.ecl" for solution.
+	b.	See "problem2.ecl" for solution.
+	c.	It would be more efficient to put the length-3 constraint AFTER the inc_subseq constraint.
+		If we put the length-3 constraint first, the program would generate all 10^3 sequences of length 3, and then test to see if they qualify as a strictly increasing subsequence of the input list.
+		For typical input lists, the actual number of strictly increasing subsequences is probably less than 1000, so it's more efficient to put the length-3 constraint second.
+	d.	See "problem2.ecl" for solution.
+	e.	The program "Vars=[A,B,C,D,E],Vars::1..4,inc_subseq(Vars,[E,C,A]),labeling(Vars)." returns a labeling for variables A,B,C,D,E such that each variable has a value between 1 and 4, and that the subsequence [E,C,A] is a strictly increasing subsequence of the list [A,B,C,D,E].
+		The program outputs labelings "A=3,B=1,C=2,D=3,E=1", "A=4,B=1,C=2,D=4,E=1", "A=4,B=1,C=3,D=4,E=1", and "A=4,B=2,C=3,D=4,E=2".
+		As far as I can tell, the program is correct.
+		It seems that Eclipse handles the interaction between Prolog's backtracking with Eclipse's constraint stores by alternating between constraint propagation and actual backtracking search, just as we learned in class.
+		This interaction is easily seen when one removes the "labeling(Vars)" instruction from the program; now Eclipse displays the value constraints for each variable as it updates them.
+
+3)	a.	See "problem3.ecl" for solution.
+	b.	Suppose we have 2 binary trees of depth n, and each has the full complement of (2^n - 1) nodes.
+		Let the first be completely labeled, while the second is completely unlabeled.
+		After some experimentation, it seems that there are (2^(2^(n - 1) - 1)) ways for the second tree's labels to match up isomorphically with the first tree.
+		If we delete one leaf node from the first tree, Prolog will try all possible ways of labeling the second tree before it finds that the two trees are no longer isomorphic.
+		Since the number of possible labelings is exponential in the number of the nodes, Prolog will have to do an exponential amount of work before figuring out the answer.
+
+		isotree(
+			t(a,	t(b,	t(d,	t(h, nil, nil),
+						t(i, nil, nil)
+					),
+					t(e,	t(j, nil, nil),
+						t(k, nil, nil)
+					)
+				),
+				t(c,	t(f,	t(l, nil, nil),
+						t(m, nil, nil)
+					),
+					t(g,	t(n, nil, nil),
+						nil
+					)
+				)
+			),
+			t(A,	t(B,	t(D,	t(H, nil, nil),
+						t(I, nil, nil)
+					),
+					t(E,	t(J, nil, nil),
+						t(K, nil, nil)
+					)
+				),
+				t(C,	t(F,	t(L, nil, nil),
+						t(M, nil, nil)
+					),
+					t(G,	t(N, nil, nil),
+						t(O, nil, nil)
+					)
+				)
+			)
+		).
+
+4)	a.	See "problem4.ecl" for solution.
+	b.	Because of the order of the constraints, when given a list to map to a tree, inorder1 will never terminate, as it will try to find legal assignments by building all possible trees and then checking to see if they conform to the list, an action that takes forever since there are infinitely many possible trees.
+		See "problem4.ecl" for solution.
+		In inorder2, append acts as a constraint on the trees that are built, by constraining its root label and the labels of its nodes.
+		Inorder2 will never terminate if run on the example from 4a, as it will try to find legal assignments by building all possible lists and then checking to see if they conform to the tree, which is once again an action that takes forever since there are infinitely many possible lists.
+	c.	See "problem4.ecl" for solution.
+	d.	See "problem4.ecl" for solution.
+		balanced2 should be much faster than balanced, since it constructs a tree by splitting a list into two halves, assigning the middle member to be the root of the new tree, and recursively acts on the two halves to construct new subtrees.
+		I think balanced2 runs in O(nlogn) time (gets called logn times, and each call needs up to O(n) time to scan the sublist being processed), which is much less than what's required to build all possible trees and then pick the minimum tree, as balanced does.
+
+*** Part B ***
+
+2)	a.	See "ancestor.dyna" for solution.
+		Query A: See "queryA.result" for output.
+		Interpretation: Franklin Delano Roosevelt and Anna Eleanor Roosevelt have a common ancestor of recency 13, Nicholas Roosevelt.
+				Nicholas Roosevelt is 6 generations above Franklin Delano Roosevelt and 7 generations above Anna Eleanor Roosevelt.
+
+		Query B: See "queryB.result" for output.
+		Interpretation: Martin Van Buren and Theodore Roosevelt have a common ancestor of recency 11, Niclaas (Claas) Van Schaick.
+				Niclaas (Claas) Van Schaick is 4 generations above Martin Van Buren and 7 generations above Theodore Roosevelt.
+
+		Query C: See "queryC.result" for output.
+		Interpretation: Martin Van Buren and Franklin Delano Roosevelt have no common ancestors.
+
+		Query D: See "queryD.result" for output.
+		Interpretation: Anna Roosevelt and James Roosevelt have a common ancestor of recency 2, Anna Eleanor.
+				Anna Eleanor Roosevelt is 1 generation above Anna Roosevelt and 1 generation above James Roosevelt .
+
+3)	a.	[0,1,2,3,4,5,6,7,8,9]
+	b.	Function LIS is O(n); unfortunately on the given list it returns the incorrect answer [0].
+	c.	To decide if we can glue 3 in front of an increasing subsequence of [5,2,6,7,4,9,1,8,0], we need to know if the first element of that subsequence is greater than 3.
+	d.
+		LIS(list, K):
+			if (list.empty())
+				return []
+			else
+				subproblem = list.rest()
+				X = LIS(subproblem, list.first())
+				Y = LIS(subproblem, K)
+
+				if (K < list.first() and X.length() + 1 > Y.length() and (X.empty() or list.first() < X.first())
+					return cons(list.first(),X)
+				else
+					return Y
+	e.	i.	LIS([3,5,2,6,7,4,9,1,8,0], -1).
+		ii.	LIS([0],8).
+		iii.	One technique that could help avoid duplicate computation is memoization; we could, for instance, store the result of each LIS call, in a hashtable where the keys are the arguments of LIS calls.
+		iv.	The runtime becomes O(2^n).  To prove this, note that LIS calls itself twice in the body of the function.  The algorithm is effectively brute-forcing the space of all possible subsequences, which takes 2^n time since each member of the list is either in or not in a given subsequence.  We can imagine the function as exhaustively searching the binary tree of all possible subsequences, which has depth n.  Interestingly, this is reminiscent of brute-forcing a SAT problem, which also searches a binary tree of assignments exhaustively.
+	f.	See "lis.dyna", "lis.par", and "lessthan.dyna" for solution.
+	g.	A bit of a mess...
+		The first line of output is "goal = <X>", where X is the length of the longest increasing subsequence.
+		To construct that subsequence, jump down to the first appearance of the "interesting" rules.
+		Move up and find the first appearance of a "lis" rule, which should say "lis(nil, <X>) = 0".
+		X is the last element of the subsequence.
+		Now move up to find the first "lis" rule application where the value is 1.
+		It should look like "lis(cons(<blah blah blah>), <Y>) = 1".
+		Y is the next element of the subsequence.
+		Continue moving up and finding the first "lis" rule with a value higher than the ones seen thus far.
+		Each of these will provide another element in the subsequence.
+		When you get to a "lis" rule whose value is equal to the goal value, you're done, having found the first element of the subsequence.
+	h.	Strengthening the inductive hypothesis corresponds to strengthening the recursive rules, and possibly adding additional axioms, in Dyna.
+
+4)	a.	See "optBST.dyna" for solution.
+	b.	The first line of output is "goal = <X>", where X is the weight of the best tree.
+		To construct that tree, scan down for the first occurrence of "key('<key>', <start>, <end>)".
+		<key> is the key of the root node.
+		Scan down for the next occurrence of "key('<key2>', <start2>, <end2>)".
+		If this occurrs before the line "key('<key>', <start>, <end>) = <weight>", then the next key is a left child of root.
+		Otherwise it is a right child of root.
+		Repeat this procedure to construct the tree.
+	c.	The root word for all 4 words*.par is "of".  It's the most frequent word near the middle of each word list.  As such, it does the best job of producing balanced subtrees of minimum weight.
+	d.	Unfortunately there doesn't seem to be any appreciable speed-up.

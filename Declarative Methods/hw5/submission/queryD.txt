@@ -1,0 +1,10 @@
+goal = 2
+  times(times(times(person(1,"Anna Roosevelt 1906-?"),person(2,"James Roosevelt 1907-?")),pathto("Anna Roosevelt 1906-?","ANNA ELEANOR ROOSEVELT 1884-1962")),pathto("James Roosevelt 1907-?","ANNA ELEANOR ROOSEVELT 1884-1962"))
+    times(times(person(1,"Anna Roosevelt 1906-?"),person(2,"James Roosevelt 1907-?")),pathto("Anna Roosevelt 1906-?","ANNA ELEANOR ROOSEVELT 1884-1962"))
+      times(person(1,"Anna Roosevelt 1906-?"),person(2,"James Roosevelt 1907-?"))
+        person(1,"Anna Roosevelt 1906-?") = 0
+        person(2,"James Roosevelt 1907-?") = 0
+      pathto("Anna Roosevelt 1906-?","ANNA ELEANOR ROOSEVELT 1884-1962") = 1
+        child("Anna Roosevelt 1906-?","ANNA ELEANOR ROOSEVELT 1884-1962") = 1
+    pathto("James Roosevelt 1907-?","ANNA ELEANOR ROOSEVELT 1884-1962") = 1
+      child("James Roosevelt 1907-?","ANNA ELEANOR ROOSEVELT 1884-1962") = 1

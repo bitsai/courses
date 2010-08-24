@@ -1,0 +1,141 @@
+#!/usr/local/bin/perl
+
+$| = 1;
+
+$directory = shift(@ARGV);
+if (!defined($directory)) {
+    print "Syntax:\n  ./html2corpus.prl ./directory outputfile\n";
+    exit (1);
+}
+chomp $directory;
+
+$outputfile = shift (@ARGV);
+if (!defined ($outputfile)) {
+    print "Syntax:\n  ./html2corpus.prl ./directory outputfile\n";
+    exit (1);
+}
+chomp $outputfile;
+
+print "Looking at $directory...\n";
+
+opendir DIR, $directory or die "Invalid directory: $!";
+@allfiles = readdir (DIR);
+closedir DIR;
+
+if ($directory !~ /\/$/) {
+    $directory .= "\/";
+}
+
+print "Found " . scalar (@allfiles) . " files in $directory ...\n";
+
+open OUTFILE, ">$outputfile.raw";
+
+for ($x = 0; $x < scalar(@allfiles); $x++) {
+    print "Reading: " . $allfiles[$x] . "\n";
+    open FILE, $directory . $allfiles[$x];
+    $page = "";
+    while (<FILE>) {
+	chomp;
+	$page .= $_;
+    }
+    print OUTFILE ".I $x\n";
+    print OUTFILE ".T\n";
+    $page =~ s/<title>([^<]*)<\/title>//i;
+    $title = $1;
+    print OUTFILE "$title\n";
+    print OUTFILE ".K\n";
+    $page =~ s/<meta\s+name=(\")?keywords(\")?\s+content=(\")?([^\"]*)(\")[^>]*>//i;
+    $keywords = $4;
+    print OUTFILE "$keywords\n";
+    print OUTFILE ".W\n";
+    $page =~ s/<meta\s+name=(\")?description(\")?\s+content=(\")?([^\"]*)(\")[^>]*>//i;
+    $abstract = $4;
+    print OUTFILE "$abstract\n";
+    print OUTFILE ".A\n";
+    $page =~ s/<body[^>]*>(.*)$/$1/i;
+    $body = &striphtml ($page);
+    print OUTFILE "$body\n";
+}
+
+close OUTFILE;
+
+print "Stemming (only works on hops/malt/barley)!\n";
+
+`/home/1/yarowsky/cs466/hw2/stemmer/nstemmer $outputfile.raw > $outputfile.stemmed`;
+
+print "Making Histogram for Stemmed File\n";
+
+`/home/1/yarowsky/cs466/hw2/make_hist.prl < $outputfile.stemmed > $outputfile.stemmed.hist`;
+
+print "Tokenizing (only works on hops/malt/barley)!\n";
+
+`/home/1/yarowsky/cs466/hw2/tokenize $outputfile`;
+
+print "Making Histogram for Tokenized File\n";
+
+`/home/1/yarowsky/cs466/hw2/make_hist.prl < $outputfile.tokenized > $outputfile.tokenized.hist`;
+
+print "Done!\n";
+
+exit (0);
+
+sub striphtml {
+    my $content = shift;
+
+    # $content =~ s/(\"|\<|\>)/ /g;
+    # $content =~ s/\s+/ /g;
+
+    $content =~ s/<\!--.*?-->/ /gis;
+    $content =~ s/<\!.*?>/ /gis;
+    $content =~ s/<HEAD>.*<\/HEAD>/ /gis;
+    $content =~ s/<\/HTML>.*$/ /gis;
+    $content =~ s/<SCRIPT.*>.*<\/SCRIPT>/ /gis;
+    # $content =~ s/<IMG.*?ALT=\"(.*?)\".*?>/ $1 /gis;
+    $content =~ s/<\/{0,1}IMG.*?>/ /gis;
+    $content =~ s/<INPUT.*?VALUE=\"(.*?)\".*?>/ $1 /gis;
+    $content =~ s/<INPUT.*?>/ /gis;
+    # $content =~ s/<A.*?HREF=\"(.*?)\".*?>/ $1 /gis;
+    $content =~ s/<\/{0,1}META.*?>/ /gis;
+    $content =~ s/<\/{0,1}X.*?>/ /gis;
+    $content =~ s/<\/{0,1}MAP.*?>/ /gis;
+    $content =~ s/<\/{0,1}BASE.*?>/ /gis;
+    $content =~ s/<\/{0,1}FRAMESET.*?>/ /gis;
+    $content =~ s/<\/{0,1}FRAME.*?>/ /gis;
+    $content =~ s/<\/{0,1}NOFRAMES.*?>/ /gis;
+    $content =~ s/<\/{0,1}APPLET.*?>/ /gis;
+    $content =~ s/<\/{0,1}PARAM.*?>/ /gis;
+    $content =~ s/<\/{0,1}FORM.*?>/ /gis;
+    $content =~ s/<\/{0,1}H.*?>/ /gis;
+    $content =~ s/<\/{0,1}FONT.*?>/ /gis;
+    $content =~ s/<\/{0,1}TITLE.*?>/ /gis;
+    $content =~ s/<\/{0,1}HTML.*?>/ /gis;
+    $content =~ s/<\/{0,1}BODY.*?>/ /gis;
+    $content =~ s/<\/{0,1}TABLE.*?>/ /gis;
+    $content =~ s/<\/{0,1}TR.*?>/ /gis;
+    $content =~ s/<\/{0,1}TD.*?>/ /gis;
+    $content =~ s/<\/{0,1}A.*?>/ /gis;
+    $content =~ s/<\/{0,1}B>/ /gis;
+    $content =~ s/<\/{0,1}I>/ /gis;
+    $content =~ s/<\/{0,1}CENTER>/ /gis;
+    $content =~ s/<\/{0,1}HEAD>/ /gis;
+    $content =~ s/<\/{0,1}P.*?>/ /gis;
+    $content =~ s/<\/{0,1}UL>/ /gis;
+    $content =~ s/<\/{0,1}EM>/ /gis;
+    $content =~ s/<\/{0,1}TEXTAREA>/ /gis;
+    $content =~ s/<\/{0,1}STRONG>/ /gis;
+    $content =~ s/<\/{0,1}BLOCKQUOTE>/ /gis;
+    $content =~ s/<\/{0,1}OL>/ /gis;
+    $content =~ s/<\/{0,1}LI>/ /gis;
+    $content =~ s/<\/{0,1}BR>/ /gis;
+    $content =~ s/<\/{0,1}NOBR>/ /gis;
+    $content =~ s/<\&.*?\;>/ /gis;
+    
+    $content =~ s/<IMG.*?ALT=\"(.*?)\".*?>/ $1 /gis;
+    # remove multiple spaces
+    $content =~ s/\s+/ /g;
+
+    return ($content);
+}
+
+
+

@@ -1,0 +1,68 @@
+#!/usr/local/bin/perl
+
+##########################################################
+#   MAKE_HIST.PRL
+#
+#   Generates a histogram from a input corpus file, where
+#   the input data consists of 1 word (or 1 multi-word compound)
+#   per line. 
+#
+#   The output of the file is in 3 tab-delimited columns:
+# 
+#     Column 1 - The document frequency of the term
+#                  (how many unique documents it appears in).
+#
+#     Column 2 - The total corpus frequency of the term
+#                 (currently unused)
+#
+#     Column 3 - The term itself.
+#
+#   Usage:
+#
+#       make_hist.prl < input_file
+# or    cat input_file | make_hist.prl
+#
+##########################################################
+
+while (<STDIN>) {
+   chop;
+   if ($_ =~ /^[.]I/) {
+      if ($totdocfreq > 0) {
+        &process_doc_freqs;
+      }
+   } 
+   else {
+     $curdocfreq{$_}++;
+     $totdocfreq++;
+   }
+}
+
+if ($totdocfreq > 0) {
+     &process_doc_freqs;
+}
+
+&print_freqs;
+
+
+
+
+##########################################################
+##########################################################
+
+sub process_doc_freqs {
+
+  while (($term,$freq) = each %curdocfreq) {
+    $corpusfreq{$term}+=$freq;
+    $numdocs{$term}++;
+  }
+  $totdocfreq = 0;
+  undef %curdocfreq;
+}
+
+sub print_freqs {
+  while (($term,$freq) = each %numdocs) {
+    printf("%5d\t%5d\t%s\n",$freq,$corpusfreq{$term},$term);
+  }
+}  
+
+

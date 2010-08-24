@@ -1,0 +1,33 @@
+# Simnet, version 0.8
+# COPYRIGHT Seny Kamara, Darren Davis, Fabian Monrose, 2002-2003
+# Please read the DISCLAIMER
+
+# Try to estimate the bandwidth across a link.
+# to get more accurate results, redirect output to a file
+
+verbose 6
+load networks/test.net
+start all
+usp
+
+# Bandwidth Test (56-byte packets)
+# allow 20 packets to be sent per second
+plug in all simnet.BandwidthTest 100
+slp all all 8960 0 0 0 -1 -1
+s JHU
+
+# send "train" packets at a fast rate (make sure that same fast rate is passed to BWTestSummary)
+BWTest ANS1 125 240000 fixed
+# send "probe" packets at a slower rate
+BWTest ANS1 1000 240000 random
+
+# wait for the results
+wait 250000
+
+# and print them
+s ANS1
+BWRawTestResults 1025
+BWRawTestResults 1026
+BWTestSummary 8960 125
+
+quit

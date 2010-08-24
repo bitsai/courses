@@ -1,0 +1,41 @@
+# Simnet, version 0.8
+# COPYRIGHT Seny Kamara, Darren Davis, Fabian Monrose, 2002-2003
+# Please read the DISCLAIMER
+
+# Test script to load the example TCP echo client and echo server,
+# from JHU to MIT, with a packet dumper running at MIT.
+
+verbose 0
+
+# uncomment the next line for A LOT more output
+# verbose add *
+
+# load a network with no latency or bandwidth
+load networks/test.net
+start all
+usp
+slp all all 0 0 0 0
+
+# load a packet dumper on all nodes
+plug in all simnet.PacketDump 1
+s GOODNET
+dump any any
+
+s JHU
+dump any any
+plug in simnet.TLSEchoServer 3
+startServer 443
+
+# start the packet dumper and echo server on MIT
+s MIT
+dump any any
+plug in A1.TLSEchoClient 2
+doHandshake JHU 443
+doHandshake JHU 443
+
+#view the output and make sure the 2nd session is a cached TLS session where the first session was the full handshake
+echo ENCRYPT_THIS_MSG
+
+quit
+
+

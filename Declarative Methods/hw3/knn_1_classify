@@ -1,0 +1,2 @@
+#!/bin/sh
+./knn --test -K 1 train_extended.gz test_extended.gz 522 10

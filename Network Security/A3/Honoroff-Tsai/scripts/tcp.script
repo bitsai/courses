@@ -1,0 +1,49 @@
+# Simnet, version 0.8
+# COPYRIGHT Seny Kamara, Darren Davis, Fabian Monrose, 2002-2003
+# Please read the DISCLAIMER
+
+# Test script to load the example TCP echo client and echo server,
+# from JHU to MIT, with a packet dumper running at MIT.
+
+verbose 6
+
+# uncomment the next line for A LOT more output
+# verbose add *
+
+# load a network with no latency or bandwidth
+load networks/test.net
+start all
+usp
+slp all all 0 0 0 0
+
+# load a packet dumper on all nodes
+plug in all simnet.PacketDump 1
+
+# start the packet dumper and echo server on MIT
+s MIT
+dump any any
+plug in submission.Demo.TCPEchoServer 2
+open 123
+
+# start the packet dumper and enco client on JHU
+s JHU
+dump any any
+plug in submission.Demo.TCPEchoClient 2
+
+# connect to MIT and send a messsage
+connect MIT 123
+wait 1000
+
+echo hello
+wait 1000
+
+# dump the tcp state on JHU and MIT
+dump_tcp_state
+s MIT
+dump_tcp_state
+wait 1000
+
+# finally, close the connection
+s JHU
+close
+

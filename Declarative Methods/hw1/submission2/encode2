@@ -1,0 +1,238 @@
+#!/usr/local/bin/perl -w
+
+my $puzzleFile = shift;
+my $wordsFile = shift;
+
+my $rows = 0; # number of rows
+my $columns = 0; # number of columns
+my %tiles = (); # stores the original puzzle configuration
+my @spaces = (); # array of arrays, storing series of spaces where words should go
+
+my %letters = (); # hash of hashes, storing letters from words of a certain length having a certain prefix
+my %prefixes = (); # hash of hashes, storing prefixes of a certain length
+
+### Main code ###
+
+&readPuzzle;
+&readWords;
+
+my $weight1 = 1.0;
+my $weight2 = $rows * $columns * $weight1;
+my $weight3 = ($rows + $columns) * $rows * 25000 * $weight2;
+
+&makeBlackConstraints($weight1);
+&makeLetterConstraints($weight1, $weight3);
+&makeDictionaryConstraints($weight2);
+&makeTileConstraints($weight3);
+&makeSymmetryConstraints($weight3);
+
+### Subroutines ###
+
+# Process puzzle file
+sub readPuzzle {
+	open PUZZLE, $puzzleFile or die;
+
+	my $dimensions = <PUZZLE>;
+	$dimensions =~ /([0-9]+) ([0-9]+)/;
+
+	$rows = $1;
+	$columns = $2;
+	
+	for (my $column = 0; $column <= $columns + 1; $column++) {
+		$tiles{"$column\_0"} = "#";
+	}
+	
+	for (my $row = 0; $row < $rows; $row++) {
+		my $line = uc <PUZZLE>;
+		my $y = $row + 1;
+		$tiles{"0\_$y"} = "#";
+
+		for (my $column = 0; $column < $columns; $column++) {
+			my $tile = substr($line, $column, 1);
+			my $x = $column + 1;
+			$tiles{"$x\_$y"} = $tile;
+		}
+	}
+
+	# Scan horizontally
+	&scanSpaces($rows, $columns, 0);
+
+	# Scan vertically
+	&scanSpaces($rows, $columns, 1);
+
+	close PUZZLE;
+}
+
+# Scan horizontally (or vertically, depending on the 3rd argument) over tiles,
+# looking for spaces where words go, and store result in array of arrays
+# for later processing.
+sub scanSpaces {
+	my $uMax = shift;
+	my $vMax = shift;
+	my $vertical = shift;
+
+	for (my $u = 1; $u <= $uMax; $u++) {
+		my @array = ();
+
+		for (my $v = 0; $v <= $vMax; $v++) {
+			my $coordinates;
+
+			if ($vertical) { $coordinates = "$u\_$v"; }
+			else { $coordinates = "$v\_$u"; }
+
+			push(@array, $coordinates);
+		}
+
+		push(@spaces, [@array]);
+	}
+}
+
+# Read dictionary file, and populate the letters and prefixes hashes (of hashes)
+sub readWords {
+	open WORDS, $wordsFile or die;
+
+	while (my $line = uc <WORDS>) {
+		if ($line =~ /(^[a-zA-Z]+)$/)
+		{
+			my $word = "#$1#";
+			my $length = length $word;
+
+			for (my $index = 1; $index < $length; $index++) {
+				my $prefix = substr($word, 0, $index);
+				my $letter = substr($word, $index, 1);
+				&addToHashOfHashes(\%letters, "$length $prefix", $letter);
+				&addToHashOfHashes(\%prefixes, "$index", $prefix);
+			}
+		}
+	}
+
+	close WORDS;
+}
+
+# Generic function for inserting values into a hash of hashes
+sub addToHashOfHashes {
+	my $hash = shift;
+	my $key = shift;
+	my $value = shift;
+
+	if ($hash->{$key}) {
+		my $subHash = $hash->{$key};
+		$subHash->{$value} = 1;
+	}
+	else {
+		my %subHash = ($value => 1);
+		$hash->{$key} = \%subHash;
+	}
+}
+
+# Create constraints that each tile must be black
+sub makeBlackConstraints {
+	my $weight = shift;
+
+	for (my $row = 1; $row <= $rows; $row++) {
+		for (my $column = 1; $column <= $columns; $column++) {
+			print "w:$weight #\_$column\_$row &\n";
+		}
+	}
+}
+
+# Create constraints that each tile must hold at least one letter, and at most one symbol
+sub makeLetterConstraints {
+	my $atLeastWeight = shift;
+	my $atMostWeight = shift;
+	my @alphabet = ("A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z");
+	my @symbols = ("#", "A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z");
+
+	for (my $row = 1; $row <= $rows; $row++) {
+		for (my $column = 1; $column <= $columns; $column++) {
+			foreach my $letter (@alphabet) {
+				if ($letter =~ /[A]/) { print "w:$atLeastWeight $letter\_$column\_$row v "; }
+				elsif ($letter =~ /[B-Y]/) { print "$letter\_$column\_$row v "; }
+				else { print "$letter\_$column\_$row &\n"; }
+			}
+
+			for (my $first = 0; $first < 27; $first++) {
+				my $firstLetter = $symbols[$first];
+
+				for (my $second = 0; $second < 27; $second++) {
+					my $secondLetter = $symbols[$second];
+					if ($firstLetter eq $secondLetter) { next; }
+					print "w:$atMostWeight ~$firstLetter\_$column\_$row v ~$secondLetter\_$column\_$row &\n";
+				}
+			}
+		}
+	}
+}
+
+# Create dictionary constraints
+sub makeDictionaryConstraints {
+	my $weight = shift;
+
+	foreach my $array (@spaces) {
+		my $arrayLength = scalar(@{$array});
+	
+		for (my $cell = 1; $cell < $arrayLength; $cell++) {
+			my $space = @{$array}[$cell];
+		
+			for (my $prefixLength = 1; $prefixLength <= $cell; $prefixLength++) {
+				foreach my $prefix (sort keys %{$prefixes{"$prefixLength"}}) {
+					my $print = 0;
+					my $output = "";
+					my $firstLetter = 1;
+
+					for (my $index = 0; $index < $prefixLength; $index++) {
+						my $previousSpace = @{$array}[$cell - $prefixLength + $index];
+						my $prefixLetter = substr($prefix, $index, 1);
+						$output .= "~$prefixLetter\_$previousSpace v ";
+					}
+					
+					my %hash = ();
+					
+					for (my $wordLength = 4; $wordLength <= $arrayLength - ($cell - $prefixLength - 1); $wordLength++) {
+						foreach my $letter (sort keys %{$letters{$wordLength." ".$prefix}}) {
+							$hash{$letter} = 1;
+						}
+					}
+					
+					foreach my $key (sort keys %hash) {
+						$print = 1;
+						
+						if ($firstLetter) {
+							$output .= "$key\_$space";
+							$firstLetter = 0;
+						}
+						else { $output .= " v $key\_$space"; }
+					}
+
+					if ($print) { print "w:$weight $output &\n"; }
+				}
+			}
+		}
+	}
+}
+
+# Create constraints forcing tiles in row 0 and column 0 to all be black
+sub makeTileConstraints {
+	my $weight = shift;
+
+	for (my $row = 0; $row <= $rows; $row++) {
+		print "w:$weight #\_0\_$row &\n";
+	}
+
+	for (my $column = 0; $column <= $columns; $column++) {
+		print "w:$weight #\_$column\_0 &\n";
+	}
+}
+
+# Create constraints so that black tiles are always symmetrical
+sub makeSymmetryConstraints {
+	my $weight = shift;
+
+	for (my $row = 1; $row <= $rows; $row++) {
+		for (my $column = 1; $column <= $columns; $column++) {
+			my $otherColumn = $columns + 1 - $column;
+			my $otherRow = $rows + 1 - $row;
+			print "w:$weight ~#\_$column\_$row v #\_$otherColumn\_$otherRow &\n";
+		}
+	}
+}

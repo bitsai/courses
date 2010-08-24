@@ -1,0 +1,783 @@
+#!/usr/local/bin/perl -w
+
+use strict;
+
+use Carp;
+use FileHandle;
+
+############################################################
+## Program Defaults and Global Variables
+############################################################
+
+my $DIR  = "/home/1/yarowsky/cs466/hw3";
+# my $DIR = ".";
+
+my $token_docs = "$DIR/";
+my $corps_freq = "$DIR/";
+my $titles = "$DIR/";
+
+my $stoplist = "$DIR/common_words";   # common uninteresting words
+
+my @sensenum = [4000]; # array of assigned sense numbers
+my @sim1 = [4000];
+my @sim2 = [4000];
+my @diff = [4000];
+my @segment_array = [4000];
+
+# @doc_vector
+#
+#   An array of hashes, each array index indicating a particular document's
+#   weight "vector".
+
+my @doc_vector = ( );
+
+# %docs_freq_hash
+#
+# associative array which holds <token, frequency> pairs where
+#
+#   token     = a particular word or tag found in the cacm corpus
+#   frequency = the total number of times the token appears in
+#               documents -- that is a token is counted only once
+#               per document if it is present (even if it appears
+#               several times within that document).
+
+my %docs_freq_hash = ( );
+
+# %corp_freq_hash
+#
+# associative array which holds <token, frequency> pairs where
+#
+#   token     = a particular word or tag found in the corpus
+#   frequency = the total number of times the token appears in
+#               the corpus.
+
+my %corp_freq_hash = ( );
+
+# %stoplist_hash
+#
+# common list of uninteresting words which are likely irrelvant
+# to any query.
+#
+#   Note: this is an associative array to provide fast lookups
+#         of these boring words
+
+my %stoplist_hash = ( );
+
+# @titles_vector
+#
+# vector of the cacm journal titles. Indexed in order of apperance
+# within the corpus.
+
+my @titles_vector = ( );
+
+# Hash of LogLikelihood Ratio of terms
+
+my %LLike = ( );
+
+# Sum of LL for each document vector
+
+my @sumofLL = [4000];
+
+# Options
+
+my $DATA = 1;		# 1 = tank, 2 = plant, 3 = person/place
+my $STEMMING = 0;		# 0 = unstemmed, 1 = stemmed
+my $WEIGHTING = 0;	# 0 = uniform, 1 = exp decay, 2 = stepped, 3 = custom
+my $COLLOCATION = 1;	# 1 = bag-of-words, 2 = adjacent-separate-LR
+my $BAYESIAN = 0;		# 0 = no bayesian, 1 = bayesian
+
+# start program
+
+&main_loop;
+
+##########################################################
+## SET_OPTIONS
+##########################################################
+
+sub set_options
+{
+	print << "EndOfMenu"; # Stemming Menu
+
+	Configuration Options
+	(1) Unstemmed, Uniform, Bag-Of-Words
+	(2) Stemmed, Exp Decay, Bag-Of-Words
+	(3) Unstemmed, Exp Decay, Bag-Of-Words
+	(4) Unstemmed, Exp Decay, Adjacent-Separate-LR
+	(5) Unstemmed, Stepped, Adjacent-Separate-LR
+	(6) Unstemmed, Custom, Adjacent-Separate-LR
+	(7) Bayesian Sense Disambiguation
+
+EndOfMenu
+;
+
+	print "\tChoice: ";
+	my $option = <STDIN>;
+
+	if ($option == 2)
+	{
+		$STEMMING = 1;
+		$WEIGHTING = 1;
+		$COLLOCATION = 1;
+	}
+	elsif ($option == 3)
+	{
+		$STEMMING = 0;
+		$WEIGHTING = 1;
+		$COLLOCATION = 1;
+	}
+	elsif ($option == 4)
+	{
+		$STEMMING = 0;
+		$WEIGHTING = 1;
+		$COLLOCATION = 2;
+	}
+	elsif ($option == 5)
+	{
+		$STEMMING = 0;
+		$WEIGHTING = 2;
+		$COLLOCATION = 2;
+	}
+	elsif ($option == 6)
+	{
+		$STEMMING = 0;
+		$WEIGHTING = 3;
+		$COLLOCATION = 2;
+	}
+	elsif ($option == 7)
+	{
+		$BAYESIAN = 1;
+		
+		$STEMMING = 1;
+		$WEIGHTING = 3;
+		$COLLOCATION = 1;
+	}
+	else
+	{
+		$STEMMING = 0;
+		$WEIGHTING = 0;
+		$COLLOCATION = 1;
+	}
+
+	print << "EndOfMenu"; # Data set Menu
+
+	Data Set Options
+	(1) Tank
+	(2) Plant
+	(3) Person/Place
+
+EndOfMenu
+;
+
+	print "\tChoice: ";
+	$option = <STDIN>;
+	chomp $option;
+	$DATA = $option;
+}
+
+##########################################################
+##  INIT_FILES
+##
+##  This function specifies the names and locations of
+##  input files used by the program.
+##
+##  Parameter:  $type   ("stemmed" or "unstemmed")
+##
+##  If $type == "stemmed", the filenames are initialized
+##  to the versions stemmed with the Porter stemmer, while
+##  in the default ("unstemmed") case initializes to files
+##  containing raw, unstemmed tokens.
+##########################################################
+
+sub init_files
+{
+	if ($DATA == 2)
+	{
+		$token_docs .= "plant";
+		$corps_freq .= "plant";
+		$titles .= "plant\.titles";
+	}
+	elsif ($DATA == 3)
+	{
+		$token_docs .= "perplace";
+		$corps_freq .= "perplace";
+		$titles .= "perplace\.titles";
+	}
+	else
+	{
+		$token_docs .= "tank";
+		$corps_freq .= "tank";
+		$titles .= "tank\.titles";
+	}
+
+	if ($STEMMING == 1)
+	{
+		$token_docs .= "\.stemmed";
+		$corps_freq .= "\.stemmed\.hist";
+		$stoplist .= "\.stemmed";
+	}
+	else
+	{
+		$token_docs .= "\.tokenized";
+		$corps_freq .= "\.tokenized\.hist";
+	}
+}
+
+##########################################################
+##  INIT_CORP_FREQ
+##
+##  This function reads in corpus and document frequencies from
+##  the provided histogram file for both the document set
+##  and the query set. This information will be used in
+##  term weighting.
+##
+##  It also initializes the arrays representing the stoplist,
+##  title list and relevance of document given query.
+##########################################################
+
+sub init_corp_freq
+{
+	my $corps_freq_fh = new FileHandle $corps_freq, "r" or croak "Failed $corps_freq";
+	my $titles_fh = new FileHandle $titles, "r" or croak "Failed $titles";
+
+	my $stoplist_fh = new FileHandle $stoplist, "r" or croak "Failed $stoplist";
+	my $line = undef;
+
+	while (defined( $line = <$corps_freq_fh> ))
+	{
+		my ($str) = ($line =~ /^\s*(\S.*)/);
+		my ($doc_freq, $cor_freq, $term) = split /\s+/, $str;
+
+		$docs_freq_hash{ $term } = $doc_freq;
+		$corp_freq_hash{ $term } = $cor_freq;
+	}
+
+	while (defined( $line = <$stoplist_fh> ))
+	{
+		chomp $line;
+		$stoplist_hash{ $line } = 1;
+	}
+
+	push @titles_vector, "";	# push one empty value onto @titles_vector
+						# so that indices correspond with title
+						# numbers.
+
+	while (defined( $line = <$titles_fh> ))
+	{
+		chomp $line;
+		push @titles_vector, $line;
+	}
+}
+
+##########################################################
+##  INIT_DOC_VECTORS
+##
+##  This function reads in tokens from the document file.
+##  When a .I token is encountered, indicating a document
+##  break, a new vector is begun. When individual terms
+##  are encountered, they are added to a running sum of
+##  term frequencies. To save time and space, it is possible
+##  to normalize these term frequencies by inverse document
+##  frequency (or whatever other weighting strategy is
+##  being used) while the terms are being summed or in
+##  a posthoc pass.  The 2D vector array
+##
+##    $doc_vector[ $doc_num ]{ $term }
+##
+##  stores these normalized term weights.
+##
+##  It is possible to weight different regions of the document
+##  differently depending on likely importance to the classification.
+##  The relative base weighting factors can be set when
+##  different segment boundaries are encountered.
+##
+##########################################################
+
+sub init_doc_vectors
+{
+	my $token_docs_fh = new FileHandle $token_docs, "r" or croak "Failed $token_docs";
+
+	my $doc_num = 0;	# current document number and total docs at end
+	my $word = undef;
+	my ($marker, $num, $sense);
+
+	push @doc_vector, { };
+
+	while (defined( $word = <$token_docs_fh> )) # Read in each document as a segment of words
+	{
+		chomp $word;
+
+		if ($word =~ /^\.I/) # indicates start of a new document
+		{
+			($marker, $num, $sense) = split /\s+/, $word;
+			$sensenum[$num] = $sense;
+
+			push @doc_vector, { };
+			$doc_num++;
+
+			next;
+		}
+		else
+		{
+			push @{$segment_array[$num]}, $word;
+		}
+	}
+	
+	for (my $count = 1; $count < 4001; $count++) # Process all segments
+	{
+		my $segment = $segment_array[$count];
+		&process_segment( $count, $segment );
+	}
+
+	if ($BAYESIAN == 0) # If not doing Bayesian, TF-IDF normalize weights
+	{
+		for (my $count = 1; $count < scalar @doc_vector; $count++) # Normalize weights
+		{
+			foreach my $key (keys %{$doc_vector[$count]})
+			{
+				$doc_vector[$count]{$key} *= log( $doc_num / $docs_freq_hash{ $key });
+			}
+		}
+	}
+
+	return $doc_num;
+}
+
+##########################################################
+## PROCESS_SEGMENT
+##########################################################
+
+sub process_segment
+{
+	my $doc_num = shift;
+	my $input = shift;
+	my @segment = @{$input};
+	my ($word, $position, $distance);
+
+	for (my $count = 0; $count < scalar @segment; $count++) # Find the position of the ambiguous word
+	{
+		$word = $segment[$count];
+
+		if ($word =~ /^\.[Xx]/)
+		{ $position = $count; }
+	}
+
+	for (my $count = 0; $count < scalar @segment; $count++) # Process all words in the segment
+	{
+		$word = $segment[$count]; # Find the distance from word to the ambiguous word
+		$distance = abs($position - $count);
+
+		if ($distance == 0)
+		{ $distance = 1; }
+
+		if ($COLLOCATION == 2) # Do the adjacent-separate-LR thing
+		{
+			if ($count == $position - 1)
+			{
+				$word = "L-".$word;
+				$docs_freq_hash{$word}++;
+			}
+			if ($count == $position + 1)
+			{
+				$word = "R-".$word;
+				$docs_freq_hash{$word}++;
+			}
+		}
+		elsif (exists $stoplist_hash{ $word }) # Exclude stopwords only if we're not doing adjacent-separate-LR
+		{ next; }
+
+		if ($word =~ /[a-zA-Z]/) # Add word to document vector, with appropriate weighting
+		{
+			if (defined( $docs_freq_hash{ $word } ))
+			{
+				if ($WEIGHTING == 1)
+				{
+					$doc_vector[$doc_num]{ $word } += (1 / $distance);
+				}
+				elsif ($WEIGHTING == 2)
+				{
+					if ($distance > 3)
+					{ $doc_vector[$doc_num]{ $word } += 1; }
+					elsif ($distance > 1)
+					{ $doc_vector[$doc_num]{ $word } += 3; }
+					else
+					{ $doc_vector[$doc_num]{ $word } += 6; }
+				}
+				elsif ($WEIGHTING == 3)
+				{
+					if ($distance > 3)
+					{ $doc_vector[$doc_num]{ $word } += 1; }
+					elsif ($distance > 2)
+					{ $doc_vector[$doc_num]{ $word } += 2; }
+					elsif ($distance > 1)
+					{ $doc_vector[$doc_num]{ $word } += 3; }
+					elsif ($distance > 0)
+					{ $doc_vector[$doc_num]{ $word } += 4; }
+					else
+					{ $doc_vector[$doc_num]{ $word } += 5; }
+				}
+				else
+				{
+					$doc_vector[$doc_num]{ $word } += 1;
+				}
+			}
+			else
+			{
+				print "ERROR: Document frequency of zero: ", $word, "\n";
+			}
+		}
+	}
+}
+
+##########################################################
+## MAIN_LOOP
+##
+## Parameters: currently no explicit parameters.
+##             performance dictated by user imput.
+##
+## Initializes document and query vectors using the
+## input files specified in &init_files. Then offers
+## a menu and switch to appropriate functions in an
+## endless loop.
+##
+## Possible extensions at this level:  prompt the user
+## to specify additional system parameters, such as the
+## similarity function to be used.
+##
+## Currently, the key parameters to the system (stemmed/unstemmed,
+## stoplist/no-stoplist, term weighting functions, vector
+## similarity functions) are hardwired in.
+##
+## Initializing the document vectors is clearly the
+## most time consuming section of the program, as 213334
+## to 258429 tokens must be processed, weighted and added
+## to dynamically growing vectors.
+##
+##########################################################
+
+sub main_loop
+{
+	&set_options;
+
+	print "\nINITIALIZING VECTORS ... \n";
+
+	&init_files;
+	&init_corp_freq;
+	my $total_docs = &init_doc_vectors;
+
+	print "\nCREATING PROFILES ... \n";
+
+	# array of documents fitting each profile
+	my $profile1 = ();
+	my $profile2 = ();
+
+	for (my $count = 1; $count < 3601; $count++)
+	{
+		if ($sensenum[$count] == 1)
+		{ push @{$profile1}, $count; }
+		else
+		{ push @{$profile2}, $count; }
+	}
+
+	if ($BAYESIAN == 0)
+	{
+		print "\nCALCULATING CENTROIDS ... \n";
+
+		my $Vprofile1 = &calculate_centroid( $profile1 );
+		my $Vprofile2 = &calculate_centroid( $profile2 );
+		
+		print "\nCLASSIFYING VECTORS ... \n";
+
+		for (my $count = 3601; $count < 4001; $count++)
+		{
+			$sim1[$count] = &cosine_sim( $Vprofile1, $doc_vector[$count] );
+			$sim2[$count] = &cosine_sim( $Vprofile2, $doc_vector[$count] );
+			$diff[$count] = $sim1[$count] - $sim2[$count];
+		}
+
+		&display;
+	}
+	else
+	{
+		print "\nCALCULATING SUM VECTORS ... \n";
+		
+		my $Vsum1 = &calculate_sum_vector( $profile1 );
+		my $Vsum2 = &calculate_sum_vector( $profile2 );
+		
+		print "\nCLASSIFYING VECTORS ... \n";
+		
+		&calculate_llike( $Vsum1, $Vsum2 );
+		
+		for (my $count = 3601; $count < 4001; $count++)
+		{
+			my $vector = $doc_vector[$count];
+			&bayesian_classify( $count, $vector );
+		}
+		
+		&bayesian_display;
+	}
+}
+
+##########################################################
+## CALCULATE_CENTROID
+##########################################################
+
+sub calculate_centroid
+{
+	my $input = shift;
+	my @cluster = @{$input}; # Cluster is array of doc nums
+
+	my ($key, $val);
+	my ($vector, $centroid);
+
+	for (my $count = 0; $count < scalar @cluster; $count++) # Process each vector in the cluster
+	{
+		$vector = $doc_vector[$cluster[$count]];
+
+		while (($key, $val) = each %{$vector})
+		{
+			$$centroid{$key} += $val / scalar @cluster;
+		}
+	}
+
+	return $centroid;
+}
+
+########################################################
+## COSINE_SIM
+##
+## Computes the cosine similarity for two vectors
+## represented as associate arrays.
+########################################################
+
+sub cosine_sim
+{
+	my $vec1 = shift;
+	my $vec2 = shift;
+
+	my $num = 0;
+	my $sum_sq1 = 0;
+	my $sum_sq2 = 0;
+
+	my @val1 = values %{ $vec1 };
+	my @val2 = values %{ $vec2 };
+
+	# determine shortest length vector. This should speed
+	# things up if one vector is considerable longer than
+	# the other (i.e. query vector to document vector).
+
+	if ((scalar @val1) > (scalar @val2))
+	{
+		my $tmp = $vec1;
+		$vec1 = $vec2;
+		$vec2 = $tmp;
+	}
+
+	# calculate the cross product
+
+	my $key = undef;
+	my $val = undef;
+
+	while (($key, $val) = each %{ $vec1 })
+	{
+		$num += $val * ($$vec2{ $key } || 0);
+	}
+
+	# calculate the sum of squares
+
+	my $term = undef;
+
+	foreach $term (@val1) { $sum_sq1 += $term * $term; }
+	foreach $term (@val2) { $sum_sq2 += $term * $term; }
+
+	return ( $num / sqrt( $sum_sq1 * $sum_sq2 ));
+}
+
+##########################################################
+## DISPLAY
+##########################################################
+
+sub display
+{
+	my $label;
+	my $correct = 0;
+	my $incorrect = 0;
+
+	open(OUT, ">>output.txt");
+
+	my @test_vectors = sort { -1 * ($diff[$a] <=> $diff[$b]); } 3601 .. 4000;
+
+	for (my $count = 0; $count < scalar @test_vectors; $count++)
+	{
+		my $doc_num = $test_vectors[$count];
+
+		if ($diff[$doc_num] > 0)
+		{ $label = 1; }
+		else
+		{ $label = 2; }
+		
+		if ($sensenum[$doc_num] == $label)
+		{
+			$correct++;
+			syswrite(OUT, "\n+");
+		}
+		else
+		{
+			$incorrect++;
+			syswrite(OUT, "\n*");
+		}
+
+		syswrite(OUT, " ".$sensenum[$doc_num]);
+		syswrite(OUT, " ".$label);
+		
+		my ($sim1) = ($sim1[$doc_num] =~ /^(\d*\.\d{0,4})/);
+		syswrite(OUT, " ".$sim1);
+		
+		my ($sim2) = ($sim2[$doc_num] =~ /^(\d*\.\d{0,4})/);
+		syswrite(OUT, " ".$sim2);
+		
+		my ($diff) = ($diff[$doc_num] =~ /^(.{0,6})/);
+		syswrite(OUT, " ".$diff);
+		
+		my ($title) = ($titles_vector[$doc_num] =~ /^(.{0,40})/);
+		syswrite(OUT, " ".$title);
+	}
+
+	syswrite(OUT, "\n");
+	syswrite(OUT, "\nTOTAL CORRECT = ".$correct);
+	syswrite(OUT, "\nTOTAL INCORRECT = ".$incorrect);
+	syswrite(OUT, "\nPERCENT CORRECT = ".($correct / ($correct + $incorrect)));
+
+	close(OUT);
+	
+	print "\nTOTAL CORRECT = ", $correct;
+	print "\nTOTAL INCORRECT = ", $incorrect;
+	print "\nPERCENT CORRECT = ", $correct / ($correct + $incorrect);
+	print "\n";
+}
+
+##########################################################
+## CALCULATE_SUM_VECTOR
+##########################################################
+
+sub calculate_sum_vector
+{
+	my $input = shift;
+	my @cluster = @{$input}; # Cluster is array of doc nums
+
+	my ($key, $val);
+	my ($vector, $sum_vector);
+
+	for (my $count = 0; $count < scalar @cluster; $count++) # Process each vector in the cluster
+	{
+		$vector = $doc_vector[$cluster[$count]];
+
+		while (($key, $val) = each %{$vector})
+		{
+			$$sum_vector{$key} += $val;
+		}
+	}
+
+	return $sum_vector;
+}
+
+##########################################################
+## CALCULATE_LLIKE
+##########################################################
+
+sub calculate_llike
+{
+	my $Vsum1 = shift;
+	my $Vsum2 = shift;
+	
+	my ($key, $val);
+	my $EPSILON = 0.2;
+	
+	while (($key, $val) = each %{$Vsum2})
+	{
+		if (($$Vsum1{$key} || 0) > 0)
+		{ $LLike{$key} = log( $$Vsum1{$key} / $$Vsum2{$key} ); }
+		else
+		{ $LLike{$key} = log( $EPSILON / $$Vsum2{$key} ); }
+	}
+	
+	while (($key, $val) = each %{$Vsum1})
+	{
+		if (($$Vsum2{$key} || 0) <= 0)
+		{ $LLike{$key} = log( $$Vsum1{$key} / $EPSILON ); }
+	}
+}
+
+##########################################################
+## BAYESIAN_CLASSIFY
+##########################################################
+
+sub bayesian_classify
+{
+	my $doc_num = shift;
+	my $vector = shift;
+	my ($key, $val);
+	
+	while(($key, $val) = each %{$vector})
+	{
+		$sumofLL[$doc_num] += ($LLike{$key} || 0) * $$vector{$key};
+	}
+}
+
+##########################################################
+## BAYESIAN_DISPLAY
+##########################################################
+
+sub bayesian_display
+{
+	my $label = 1;
+	my $correct = 0;
+	my $incorrect = 0;
+
+	open(OUT, ">>output.txt");
+
+	my @test_vectors = sort { -1 * ($sumofLL[$a] <=> $sumofLL[$b]); } 3601 .. 4000;
+
+	for (my $count = 0; $count < scalar @test_vectors; $count++)
+	{
+		my $doc_num = $test_vectors[$count];
+
+		if ($sumofLL[$doc_num] > 0)
+		{ $label = 1; }
+		elsif ($sumofLL[$doc_num] < 0)
+		{ $label = 2; }
+		else
+		{ $label = 1; }
+		
+		if ($sensenum[$doc_num] == $label)
+		{
+			$correct++;
+			syswrite(OUT, "\n+");
+		}
+		else
+		{
+			$incorrect++;
+			syswrite(OUT, "\n*");
+		}
+
+		syswrite(OUT, " ".$sensenum[$doc_num]);
+		syswrite(OUT, " ".$label);
+		
+		my ($sum) = ($sumofLL[$doc_num] =~ /^(.{0,6})/);
+		syswrite(OUT, " ".$sum);
+		
+		my ($title) = ($titles_vector[$doc_num] =~ /^(.{0,60})/);
+		syswrite(OUT, " ".$title);
+	}
+
+	syswrite(OUT, "\n");
+	syswrite(OUT, "\nTOTAL CORRECT = ".$correct);
+	syswrite(OUT, "\nTOTAL INCORRECT = ".$incorrect);
+	syswrite(OUT, "\nPERCENT CORRECT = ".($correct / ($correct + $incorrect)));
+
+	close(OUT);
+	
+	print "\nTOTAL CORRECT = ", $correct;
+	print "\nTOTAL INCORRECT = ", $incorrect;
+	print "\nPERCENT CORRECT = ", $correct / ($correct + $incorrect);
+	print "\n";
+}

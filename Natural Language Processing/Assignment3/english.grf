@@ -1,0 +1,289 @@
+# This is a fragment of English grammar, somewhat imperfect in its
+# description.  To understand the file format, first look through
+# arith.grf, arith-infix.grf, and arith-typed.grf.  
+#
+# The grammar assumes that the input has been passed through some
+# modest morphological preprocessing.  See the sample inputs in
+# english.sen.
+# 
+# Some important omissions that you will not fix in this assignment:
+# 
+# - Slashed categories like S/NP, and their uses such as relative
+#   clauses and questions.  The syntax and semantics of slashed
+#   categories could indeed be handled in this framework, although it
+#   is more elegant if one builds some special support into the formalism.
+# 
+# - Extra orders for quantifiers (e.g., the joke semantics for "A
+#   woman has a baby every 15 minutes").  There is no attempt to
+#   handle this.  It is actually tied up with the previous point.
+#
+# - The semantics for tense is not as sophisticated as what we did
+#   in class.  Here I just write Past(love(Laura,George)) instead of
+#     E%e past(e) ^ act(e,loving) ^ lover(e,George) ^ lovee(e,Laura)
+#   This could be fixed (especially with some slashed category support),
+#   but the semantics was already hard enough to read!  
+#
+# - There is no attempt to figure out what pronouns refer to.
+#
+# - Lots of interesting grammatical constructions are missing, like
+#   passives.
+
+# ----------------------------------------------------------------------
+
+# This most basic rule of English combines a subject with a tensed VP
+# (never a stem or infinitive VP).  The operators Pres and Past get
+# wrapped around the semantics only here (see discussion of verb
+# suffixes below).
+
+1 S[=2 sem=Pres(2(1))]	NP[num=n] VP[num=n tense=pres]
+1 S[=2 sem=Past(2(1))]	NP[num=n] VP[num=n tense=past]
+1 S[=2 sem=2(1)]	NP[num=n] VP[num=n tense=modal]  # already has semantics
+
+
+# A speech act is a top level sentence (plus some punctuation).
+# In the semantics here, Speaker="I", Hearer="you."
+
+1 ROOT[sem="Assert(Speaker, 1)" head=1]	S .
+1 ROOT[sem="Exclaim(Speaker, 1)" head=1]	S !
+1 ROOT[sem="Command(Speaker, 1(Hearer))" head=1] VP[tense=stem] !  
+
+
+# A verb phrase in English is made by combining a verb with some
+# following material.  The kind of material that the verb wants is
+# indicated by its arg feature.  For example, arg=np means that the
+# verb wants an NP, traditionally called a direct object.  
+# 
+# (Note: There is an obvious similarity to slashed categories here
+# since the V is a VP (or S) with missing material.  "Categorial
+# grammar" is an approach that combines the two ideas, for example
+# writing VP[arg=NP] as VP/NP.)
+
+1 VP[=1]		      V[arg=none]    # intransitive verbs: "sleep"
+1 VP[=1 sem="1(2)"]           V[arg=np] NP   # transitive verbs: "kiss Laura"
+1 VP[=1 tense=1 sem=1(2)]     V[arg=vpinf] VP[tense=inf]  # "want to eat"
+1 VP[=1 tense=1 sem="1(2,3)"] V[arg=npvpinf] NP VP[tense=inf] # "want him to eat"
+1 VP[=1 sem=1(2)]	V[arg=sbar] SBAR 		  # "say that ..."
+
+# Linking verbs are nice to have too.
+
+1 VP[=1 sem=1(2)]	V[arg=pred] N 	 # "be president" (we don't handle "be a president")
+1 VP[=1 sem=1(2)]	V[arg=pred] Adj	 # "be perplexed"
+
+
+# Some more basic rules.
+
+1 SBAR[=2]		that S              # used for "say that ..."
+1 NP[=2 sem=1(2) num=n]	Det[num=n] N[num=n] # make an NP
+1 N[=2 sem="%x basic(x) ^ new(x)"]	Adj[sem=new] N[sem=basic]
+
+1 PP[=1 sem="%x 1(2,x)"]	        P NP
+1 VP[=1 sem="%subj 2(1(subj))"]		VP PP
+1 N[=1 sem="%x basic(x) ^ new(x)"]	N[sem=basic] PP[sem=new]
+
+
+# Compound tenses that are constructed by sticking an auxiliary verb
+# before an existing VP to change the VP's tense.  This is the natural
+# treatment we covered in the third week of class.  (However, it does
+# overgenerate a bit: it allows not only "has been eating" but also
+# "is having eaten," which does not occur in my dialect of English,
+# not to mention "have had had eaten.")
+#
+# Notice what is going on with the semantics here: 
+
+1 VP[=1 tense=1 head=2 sem="%subj Perf(2(subj))"]  V[head=have] VP[tense=pastp]
+1 VP[=1 tense=1 head=2 sem="%subj Prog(2(subj))"]  V[head=be] VP[tense=presp]
+
+1 VP[=1 tense=1 head=2 sem="%subj Must(2(subj))"]  V[head=have] VP[tense=inf]           # has to eat
+1 VP[=1 tense=1 head=2 sem="%subj Will(2(subj))"]  V[head=go tense=presp] VP[tense=inf] # going to eat
+
+1 VP[=2 tense=modal sem="%subj 1(2(subj))"]	   Modal VP[tense=stem]
+
+1 Modal will
+1 Modal would
+1 Modal should
+1 Modal could
+1 Modal can
+1 Modal might
+1 Modal may
+1 Modal must
+
+# Basic tenses marked by suffixes on the verb (for 3rd person only).
+# Note that we assume some simple morphological preprocessing that
+# splits the stem from the suffix in an input verb, both for regular
+# and irregular verbs.  Thus the input is assumed to be "the president
+# eat -ed the pickle" rather than "the president ate the pickle."
+# 
+# The tense feature from the suffix will be carried along as the
+# verbs combine with other material to make full verb phrases and
+# eventually sentences.  The feature ends up affecting the semantics
+# only at the end of that process -- specifically, in the S NP VP rule.
+#
+# Note: It would be nicer to treat these cases like the compound tenses.  
+# We could have done so if the morphology produced "the president -ed eat 
+# the pickle," with the suffix coming BEFORE the verb.  Then -ed could be
+# regarded as a kind of auxiliary verb (which applies only after the
+# verb has gotten everything but the subject):
+#   VP[=2 tense=past sem="%subj Past(2(subj))]  -ed VP[tense=stem]  
+
+1 V[=1 tense=past]	V[tense=stem] -ed
+1 V[=1 tense=pastp]	V[tense=stem] -ed 
+1 V[=1 tense=presp]	V[tense=stem] -ing
+1 V[=1 tense=pres num=sing]	V[tense=stem] -s
+1 V[=1 tense=pres num=pl]	V[tense=stem] -0   # -0 is an "empty morpheme"
+1 V[=2 tense=inf num=pl]	to V[tense=stem]
+
+# For the auxiliary verbs "have" and "be," we'll also put all the
+# (3rd-person) inflected forms directly into the grammar, so that the
+# poor user doesn't have to simulate a morphology program and type 
+# "have -0 be -ed eat -ing" for "have been eating" but can get away 
+# with "have been eat -ing" instead.  
+# 
+# Note that when these are used as auxiliary verbs, their head, sem,
+# and arg features are simply ignored.  
+
+1 V[head=have arg=np sem=possess tense=stem]		have
+1 V[head=have arg=np sem=possess tense=past]		had
+1 V[head=have arg=np sem=possess tense=pastp]		had
+1 V[head=have arg=np sem=possess tense=presp]		having
+1 V[head=have arg=np sem=possess tense=pres num=sing]	has
+1 V[head=have arg=np sem=possess tense=pres num=pl]	have
+
+1 V[head=be arg=pred sem="%pred %subj pred(subj)" tense=stem] 		be
+1 V[head=be arg=pred sem="%pred %subj pred(subj)" tense=past num=sing] 	was
+1 V[head=be arg=pred sem="%pred %subj pred(subj)" tense=past num=pl] 	were
+1 V[head=be arg=pred sem="%pred %subj pred(subj)" tense=pastp] 		been
+1 V[head=be arg=pred sem="%pred %subj pred(subj)" tense=presp] 		being
+1 V[head=be arg=pred sem="%pred %subj pred(subj)" tense=pres num=sing] 	is
+1 V[head=be arg=pred sem="%pred %subj pred(subj)" tense=pres num=pl] 	are
+
+1 V[=1 arg=none tense=stem sem="%subj 1(subj)"] go    
+
+
+# And now for some meaningful verb stems.  In most cases we could just
+# inherit the sem field (i.e., sem=1), since writing it out as below
+# only gets us a slightly prettier notation for the same result:
+#   Apply "eat" to "sandwich" and "president"  ==> eat(sandwich)(president)
+#   Similarly apply "%obj %subj eat(obj,subj)" ==> eat(sandwich,president)
+
+1 V[=1 tense=stem arg=none sem="%subj 1(subj)"]		   sleep # intransitive
+1 V[=1 tense=stem arg=np sem="%obj %subj 1(obj,subj)"]	   kiss  # transitive
+1 V[=1 tense=stem arg=np sem="%obj %subj 1(obj,subj)"]	   love  # transitive
+1 V[=1 tense=stem arg=np sem="%obj %subj spoon(obj,subj)"] spoon # transitive ("spoon the custard")
+1 V[=1 tense=stem arg=np sem="%obj %subj 1(obj,subj)"]	   eat   # transitive
+1 V[=1 tense=stem arg=none sem="%subj 1(SOMETHING,subj)"]  eat   # intransitive version
+1 V[=1 tense=stem arg=np sem="%obj %subj 1(obj,subj)"]	   want # ...a pickle  
+1 V[=1 tense=stem arg=vpinf sem="%pred %subj 1(pred(subj), subj)"]	 want # ...to sleep
+1 V[=1 tense=stem arg=npvpinf sem="%obj %pred %subj 1(pred(obj), subj)"] want # ...Papa to sleep
+1 V[=1 tense=stem arg=sbar sem="%prop %subj 1(prop, subj)"] say         # that ...
+1 V[=1 tense=stem arg=sbar sem="%prop %subj 1(prop, subj)"] understand  # that ...
+1 V[=1 tense=stem arg=np sem="%obj %subj 1(obj,subj)"]	   understand   # the president
+1 V[=1 tense=stem arg=np num=sing sem="%obj %subj 1(obj,subj)"]		entice
+1 V[=1 tense=stem arg=none num=sing sem="%subj 1(SOMETHING,subj)"]	entice
+
+
+# Some NPs, including both proper names and (3rd-person) pronouns.  We treat 
+# the subject pronouns as inflected forms, so that "she loves him" comes
+# out as loves(him,her) rather than loves(him,she).
+
+1 NP[=1 num=sing] Papa
+1 NP[=1 num=sing] George
+1 NP[=1 num=sing] Laura
+1 NP[=1 num=sing case=obj] her
+1 NP[=1 num=sing case=subj sem=her] she        
+1 NP[=1 num=sing case=obj] him
+1 NP[=1 num=sing case=subj sem=him] he
+1 NP[=1 num=pl case=subj] it
+1 NP[=1 num=pl case=obj] it
+1 NP[=1 num=pl case=subj] they
+1 NP[=1 num=pl case=obj head=them sem=them] them
+
+
+# For nouns, we need a little morphology to handle plurals.
+
+1 N[=1 num=pl] N[num=sing] -s     # morphology
+
+1 N[=1 num=sing] bonbon
+1 N[=1 num=sing] spoon
+1 N[=1 num=sing] president
+1 N[=1 num=sing] pickle
+1 N[=1 num=sing] sandwich
+1 N[=1 num=sing] floor
+1 N[=1 num=sing sem=chief_of_staff] chief of staff
+1 N[=1 num=pl sem=chief_of_staff] chiefs of staff
+1 N[=1 num=sing] man
+1 N[=1 num=sing] woman
+
+
+# Determiners.
+
+1 Det[=1 num=sing sem=some] 	 a     # like an existential quantifier
+1 Det[=1 num=pl sem=all]      	 all    
+1 Det[=1 num=sing sem=all] 	 every # "all," "every": same sem but diff num
+1 Det[=1 num=sing sem=all] 	 each  # same as "every"
+1 Det[=1 num=pl sem=two] 	 two
+
+# The determiners below have both singular and plural forms.
+# We list them separately here so as to get a semantic difference
+# between "the bonbon" and "the bonbons."
+
+1 Det[=1 num=sing sem=some]      some  # same as "a"
+1 Det[=1 num=pl sem=some_plural] some  # different sem from singular some, 
+	                               #   since "some cat" != "some cats"
+1 Det[=1 num=sing sem=the]       the   
+1 Det[=1 num=pl sem=the_plural]  the   # different semantics from singular the
+
+1 Det[=1 num=sing      sem="%n the(%x n(x)^possess(x,him))"]  his 
+1 Det[=1 num=pl sem="%n the_plural(%x n(x)^possess(x,him))"]  his 
+1 Det[=1 num=sing      sem="%n the(%x n(x)^possess(x,her))"]  her
+1 Det[=1 num=pl sem="%n the_plural(%x n(x)^possess(x,her))"]  her
+1 Det[=1 num=sing      sem="%n the(%x n(x)^possess(x,it))"]   its
+1 Det[=1 num=pl sem="%n the_plural(%x n(x)^possess(x,it))"]   its
+1 Det[=1 num=sing      sem="%n the(%x n(x)^possess(x,them))"] their 
+1 Det[=1 num=pl sem="%n the_plural(%x n(x)^possess(x,them))"] their 
+
+
+# Adjective morphology also exists ("finer", "finest", "more delicious" ...)
+# but we ignore it here.  
+
+1 Adj	fine
+1 Adj	blue
+1 Adj	delicious
+1 Adj	perplexed
+1 Adj	pickled
+1 Adj[=2 sem=%x{1(2)}(x)]  very Adj   # as in {very(big)}(x); equivalent to very(big,x) but parentheses clarify it
+
+# English has lots more prepositions besides these, of course.
+
+1 P with
+1 P on
+1 P onto     
+1 P under
+1 P in
+
+
+# Conjunction (with "and"; "or" is similar).  We don't allow "N and N"
+# or "V and V" as these raise some complicated problems.  And we only
+# allow VPs of the same tense to coordinate, so that the coordinated
+# VP can inherit that tense (our kludgy treatment of suffix morphology
+# makes this necessary).
+
+1 Adj[=2 sem="%x 1(x)^3(x)"] Adj and Adj  # "fine and blue woman" has both properties
+1 NP[=2 num=pl sem="and(1,3)"] NP and NP    
+1 VP[=2 sem="%subj 1(subj) ^ 3(subj)"] VP[tense=0] and VP[tense=0]
+
+
+# Caviar additions
+
+1 S[=2 sem=Pres(2(1))]	NP[num=mass] VP[num=sing tense=pres]
+1 S[=2 sem=Past(2(1))]	NP[num=mass] VP[num=sing tense=past]
+1 S[=2 sem=2(1)]	NP[num=mass] VP[num=sing tense=modal]  # already has semantics
+
+1 N[=1 num=mass] caviar
+
+1 Det[=1 num=mass sem=all]       all
+1 Det[=1 num=mass sem=some_mass] some
+1 Det[=1 num=mass sem=the_mass]  the
+1 Det[=1 num=mass sem="%n the(%x n(x)^possess(x,him))"]  his
+1 Det[=1 num=mass sem="%n the(%x n(x)^possess(x,her))"]  her
+1 Det[=1 num=mass sem="%n the(%x n(x)^possess(x,it))"]   its
+1 Det[=1 num=mass sem="%n the(%x n(x)^possess(x,them))"] their

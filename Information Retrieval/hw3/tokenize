@@ -1,0 +1,15 @@
+#!/bin/sh
+
+#####################################################################
+#
+# Usage:  tokenize filename
+#
+#    Input:   filename.raw        (raw text file)
+#    Output:  filename.tokenized  (tokenized with one word or symbol per line)
+#
+#####################################################################
+
+token1 < $1.raw | 
+sed 's/[ 	]*$//' | 
+egrep . > $1.tokenized
+

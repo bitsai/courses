@@ -1,0 +1,50 @@
+Benny Tsai
+600.425
+Declarative Methods
+Homework 2
+
+1.	11:20 a.m.
+
+2.	a.	n = 17, 19, 20, 21, 23.
+	b.	x = 142, y = 857.
+	c.	(40, 40, 48), (45, 45, 72), (65, 65, 120).
+	d.	200.
+	e.	0139854276.
+
+4.	*** Total Time: 23,489 minutes; see "problem1.solution" for complete schedule. ***
+
+	Perl script "problem1.pl" takes input from "rcps.data" and outputs Eclipse code to "problem1.ecl".
+
+	The "processData" subroutine reads the input and stores information in hash %durations and array @precedences.
+
+	%durations stores the duration of each activity (in minutes).
+
+	@precedences stores the precedences in strings of the form "<successor> <predecessor>".
+
+	The "writeProgram" subroutine then takes care of generating the correct Eclipse code.
+	
+	To run the script, simply type "perl problem1.pl"; the input and output files are hard-coded.
+
+6.	*** Best Time: 49,906 minutes (48, 230 minutes was actually the best, but I don't have a schedule for that time); see "problem2.solution" for complete schedule. ***
+
+	Perl script "problem2.pl" does the same things "problem1.pl" did, and also handles zone constraints.
+
+	Hash %zoneUsage uses zone numbers (zone A = 0, zone B = 1, etc.) as keys, and the values are sub-hashes where the keys are activity names and the values are that activity's usage of that particular zone.
+
+	Array @zoneSizes stores zone sizes: $zoneSizes[0] = size of zone 0 (zone A), $zoneSizes[1] = size of zone 1 (zone B), etc.
+
+	*** Parameters: Select = first_fail, Choice = indomain_random, Method = complete. ***
+
+	I tried to base my selection of parameters on the information from the AI magazine article linked on the course webpage.  From page 40, I read that choosing the variable with the fewest remaining alternatives and choosing the value that maximizes the number of options for future assignments gives excellent results.  So I first tried most_constrained/indomain_split.  I picked most_constrained as it had seemed closest to the "fewest remaining alternatives" heuristic.  I picked indomain_split since I thought it would eliminate large numbers of invalid choices quickly, from smallest to largest.  My intuition here was that the variables that were most constrained would be those participating in the largest number of precedence constraints, and therefore they should be scheduled earlier.  This failed pretty miserably.  I let it run for about an hour, and it gave me no output whatsoever.
+
+	I then tried most_constrained with indomain_min, indomain_random, and indomain_middle.  Getting a bit impatient, I let each of these run for only about half an hour each.  None of these produced any output during that time.
+
+	Next, I tried select = occurrence, as that seemed like another good approximation of the "fewest remaining alternatives" heuristic.  To make a long story short, this didn't work either.  Tried this with the same 4 value-ordering heuristics as before, and none of these gave me output over half-hour runs.
+
+	In desperation, I looked to first_fail as my variable-ordering heuristic; it was the last one that looked reasonable to me.  Tried this one with all 4 of my favorite value-ordering heuristics.  Still no putout.
+
+	Panic time.  It finally occurred to me that maybe a good way to test select/choice combinations is to try them on a reduces data set.  Thus was born "test.data", a vastly reduced subset of rcps.data.  I went back to the beginning and tried all 12 combinations listed above, and more.  As far as I could tell first_fail/indomain_min seemed to perform the best on my test data set.  This didn't really make sense to me, since according to the documentation most_constrained does what first_fail does and more.  Ah well.  Anyway, this wasn't a very helpful result, since I'd already tried first_fail/indomain_min on the real data set, which gave me nothing.  Fortunately, during this round of testing I also played with indomain_random, and while it took longer to produce the optimal solution, it often gave a first solution quickly.  So I settled on first_fail/indomain_random as my parameters of choice.
+
+	I left method = complete because the pruning methods such as bbs and credit-based search required parameters that I didn't know how to set (no idea what a good number of steps or credits should be for this problem).
+
+	First_fail/indomain_random did eventually give me a solution to problem2, but it's a bit of a crap shoot, as you might expect.  The first run produced nothing in over an hour.  The second run produced a solution within 2 minutes, and another within 4 minutes.  Then nothing for the next hour.  The best time I obtained was 48,230 minutes, but I don't know how to interrupt a search for the current best solution, and the search didn't halt, so I don't have a schedule for it.  Tried to obtain a solution with that time (or better) by adding the constraing "EndTime #=< 48230", but that didn't halt either, so I fudged things a bit to obtain the submitted solution; I removed the minimize command from problem2.ecl and ran the new version from command line to pipe whatever it would give me to "problem2.solution".  I set the value domain to 0..50000 so that the total time would be reasonable.

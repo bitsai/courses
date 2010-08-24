@@ -1,0 +1,149 @@
+#!/usr/local/bin/perl
+
+use Probs;
+use strict;
+
+my($COURSE_DIR) = "/usr/local/data/cs465/";
+
+if (@ARGV < 2)
+{  # too few arguments; print usage message.
+	die <<EOM
+
+Speech recognizer.
+
+Usage:   $0 smoother trainpath files...
+Example: $0 add0.01 switchboard-small ${COURSE_DIR}hw2/speech/sample*
+
+Possible values for smoother: uniform, add1, backoff_add1, backoff_wb
+  (the \"1\" in these names can be replaced with any real lambda >= 0)
+trainpath is the location of the training corpus
+  (the search path for this includes "<<DEFAULT_TRAINING_DIR<<")
+EOM
+}
+
+set_smoother(shift(@ARGV));
+train(shift(@ARGV));
+warn "warning: no input files specified\n" unless @ARGV;
+
+my $total_errors = 0;
+my $total_num_words = 0;
+
+foreach my $testfile (@ARGV)
+{
+	open(TEST, $testfile);
+	
+	my @tokens = split(/\s/, <TEST>);
+	my $num_words = $tokens[0];
+	
+	my @xent;
+	my @error_rate;
+	
+	my $count = 0;
+	
+	while(<TEST>)
+	{
+		my @tokens = split;
+		my $error_rate = shift(@tokens);
+		my $logpUw = shift(@tokens);
+		my $num_words = shift(@tokens);
+		my $line = join(" ", @tokens);
+		
+		$xent[$count] = xent($logpUw, $num_words, $line);
+		$error_rate[$count] = $error_rate;
+		$count++;
+	}
+
+	my $min_xent = $xent[0];
+	my $error_rate = $error_rate[0];
+	
+	for(my $index = 0; $index < scalar @xent; $index++)
+	{
+		if($xent[$index] < $min_xent)
+		{ $error_rate = $error_rate[$index]; }
+	}
+	
+	$total_errors += $error_rate * $num_words;
+	$total_num_words += $num_words;
+	
+	print "$error_rate\t$testfile\n";
+	close(TEST);
+}
+
+my $overall_error_rate = $total_errors / $total_num_words;
+print "$overall_error_rate\tOVERALL\n";
+
+# ======================================================================
+
+sub xent
+{
+	my $logpUw = shift;
+	my $num_words = shift;
+	my $line = shift;
+	
+	my $logprob = wordlogprob($line);
+	my $logpwU = $logpUw + $logprob;
+	my $xent = $logpwU * -1 / $num_words;
+	
+	return $xent;
+}
+
+sub wordlogprob
+{
+	my($line) = @_;
+	my($logprob) = 0;
+	my($x,$y) = ($BOC, $BOC);
+	
+	foreach my $z (split(/\s/, $line))
+	{
+		$logprob += log2(prob($x, $y, $z));
+		$x=$y;
+		$y=$z;
+	}
+	
+	$logprob += log2(prob($x,$y,$EOC));
+	
+	return $logprob;
+}
+
+sub wordlogprob_bi
+{
+	my($line) = @_;
+	my($logprob) = 0;
+	my($x,$y) = ($BOC, $BOC);
+	
+	foreach my $z (split(/\s/, $line))
+	{
+		$logprob += log2(prob($OOV, $y, $z));
+		$x=$y;
+		$y=$z;
+	}
+	
+	$logprob += log2(prob($OOV,$y,$EOC));
+	
+	return $logprob;
+}
+
+sub wordlogprob_uni
+{
+	my($line) = @_;
+	my($logprob) = 0;
+	my($x,$y) = ($BOC, $BOC);
+	
+	foreach my $z (split(/\s/, $line))
+	{
+		$logprob += log2(prob($OOV, $OOV, $z));
+		$x=$y;
+		$y=$z;
+	}
+	
+	$logprob += log2(prob($OOV,$OOV,$EOC));
+	
+	return $logprob;
+}
+
+sub log2
+{
+	my($x) = @_;
+	my($log2x) = log($x)/log(2);
+	return $log2x;
+}

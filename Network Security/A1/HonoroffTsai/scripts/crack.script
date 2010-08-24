@@ -1,0 +1,26 @@
+# load a network with no latency or bandwidth
+load networks/test.net
+start all
+usp
+slp all all 0 0 0 0
+
+# start cracker on GOODNET
+s GOODNET
+plug in A1.TLSRC4Crack 4
+crack MIT JHU
+
+# start TLS echo server on JHU
+s JHU
+plug in simnet.TLSEchoServer 3
+startServer 443
+
+# start TLS spamming client on MIT
+s MIT
+plug in A1.TLSCrackedClient 2
+doHandshake JHU 443
+
+# spam following message enough times for cracker to crack keys
+echo ENCRYPT_THIS_MESSAGE
+
+# done
+quit

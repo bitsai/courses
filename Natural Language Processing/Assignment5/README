@@ -1,0 +1,70 @@
+Benny Tsai
+600.465
+Intro To NLP
+Assignment5
+
+2) Files "Table.java" is shared by all parts of the assignment.  See file "Vtag.java" for the source code specific to part 2.  My results:
+	Tagging accuracy: 94.15% (known: 96.86% novel: 66.08%)
+	Perplexity per tagged test word: 980.485
+
+3) See file "VtagEM.java" for the source code specific to part 3.  My results:
+	Tagging accuracy: 91.09% (known: 96.52% seen: 62.91% novel: 65.65%)
+	Perplexity per tagged test word: 1,191.933
+	Iteration 0: Perplexity per untagged raw word: 1,137.903
+	Tagging accuracy: 91.39% (known: 96.52% seen: 66.35% novel: 65.54%)
+	Perplexity per tagged test word: 1,118.803
+	Iteration 1: Perplexity per untagged raw word: 612.853
+	Tagging accuracy: 91.40% (known: 96.49% seen: 66.91% novel: 65.32%)
+	Perplexity per tagged test word: 1,090.435
+	Iteration 2: Perplexity per untagged raw word: 588.859
+	Tagging accuracy: 91.30% (known: 96.46% seen: 66.48% novel: 64.93%)
+	Perplexity per tagged test word: 1,075.128
+
+a.	We initialize a###(0) to 1 because a###(0) represents the total probability of all paths that start from state ### at time 0, which is all of them, so this total probability adds up to 1.  Similarly, we initialize b###(n) to 1 because b###(n) represents the total probability of all paths that end at state ### at time n, which is all of them, so this total probability also adds up to 1.
+
+b.	Perplexity per tagged test word (PPTTW) is higher than perplexity per untagged raw word (PPURW) because PPTTW is calculated from the probability of the test word sequence AND the probability of the tag sequence, whereas PPURW is just calculated from the probability of the raw word sequence.  We should be more concerned with PPTTW since we are building a word tagger, not a text generator or classifier (although, one could modify this program to be, say, a language ID program.  Suppose we want to be able to distinguish between english and spanish.  We build two sets of tags, one that maximizes probability of english training words, and one that maximizes probability of spanish training words.  Now, given a new document, we can classify it as either english or spanish depending on which set of tags yields a higher probability of generating that document).
+
+c.	The tagger should do its thing without any prior knowledge of the test data, even if it's just the number of word types in the test data.  Giving the tagger the number of test data word types can skew the tag-to-tag and tag-to-word probabilities, both of which factor in the number of word types.
+
+d.	EM helped the overall tagging accuracy, although it seems that there was little improvement after the first re-estimation pass.  While accuracy for seen words improved with successive iterations, accuracy for both known and novel words dropped with every iteration.
+
+e.	From the performance outputs, it's clear that EM significantly improves the tagger's ability to deal with words that only appeared in the raw corpus.  This is because every iteration of EM shifts the tagger's probability estimates to something that fits the raw corpus better.  The effects of this shift can be seen in the dramatic drop in perplexity over raw words from the first iteration (where EM is using probability estimates derived only from the training corpus) to the second iteration (where EM is using probability estimates that was modified by the first iteration to better fit the raw corpus).
+
+f1.	Reason 1 why EM didn't always help: As stated in part E, EM modifies the tagger's probability estimates to better fit the raw corpus.  What if the raw corpus is unlike the test corpus?  Then the tagger would get worse and worse in its performance on the test corpus.  As an extreme example, suppose that the training and test corpi were in English, but someone accidentally fed EM Spanish raw corpus.  Then with every iteration of EM, the tagger would presumably get better at fitting its probability estimates to the Spanish raw corpus, but do worse and worse on the actual English test corpus.
+
+f2.	Reason 2 why EM didn't always help: The tagger's original probability estimates were pretty well-fitted to the training corpus, since that's what they were derived from.  As EM shifts the probability estimates to better fit the raw corpus, the probability estimates become less fitted to the training corpus, and so the tagger does a worse job on the known words (words of the training corpus).  If the test corpus happens to contain more known words than seen words (words that appear only in the raw corpus), then the tagger will be hurt by every EM iteration.
+
+g.	The most icecream I have ever eaten in one day is one entire container of Ben and Jerry's.  I was programming, and had accidentally skipped a couple of meals that day.  So I picked up the icecream to keep myself going, and ate all of it without quite realizing what happened.  Fortunately, I didn't get sick or anything.
+
+4)	See files "Path.java", "Paths.java" and "Atag.java" for the source code specific to part 4.
+
+***	A little explanation:  Instead of pruning the tags during computation of u, a or B, I tried to improve tagging speed by implementing a rough copy of the A-star algorithm.  What my version of the A-star algorithm instead of considering all O(n * K^2) paths (n being total number of words, and K being the total number of tags) does is the following: 
+
+	1 - The algorithm begins by building all possible length 1 paths from the first word to the second word.  It pushes all of these paths into a locator-based heap.
+	2a - Pop the path with the highest probability estimate.
+	2b - If the newly popped path has reached the end, then we're done!
+	2c - If the newly popped path hasn't reached the end yet, extend this path by building all possible length 1 paths from its end, push the new paths into the heap, and go back to 2a.
+	
+***	What makes an A-star algorithm an A-star algorithm is how it estimates a path's probability.  Rather than just using paths' inside probabilities (how likely a path is up to where it is), A-star compares paths by combining their inside probabilities with an estimate of their outside probabilities (how likely a path is to continue from where it is all the way to the end).  Intuitively, this allows the algorithm to find a good path and keep extending it until it makes a very bad choice; if only inside probabilities are used in comparing paths, since short paths will always have higher probability than long paths, we will never extend any one path very far, even if it's a good one.
+
+***	Problems: Um, as you can see, it turns out that my A-star implementation didn't result in very much speedup at all during tagging.  Part of the problem is the increased processing time needed to compute values needed for figuring out an estimate of any path's outside probability.  In order to get an optimistic estimate, the algorithm needs to figure out for each word the probability of its best tag, and for each tag the probability of its best preceeding tag.  This takes O((K + n) * K) time in my implementation.  Another problem, a bigger one, is that Java does not have a locator-based heap class.  So I hacked one together using two TreeMap objects, one to keep the paths in sorted order according to probability estimate, and the other to keep track of a path's current best probability estimate (so that no redundant paths are added).  Adding and getting objects from TreeMaps take O(log(n)) time (as opposed to constant time for HashMaps, which I couldn't use because HashMaps don't support ordering), adding a considerable amount of overhead, which only gets worse as the number of tags increases (since more tags = lots more paths to keep track of).
+
+a.	Atag's accuracy and perplexity on the cz dataset:
+	Tagging accuracy: 47.43% (known: 92.66% novel: 2.83%)
+	Perplexity per tagged test word: 25,138.730
+
+b.	Tagging Speedup:
+			Vtag		Atag
+en Total time:		22 s		25 s
+en Process time:	5 s		10 s
+en Tag time:		17 s		15 s
+en Tag speedup: 11.76%
+
+cz Total time:		1015 s		1057 s
+cz Process time:	8 s		38 s
+cz Tag time:		1007 s		1019 s
+cz Tag speedup: -1.19%
+
+c.	No pruning is done, so the Atag's accuracy and perplexity exactly matches that of Vtag.
+
+d.	If we happen to have a morphological analyzer for Czech, we should definitely run all data through the analyzer first to transform words from their surface forms to lexical forms, and then do the processing such as tagging.

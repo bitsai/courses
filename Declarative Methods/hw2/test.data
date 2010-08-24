@@ -1,0 +1,686 @@
+rcps data_set version 1 3/13/95
+section1
+asm_1.step_001 00:30 0 1 1 0 0 0 0 0 0 1 0 0 0 0 0 0 0 
+asm_1.step_002 07:30 0 1 0 0 0 0 0 1 0 1 0 0 0 0 0 0 0 
+asm_1.step_003 07:30 0 0 1 0 0 0 1 0 1 0 0 0 0 0 1 0 0 
+asm_1.step_004 01:00 0 0 0 1 0 0 0 0 0 0 0 0 0 1 0 0 0 
+asm_1.step_005 07:30 1 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 
+asm_1.step_051 04:00 0 0 0 1 0 0 0 0 0 0 0 0 0 1 0 0 0 
+asm_1.step_112 01:00 1 0 1 0 0 0 0 0 0 1 0 0 0 0 0 0 0 
+asm_1.step_194 07:30 0 1 0 0 0 0 0 1 0 1 0 0 0 0 0 0 0 
+asm_1.step_280 07:30 1 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 
+asm_1.step_388 07:30 0 0 1 0 1 0 0 0 0 0 0 0 0 0 1 0 0 
+
+section2
+asm_1.step_001 asm_1.step_112
+asm_1.step_002 asm_1.step_194
+asm_1.step_003 asm_1.step_388
+asm_1.step_004 asm_1.step_051
+asm_1.step_005 asm_1.step_280
+
+section3
+asm_1.step_001 25/2+00:39
+asm_1.step_002 17/1+00:12
+asm_1.step_003 17/2+00:00
+asm_1.step_004 6/1+02:01
+asm_1.step_005 31/1+07:08
+asm_1.step_006 26/1+04:55
+asm_1.step_007 42/2+00:00
+asm_1.step_008 33/2+00:00
+asm_1.step_009 29/1+04:13
+asm_1.step_010 24/2+01:54
+asm_1.step_011 20/2+05:55
+asm_1.step_012 2/2+05:38
+asm_1.step_013 29/2+04:13
+asm_1.step_014 12/2+01:04
+asm_1.step_015 11/1+00:00
+asm_1.step_016 18/1+00:12
+asm_1.step_017 14/1+07:25
+asm_1.step_018 14/1+00:00
+asm_1.step_019 4/2+06:18
+asm_1.step_020 42/2+04:00
+asm_1.step_021 15/2+00:00
+asm_1.step_022 5/1+02:25
+asm_1.step_023 5/1+02:25
+asm_1.step_024 21/1+04:00
+asm_1.step_025 1/1+01:30
+asm_1.step_026 6/1+00:00
+asm_1.step_027 9/1+02:30
+asm_1.step_028 49/1+01:30
+asm_1.step_029 5/1+02:43
+asm_1.step_030 18/1+00:00
+asm_1.step_031 40/1+00:00
+asm_1.step_032 24/2+01:54
+asm_1.step_033 42/2+00:00
+asm_1.step_034 8/2+06:25
+asm_1.step_035 12/1+05:04
+asm_1.step_036 21/2+04:00
+asm_1.step_037 4/2+06:18
+asm_1.step_038 18/2+04:12
+asm_1.step_039 9/1+04:18
+asm_1.step_040 19/1+06:00
+asm_1.step_041 25/1+00:00
+asm_1.step_042 43/1+00:00
+asm_1.step_043 43/1+00:00
+asm_1.step_044 5/1+01:58
+asm_1.step_045 13/1+00:34
+asm_1.step_046 26/1+05:10
+asm_1.step_047 2/2+03:43
+asm_1.step_048 1/2+04:38
+asm_1.step_049 28/2+01:39
+asm_1.step_050 12/1+02:14
+asm_1.step_051 9/1+00:00
+asm_1.step_052 46/2+02:30
+asm_1.step_053 12/1+05:04
+asm_1.step_054 8/1+00:51
+asm_1.step_055 42/2+04:00
+asm_1.step_056 37/2+00:00
+asm_1.step_057 4/1+00:00
+asm_1.step_058 6/1+01:23
+asm_1.step_059 8/2+00:18
+asm_1.step_060 43/2+05:45
+asm_1.step_061 49/1+02:30
+asm_1.step_062 7/2+00:18
+asm_1.step_063 22/1+05:55
+asm_1.step_064 45/1+00:00
+asm_1.step_065 12/1+00:00
+asm_1.step_066 9/1+00:00
+asm_1.step_067 10/1+02:18
+asm_1.step_068 19/1+00:00
+asm_1.step_069 25/1+07:09
+asm_1.step_070 25/1+01:24
+asm_1.step_071 25/1+01:54
+asm_1.step_072 20/2+04:00
+asm_1.step_073 23/1+00:00
+asm_1.step_074 43/1+00:15
+asm_1.step_075 3/1+04:18
+asm_1.step_076 43/1+02:25
+asm_1.step_077 9/1+01:46
+asm_1.step_078 16/2+00:00
+asm_1.step_079 21/2+00:00
+asm_1.step_080 25/1+03:49
+asm_1.step_081 15/1+02:37
+asm_1.step_082 32/1+02:25
+asm_1.step_083 41/1+00:00
+asm_1.step_084 11/1+04:33
+asm_1.step_085 32/2+03:10
+asm_1.step_086 5/1+03:58
+asm_1.step_087 20/1+00:00
+asm_1.step_088 21/2+05:55
+asm_1.step_089 1/2+01:13
+asm_1.step_090 7/2+07:21
+asm_1.step_091 16/1+00:15
+asm_1.step_092 2/1+00:28
+asm_1.step_093 22/1+04:00
+asm_1.step_094 12/1+06:34
+asm_1.step_095 12/1+05:34
+asm_1.step_096 9/1+06:55
+asm_1.step_097 3/1+05:18
+asm_1.step_098 37/1+00:00
+asm_1.step_099 7/1+00:00
+asm_1.step_100 40/1+04:30
+asm_1.step_101 22/1+06:25
+asm_1.step_102 16/1+00:00
+asm_1.step_103 13/2+00:00
+asm_1.step_104 46/1+06:33
+asm_1.step_105 18/1+02:25
+asm_1.step_106 2/1+04:38
+asm_1.step_107 9/2+04:18
+asm_1.step_108 10/1+01:00
+asm_1.step_109 1/2+05:13
+asm_1.step_110 5/2+07:23
+asm_1.step_111 49/1+06:33
+asm_1.step_112 26/1+00:00
+asm_1.step_113 30/1+03:08
+asm_1.step_114 12/1+00:00
+asm_1.step_115 42/2+05:45
+asm_1.step_116 15/1+00:12
+asm_1.step_117 20/1+05:55
+asm_1.step_118 33/2+05:00
+asm_1.step_119 38/1+00:00
+asm_1.step_120 32/1+00:00
+asm_1.step_121 10/1+06:25
+asm_1.step_122 19/2+06:00
+asm_1.step_123 21/1+05:55
+asm_1.step_124 33/2+05:00
+asm_1.step_125 19/2+05:55
+asm_1.step_126 4/2+07:15
+asm_1.step_127 11/1+01:33
+asm_1.step_128 48/2+07:00
+asm_1.step_129 32/1+00:00
+asm_1.step_130 26/1+00:39
+asm_1.step_131 5/2+04:40
+asm_1.step_132 27/1+00:39
+asm_1.step_133 36/2+00:00
+asm_1.step_134 44/1+00:40
+asm_1.step_135 12/1+01:04
+asm_1.step_136 7/2+02:40
+asm_1.step_137 32/1+02:25
+asm_1.step_138 11/1+04:08
+asm_1.step_139 1/2+02:13
+asm_1.step_140 22/1+06:25
+asm_1.step_141 12/1+00:30
+asm_1.step_142 17/1+00:00
+asm_1.step_143 10/2+00:48
+asm_1.step_144 5/1+06:10
+asm_1.step_145 2/1+05:13
+asm_1.step_146 32/1+02:25
+asm_1.step_147 42/2+05:00
+asm_1.step_148 10/1+06:25
+asm_1.step_149 20/2+00:45
+asm_1.step_150 24/1+01:18
+asm_1.step_151 24/1+00:00
+asm_1.step_152 44/2+00:40
+asm_1.step_153 19/1+01:00
+asm_1.step_154 5/1+03:13
+asm_1.step_155 26/1+01:09
+asm_1.step_156 26/1+00:39
+asm_1.step_157 23/1+00:18
+asm_1.step_158 19/1+01:42
+asm_1.step_159 18/1+00:12
+asm_1.step_160 26/1+01:00
+asm_1.step_161 5/1+00:40
+asm_1.step_162 11/1+06:34
+asm_1.step_163 10/1+00:00
+asm_1.step_164 26/2+00:39
+asm_1.step_165 31/2+07:08
+asm_1.step_166 44/1+00:00
+asm_1.step_167 43/1+03:00
+asm_1.step_168 16/2+04:00
+asm_1.step_169 4/1+07:15
+asm_1.step_170 23/1+01:18
+asm_1.step_171 20/2+03:30
+asm_1.step_172 5/1+03:25
+asm_1.step_173 43/2+05:45
+asm_1.step_174 44/2+06:13
+asm_1.step_175 8/1+02:10
+asm_1.step_176 10/2+00:30
+asm_1.step_177 33/2+04:00
+asm_1.step_178 26/1+02:30
+asm_1.step_179 46/1+02:30
+asm_1.step_180 5/1+06:10
+asm_1.step_181 15/1+00:00
+asm_1.step_182 19/1+01:25
+asm_1.step_183 8/2+00:00
+asm_1.step_184 23/2+01:18
+asm_1.step_185 23/1+01:18
+asm_1.step_186 33/2+06:12
+asm_1.step_187 43/1+02:40
+asm_1.step_188 13/2+05:24
+asm_1.step_189 26/1+00:22
+asm_1.step_190 45/1+06:30
+asm_1.step_191 9/2+04:25
+asm_1.step_192 38/2+00:00
+asm_1.step_193 49/2+03:18
+asm_1.step_194 17/2+00:12
+asm_1.step_195 31/2+00:00
+asm_1.step_196 3/1+00:18
+asm_1.step_197 27/2+00:39
+asm_1.step_198 19/1+01:42
+asm_1.step_199 6/2+02:10
+asm_1.step_200 3/1+03:48
+asm_1.step_201 12/1+06:04
+asm_1.step_202 28/2+00:39
+asm_1.step_203 18/2+00:12
+asm_1.step_204 18/1+00:00
+asm_1.step_205 1/2+01:13
+asm_1.step_206 41/2+00:00
+asm_1.step_207 6/1+06:46
+asm_1.step_208 15/2+00:00
+asm_1.step_209 25/2+01:09
+asm_1.step_210 6/2+00:01
+asm_1.step_211 3/2+03:48
+asm_1.step_212 13/1+02:59
+asm_1.step_213 25/2+00:39
+asm_1.step_214 19/1+01:00
+asm_1.step_215 22/2+05:55
+asm_1.step_216 29/2+07:13
+asm_1.step_217 4/2+02:18
+asm_1.step_218 19/1+02:00
+asm_1.step_219 7/2+00:55
+asm_1.step_220 27/1+00:00
+asm_1.step_221 24/1+00:00
+asm_1.step_222 43/1+04:37
+asm_1.step_223 28/2+00:39
+asm_1.step_224 3/1+05:18
+asm_1.step_225 4/1+02:18
+asm_1.step_226 12/2+05:54
+asm_1.step_227 14/2+00:00
+asm_1.step_228 1/1+01:00
+asm_1.step_229 3/2+03:18
+asm_1.step_230 10/2+05:30
+asm_1.step_231 8/2+07:15
+asm_1.step_232 16/1+04:00
+asm_1.step_233 23/1+01:00
+asm_1.step_234 6/1+00:18
+asm_1.step_235 8/1+00:18
+asm_1.step_236 11/2+01:05
+asm_1.step_237 30/1+00:43
+asm_1.step_238 3/1+06:35
+asm_1.step_239 9/1+00:18
+asm_1.step_240 42/2+05:00
+asm_1.step_241 42/2+06:45
+asm_1.step_242 44/2+00:00
+asm_1.step_243 33/2+06:00
+asm_1.step_244 12/1+05:59
+asm_1.step_245 43/1+06:45
+asm_1.step_246 44/2+02:10
+asm_1.step_247 1/2+01:13
+asm_1.step_248 6/2+04:03
+asm_1.step_249 8/1+02:10
+asm_1.step_250 15/1+00:12
+asm_1.step_251 18/2+00:12
+asm_1.step_252 40/1+00:30
+asm_1.step_253 1/1+02:00
+asm_1.step_254 4/1+03:27
+asm_1.step_255 11/1+04:08
+asm_1.step_256 19/2+01:55
+asm_1.step_257 28/1+00:00
+asm_1.step_258 11/1+04:08
+asm_1.step_259 6/2+02:25
+asm_1.step_260 3/1+04:48
+asm_1.step_261 15/1+00:00
+asm_1.step_262 13/1+02:59
+asm_1.step_263 10/2+05:38
+asm_1.step_264 15/2+00:12
+asm_1.step_265 19/1+02:42
+asm_1.step_266 10/1+00:00
+asm_1.step_267 33/2+06:30
+asm_1.step_268 49/1+00:30
+asm_1.step_269 47/2+02:30
+asm_1.step_270 12/1+01:04
+asm_1.step_271 4/1+07:15
+asm_1.step_272 5/2+04:58
+asm_1.step_273 45/1+03:33
+asm_1.step_274 10/1+01:18
+asm_1.step_275 10/1+02:55
+asm_1.step_276 10/2+06:38
+asm_1.step_277 23/2+01:18
+asm_1.step_278 31/1+00:00
+asm_1.step_279 9/1+00:18
+asm_1.step_280 32/1+07:08
+asm_1.step_281 25/2+00:24
+asm_1.step_282 49/1+06:48
+asm_1.step_283 13/1+00:00
+asm_1.step_284 8/2+06:50
+asm_1.step_285 8/2+01:15
+asm_1.step_286 29/2+05:42
+asm_1.step_287 23/1+01:24
+asm_1.step_288 3/1+00:18
+asm_1.step_289 13/1+00:00
+asm_1.step_290 27/2+00:00
+asm_1.step_291 4/2+03:15
+asm_1.step_292 47/1+02:30
+asm_1.step_293 10/1+04:00
+asm_1.step_294 21/2+04:00
+asm_1.step_295 2/1+03:28
+asm_1.step_296 11/1+06:09
+asm_1.step_297 15/1+03:37
+asm_1.step_298 6/1+02:25
+asm_1.step_299 45/1+01:08
+asm_1.step_300 10/1+04:00
+asm_1.step_301 28/1+00:00
+asm_1.step_302 12/1+01:04
+asm_1.step_303 2/2+04:23
+asm_1.step_304 3/2+00:18
+asm_1.step_305 33/2+06:42
+asm_1.step_306 7/2+05:40
+asm_1.step_307 22/1+00:00
+asm_1.step_308 2/2+05:08
+asm_1.step_309 12/2+00:34
+asm_1.step_310 47/2+03:00
+asm_1.step_311 3/2+02:18
+asm_1.step_312 4/1+07:15
+asm_1.step_313 13/2+07:25
+asm_1.step_314 1/2+02:13
+asm_1.step_315 35/1+00:00
+asm_1.step_316 5/1+06:48
+asm_1.step_317 22/2+00:00
+asm_1.step_318 10/2+02:55
+asm_1.step_319 6/1+02:10
+asm_1.step_320 7/1+02:10
+asm_1.step_321 44/1+00:00
+asm_1.step_322 32/1+03:10
+asm_1.step_323 13/2+00:00
+asm_1.step_324 13/1+03:29
+asm_1.step_325 28/2+01:39
+asm_1.step_326 33/1+00:00
+asm_1.step_327 28/2+05:39
+asm_1.step_328 5/1+00:00
+asm_1.step_329 2/1+00:00
+asm_1.step_330 11/1+04:08
+asm_1.step_331 8/1+06:20
+asm_1.step_332 14/2+00:00
+asm_1.step_333 16/2+03:05
+asm_1.step_334 3/1+00:00
+asm_1.step_335 42/1+00:00
+asm_1.step_336 11/2+04:08
+asm_1.step_337 11/1+03:08
+asm_1.step_338 5/1+02:28
+asm_1.step_339 6/2+04:49
+asm_1.step_340 1/2+01:13
+asm_1.step_341 12/2+03:29
+asm_1.step_342 18/2+05:12
+asm_1.step_343 9/2+00:00
+asm_1.step_344 3/1+04:18
+asm_1.step_345 16/1+03:15
+asm_1.step_346 5/1+04:58
+asm_1.step_347 15/1+00:00
+asm_1.step_348 17/1+00:00
+asm_1.step_349 49/2+01:48
+asm_1.step_350 11/1+01:33
+asm_1.step_351 29/1+00:10
+asm_1.step_352 4/2+02:45
+asm_1.step_353 3/1+00:00
+asm_1.step_354 14/2+00:12
+asm_1.step_355 20/2+07:05
+asm_1.step_356 3/1+04:18
+asm_1.step_357 12/1+03:34
+asm_1.step_358 4/2+06:48
+asm_1.step_359 34/1+02:25
+asm_1.step_360 4/1+00:00
+asm_1.step_361 30/2+07:08
+asm_1.step_362 2/2+05:13
+asm_1.step_363 8/2+02:50
+asm_1.step_364 18/1+06:25
+asm_1.step_365 14/2+00:12
+asm_1.step_366 1/1+00:00
+asm_1.step_367 36/1+00:00
+asm_1.step_368 1/2+05:13
+asm_1.step_369 3/2+03:36
+asm_1.step_370 25/1+06:24
+asm_1.step_371 7/2+00:55
+asm_1.step_372 8/1+00:00
+asm_1.step_373 25/1+05:24
+asm_1.step_374 18/1+03:25
+asm_1.step_375 18/1+05:26
+asm_1.step_376 26/2+00:39
+asm_1.step_377 9/1+07:25
+asm_1.step_378 1/1+02:18
+asm_1.step_379 15/2+00:00
+asm_1.step_380 2/2+05:30
+asm_1.step_381 19/1+04:55
+asm_1.step_382 6/2+06:10
+asm_1.step_383 1/1+02:00
+asm_1.step_384 20/2+05:35
+asm_1.step_385 5/1+00:00
+asm_1.step_386 1/1+04:43
+asm_1.step_387 8/1+00:00
+asm_1.step_388 19/1+02:42
+asm_1.step_389 34/1+06:55
+asm_1.step_390 1/2+07:13
+asm_1.step_391 18/2+04:55
+asm_1.step_392 45/2+02:30
+asm_1.step_393 1/1+00:00
+asm_1.step_394 16/1+06:05
+asm_1.step_395 12/2+05:04
+asm_1.step_396 9/1+06:30
+asm_1.step_397 7/1+00:18
+asm_1.step_398 2/2+06:48
+asm_1.step_399 32/2+04:40
+asm_1.step_400 24/2+01:24
+asm_1.step_401 10/2+06:38
+asm_1.step_402 18/2+00:57
+asm_1.step_403 7/1+00:03
+asm_1.step_404 14/1+00:00
+asm_1.step_405 22/1+00:00
+asm_1.step_406 17/1+00:12
+asm_1.step_407 32/1+02:25
+asm_1.step_408 48/2+03:00
+asm_1.step_409 19/1+00:00
+asm_1.step_410 20/2+06:35
+asm_1.step_411 6/1+00:40
+asm_1.step_412 3/1+05:48
+asm_1.step_413 10/2+03:13
+asm_1.step_414 8/2+00:18
+asm_1.step_415 16/1+00:00
+asm_1.step_416 2/2+00:23
+asm_1.step_417 40/2+02:03
+asm_1.step_418 1/1+05:43
+asm_1.step_419 25/1+05:54
+asm_1.step_420 13/2+00:00
+asm_1.step_421 4/2+03:51
+asm_1.step_422 6/1+03:01
+asm_1.step_423 28/2+05:42
+asm_1.step_424 45/1+03:30
+asm_1.step_425 20/1+07:00
+asm_1.step_426 25/1+06:09
+asm_1.step_427 3/2+04:51
+asm_1.step_428 9/1+07:25
+asm_1.step_429 21/1+00:00
+asm_1.step_430 1/2+02:13
+asm_1.step_431 40/2+01:03
+asm_1.step_432 32/1+05:55
+asm_1.step_433 12/1+02:34
+asm_1.step_434 4/2+05:10
+asm_1.step_435 28/1+00:39
+asm_1.step_436 5/1+01:13
+asm_1.step_437 17/2+00:12
+asm_1.step_438 42/2+06:00
+asm_1.step_439 34/1+00:00
+asm_1.step_440 2/2+01:13
+asm_1.step_441 6/2+00:46
+asm_1.step_442 33/2+00:00
+asm_1.step_443 5/1+00:40
+asm_1.step_444 3/1+00:18
+asm_1.step_445 24/2+01:24
+asm_1.step_446 2/2+04:23
+asm_1.step_447 8/1+03:55
+asm_1.step_448 30/1+05:42
+asm_1.step_449 2/1+04:28
+asm_1.step_450 2/2+02:53
+asm_1.step_451 25/2+00:22
+asm_1.step_452 35/2+00:00
+asm_1.step_453 7/2+03:55
+asm_1.step_454 1/2+01:13
+asm_1.step_455 3/2+02:29
+asm_1.step_456 5/1+01:28
+asm_1.step_457 3/2+05:18
+asm_1.step_458 15/1+00:00
+asm_1.step_459 33/2+07:27
+asm_1.step_460 11/2+02:38
+asm_1.step_461 7/1+06:35
+asm_1.step_462 6/1+00:00
+asm_1.step_463 21/1+00:00
+asm_1.step_464 2/1+05:28
+asm_1.step_465 12/2+01:04
+asm_1.step_466 6/2+00:18
+asm_1.step_467 11/1+06:34
+asm_1.step_468 5/2+02:10
+asm_1.step_469 13/1+00:00
+asm_1.step_470 18/1+02:25
+asm_1.step_471 10/1+02:55
+asm_1.step_472 18/1+03:25
+asm_1.step_473 7/1+02:25
+asm_1.step_474 2/1+03:28
+asm_1.step_475 39/2+00:00
+asm_1.step_476 2/2+06:48
+asm_1.step_477 2/1+01:43
+asm_1.step_478 16/1+00:00
+asm_1.step_479 5/1+03:58
+asm_1.step_480 1/2+01:13
+asm_1.step_481 2/1+01:18
+asm_1.step_482 16/1+00:12
+asm_1.step_483 9/1+00:00
+asm_1.step_484 3/2+04:06
+asm_1.step_485 23/2+01:24
+asm_1.step_486 7/1+00:48
+asm_1.step_487 6/1+06:10
+asm_1.step_488 18/2+04:55
+asm_1.step_489 14/1+00:00
+asm_1.step_490 46/2+00:33
+asm_1.step_491 3/1+01:43
+asm_1.step_492 11/2+05:14
+asm_1.step_493 20/1+00:00
+asm_1.step_494 19/1+03:25
+asm_1.step_495 14/1+00:12
+asm_1.step_496 5/1+03:25
+asm_1.step_497 24/1+01:24
+asm_1.step_498 10/2+05:38
+asm_1.step_499 20/1+07:00
+asm_1.step_500 2/1+03:43
+asm_1.step_501 12/1+06:23
+asm_1.step_502 11/1+03:33
+asm_1.step_503 5/1+00:00
+asm_1.step_504 3/1+00:00
+asm_1.step_505 9/1+02:55
+asm_1.step_506 16/2+06:25
+asm_1.step_507 2/1+01:13
+asm_1.step_508 11/1+03:08
+asm_1.step_509 5/2+02:25
+asm_1.step_510 6/2+00:00
+asm_1.step_511 27/1+00:00
+asm_1.step_512 23/1+00:00
+asm_1.step_513 14/1+00:00
+asm_1.step_514 4/1+00:00
+asm_1.step_515 47/1+00:33
+asm_1.step_516 13/2+00:12
+asm_1.step_517 7/1+00:00
+asm_1.step_518 46/1+02:30
+asm_1.step_519 5/1+02:10
+asm_1.step_520 1/1+00:00
+asm_1.step_521 15/1+06:02
+asm_1.step_522 13/1+05:24
+asm_1.step_523 47/1+05:03
+asm_1.step_524 20/1+06:00
+asm_1.step_525 12/1+05:59
+asm_1.step_526 11/2+06:09
+asm_1.step_527 5/2+06:10
+asm_1.step_528 7/1+02:25
+asm_1.step_529 3/2+05:40
+asm_1.step_530 20/2+00:00
+asm_1.step_531 10/1+00:00
+asm_1.step_532 4/2+02:18
+asm_1.step_533 7/2+02:10
+asm_1.step_534 29/1+05:42
+asm_1.step_535 13/1+03:29
+asm_1.step_536 7/2+02:40
+asm_1.step_537 10/1+04:15
+asm_1.step_538 2/2+05:13
+asm_1.step_539 16/1+00:00
+asm_1.step_540 25/1+05:39
+asm_1.step_541 9/2+04:25
+asm_1.step_542 13/1+03:29
+asm_1.step_543 2/1+00:00
+asm_1.step_544 5/2+06:48
+asm_1.step_545 14/1+00:00
+asm_1.step_546 20/2+03:10
+asm_1.step_547 46/2+00:33
+asm_1.step_548 1/2+03:13
+asm_1.step_549 30/2+03:08
+asm_1.step_550 3/1+03:48
+asm_1.step_551 10/2+06:38
+asm_1.step_552 4/1+07:21
+asm_1.step_553 11/2+06:09
+asm_1.step_554 47/2+02:30
+asm_1.step_555 8/2+04:00
+asm_1.step_556 7/2+06:40
+asm_1.step_557 23/1+01:24
+asm_1.step_558 25/1+01:54
+asm_1.step_559 39/1+00:00
+asm_1.step_560 2/1+03:35
+asm_1.step_561 11/1+02:33
+asm_1.step_562 41/2+00:00
+asm_1.step_563 16/1+00:00
+asm_1.step_564 48/1+03:00
+asm_1.step_565 8/2+04:00
+asm_1.step_566 21/1+00:00
+asm_1.step_567 43/1+05:45
+asm_1.step_568 9/1+04:18
+asm_1.step_569 12/1+02:04
+asm_1.step_570 12/1+02:19
+asm_1.step_571 16/2+00:12
+asm_1.step_572 26/1+02:00
+asm_1.step_573 4/1+04:45
+asm_1.step_574 9/2+05:35
+asm_1.step_575 3/2+04:51
+
+section4
+
+Miscellaneous Data
+
+Assembly Zone Maximum Occupancy
+Zone.Za 2
+Zone.Zb 1
+Zone.Zc 1
+Zone.Zd 2
+Zone.Ze 1
+Zone.Zf 2
+Zone.Zg 1
+Zone.Zh 2
+Zone.Zi 5
+Zone.Zj 2
+Zone.Zk 1
+Zone.Zl 4
+Zone.Zm 3
+
+Initial Labor Availability by Shift 
+Labor.Px 2 1
+Labor.Py 3 1
+Labor.Pz 2 2
+Labor.Pw 3 2
+
+Problem 5 - New Activity Data
+new.step_001 03:30 0 0 2 0 1 0 0 0 0 0 0 0 1 0 0 0 0
+new.step_002 01:00 0 0 1 0 0 0 0 0 1 0 0 0 0 0 0 0 0 
+new.step_003 02:30 1 0 0 1 0 0 0 0 0 0 0 1 0 0 0 0 0 
+new.step_004 01:30 0 1 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 
+new.step_005 00:30 0 0 0 2 0 1 0 0 0 0 1 0 0 0 0 0 0 
+new.step_006 01:15 0 0 1 1 0 0 0 0 0 0 1 0 1 0 0 0 0 
+new.step_007 03:05 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 
+new.step_008 06:25 0 0 1 0 0 1 0 0 0 0 0 0 0 0 0 0 0 
+new.step_009 00:10 0 0 0 1 0 0 1 0 0 0 0 0 0 0 0 0 0 
+new.step_010 03:20 0 1 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0
+asm_1.step_394 new.step_001
+new.step_001  new.step_002 
+new.step_001  new.step_003
+new.step_002  new.step_006
+new.step_003  new.step_004
+new.step_003  new.step_005
+new.step_004  new.step_007
+new.step_004  new.step_009
+new.step_005  new.step_007
+new.step_006  new.step_008
+new.step_007  new.step_008
+new.step_008  new.step_010
+new.step_009  new.step_010 
+new.step_010  asm_1.step_518
+
+Problem 7 - Step/Status
+asm_1.step_393 completed as scheduled
+asm_1.step_366 completed as scheduled
+asm_1.step_520 completed as scheduled
+asm_1.step_228 delayed until after 3/1+00:00
+asm_1.step_025 completed as scheduled
+asm_1.step_383 completed as scheduled
+asm_1.step_253 delayed until after 3/1+00:00
+asm_1.step_378 completed as scheduled
+asm_1.step_386 completed as scheduled
+asm_1.step_418 completed as scheduled
+asm_1.step_247 completed as scheduled
+asm_1.step_480 not started, must be rescheduled
+asm_1.step_089 completed as scheduled
+asm_1.step_205 not started, must be rescheduled
+asm_1.step_454 not started, must be rescheduled
+asm_1.step_340 started at 1/2+05:00, will run normal duration
+asm_1.step_430 started as scheduled, expected to finish at 2/1+03:30
+asm_1.step_314 not started, must be rescheduled
+asm_1.step_139 not started, must be rescheduled
+asm_1.step_548 started as scheduled, expected to finish at 2/2+00:00
+asm_1.step_048 planned to start at 2/1+00:00
+asm_1.step_109 planned to start at 2/2+00:00
+asm_1.step_368 delsayed until after 3/1+00:00
+asm_1.step_390 delayed until after 3/1+00:00
+
+Problem 9 - Revised Labor Availability by Shift
+Labor.Px 2 0
+Labor.Py 3 0
+Labor.Pz 2 1
+Labor.Pw 3 1
+
+Problem 12 - Revised Labor Availability by Shift
+Labor.Px 5 2
+Labor.Py 4 2
+Labor.Pz 3 1
+Labor.Pw 5 3
+

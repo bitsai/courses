@@ -1,0 +1,234 @@
+use strict;
+my %rules = ();
+my ($grammar, $num_output);
+
+# Rules are stored as a hash of array of strings.  Hash keys are LHS symbols.
+# Each array stores strings of the format:
+# <Frequency of a rule> <RHS side of a rule>
+
+# Read in lines from grammar file.
+# Process a line as a rule only if it has the proper format.
+# Next, generate the requested number of sentences or trees.
+
+if (scalar @ARGV == 3 and $ARGV[0] eq "-t")
+{
+	$grammar = $ARGV[1];
+	$num_output = $ARGV[2];
+	open(GRAMMAR, $grammar);
+	open(OUTPUT, ">output.txt");
+
+	while(<GRAMMAR>) { if ($_ =~ /^([\.0-9]+)\s([^\s()]+)\s(.+)/) { &process_rule($_); }; }
+
+	for (my $count = 1; $count <= $num_output; $count++)
+	{
+		my $output = "TREE $count\n".&make_tree."\n";
+		print $output;
+		print (OUTPUT $output);
+	}
+}
+else
+{
+	$grammar = $ARGV[0];
+	$num_output = $ARGV[1];
+	open(GRAMMAR, $grammar);
+	open(OUTPUT, ">output.txt");
+
+	while(<GRAMMAR>) { if ($_ =~ /^([\.0-9]+)\s([^\s()]+)\s(.+)/) { &process_rule($_); }; }
+
+	for (my $count = 1; $count <= $num_output; $count++)
+	{
+		my $output = "SENTENCE $count\n".&make_sentence."\n";
+		print $output;
+		print (OUTPUT $output);
+	}
+}
+
+close(GRAMMAR);
+close(OUTPUT);
+
+sub process_rule
+{
+	my $input = shift;
+	my $grammar = &uncomment($input);			# Get rid of comments.
+	$grammar =~ /^([0-9]+)\s([^\s()]+)\s(.+)/;	# Pull out the frequency, LHS symbol, and RHS stuff.
+
+	my $frequency = $1;
+	my $LHS = $2;
+	my $RHS = $3;
+
+	# If the current rule is the first for this LHS symbol, simply add it.
+	# If it's not the first rule, modify the frequency.
+
+	if (scalar $rules{$LHS} == 0)
+	{ push (@{$rules{$LHS}}, $frequency." ".$RHS); }
+	else
+	{
+		my @rules = @{$rules{$LHS}};
+		my $last_rule = $rules[$#rules];
+		$last_rule =~ /([0-9]+).+/;
+		my $last_total = $1;
+
+		$frequency = $frequency + $last_total;
+		push (@{$rules{$LHS}}, $frequency." ".$RHS);
+	}
+}
+
+sub uncomment
+{
+	# Look for the "#" symbol in a line.
+	# If "#" is found, return only the portion of the string before that point.
+
+	my $input = shift;
+	my $index = index($input, "#");
+
+	if ($index == -1) { return $input; }
+	else { return substr($input, 0, $index); }
+}
+
+sub make_sentence
+{
+	my $sentence;
+	@{$sentence} = ("ROOT");
+
+	# Sentences are arrays of words/symbols.
+	# Keep scanning for expandable symbols in a sentence.
+	# If found, expand a symbol by choosing one of its rules, retrieving that rule's RHS stuff.
+	# And splice in the stuff at the symbol's position in the sentence array.
+
+	while (&is_expandable($sentence))
+	{
+		for(my $count = 0; $count < scalar @{$sentence}; $count++)
+		{
+			my $word = $$sentence[$count];
+			if ($rules{$word}) { splice(@{$sentence}, $count, 1, &replace($word)); }
+		}
+	}
+
+	my $result = join(" ", @{$sentence});
+	return $result;
+}
+
+sub make_tree
+{
+	my $tree;
+	@{$tree} = ("1	ROOT");
+
+	# Trees are arrays of strings, which are composed of words/symbols.
+	# Each string is a branch of the tree, height of the branch being the first symbol.
+	# To expand a tree, we read in a line/branch, then break it up into an array of symbols.
+	# Check only the very last symbol to see if it is expandable.
+	# If it is, find its replacement symbols, splicing in new lines/branches as necessary.
+	# Do some tricky math stuff to get the spacing and parentheses right.
+
+	while (&is_expandable_tree($tree))
+	{
+		for(my $count1 = 0; $count1 < scalar @{$tree}; $count1++)
+		{
+			my $line = $$tree[$count1];
+			my @line = split(/\s+/, $line);
+			my $height = $line[0];
+
+			$line[$#line] =~ /([^()]+)([)]*)/;
+			my $last_symbol = $1;
+			my $right_parentheses = $2;
+
+			if ($rules{$last_symbol}) 
+			{
+				my $depth = $height + scalar @line - 1;
+				my @replacements = &replace($last_symbol);
+				$replacements[$#replacements] = $replacements[$#replacements].")".$right_parentheses;
+
+				shift @line;
+				$line[$#line] = "(".$last_symbol;
+				$line = join("\t", @line);
+
+				for (my $count2 = 0; $count2 < $height; $count2++)
+				{ $line = "\t".$line; }
+
+				$line = $height." ".$line;
+				$replacements[0] = $line."\t".$replacements[0];
+
+				for (my $count2 = 1; $count2 < scalar @replacements; $count2++)
+				{
+					for (my $count3 = 0; $count3 < $depth; $count3++)
+					{ $replacements[$count2] = "\t".$replacements[$count2]; }
+					$replacements[$count2] = $depth." ".$replacements[$count2];
+				}
+
+				splice (@{$tree}, $count1, 1, @replacements);
+			}
+		}
+	}
+
+	# Clean up the lines for output.
+	# Meaning we strip away the branch height marker at the beginning of every line.
+
+	for (my $count = 0; $count < scalar @{$tree}; $count++)
+	{
+		$$tree[$count] =~ /^[0-9]+\s\s(.+)/;
+		$$tree[$count] = $1;
+	}
+
+	my $result = join("\n", @{$tree});
+	return $result;
+}
+
+sub is_expandable
+{
+	my $sentence = shift;
+
+	# Process each word/symbol in the sentence.
+	# If a rule exists for a word/symbol, sentence can be expanded.
+
+	foreach my $word (@{$sentence})
+	{ if ($rules{$word}) { return 1; } }
+
+	return 0;
+}
+
+sub is_expandable_tree
+{
+	my $tree = shift;
+
+	foreach my $line (@{$tree})
+	{
+		my @line = split(/\s+/, $line);
+		$line[$#line] =~ /([^()]+)/;
+		if ($rules{$1}) { return 1; } 
+	}
+
+	return 0;
+}
+
+sub replace
+{
+	my $LHS = shift;
+
+	# So this is a bit complicated, because we have to deal with non-integer frequencies.
+	# Suppose we have 2 equally likely rules for a LHS symbol, each with frequency 3.14.
+	# When the first one is stored, it's stored with simply frequency 3.14.
+	# The second retrieves the last frequency count, and adds it to its own frequency.
+	# So we now have rule 1 with "frequency" 3.14, and rule 2 with "frequency" 6.28.
+	# When deciding between these two rules, we retrieve the last frequency count,
+	# which we can now set as the max on the range of the random number to be generated.
+	# We then generate a random number, x, in this range (0 to 6.28).
+	# If x < 3.14, we choose rule 1.  If x >= 3.14 and < 6.28, we choose rule 2.  Since we used 6.28
+	# as the max on the range, x cannot exceed 6.28.
+
+	my @rules = @{$rules{$LHS}};
+	my $last_rule = $rules[$#rules];
+	$last_rule =~ /([\.0-9]+)\s.+/;
+	my $max = $1;
+
+	my $num = rand($max);
+
+	foreach my $rule (@rules)
+	{
+		$rule =~ /([\.0-9]+)\s(.+)/;
+		my $frequency = $1;
+		my $RHS = $2;
+		if ($frequency > $num) { return split(/\s/, $RHS); }
+	}
+
+	return $LHS;
+}

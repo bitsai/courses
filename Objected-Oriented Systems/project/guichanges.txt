@@ -1,0 +1,59 @@
++- GUI status box should not be editable
+
++- put in default "Set Movement Mode label" for movement mode button if there isn't a mode chosen yet
+
++- put in "Turn Mech" label for set of arrows turning mech
+
++- does status box always auto-scroll?
+
++- left mech cannot move very close to right mech (possible battletech rules error)
+
++- larger turn increments
+
++- remove "Exception" prefix for weapon firing exceptions
+
+- change terrain and woods colors
+
+- add "Weapon hits" message for successful weapon fire
+
+- each update should rename weapon buttons and remove extras, because weapons may have been destroyed.  consider associating buttons with specific weapon names, instead of weapon numbers
+
+- <continued from previous point>  do this:
+
+	final String weaponName = theGame.getOwnMech(myName).getWeapons().getWeapon(i).getName();
+
+	then insde the actionPerformed:
+
+	String output = tempWeapons.fireWeapon(weaponName, theGame.getOtherMech(myName));
+
+- throw more exceptions
+
+- dan's dialog box
+
+- display target range, either in pixels range or hexes
+
++- display target elevation and my own elevation
+
+- do not cover up internal structure color with armor color
+
+- mechwarrior consciousness
+
+- weapon Ammo, Location, Damage, Heat (consider putting in extended weapon info in another tab?)
+
+- punch and kick damage, on the respective buttons
+
+- current firing and movement penalties due to heat (ask benny for methods)
+
+- guide lines for moving forward and backward, preferably pretty long ones
+
+Terrain TYpe		Number		Elevation
+
+Clear			0		0 to 4
+
+Rough			1		0 to 4
+
+Light Woods		2		0 to 4
+
+Heavy Woods		3		0 to 4
+
+Water			4		0 to -4

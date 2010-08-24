@@ -1,0 +1,84 @@
+#!/usr/local/bin/perl
+
+my $DIR = "/home/1/yarowsky/cs466/hw2";
+
+my $file_name      = "interactive";
+my $raw_file       = "$file_name\.raw";
+my $stemmed_file   = "$file_name\.stemmed";
+my $tokened_file   = "$file_name\.tokenized";
+my $stem_hist_file = "$file_name\.stemmed\.hist";
+my $tokn_hist_file = "$file_name\.tokenized\.hist";
+
+print "\n\nINTERACTIVE QUERY:\n\n";
+print "Please enter your query.  Press [Enter] on a line\n"; 
+print "by itself to finish entering your query:\n\n";  
+
+$query_text ="";
+$line_no = 1;
+
+print "Query (1):  ";
+while(($curr_line = <STDIN>) ne "\n") {
+  $query_text=$query_text.$curr_line;
+  $line_no++;
+  print "Query ($line_no):  "
+}
+chomp $query_text;
+
+
+print "\n\nPlease enter the names of any authors you wish to search\n"; 
+print "for, one per line.  Press [Enter] on a line by itself when\n";
+print "you're finished:\n\n";
+
+
+$author_text ="";
+$line_no = 1;
+
+print "Author (1):  ";
+while(($curr_line = <STDIN>) ne "\n") {
+  $author_text=$author_text.$curr_line;
+  $line_no++;
+  print "Author ($line_no):  "
+}
+chomp $author_text;
+
+
+# Now we need to save the query to the raw file, and run the necessary
+# tokenizing tools on this file. 
+
+$lst_query_idx = 1;
+
+print "\n\nSaving query to 'interactive.raw'\n";
+
+open(RAWFILE, ">$raw_file");
+
+print RAWFILE "\.I $lst_query_idx\n";
+
+if($query_text ne "") {
+  print RAWFILE ".W\n";
+  print RAWFILE "$query_text\n";
+}
+if($author_text ne "") { 
+  print RAWFILE ".A\n";
+  print RAWFILE "$author_text\n";
+}
+print RAWFILE "\n\n";
+
+close(RAWFILE);
+
+my $stem_com = "$DIR/stemmer/nstemmer $raw_file > $stemmed_file";
+my $tokn_com = "perl tokenize $file_name";
+
+my $stem_hist_com = "cat $stemmed_file | $DIR/make_hist.prl > $stem_hist_file";
+my $tokn_hist_com = "cat $tokened_file | $DIR/make_hist.prl > $tokn_hist_file";
+
+print "Tokenizing and stemming query.\n";
+
+system $stem_com and die "Failed $DIR/stemmer/nstemmer: $!\n";
+system $tokn_com and die "Failed tokenize: $!\n";
+
+print "Making histogram of the query.\n\n";
+
+system $stem_hist_com and die "Failed $DIR/make_hist.prl: $!\n";
+system $tokn_hist_com and die "Failed $DIR/make_hist.prl: $!\n";
+
+exit(0);

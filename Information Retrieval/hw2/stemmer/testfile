@@ -1,0 +1,31 @@
+
+One technique for improving IR performance is to provide searchers with
+ways of finding morphological variants of search terms.  If, for example, 
+a searcher enters the term stemming as part of a query, it is likely that 
+s/he will also be interested in such variants as stemmed and stem.  We use 
+the term conflation, meaning the act of fusing or combining, as the general 
+term for the process  of matching morphological term variants.  Conflation 
+can be either manual--using some kind of regular expressions--or automatic, 
+via  programs called stemmers.  Stemming is also used in IR to reduce the 
+size of index files.  Since a single stem typically corresponds to several 
+full terms, by storing stems instead of terms, compression factors of over 
+fifty percent can be achieved.
+
+As can be seen in Figure 1.2 in chapter 1, terms can be stemmed at indexing 
+time or at search time. The advantage of stemming at indexing time is 
+efficiency and index file compression--since index terms are already
+stemmed, this operation requires no resources at search time, and the 
+index file will be compressed as described above. The disadvantage of 
+indexing time stemming is that information about the full terms will be 
+lost, or additional storage will be required to store both the stemmed and 
+unstemmed forms.
+
+Figure 8.1 shows a taxonomy for stemming algorithms.  There are four 
+automatic approaches. Affix removal algorithms remove suffixes and/or 
+prefixes from terms leaving a stem.  These algorithms sometimes also 
+transform the resultant stem.  The name stemmer derives from  this method, 
+which is the most common.  Successor variety stemmers use the frequencies 
+of letter sequences in a body of text as the basis of stemming. The n-gram 
+method conflates terms based on the number of digrams or n-grams they share.
+Terms and their corresponding stems can also be stored in a table. Stemming
+is then done via lookups in the table.  These methods are described below.

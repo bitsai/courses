@@ -1,0 +1,33 @@
+# Simnet, version 0.8
+# COPYRIGHT Seny Kamara, Darren Davis, Fabian Monrose, 2002-2003
+# Please read the DISCLAIMER
+
+# Perform a traceroute benchmark using RIP routing
+# to get more accurate results, redirect output to a file
+
+verbose 6
+
+load networks/test.net
+slp all all 0 0 0 0
+start all
+
+# update the routing tables
+plug in all simnet.RIPRoutingTable
+
+# allow some time for RIP to converge
+select SPRINT
+PrintRoutingTable
+wait 2500
+PrintRoutingTable
+wait 2500
+PrintRoutingTable
+wait 2500
+PrintRoutingTable
+wait 2500
+PrintRoutingTable
+wait 2500
+PrintRoutingTable
+wait 2500
+PrintRoutingTable
+wait 5000
+PrintRoutingTable

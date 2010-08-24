@@ -1,0 +1,895 @@
+No.     Time        Source                Destination           Protocol Info
+      1 0.000000    172.16.0.1            CDP/VTP               CDP      Cisco Discovery Protocol
+
+Frame 1 (324 bytes on wire, 324 bytes captured)
+IEEE 802.3 Ethernet 
+Logical-Link Control
+Cisco Discovery Protocol
+
+No.     Time        Source                Destination           Protocol Info
+      2 1.019211    172.16.0.1            224.0.0.9             RIPv2    Response
+
+Frame 2 (86 bytes on wire, 86 bytes captured)
+Ethernet II, Src: 00:10:7b:38:46:33, Dst: 01:00:5e:00:00:09
+Internet Protocol, Src Addr: 172.16.0.1 (172.16.0.1), Dst Addr: 224.0.0.9 (224.0.0.9)
+User Datagram Protocol, Src Port: router (520), Dst Port: router (520)
+Routing Information Protocol
+
+No.     Time        Source                Destination           Protocol Info
+      3 1.344945    172.16.0.1            172.16.0.1            LOOP     Reply
+
+Frame 3 (60 bytes on wire, 60 bytes captured)
+Ethernet II, Src: 00:10:7b:38:46:33, Dst: 00:10:7b:38:46:33
+Configuration Test Protocol (loopback)
+Data (40 bytes)
+
+0000  00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00   ................
+0010  00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00   ................
+0020  00 00 00 00 00 00 00 00                           ........
+
+No.     Time        Source                Destination           Protocol Info
+      4 1.687923    172.16.112.10         192.168.1.10          NTP      NTP
+
+Frame 4 (90 bytes on wire, 90 bytes captured)
+Ethernet II, Src: 08:00:20:83:4a:82, Dst: 00:10:7b:38:46:33
+Internet Protocol, Src Addr: 172.16.112.10 (172.16.112.10), Dst Addr: 192.168.1.10 (192.168.1.10)
+User Datagram Protocol, Src Port: ntp (123), Dst Port: ntp (123)
+Network Time Protocol
+
+No.     Time        Source                Destination           Protocol Info
+      5 1.689754    192.168.1.10          172.16.112.10         NTP      NTP
+
+Frame 5 (90 bytes on wire, 90 bytes captured)
+Ethernet II, Src: 00:10:7b:38:46:33, Dst: 08:00:20:83:4a:82
+Internet Protocol, Src Addr: 192.168.1.10 (192.168.1.10), Dst Addr: 172.16.112.10 (172.16.112.10)
+User Datagram Protocol, Src Port: ntp (123), Dst Port: ntp (123)
+Network Time Protocol
+
+No.     Time        Source                Destination           Protocol Info
+      6 6.039174    172.16.112.20         172.16.112.10         NTP      NTP
+
+Frame 6 (90 bytes on wire, 90 bytes captured)
+Ethernet II, Src: 00:c0:4f:a3:57:db, Dst: 08:00:20:83:4a:82
+Internet Protocol, Src Addr: 172.16.112.20 (172.16.112.20), Dst Addr: 172.16.112.10 (172.16.112.10)
+User Datagram Protocol, Src Port: ntp (123), Dst Port: ntp (123)
+Network Time Protocol
+
+No.     Time        Source                Destination           Protocol Info
+      7 6.039538    172.16.112.10         172.16.112.20         NTP      NTP
+
+Frame 7 (90 bytes on wire, 90 bytes captured)
+Ethernet II, Src: 08:00:20:83:4a:82, Dst: 00:c0:4f:a3:57:db
+Internet Protocol, Src Addr: 172.16.112.10 (172.16.112.10), Dst Addr: 172.16.112.20 (172.16.112.20)
+User Datagram Protocol, Src Port: ntp (123), Dst Port: ntp (123)
+Network Time Protocol
+
+No.     Time        Source                Destination           Protocol Info
+      8 11.344758   172.16.0.1            172.16.0.1            LOOP     Reply
+
+Frame 8 (60 bytes on wire, 60 bytes captured)
+Ethernet II, Src: 00:10:7b:38:46:33, Dst: 00:10:7b:38:46:33
+Configuration Test Protocol (loopback)
+Data (40 bytes)
+
+0000  00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00   ................
+0010  00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00   ................
+0020  00 00 00 00 00 00 00 00                           ........
+
+No.     Time        Source                Destination           Protocol Info
+      9 16.473387   172.16.113.50         172.16.112.10         NTP      NTP
+
+Frame 9 (90 bytes on wire, 90 bytes captured)
+Ethernet II, Src: 08:00:20:09:b9:49, Dst: 08:00:20:83:4a:82
+Internet Protocol, Src Addr: 172.16.113.50 (172.16.113.50), Dst Addr: 172.16.112.10 (172.16.112.10)
+User Datagram Protocol, Src Port: ntp (123), Dst Port: ntp (123)
+Network Time Protocol
+
+No.     Time        Source                Destination           Protocol Info
+     10 16.473813   172.16.112.10         172.16.113.50         NTP      NTP
+
+Frame 10 (90 bytes on wire, 90 bytes captured)
+Ethernet II, Src: 08:00:20:83:4a:82, Dst: 08:00:20:09:b9:49
+Internet Protocol, Src Addr: 172.16.112.10 (172.16.112.10), Dst Addr: 172.16.113.50 (172.16.113.50)
+User Datagram Protocol, Src Port: ntp (123), Dst Port: ntp (123)
+Network Time Protocol
+
+No.     Time        Source                Destination           Protocol Info
+     11 17.508906   172.16.112.20         172.16.255.255        RIPv1    Response
+
+Frame 11 (66 bytes on wire, 66 bytes captured)
+Ethernet II, Src: 00:c0:4f:a3:57:db, Dst: ff:ff:ff:ff:ff:ff
+Internet Protocol, Src Addr: 172.16.112.20 (172.16.112.20), Dst Addr: 172.16.255.255 (172.16.255.255)
+User Datagram Protocol, Src Port: router (520), Dst Port: router (520)
+Routing Information Protocol
+
+No.     Time        Source                Destination           Protocol Info
+     12 17.509118   172.16.112.20         172.16.118.255        RIPv1    Response
+
+Frame 12 (66 bytes on wire, 66 bytes captured)
+Ethernet II, Src: 00:c0:4f:a3:57:db, Dst: ff:ff:ff:ff:ff:ff
+Internet Protocol, Src Addr: 172.16.112.20 (172.16.112.20), Dst Addr: 172.16.118.255 (172.16.118.255)
+User Datagram Protocol, Src Port: router (520), Dst Port: router (520)
+Routing Information Protocol
+
+No.     Time        Source                Destination           Protocol Info
+     13 21.344546   172.16.0.1            172.16.0.1            LOOP     Reply
+
+Frame 13 (60 bytes on wire, 60 bytes captured)
+Ethernet II, Src: 00:10:7b:38:46:33, Dst: 00:10:7b:38:46:33
+Configuration Test Protocol (loopback)
+Data (40 bytes)
+
+0000  00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00   ................
+0010  00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00   ................
+0020  00 00 00 00 00 00 00 00                           ........
+
+No.     Time        Source                Destination           Protocol Info
+     14 22.898376   172.16.112.20         172.16.112.10         ARP      Who has 172.16.112.10?  Tell 172.16.112.20
+
+Frame 14 (60 bytes on wire, 60 bytes captured)
+Ethernet II, Src: 00:c0:4f:a3:57:db, Dst: 08:00:20:83:4a:82
+Address Resolution Protocol (request)
+
+No.     Time        Source                Destination           Protocol Info
+     15 22.898439   172.16.112.10         172.16.112.20         ARP      172.16.112.10 is at 08:00:20:83:4a:82
+
+Frame 15 (42 bytes on wire, 42 bytes captured)
+Ethernet II, Src: 08:00:20:83:4a:82, Dst: 00:c0:4f:a3:57:db
+Address Resolution Protocol (reply)
+
+No.     Time        Source                Destination           Protocol Info
+     16 23.969087   172.16.114.50         172.16.112.10         NTP      NTP
+
+Frame 16 (90 bytes on wire, 90 bytes captured)
+Ethernet II, Src: 00:00:c0:17:79:5a, Dst: 08:00:20:83:4a:82
+Internet Protocol, Src Addr: 172.16.114.50 (172.16.114.50), Dst Addr: 172.16.112.10 (172.16.112.10)
+User Datagram Protocol, Src Port: ntp (123), Dst Port: ntp (123)
+Network Time Protocol
+
+No.     Time        Source                Destination           Protocol Info
+     17 23.969465   172.16.112.10         172.16.114.50         NTP      NTP
+
+Frame 17 (90 bytes on wire, 90 bytes captured)
+Ethernet II, Src: 08:00:20:83:4a:82, Dst: 00:00:c0:17:79:5a
+Internet Protocol, Src Addr: 172.16.112.10 (172.16.112.10), Dst Addr: 172.16.114.50 (172.16.114.50)
+User Datagram Protocol, Src Port: ntp (123), Dst Port: ntp (123)
+Network Time Protocol
+
+No.     Time        Source                Destination           Protocol Info
+     18 29.655702   172.16.0.1            224.0.0.9             RIPv2    Response
+
+Frame 18 (86 bytes on wire, 86 bytes captured)
+Ethernet II, Src: 00:10:7b:38:46:33, Dst: 01:00:5e:00:00:09
+Internet Protocol, Src Addr: 172.16.0.1 (172.16.0.1), Dst Addr: 224.0.0.9 (224.0.0.9)
+User Datagram Protocol, Src Port: router (520), Dst Port: router (520)
+Routing Information Protocol
+
+No.     Time        Source                Destination           Protocol Info
+     19 29.750926   172.16.112.100        172.16.112.10         NTP      NTP
+
+Frame 19 (90 bytes on wire, 90 bytes captured)
+Ethernet II, Src: 00:10:5a:9c:b2:54, Dst: 08:00:20:83:4a:82
+Internet Protocol, Src Addr: 172.16.112.100 (172.16.112.100), Dst Addr: 172.16.112.10 (172.16.112.10)
+User Datagram Protocol, Src Port: 1064 (1064), Dst Port: ntp (123)
+Network Time Protocol
+
+No.     Time        Source                Destination           Protocol Info
+     20 29.751284   172.16.112.10         172.16.112.100        NTP      NTP
+
+Frame 20 (90 bytes on wire, 90 bytes captured)
+Ethernet II, Src: 08:00:20:83:4a:82, Dst: 00:10:5a:9c:b2:54
+Internet Protocol, Src Addr: 172.16.112.10 (172.16.112.10), Dst Addr: 172.16.112.100 (172.16.112.100)
+User Datagram Protocol, Src Port: ntp (123), Dst Port: 1064 (1064)
+Network Time Protocol
+
+No.     Time        Source                Destination           Protocol Info
+     21 31.588793   172.16.0.1            172.16.0.1            LOOP     Reply
+
+Frame 21 (60 bytes on wire, 60 bytes captured)
+Ethernet II, Src: 00:10:7b:38:46:33, Dst: 00:10:7b:38:46:33
+Configuration Test Protocol (loopback)
+Data (40 bytes)
+
+0000  00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00   ................
+0010  00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00   ................
+0020  00 00 00 00 00 00 00 00                           ........
+
+No.     Time        Source                Destination           Protocol Info
+     22 32.807133   192.168.1.10          172.16.112.10         NTP      NTP
+
+Frame 22 (90 bytes on wire, 90 bytes captured)
+Ethernet II, Src: 00:10:7b:38:46:33, Dst: 08:00:20:83:4a:82
+Internet Protocol, Src Addr: 192.168.1.10 (192.168.1.10), Dst Addr: 172.16.112.10 (172.16.112.10)
+User Datagram Protocol, Src Port: ntp (123), Dst Port: ntp (123)
+Network Time Protocol
+
+No.     Time        Source                Destination           Protocol Info
+     23 33.697203   192.168.1.10          172.16.112.20         DNS      Standard query A swallow.eyrie.af.mil
+
+Frame 23 (80 bytes on wire, 80 bytes captured)
+Ethernet II, Src: 00:10:7b:38:46:33, Dst: 00:c0:4f:a3:57:db
+Internet Protocol, Src Addr: 192.168.1.10 (192.168.1.10), Dst Addr: 172.16.112.20 (172.16.112.20)
+User Datagram Protocol, Src Port: domain (53), Dst Port: domain (53)
+Domain Name System (query)
+
+No.     Time        Source                Destination           Protocol Info
+     24 33.698545   172.16.112.20         192.168.1.10          DNS      Standard query response A 172.16.113.105
+
+Frame 24 (145 bytes on wire, 145 bytes captured)
+Ethernet II, Src: 00:c0:4f:a3:57:db, Dst: 00:10:7b:38:46:33
+Internet Protocol, Src Addr: 172.16.112.20 (172.16.112.20), Dst Addr: 192.168.1.10 (192.168.1.10)
+User Datagram Protocol, Src Port: domain (53), Dst Port: domain (53)
+Domain Name System (response)
+
+No.     Time        Source                Destination           Protocol Info
+     25 33.703435   196.37.75.158         172.16.113.105        TCP      1024 > finger [SYN] Seq=0 Ack=0 Win=512 Len=0 MSS=1460
+
+Frame 25 (60 bytes on wire, 60 bytes captured)
+Ethernet II, Src: 00:10:7b:38:46:33, Dst: 00:c0:4f:a3:57:db
+Internet Protocol, Src Addr: 196.37.75.158 (196.37.75.158), Dst Addr: 172.16.113.105 (172.16.113.105)
+Transmission Control Protocol, Src Port: 1024 (1024), Dst Port: finger (79), Seq: 0, Ack: 0, Len: 0
+
+No.     Time        Source                Destination           Protocol Info
+     26 33.703788   172.16.113.105        196.37.75.158         TCP      finger > 1024 [SYN, ACK] Seq=0 Ack=1 Win=32736 Len=0 MSS=1460
+
+Frame 26 (60 bytes on wire, 60 bytes captured)
+Ethernet II, Src: 00:c0:4f:a3:57:db, Dst: 00:10:7b:38:46:33
+Internet Protocol, Src Addr: 172.16.113.105 (172.16.113.105), Dst Addr: 196.37.75.158 (196.37.75.158)
+Transmission Control Protocol, Src Port: finger (79), Dst Port: 1024 (1024), Seq: 0, Ack: 1, Len: 0
+
+No.     Time        Source                Destination           Protocol Info
+     27 33.706571   196.37.75.158         172.16.113.105        TCP      1024 > finger [ACK] Seq=1 Ack=1 Win=32120 Len=0
+
+Frame 27 (60 bytes on wire, 60 bytes captured)
+Ethernet II, Src: 00:10:7b:38:46:33, Dst: 00:c0:4f:a3:57:db
+Internet Protocol, Src Addr: 196.37.75.158 (196.37.75.158), Dst Addr: 172.16.113.105 (172.16.113.105)
+Transmission Control Protocol, Src Port: 1024 (1024), Dst Port: finger (79), Seq: 1, Ack: 1, Len: 0
+
+No.     Time        Source                Destination           Protocol Info
+     28 33.706762   196.37.75.158         172.16.113.105        TCP      1024 > finger [PSH, ACK] Seq=1 Ack=1 Win=32120 Len=4
+
+Frame 28 (60 bytes on wire, 60 bytes captured)
+Ethernet II, Src: 00:10:7b:38:46:33, Dst: 00:c0:4f:a3:57:db
+Internet Protocol, Src Addr: 196.37.75.158 (196.37.75.158), Dst Addr: 172.16.113.105 (172.16.113.105)
+Transmission Control Protocol, Src Port: 1024 (1024), Dst Port: finger (79), Seq: 1, Ack: 1, Len: 4
+Data (4 bytes)
+
+0000  47 69 67 69                                       Gigi
+
+No.     Time        Source                Destination           Protocol Info
+     29 33.718218   172.16.113.105        196.37.75.158         TCP      finger > 1024 [ACK] Seq=1 Ack=5 Win=32732 Len=0
+
+Frame 29 (60 bytes on wire, 60 bytes captured)
+Ethernet II, Src: 00:c0:4f:a3:57:db, Dst: 00:10:7b:38:46:33
+Internet Protocol, Src Addr: 172.16.113.105 (172.16.113.105), Dst Addr: 196.37.75.158 (196.37.75.158)
+Transmission Control Protocol, Src Port: finger (79), Dst Port: 1024 (1024), Seq: 1, Ack: 5, Len: 0
+
+No.     Time        Source                Destination           Protocol Info
+     30 33.718919   196.37.75.158         172.16.113.105        TCP      1024 > finger [PSH, ACK] Seq=5 Ack=1 Win=32120 Len=2
+
+Frame 30 (60 bytes on wire, 60 bytes captured)
+Ethernet II, Src: 00:10:7b:38:46:33, Dst: 00:c0:4f:a3:57:db
+Internet Protocol, Src Addr: 196.37.75.158 (196.37.75.158), Dst Addr: 172.16.113.105 (172.16.113.105)
+Transmission Control Protocol, Src Port: 1024 (1024), Dst Port: finger (79), Seq: 5, Ack: 1, Len: 2
+Data (2 bytes)
+
+0000  0d 0a                                             ..
+
+No.     Time        Source                Destination           Protocol Info
+     31 33.738155   172.16.113.105        196.37.75.158         TCP      finger > 1024 [ACK] Seq=1 Ack=7 Win=32730 Len=0
+
+Frame 31 (60 bytes on wire, 60 bytes captured)
+Ethernet II, Src: 00:c0:4f:a3:57:db, Dst: 00:10:7b:38:46:33
+Internet Protocol, Src Addr: 172.16.113.105 (172.16.113.105), Dst Addr: 196.37.75.158 (196.37.75.158)
+Transmission Control Protocol, Src Port: finger (79), Dst Port: 1024 (1024), Seq: 1, Ack: 7, Len: 0
+
+No.     Time        Source                Destination           Protocol Info
+     32 34.221881   172.16.113.105        196.37.75.158         TCP      finger > 1024 [PSH, ACK] Seq=1 Ack=7 Win=32736 Len=275
+
+Frame 32 (329 bytes on wire, 329 bytes captured)
+Ethernet II, Src: 00:c0:4f:a3:57:db, Dst: 00:10:7b:38:46:33
+Internet Protocol, Src Addr: 172.16.113.105 (172.16.113.105), Dst Addr: 196.37.75.158 (196.37.75.158)
+Transmission Control Protocol, Src Port: finger (79), Dst Port: 1024 (1024), Seq: 1, Ack: 7, Len: 275
+Data (275 bytes)
+
+0000  4c 6f 67 69 6e 3a 20 74 65 72 63 65 72 6f 67 20   Login: tercerog 
+0010  20 20 20 20 20 20 09 09 09 4e 61 6d 65 3a 20 54         ...Name: T
+0020  65 72 63 65 72 6f 20 47 69 67 69 0d 0a 44 69 72   ercero Gigi..Dir
+0030  65 63 74 6f 72 79 3a 20 2f 68 6f 6d 65 2f 74 65   ectory: /home/te
+0040  72 63 65 72 6f 67 20 20 20 20 20 20 20 20 20 20   rcerog          
+0050  20 09 53 68 65 6c 6c 3a 20 2f 62 69 6e 2f 74 63    .Shell: /bin/tc
+0060  73 68 0d 0a 4e 65 76 65 72 20 6c 6f 67 67 65 64   sh..Never logged
+0070  20 69 6e 2e 0d 0a 4e 6f 20 6d 61 69 6c 2e 0d 0a    in...No mail...
+0080  4e 6f 20 50 6c 61 6e 2e 0d 0a 0d 0a 4c 6f 67 69   No Plan.....Logi
+0090  6e 3a 20 67 69 67 69 62 20 20 20 20 20 20 20 20   n: gigib        
+00a0  20 20 09 09 09 4e 61 6d 65 3a 20 47 69 67 69 20     ...Name: Gigi 
+00b0  42 69 6c 6c 0d 0a 44 69 72 65 63 74 6f 72 79 3a   Bill..Directory:
+00c0  20 2f 68 6f 6d 65 2f 67 69 67 69 62 20 20 20 20    /home/gigib    
+00d0  20 20 20 20 20 20 20 20 20 20 09 53 68 65 6c 6c             .Shell
+00e0  3a 20 2f 62 69 6e 2f 74 63 73 68 0d 0a 4e 65 76   : /bin/tcsh..Nev
+00f0  65 72 20 6c 6f 67 67 65 64 20 69 6e 2e 0d 0a 4e   er logged in...N
+0100  6f 20 6d 61 69 6c 2e 0d 0a 4e 6f 20 50 6c 61 6e   o mail...No Plan
+0110  2e 0d 0a                                          ...
+
+No.     Time        Source                Destination           Protocol Info
+     33 34.221934   172.16.113.105        196.37.75.158         TCP      finger > 1024 [FIN, ACK] Seq=276 Ack=7 Win=32736 Len=0
+
+Frame 33 (60 bytes on wire, 60 bytes captured)
+Ethernet II, Src: 00:c0:4f:a3:57:db, Dst: 00:10:7b:38:46:33
+Internet Protocol, Src Addr: 172.16.113.105 (172.16.113.105), Dst Addr: 196.37.75.158 (196.37.75.158)
+Transmission Control Protocol, Src Port: finger (79), Dst Port: 1024 (1024), Seq: 276, Ack: 7, Len: 0
+
+No.     Time        Source                Destination           Protocol Info
+     34 34.222801   196.37.75.158         172.16.113.105        TCP      1024 > finger [ACK] Seq=7 Ack=277 Win=31844 Len=0
+
+Frame 34 (60 bytes on wire, 60 bytes captured)
+Ethernet II, Src: 00:10:7b:38:46:33, Dst: 00:c0:4f:a3:57:db
+Internet Protocol, Src Addr: 196.37.75.158 (196.37.75.158), Dst Addr: 172.16.113.105 (172.16.113.105)
+Transmission Control Protocol, Src Port: 1024 (1024), Dst Port: finger (79), Seq: 7, Ack: 277, Len: 0
+
+No.     Time        Source                Destination           Protocol Info
+     35 34.227368   196.37.75.158         172.16.113.105        TCP      1024 > finger [FIN, ACK] Seq=7 Ack=277 Win=32120 Len=0
+
+Frame 35 (60 bytes on wire, 60 bytes captured)
+Ethernet II, Src: 00:10:7b:38:46:33, Dst: 00:c0:4f:a3:57:db
+Internet Protocol, Src Addr: 196.37.75.158 (196.37.75.158), Dst Addr: 172.16.113.105 (172.16.113.105)
+Transmission Control Protocol, Src Port: 1024 (1024), Dst Port: finger (79), Seq: 7, Ack: 277, Len: 0
+
+No.     Time        Source                Destination           Protocol Info
+     36 34.227515   172.16.113.105        196.37.75.158         TCP      finger > 1024 [ACK] Seq=277 Ack=8 Win=32735 Len=0
+
+Frame 36 (60 bytes on wire, 60 bytes captured)
+Ethernet II, Src: 00:c0:4f:a3:57:db, Dst: 00:10:7b:38:46:33
+Internet Protocol, Src Addr: 172.16.113.105 (172.16.113.105), Dst Addr: 196.37.75.158 (196.37.75.158)
+Transmission Control Protocol, Src Port: finger (79), Dst Port: 1024 (1024), Seq: 277, Ack: 8, Len: 0
+
+No.     Time        Source                Destination           Protocol Info
+     37 34.752473   172.16.112.20         192.168.1.10          DNS      Standard query A lambda.orange.com
+
+Frame 37 (77 bytes on wire, 77 bytes captured)
+Ethernet II, Src: 00:c0:4f:a3:57:db, Dst: 00:10:7b:38:46:33
+Internet Protocol, Src Addr: 172.16.112.20 (172.16.112.20), Dst Addr: 192.168.1.10 (192.168.1.10)
+User Datagram Protocol, Src Port: domain (53), Dst Port: domain (53)
+Domain Name System (query)
+
+No.     Time        Source                Destination           Protocol Info
+     38 34.754086   192.168.1.10          172.16.112.20         DNS      Standard query response A 195.73.151.50
+
+Frame 38 (133 bytes on wire, 133 bytes captured)
+Ethernet II, Src: 00:10:7b:38:46:33, Dst: 00:c0:4f:a3:57:db
+Internet Protocol, Src Addr: 192.168.1.10 (192.168.1.10), Dst Addr: 172.16.112.20 (172.16.112.20)
+User Datagram Protocol, Src Port: domain (53), Dst Port: domain (53)
+Domain Name System (response)
+
+No.     Time        Source                Destination           Protocol Info
+     39 34.771191   172.16.114.207        195.73.151.50         TCP      1024 > smtp [SYN] Seq=0 Ack=0 Win=512 Len=0 MSS=1460
+
+Frame 39 (60 bytes on wire, 60 bytes captured)
+Ethernet II, Src: 00:c0:4f:a3:57:db, Dst: 00:10:7b:38:46:33
+Internet Protocol, Src Addr: 172.16.114.207 (172.16.114.207), Dst Addr: 195.73.151.50 (195.73.151.50)
+Transmission Control Protocol, Src Port: 1024 (1024), Dst Port: smtp (25), Seq: 0, Ack: 0, Len: 0
+
+No.     Time        Source                Destination           Protocol Info
+     40 34.775930   195.73.151.50         172.16.114.207        TCP      smtp > 1024 [SYN, ACK] Seq=0 Ack=1 Win=32736 Len=0 MSS=1460
+
+Frame 40 (60 bytes on wire, 60 bytes captured)
+Ethernet II, Src: 00:10:7b:38:46:33, Dst: 00:c0:4f:a3:57:db
+Internet Protocol, Src Addr: 195.73.151.50 (195.73.151.50), Dst Addr: 172.16.114.207 (172.16.114.207)
+Transmission Control Protocol, Src Port: smtp (25), Dst Port: 1024 (1024), Seq: 0, Ack: 1, Len: 0
+
+No.     Time        Source                Destination           Protocol Info
+     41 34.776122   172.16.114.207        195.73.151.50         TCP      1024 > smtp [ACK] Seq=1 Ack=1 Win=32120 Len=0
+
+Frame 41 (60 bytes on wire, 60 bytes captured)
+Ethernet II, Src: 00:c0:4f:a3:57:db, Dst: 00:10:7b:38:46:33
+Internet Protocol, Src Addr: 172.16.114.207 (172.16.114.207), Dst Addr: 195.73.151.50 (195.73.151.50)
+Transmission Control Protocol, Src Port: 1024 (1024), Dst Port: smtp (25), Seq: 1, Ack: 1, Len: 0
+
+No.     Time        Source                Destination           Protocol Info
+     42 34.944533   192.168.1.10          172.16.112.20         DNS      Standard query PTR 207.114.16.172.in-addr.arpa
+
+Frame 42 (87 bytes on wire, 87 bytes captured)
+Ethernet II, Src: 00:10:7b:38:46:33, Dst: 00:c0:4f:a3:57:db
+Internet Protocol, Src Addr: 192.168.1.10 (192.168.1.10), Dst Addr: 172.16.112.20 (172.16.112.20)
+User Datagram Protocol, Src Port: domain (53), Dst Port: domain (53)
+Domain Name System (query)
+
+No.     Time        Source                Destination           Protocol Info
+     43 34.945211   172.16.112.20         192.168.1.10          DNS      Standard query response PTR pigeon.eyrie.af.mil
+
+Frame 43 (176 bytes on wire, 176 bytes captured)
+Ethernet II, Src: 00:c0:4f:a3:57:db, Dst: 00:10:7b:38:46:33
+Internet Protocol, Src Addr: 172.16.112.20 (172.16.112.20), Dst Addr: 192.168.1.10 (192.168.1.10)
+User Datagram Protocol, Src Port: domain (53), Dst Port: domain (53)
+Domain Name System (response)
+
+No.     Time        Source                Destination           Protocol Info
+     44 34.947323   192.168.1.10          172.16.112.20         DNS      Standard query A pigeon.eyrie.af.mil
+
+Frame 44 (79 bytes on wire, 79 bytes captured)
+Ethernet II, Src: 00:10:7b:38:46:33, Dst: 00:c0:4f:a3:57:db
+Internet Protocol, Src Addr: 192.168.1.10 (192.168.1.10), Dst Addr: 172.16.112.20 (172.16.112.20)
+User Datagram Protocol, Src Port: domain (53), Dst Port: domain (53)
+Domain Name System (query)
+
+No.     Time        Source                Destination           Protocol Info
+     45 34.947752   172.16.112.20         192.168.1.10          DNS      Standard query response A 172.16.114.207
+
+Frame 45 (144 bytes on wire, 144 bytes captured)
+Ethernet II, Src: 00:c0:4f:a3:57:db, Dst: 00:10:7b:38:46:33
+Internet Protocol, Src Addr: 172.16.112.20 (172.16.112.20), Dst Addr: 192.168.1.10 (192.168.1.10)
+User Datagram Protocol, Src Port: domain (53), Dst Port: domain (53)
+Domain Name System (response)
+
+No.     Time        Source                Destination           Protocol Info
+     46 35.025161   195.73.151.50         172.16.114.207        SMTP     Response: 220 lambda.orange.com Sendmail 4.1/SMI-4.1 ready at Mon, 1 Mar 1999 08:00:40 -0500
+
+Frame 46 (138 bytes on wire, 138 bytes captured)
+Ethernet II, Src: 00:10:7b:38:46:33, Dst: 00:c0:4f:a3:57:db
+Internet Protocol, Src Addr: 195.73.151.50 (195.73.151.50), Dst Addr: 172.16.114.207 (172.16.114.207)
+Transmission Control Protocol, Src Port: smtp (25), Dst Port: 1024 (1024), Seq: 1, Ack: 1, Len: 84
+Simple Mail Transfer Protocol
+
+No.     Time        Source                Destination           Protocol Info
+     47 35.038153   172.16.114.207        195.73.151.50         TCP      1024 > smtp [ACK] Seq=1 Ack=85 Win=32120 Len=0
+
+Frame 47 (60 bytes on wire, 60 bytes captured)
+Ethernet II, Src: 00:c0:4f:a3:57:db, Dst: 00:10:7b:38:46:33
+Internet Protocol, Src Addr: 172.16.114.207 (172.16.114.207), Dst Addr: 195.73.151.50 (195.73.151.50)
+Transmission Control Protocol, Src Port: 1024 (1024), Dst Port: smtp (25), Seq: 1, Ack: 85, Len: 0
+
+No.     Time        Source                Destination           Protocol Info
+     48 35.060883   172.16.114.207        195.73.151.50         SMTP     Command: EHLO pigeon.eyrie.af.mil
+
+Frame 48 (80 bytes on wire, 80 bytes captured)
+Ethernet II, Src: 00:c0:4f:a3:57:db, Dst: 00:10:7b:38:46:33
+Internet Protocol, Src Addr: 172.16.114.207 (172.16.114.207), Dst Addr: 195.73.151.50 (195.73.151.50)
+Transmission Control Protocol, Src Port: 1024 (1024), Dst Port: smtp (25), Seq: 1, Ack: 85, Len: 26
+Simple Mail Transfer Protocol
+
+No.     Time        Source                Destination           Protocol Info
+     49 35.061689   195.73.151.50         172.16.114.207        SMTP     Response: 500 Command unrecognized
+
+Frame 49 (80 bytes on wire, 80 bytes captured)
+Ethernet II, Src: 00:10:7b:38:46:33, Dst: 00:c0:4f:a3:57:db
+Internet Protocol, Src Addr: 195.73.151.50 (195.73.151.50), Dst Addr: 172.16.114.207 (172.16.114.207)
+Transmission Control Protocol, Src Port: smtp (25), Dst Port: 1024 (1024), Seq: 85, Ack: 27, Len: 26
+Simple Mail Transfer Protocol
+
+No.     Time        Source                Destination           Protocol Info
+     50 35.062113   172.16.114.207        195.73.151.50         SMTP     Command: HELO pigeon.eyrie.af.mil
+
+Frame 50 (80 bytes on wire, 80 bytes captured)
+Ethernet II, Src: 00:c0:4f:a3:57:db, Dst: 00:10:7b:38:46:33
+Internet Protocol, Src Addr: 172.16.114.207 (172.16.114.207), Dst Addr: 195.73.151.50 (195.73.151.50)
+Transmission Control Protocol, Src Port: 1024 (1024), Dst Port: smtp (25), Seq: 27, Ack: 111, Len: 26
+Simple Mail Transfer Protocol
+
+No.     Time        Source                Destination           Protocol Info
+     51 35.062950   195.73.151.50         172.16.114.207        SMTP     Response: 250 (pigeon.eyrie.af.mil) pleased to meet you.
+
+Frame 51 (102 bytes on wire, 102 bytes captured)
+Ethernet II, Src: 00:10:7b:38:46:33, Dst: 00:c0:4f:a3:57:db
+Internet Protocol, Src Addr: 195.73.151.50 (195.73.151.50), Dst Addr: 172.16.114.207 (172.16.114.207)
+Transmission Control Protocol, Src Port: smtp (25), Dst Port: 1024 (1024), Seq: 111, Ack: 53, Len: 48
+Simple Mail Transfer Protocol
+
+No.     Time        Source                Destination           Protocol Info
+     52 35.063247   172.16.114.207        195.73.151.50         SMTP     Command: MAIL From:<lucjanm@pigeon.eyrie.af.mil>
+
+Frame 52 (95 bytes on wire, 95 bytes captured)
+Ethernet II, Src: 00:c0:4f:a3:57:db, Dst: 00:10:7b:38:46:33
+Internet Protocol, Src Addr: 172.16.114.207 (172.16.114.207), Dst Addr: 195.73.151.50 (195.73.151.50)
+Transmission Control Protocol, Src Port: 1024 (1024), Dst Port: smtp (25), Seq: 53, Ack: 159, Len: 41
+Simple Mail Transfer Protocol
+
+No.     Time        Source                Destination           Protocol Info
+     53 35.064071   195.73.151.50         172.16.114.207        SMTP     Response: 250 <lucjanm@pigeon.eyrie.af.mil>... Sender Ok
+
+Frame 53 (102 bytes on wire, 102 bytes captured)
+Ethernet II, Src: 00:10:7b:38:46:33, Dst: 00:c0:4f:a3:57:db
+Internet Protocol, Src Addr: 195.73.151.50 (195.73.151.50), Dst Addr: 172.16.114.207 (172.16.114.207)
+Transmission Control Protocol, Src Port: smtp (25), Dst Port: 1024 (1024), Seq: 159, Ack: 94, Len: 48
+Simple Mail Transfer Protocol
+
+No.     Time        Source                Destination           Protocol Info
+     54 35.064397   172.16.114.207        195.73.151.50         SMTP     Command: RCPT To:<joelj@lambda.orange.com>
+
+Frame 54 (89 bytes on wire, 89 bytes captured)
+Ethernet II, Src: 00:c0:4f:a3:57:db, Dst: 00:10:7b:38:46:33
+Internet Protocol, Src Addr: 172.16.114.207 (172.16.114.207), Dst Addr: 195.73.151.50 (195.73.151.50)
+Transmission Control Protocol, Src Port: 1024 (1024), Dst Port: smtp (25), Seq: 94, Ack: 207, Len: 35
+Simple Mail Transfer Protocol
+
+No.     Time        Source                Destination           Protocol Info
+     55 35.065178   195.73.151.50         172.16.114.207        SMTP     Response: 250 <joelj@lambda.orange.com> OK
+
+Frame 55 (88 bytes on wire, 88 bytes captured)
+Ethernet II, Src: 00:10:7b:38:46:33, Dst: 00:c0:4f:a3:57:db
+Internet Protocol, Src Addr: 195.73.151.50 (195.73.151.50), Dst Addr: 172.16.114.207 (172.16.114.207)
+Transmission Control Protocol, Src Port: smtp (25), Dst Port: 1024 (1024), Seq: 207, Ack: 129, Len: 34
+Simple Mail Transfer Protocol
+
+No.     Time        Source                Destination           Protocol Info
+     56 35.065458   172.16.114.207        195.73.151.50         SMTP     Command: DATA
+
+Frame 56 (60 bytes on wire, 60 bytes captured)
+Ethernet II, Src: 00:c0:4f:a3:57:db, Dst: 00:10:7b:38:46:33
+Internet Protocol, Src Addr: 172.16.114.207 (172.16.114.207), Dst Addr: 195.73.151.50 (195.73.151.50)
+Transmission Control Protocol, Src Port: 1024 (1024), Dst Port: smtp (25), Seq: 129, Ack: 241, Len: 6
+Simple Mail Transfer Protocol
+
+No.     Time        Source                Destination           Protocol Info
+     57 35.067089   195.73.151.50         172.16.114.207        SMTP     Response: 354 Enter mail, end with "." on a line by itself
+
+Frame 57 (104 bytes on wire, 104 bytes captured)
+Ethernet II, Src: 00:10:7b:38:46:33, Dst: 00:c0:4f:a3:57:db
+Internet Protocol, Src Addr: 195.73.151.50 (195.73.151.50), Dst Addr: 172.16.114.207 (172.16.114.207)
+Transmission Control Protocol, Src Port: smtp (25), Dst Port: 1024 (1024), Seq: 241, Ack: 135, Len: 50
+Simple Mail Transfer Protocol
+
+No.     Time        Source                Destination           Protocol Info
+     58 35.068192   172.16.114.207        195.73.151.50         SMTP     Message Body
+
+Frame 58 (1078 bytes on wire, 1078 bytes captured)
+Ethernet II, Src: 00:c0:4f:a3:57:db, Dst: 00:10:7b:38:46:33
+Internet Protocol, Src Addr: 172.16.114.207 (172.16.114.207), Dst Addr: 195.73.151.50 (195.73.151.50)
+Transmission Control Protocol, Src Port: 1024 (1024), Dst Port: smtp (25), Seq: 135, Ack: 291, Len: 1024
+Simple Mail Transfer Protocol
+
+No.     Time        Source                Destination           Protocol Info
+     59 35.086040   195.73.151.50         172.16.114.207        TCP      smtp > 1024 [ACK] Seq=291 Ack=1159 Win=32736 Len=0
+
+Frame 59 (60 bytes on wire, 60 bytes captured)
+Ethernet II, Src: 00:10:7b:38:46:33, Dst: 00:c0:4f:a3:57:db
+Internet Protocol, Src Addr: 195.73.151.50 (195.73.151.50), Dst Addr: 172.16.114.207 (172.16.114.207)
+Transmission Control Protocol, Src Port: smtp (25), Dst Port: 1024 (1024), Seq: 291, Ack: 1159, Len: 0
+
+No.     Time        Source                Destination           Protocol Info
+     60 35.086421   172.16.114.207        195.73.151.50         SMTP     Message Body
+
+Frame 60 (349 bytes on wire, 349 bytes captured)
+Ethernet II, Src: 00:c0:4f:a3:57:db, Dst: 00:10:7b:38:46:33
+Internet Protocol, Src Addr: 172.16.114.207 (172.16.114.207), Dst Addr: 195.73.151.50 (195.73.151.50)
+Transmission Control Protocol, Src Port: 1024 (1024), Dst Port: smtp (25), Seq: 1159, Ack: 291, Len: 295
+Simple Mail Transfer Protocol
+
+No.     Time        Source                Destination           Protocol Info
+     61 35.088747   195.73.151.50         172.16.114.207        SMTP     Response: 250 Mail accepted
+
+Frame 61 (73 bytes on wire, 73 bytes captured)
+Ethernet II, Src: 00:10:7b:38:46:33, Dst: 00:c0:4f:a3:57:db
+Internet Protocol, Src Addr: 195.73.151.50 (195.73.151.50), Dst Addr: 172.16.114.207 (172.16.114.207)
+Transmission Control Protocol, Src Port: smtp (25), Dst Port: 1024 (1024), Seq: 291, Ack: 1454, Len: 19
+Simple Mail Transfer Protocol
+
+No.     Time        Source                Destination           Protocol Info
+     62 35.088963   172.16.114.207        195.73.151.50         SMTP     Message Body
+
+Frame 62 (60 bytes on wire, 60 bytes captured)
+Ethernet II, Src: 00:c0:4f:a3:57:db, Dst: 00:10:7b:38:46:33
+Internet Protocol, Src Addr: 172.16.114.207 (172.16.114.207), Dst Addr: 195.73.151.50 (195.73.151.50)
+Transmission Control Protocol, Src Port: 1024 (1024), Dst Port: smtp (25), Seq: 1454, Ack: 310, Len: 6
+Simple Mail Transfer Protocol
+
+No.     Time        Source                Destination           Protocol Info
+     63 35.089703   195.73.151.50         172.16.114.207        SMTP     Response: 221 Closing connection
+
+Frame 63 (78 bytes on wire, 78 bytes captured)
+Ethernet II, Src: 00:10:7b:38:46:33, Dst: 00:c0:4f:a3:57:db
+Internet Protocol, Src Addr: 195.73.151.50 (195.73.151.50), Dst Addr: 172.16.114.207 (172.16.114.207)
+Transmission Control Protocol, Src Port: smtp (25), Dst Port: 1024 (1024), Seq: 310, Ack: 1460, Len: 24
+Simple Mail Transfer Protocol
+
+No.     Time        Source                Destination           Protocol Info
+     64 35.090258   195.73.151.50         172.16.114.207        TCP      smtp > 1024 [FIN, ACK] Seq=334 Ack=1460 Win=32736 Len=0
+
+Frame 64 (60 bytes on wire, 60 bytes captured)
+Ethernet II, Src: 00:10:7b:38:46:33, Dst: 00:c0:4f:a3:57:db
+Internet Protocol, Src Addr: 195.73.151.50 (195.73.151.50), Dst Addr: 172.16.114.207 (172.16.114.207)
+Transmission Control Protocol, Src Port: smtp (25), Dst Port: 1024 (1024), Seq: 334, Ack: 1460, Len: 0
+
+No.     Time        Source                Destination           Protocol Info
+     65 35.090415   172.16.114.207        195.73.151.50         TCP      1024 > smtp [ACK] Seq=1460 Ack=335 Win=32120 Len=0
+
+Frame 65 (60 bytes on wire, 60 bytes captured)
+Ethernet II, Src: 00:c0:4f:a3:57:db, Dst: 00:10:7b:38:46:33
+Internet Protocol, Src Addr: 172.16.114.207 (172.16.114.207), Dst Addr: 195.73.151.50 (195.73.151.50)
+Transmission Control Protocol, Src Port: 1024 (1024), Dst Port: smtp (25), Seq: 1460, Ack: 335, Len: 0
+
+No.     Time        Source                Destination           Protocol Info
+     66 35.095986   172.16.114.207        195.73.151.50         TCP      1024 > smtp [FIN, ACK] Seq=1460 Ack=335 Win=32120 Len=0
+
+Frame 66 (60 bytes on wire, 60 bytes captured)
+Ethernet II, Src: 00:c0:4f:a3:57:db, Dst: 00:10:7b:38:46:33
+Internet Protocol, Src Addr: 172.16.114.207 (172.16.114.207), Dst Addr: 195.73.151.50 (195.73.151.50)
+Transmission Control Protocol, Src Port: 1024 (1024), Dst Port: smtp (25), Seq: 1460, Ack: 335, Len: 0
+
+No.     Time        Source                Destination           Protocol Info
+     67 35.096254   172.16.112.20         Broadcast             ARP      Who has 172.16.114.50?  Tell 172.16.112.20
+
+Frame 67 (60 bytes on wire, 60 bytes captured)
+Ethernet II, Src: 00:c0:4f:a3:57:db, Dst: ff:ff:ff:ff:ff:ff
+Address Resolution Protocol (request)
+
+No.     Time        Source                Destination           Protocol Info
+     68 35.096420   172.16.114.50         172.16.112.20         ARP      172.16.114.50 is at 00:00:c0:17:79:5a
+
+Frame 68 (60 bytes on wire, 60 bytes captured)
+Ethernet II, Src: 00:00:c0:17:79:5a, Dst: 00:c0:4f:a3:57:db
+Address Resolution Protocol (reply)
+
+No.     Time        Source                Destination           Protocol Info
+     69 35.096560   172.16.114.207        172.16.114.50         TCP      1025 > smtp [SYN] Seq=0 Ack=0 Win=512 Len=0 MSS=1460
+
+Frame 69 (60 bytes on wire, 60 bytes captured)
+Ethernet II, Src: 00:c0:4f:a3:57:db, Dst: 00:00:c0:17:79:5a
+Internet Protocol, Src Addr: 172.16.114.207 (172.16.114.207), Dst Addr: 172.16.114.50 (172.16.114.50)
+Transmission Control Protocol, Src Port: 1025 (1025), Dst Port: smtp (25), Seq: 0, Ack: 0, Len: 0
+
+No.     Time        Source                Destination           Protocol Info
+     70 35.096807   195.73.151.50         172.16.114.207        TCP      smtp > 1024 [ACK] Seq=335 Ack=1461 Win=32735 Len=0
+
+Frame 70 (60 bytes on wire, 60 bytes captured)
+Ethernet II, Src: 00:10:7b:38:46:33, Dst: 00:c0:4f:a3:57:db
+Internet Protocol, Src Addr: 195.73.151.50 (195.73.151.50), Dst Addr: 172.16.114.207 (172.16.114.207)
+Transmission Control Protocol, Src Port: smtp (25), Dst Port: 1024 (1024), Seq: 335, Ack: 1461, Len: 0
+
+No.     Time        Source                Destination           Protocol Info
+     71 35.096909   172.16.114.50         Broadcast             ARP      Who has 172.16.114.207?  Tell 172.16.114.50
+
+Frame 71 (60 bytes on wire, 60 bytes captured)
+Ethernet II, Src: 00:00:c0:17:79:5a, Dst: ff:ff:ff:ff:ff:ff
+Address Resolution Protocol (request)
+
+No.     Time        Source                Destination           Protocol Info
+     72 35.097038   172.16.112.20         172.16.114.50         ARP      172.16.114.207 is at 00:c0:4f:a3:57:db
+
+Frame 72 (60 bytes on wire, 60 bytes captured)
+Ethernet II, Src: 00:c0:4f:a3:57:db, Dst: 00:00:c0:17:79:5a
+Address Resolution Protocol (reply)
+
+No.     Time        Source                Destination           Protocol Info
+     73 35.097234   172.16.114.50         172.16.114.207        TCP      smtp > 1025 [SYN, ACK] Seq=0 Ack=1 Win=31744 Len=0 MSS=1460
+
+Frame 73 (60 bytes on wire, 60 bytes captured)
+Ethernet II, Src: 00:00:c0:17:79:5a, Dst: 00:c0:4f:a3:57:db
+Internet Protocol, Src Addr: 172.16.114.50 (172.16.114.50), Dst Addr: 172.16.114.207 (172.16.114.207)
+Transmission Control Protocol, Src Port: smtp (25), Dst Port: 1025 (1025), Seq: 0, Ack: 1, Len: 0
+
+No.     Time        Source                Destination           Protocol Info
+     74 35.097377   172.16.114.207        172.16.114.50         TCP      1025 > smtp [ACK] Seq=1 Ack=1 Win=32120 Len=0
+
+Frame 74 (60 bytes on wire, 60 bytes captured)
+Ethernet II, Src: 00:c0:4f:a3:57:db, Dst: 00:00:c0:17:79:5a
+Internet Protocol, Src Addr: 172.16.114.207 (172.16.114.207), Dst Addr: 172.16.114.50 (172.16.114.50)
+Transmission Control Protocol, Src Port: 1025 (1025), Dst Port: smtp (25), Seq: 1, Ack: 1, Len: 0
+
+No.     Time        Source                Destination           Protocol Info
+     75 35.099486   172.16.114.50         172.16.112.20         DNS      Standard query PTR 207.114.16.172.in-addr.arpa
+
+Frame 75 (87 bytes on wire, 87 bytes captured)
+Ethernet II, Src: 00:00:c0:17:79:5a, Dst: 00:c0:4f:a3:57:db
+Internet Protocol, Src Addr: 172.16.114.50 (172.16.114.50), Dst Addr: 172.16.112.20 (172.16.112.20)
+User Datagram Protocol, Src Port: 1062 (1062), Dst Port: domain (53)
+Domain Name System (query)
+
+No.     Time        Source                Destination           Protocol Info
+     76 35.100022   172.16.112.20         172.16.114.50         DNS      Standard query response PTR pigeon.eyrie.af.mil
+
+Frame 76 (176 bytes on wire, 176 bytes captured)
+Ethernet II, Src: 00:c0:4f:a3:57:db, Dst: 00:00:c0:17:79:5a
+Internet Protocol, Src Addr: 172.16.112.20 (172.16.112.20), Dst Addr: 172.16.114.50 (172.16.114.50)
+User Datagram Protocol, Src Port: domain (53), Dst Port: 1062 (1062)
+Domain Name System (response)
+
+No.     Time        Source                Destination           Protocol Info
+     77 35.134973   172.16.114.50         172.16.114.207        SMTP     Response: 220 marx ESMTP Sendmail 8.8.5/8.8.5; Mon, 1 Mar 1999 08:00:09 -0500
+
+Frame 77 (123 bytes on wire, 123 bytes captured)
+Ethernet II, Src: 00:00:c0:17:79:5a, Dst: 00:c0:4f:a3:57:db
+Internet Protocol, Src Addr: 172.16.114.50 (172.16.114.50), Dst Addr: 172.16.114.207 (172.16.114.207)
+Transmission Control Protocol, Src Port: smtp (25), Dst Port: 1025 (1025), Seq: 1, Ack: 1, Len: 69
+Simple Mail Transfer Protocol
+
+No.     Time        Source                Destination           Protocol Info
+     78 35.136330   172.16.114.207        172.16.114.50         SMTP     Command: EHLO pigeon.eyrie.af.mil
+
+Frame 78 (80 bytes on wire, 80 bytes captured)
+Ethernet II, Src: 00:c0:4f:a3:57:db, Dst: 00:00:c0:17:79:5a
+Internet Protocol, Src Addr: 172.16.114.207 (172.16.114.207), Dst Addr: 172.16.114.50 (172.16.114.50)
+Transmission Control Protocol, Src Port: 1025 (1025), Dst Port: smtp (25), Seq: 1, Ack: 70, Len: 26
+Simple Mail Transfer Protocol
+
+No.     Time        Source                Destination           Protocol Info
+     79 35.136964   172.16.114.50         172.16.114.207        SMTP     Response: 250-marx Hello pigeon.eyrie.af.mil [172.16.114.207], pleased to meet you
+
+Frame 79 (221 bytes on wire, 221 bytes captured)
+Ethernet II, Src: 00:00:c0:17:79:5a, Dst: 00:c0:4f:a3:57:db
+Internet Protocol, Src Addr: 172.16.114.50 (172.16.114.50), Dst Addr: 172.16.114.207 (172.16.114.207)
+Transmission Control Protocol, Src Port: smtp (25), Dst Port: 1025 (1025), Seq: 70, Ack: 27, Len: 167
+Simple Mail Transfer Protocol
+
+No.     Time        Source                Destination           Protocol Info
+     80 35.137393   172.16.114.207        172.16.114.50         SMTP     Command: MAIL From:<lucjanm@pigeon.eyrie.af.mil>
+
+Frame 80 (95 bytes on wire, 95 bytes captured)
+Ethernet II, Src: 00:c0:4f:a3:57:db, Dst: 00:00:c0:17:79:5a
+Internet Protocol, Src Addr: 172.16.114.207 (172.16.114.207), Dst Addr: 172.16.114.50 (172.16.114.50)
+Transmission Control Protocol, Src Port: 1025 (1025), Dst Port: smtp (25), Seq: 27, Ack: 237, Len: 41
+Simple Mail Transfer Protocol
+
+No.     Time        Source                Destination           Protocol Info
+     81 35.140948   172.16.114.50         172.16.112.20         DNS      Standard query ANY pigeon.eyrie.af.mil
+
+Frame 81 (79 bytes on wire, 79 bytes captured)
+Ethernet II, Src: 00:00:c0:17:79:5a, Dst: 00:c0:4f:a3:57:db
+Internet Protocol, Src Addr: 172.16.114.50 (172.16.114.50), Dst Addr: 172.16.112.20 (172.16.112.20)
+User Datagram Protocol, Src Port: 1063 (1063), Dst Port: domain (53)
+Domain Name System (query)
+
+No.     Time        Source                Destination           Protocol Info
+     82 35.141479   172.16.112.20         172.16.114.50         DNS      Standard query response MX 10 pigeon.eyrie.af.mil A 172.16.114.207
+
+Frame 82 (176 bytes on wire, 176 bytes captured)
+Ethernet II, Src: 00:c0:4f:a3:57:db, Dst: 00:00:c0:17:79:5a
+Internet Protocol, Src Addr: 172.16.112.20 (172.16.112.20), Dst Addr: 172.16.114.50 (172.16.114.50)
+User Datagram Protocol, Src Port: domain (53), Dst Port: 1063 (1063)
+Domain Name System (response)
+
+No.     Time        Source                Destination           Protocol Info
+     83 35.144069   172.16.114.50         172.16.114.207        SMTP     Response: 250 <lucjanm@pigeon.eyrie.af.mil>... Sender ok
+
+Frame 83 (102 bytes on wire, 102 bytes captured)
+Ethernet II, Src: 00:00:c0:17:79:5a, Dst: 00:c0:4f:a3:57:db
+Internet Protocol, Src Addr: 172.16.114.50 (172.16.114.50), Dst Addr: 172.16.114.207 (172.16.114.207)
+Transmission Control Protocol, Src Port: smtp (25), Dst Port: 1025 (1025), Seq: 237, Ack: 68, Len: 48
+Simple Mail Transfer Protocol
+
+No.     Time        Source                Destination           Protocol Info
+     84 35.144383   172.16.114.207        172.16.114.50         SMTP     Command: RCPT To:<raeburnt@marx.eyrie.af.mil>
+
+Frame 84 (92 bytes on wire, 92 bytes captured)
+Ethernet II, Src: 00:c0:4f:a3:57:db, Dst: 00:00:c0:17:79:5a
+Internet Protocol, Src Addr: 172.16.114.207 (172.16.114.207), Dst Addr: 172.16.114.50 (172.16.114.50)
+Transmission Control Protocol, Src Port: 1025 (1025), Dst Port: smtp (25), Seq: 68, Ack: 285, Len: 38
+Simple Mail Transfer Protocol
+
+No.     Time        Source                Destination           Protocol Info
+     85 35.145205   172.16.114.50         172.16.112.20         DNS      Standard query ANY marx.eyrie.af.mil
+
+Frame 85 (77 bytes on wire, 77 bytes captured)
+Ethernet II, Src: 00:00:c0:17:79:5a, Dst: 00:c0:4f:a3:57:db
+Internet Protocol, Src Addr: 172.16.114.50 (172.16.114.50), Dst Addr: 172.16.112.20 (172.16.112.20)
+User Datagram Protocol, Src Port: 1064 (1064), Dst Port: domain (53)
+Domain Name System (query)
+
+No.     Time        Source                Destination           Protocol Info
+     86 35.145699   172.16.112.20         172.16.114.50         DNS      Standard query response MX 10 marx.eyrie.af.mil A 172.16.114.50
+
+Frame 86 (174 bytes on wire, 174 bytes captured)
+Ethernet II, Src: 00:c0:4f:a3:57:db, Dst: 00:00:c0:17:79:5a
+Internet Protocol, Src Addr: 172.16.112.20 (172.16.112.20), Dst Addr: 172.16.114.50 (172.16.114.50)
+User Datagram Protocol, Src Port: domain (53), Dst Port: 1064 (1064)
+Domain Name System (response)
+
+No.     Time        Source                Destination           Protocol Info
+     87 35.158844   172.16.114.50         172.16.114.207        TCP      smtp > 1025 [ACK] Seq=285 Ack=106 Win=31744 Len=0
+
+Frame 87 (60 bytes on wire, 60 bytes captured)
+Ethernet II, Src: 00:00:c0:17:79:5a, Dst: 00:c0:4f:a3:57:db
+Internet Protocol, Src Addr: 172.16.114.50 (172.16.114.50), Dst Addr: 172.16.114.207 (172.16.114.207)
+Transmission Control Protocol, Src Port: smtp (25), Dst Port: 1025 (1025), Seq: 285, Ack: 106, Len: 0
+
+No.     Time        Source                Destination           Protocol Info
+     88 35.173515   172.16.114.50         172.16.114.207        SMTP     Response: 250 <raeburnt@marx.eyrie.af.mil>... Recipient ok
+
+Frame 88 (104 bytes on wire, 104 bytes captured)
+Ethernet II, Src: 00:00:c0:17:79:5a, Dst: 00:c0:4f:a3:57:db
+Internet Protocol, Src Addr: 172.16.114.50 (172.16.114.50), Dst Addr: 172.16.114.207 (172.16.114.207)
+Transmission Control Protocol, Src Port: smtp (25), Dst Port: 1025 (1025), Seq: 285, Ack: 106, Len: 50
+Simple Mail Transfer Protocol
+
+No.     Time        Source                Destination           Protocol Info
+     89 35.173777   172.16.114.207        172.16.114.50         SMTP     Command: DATA
+
+Frame 89 (60 bytes on wire, 60 bytes captured)
+Ethernet II, Src: 00:c0:4f:a3:57:db, Dst: 00:00:c0:17:79:5a
+Internet Protocol, Src Addr: 172.16.114.207 (172.16.114.207), Dst Addr: 172.16.114.50 (172.16.114.50)
+Transmission Control Protocol, Src Port: 1025 (1025), Dst Port: smtp (25), Seq: 106, Ack: 335, Len: 6
+Simple Mail Transfer Protocol
+
+No.     Time        Source                Destination           Protocol Info
+     90 35.174384   172.16.114.50         172.16.114.207        SMTP     Response: 354 Enter mail, end with "." on a line by itself
+
+Frame 90 (104 bytes on wire, 104 bytes captured)
+Ethernet II, Src: 00:00:c0:17:79:5a, Dst: 00:c0:4f:a3:57:db
+Internet Protocol, Src Addr: 172.16.114.50 (172.16.114.50), Dst Addr: 172.16.114.207 (172.16.114.207)
+Transmission Control Protocol, Src Port: smtp (25), Dst Port: 1025 (1025), Seq: 335, Ack: 112, Len: 50
+Simple Mail Transfer Protocol
+
+No.     Time        Source                Destination           Protocol Info
+     91 35.175463   172.16.114.207        172.16.114.50         SMTP     Message Body
+
+Frame 91 (1078 bytes on wire, 1078 bytes captured)
+Ethernet II, Src: 00:c0:4f:a3:57:db, Dst: 00:00:c0:17:79:5a
+Internet Protocol, Src Addr: 172.16.114.207 (172.16.114.207), Dst Addr: 172.16.114.50 (172.16.114.50)
+Transmission Control Protocol, Src Port: 1025 (1025), Dst Port: smtp (25), Seq: 112, Ack: 385, Len: 1024
+Simple Mail Transfer Protocol
+
+No.     Time        Source                Destination           Protocol Info
+     92 35.188844   172.16.114.50         172.16.114.207        TCP      smtp > 1025 [ACK] Seq=385 Ack=1136 Win=31744 Len=0
+
+Frame 92 (60 bytes on wire, 60 bytes captured)
+Ethernet II, Src: 00:00:c0:17:79:5a, Dst: 00:c0:4f:a3:57:db
+Internet Protocol, Src Addr: 172.16.114.50 (172.16.114.50), Dst Addr: 172.16.114.207 (172.16.114.207)
+Transmission Control Protocol, Src Port: smtp (25), Dst Port: 1025 (1025), Seq: 385, Ack: 1136, Len: 0
+
+No.     Time        Source                Destination           Protocol Info
+     93 35.189214   172.16.114.207        172.16.114.50         SMTP     Message Body
+
+Frame 93 (349 bytes on wire, 349 bytes captured)
+Ethernet II, Src: 00:c0:4f:a3:57:db, Dst: 00:00:c0:17:79:5a
+Internet Protocol, Src Addr: 172.16.114.207 (172.16.114.207), Dst Addr: 172.16.114.50 (172.16.114.50)
+Transmission Control Protocol, Src Port: 1025 (1025), Dst Port: smtp (25), Seq: 1136, Ack: 385, Len: 295
+Simple Mail Transfer Protocol
+
+No.     Time        Source                Destination           Protocol Info
+     94 35.208826   172.16.114.50         172.16.114.207        TCP      smtp > 1025 [ACK] Seq=385 Ack=1431 Win=31744 Len=0
+
+Frame 94 (60 bytes on wire, 60 bytes captured)
+Ethernet II, Src: 00:00:c0:17:79:5a, Dst: 00:c0:4f:a3:57:db
+Internet Protocol, Src Addr: 172.16.114.50 (172.16.114.50), Dst Addr: 172.16.114.207 (172.16.114.207)
+Transmission Control Protocol, Src Port: smtp (25), Dst Port: 1025 (1025), Seq: 385, Ack: 1431, Len: 0
+
+No.     Time        Source                Destination           Protocol Info
+     95 35.312558   172.16.114.50         172.16.114.207        SMTP     Response: 250 IAA00287 Message accepted for delivery
+
+Frame 95 (98 bytes on wire, 98 bytes captured)
+Ethernet II, Src: 00:00:c0:17:79:5a, Dst: 00:c0:4f:a3:57:db
+Internet Protocol, Src Addr: 172.16.114.50 (172.16.114.50), Dst Addr: 172.16.114.207 (172.16.114.207)
+Transmission Control Protocol, Src Port: smtp (25), Dst Port: 1025 (1025), Seq: 385, Ack: 1431, Len: 44
+Simple Mail Transfer Protocol
+
+No.     Time        Source                Destination           Protocol Info
+     96 35.312768   172.16.114.207        172.16.114.50         SMTP     Message Body
+
+Frame 96 (60 bytes on wire, 60 bytes captured)
+Ethernet II, Src: 00:c0:4f:a3:57:db, Dst: 00:00:c0:17:79:5a
+Internet Protocol, Src Addr: 172.16.114.207 (172.16.114.207), Dst Addr: 172.16.114.50 (172.16.114.50)
+Transmission Control Protocol, Src Port: 1025 (1025), Dst Port: smtp (25), Seq: 1431, Ack: 429, Len: 6
+Simple Mail Transfer Protocol
+
+No.     Time        Source                Destination           Protocol Info
+     97 35.313934   172.16.114.50         172.16.114.207        SMTP     Response: 221 marx closing connection
+
+Frame 97 (83 bytes on wire, 83 bytes captured)
+Ethernet II, Src: 00:00:c0:17:79:5a, Dst: 00:c0:4f:a3:57:db
+Internet Protocol, Src Addr: 172.16.114.50 (172.16.114.50), Dst Addr: 172.16.114.207 (172.16.114.207)
+Transmission Control Protocol, Src Port: smtp (25), Dst Port: 1025 (1025), Seq: 429, Ack: 1437, Len: 29
+Simple Mail Transfer Protocol
+
+No.     Time        Source                Destination           Protocol Info
+     98 35.314697   172.16.114.50         172.16.114.207        TCP      smtp > 1025 [FIN, ACK] Seq=458 Ack=1437 Win=31744 Len=0
+
+Frame 98 (60 bytes on wire, 60 bytes captured)
+Ethernet II, Src: 00:00:c0:17:79:5a, Dst: 00:c0:4f:a3:57:db
+Internet Protocol, Src Addr: 172.16.114.50 (172.16.114.50), Dst Addr: 172.16.114.207 (172.16.114.207)
+Transmission Control Protocol, Src Port: smtp (25), Dst Port: 1025 (1025), Seq: 458, Ack: 1437, Len: 0
+
+No.     Time        Source                Destination           Protocol Info
+     99 35.314852   172.16.114.207        172.16.114.50         TCP      1025 > smtp [ACK] Seq=1437 Ack=459 Win=32120 Len=0
+
+Frame 99 (60 bytes on wire, 60 bytes captured)
+Ethernet II, Src: 00:c0:4f:a3:57:db, Dst: 00:00:c0:17:79:5a
+Internet Protocol, Src Addr: 172.16.114.207 (172.16.114.207), Dst Addr: 172.16.114.50 (172.16.114.50)
+Transmission Control Protocol, Src Port: 1025 (1025), Dst Port: smtp (25), Seq: 1437, Ack: 459, Len: 0
+
+No.     Time        Source                Destination           Protocol Info
+    100 35.317916   172.16.112.20         192.168.1.10          DNS      Standard query A saturn.kiwi.org
+
+Frame 100 (75 bytes on wire, 75 bytes captured)
+Ethernet II, Src: 00:c0:4f:a3:57:db, Dst: 00:10:7b:38:46:33
+Internet Protocol, Src Addr: 172.16.112.20 (172.16.112.20), Dst Addr: 192.168.1.10 (192.168.1.10)
+User Datagram Protocol, Src Port: domain (53), Dst Port: domain (53)
+Domain Name System (query)

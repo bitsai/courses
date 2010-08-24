@@ -1,0 +1,23 @@
+Round_trip = 1
+Departure Month/Day: 7/26
+Return Month/Day: 8/26
+
+Origin City, State Abbrev.: Baltimore, MD
+Origin Street (Optional): 
+Origin Zip (Optional): 
+
+Destination City, State Abbrev.: Boston, MA
+Destination Street (Optional): 
+Destination Zip (Optional): 
+
+Option = 3
+Get Train Costs
+
+Amtrak Schedule:
+Baltimore on 07/26/03 to Boston-South Station on 07/26/03
+Boston-South Station on 08/26/03 to Baltimore on 08/26/03
+
+Amtrak Fare: 246.00
+
+Option = 8
+Exit

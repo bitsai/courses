@@ -1,0 +1,166 @@
+# Porter stemmer.  This version works for lowercase words only.
+
+# ----------
+# WARNING: Porter writes,
+#     In a set of rules written beneath each other, only one is obeyed, 
+#     and this will be the one with the longest matching S1 for the given word. 
+# 
+# The correct interpretation is as follows:
+#     Within each step, only the rule for the longest matching suffix can 
+#     apply, and then only if its condition is met.
+# 
+# In particular, the EED rule doesn't apply to FEED because its
+# condition isn't met -- but the ED rule is not allowed to apply
+# either, since EED and not ED is the longest matching suffix.
+# Similarly the MENT rule doesn't apply to ARGUMENT -- but the ENT
+# rule can't apply either.
+# 
+# Porter's criterion is awkward because we must consider whether EED
+# (for example) matches in the context MG0 _ .#. and ALSO whether it
+# matches in the context _ #.# It is possible to implement this sort
+# of thing in a general way in the finite-state calculus, but the
+# implementation looks inelegant without macros.  So we will abandon
+# generality and write a version that depends on the particular stems
+# used.
+# ----------
+
+# Basic character definitions.
+
+define Vowel	a|e|i|o|u;
+define Double   a a|b b|c c|d d|e e|f f|g g|h h|i i|j j|k k|l l|m m|n n|o o|p p|q q|r r|s s|t t|u u|v v|w w|x x|y y|z z;
+define Alphabet [Double .o. [? ?:0]].l;   # the single alphabet (not double).
+define Cons	Alphabet - Vowel - y;
+
+# MarkCV converts consonants to C and vowels to V.
+# Under Porter's definition, y is a consonant unless it is preceded by a consonant.
+# So yyyy becomes CVCV.
+
+define MarkC    [Cons -> C] .o. [y @-> C // [.#.|[?-C]] _ ];   
+define MarkCV   MarkC .o. [?-C -> V];
+
+# Define sets of strings for which m=0 (M0), m=1 (M1),
+# m>0 (MG0), and m>1 (MG1).  Note the use of composition and .u 
+# to select strings from MarkCV's INPUT based on its OUTPUT.
+
+define M0	[MarkCV .o. (C+) (V+)].u;
+define M1	[MarkCV .o. (C+) V+ C+ (V+)].u;
+define MG0	?* - M0;
+define MG1	MG0 - M1;
+
+# Define sets of strings that match Porter's patterns *v*, *d, *o.
+# (Read the definitions of those patterns carefully.)
+
+define HasV	[MarkCV .o. ?* V ?*].u;   
+define EndsD	[MarkCV .o. ?* C C].u .o. ?* Double;
+define EndsO	[MarkCV .o. ?* C V C].u .o. ~[?* [w | x | y]];
+
+# Now for the steps of Porter's algorithm.
+
+# Step 1a has unconditioned replacements.  We try replacing one
+# suffix at a time, longer suffixes first.  If a replacement succeeds,
+# it prevents further replacements from matching by adding DONE (a single
+# multicharacter symbol) to the end of the string.  Any such DONE is deleted
+# at the end of the step.
+
+define Step1a	    {sses} -> {ss} DONE || _ .#. 
+		.o. {ies} -> {i} DONE || _ .#.
+		.o. {ss} -> {ss} DONE || _ .#.
+		.o. {s} -> DONE	  || _ .#. 
+		.o. DONE -> 0;
+
+# The basic step 1b.  It is implemented similarly to 1a, except that the
+# EED rule does have a condition: it only applies in the context MG0 _ .#.
+#
+# When implementing Step1bPre, please see the WARNING near the top of
+# this file: FEED, BLEED, etc.  should be left alone (unlike AGREED or
+# PLASTERED).  You will have to find a hack for this.
+#
+# If Step1bPre removes a suffix ED or ING, then it should replace that suffix
+# with POST, which indicates to Step1bPost that it must do some postprocessing.
+#
+# Note: Make sure you use POST (a single symbol) and not {POST} or P O S T
+# (which are equivalent and represent strings of 4 symbols).
+
+define Step1bPre	{bleed}|{breed}|{creed}|{deed}|{feed}|{freed}|{greed}|{heed}|{need}|{peed}|{reed}|{screed}|{seed}|{speed}|{steed}|{tweed}|{weed} -> ... DONE || .#. _ .#.
+		.o.	{eed} -> {ee} || MG0 _ .#.
+		.o.	{ed} -> POST || HasV _ .#.
+		.o.	{ing} -> POST || HasV _ .#.
+		.o.	DONE -> 0;
+
+# Postprocessing for step 1b.  Lots of interesting stuff going on
+# here.  What is the BACKSPACE doing?  What would happen if the second
+# rule were written as [M1 & EndsO] _ .#. without the initial .#.?
+
+define Step1bPost   POST -> {e} || {at}|{bl}|{iz} _ .#.
+	     	.o. POST -> {e} || .#. [M1 & EndsO] _ .#.
+		.o. POST -> BACKSPACE || .#. [EndsD & ~[?* [l|s|z]]] _ .#.  
+	        .o. POST -> 0
+		.o. ? BACKSPACE -> 0;
+
+define Step1b Step1bPre .o. Step1bPost ;
+
+define Step1c 	y -> i || HasV _ .#. ;
+ 
+# This implementation of step 2 uses parallel directed replacement to
+# find the longest match.  We go left to right and replace the first
+# suffix we encounter - which must be the longest since it started
+# earliest.  This approach suffices because all the rules in step 2
+# have the same condition (namely m>0).
+
+define Step2	{ational} @-> {ate}, {tional} @-> {tion}, {enci} @-> {ence}, 
+		{anci} @-> {ance}, {izer} @-> {ize}, {abli} @-> {able}, 
+		{alli} @-> {al}, {entli} @-> {ent}, {eli} @-> {e}, {ousli} @-> {ous}, 
+		{ization} @-> {ize}, {ation} @-> {ate}, {ator} @-> {ate}, 
+		{alism} @-> {al}, {iveness} @-> {ive}, {fulness} @-> {ful},
+		{ousness} @-> {ous}, {aliti} @-> {al}, {iviti} @-> {ive},
+		{biliti} @-> {ble} 
+		|| MG0 _ .#. ;
+
+# Step 3 is implemented similarly.
+
+define Step3	{icate} @-> {ic}, {ative} @-> 0, {alize} @-> {al}, {iciti} @-> {ic},
+		{ical} @-> {ic}, {ful} @-> 0, {ness} @-> 0 || MG0 _ .#. ;
+
+# Step 4 is a bit tricky.  We insert KILL before the longest matching suffix,
+# indicating that we plan to delete it.  We rescue ION from being killed 
+# if the context of its rule doesn't apply.  Then we go ahead and carry out
+# the execution.
+
+define Step4 	{al}|{ance}|{ence}|{er}|{ic}|{able}|{ible}|{ant}|{ement}|{ment}|{ent}
+		|{ion}|{ou}|{ism}|{ate}|{iti}|{ous}|{ive}|{ize} @-> KILL ... || _ .#.
+	        .o. KILL {ion} -> 0 || [MG1 & ?* [s|t]] _ .#.
+                .o. KILL -> 0 || _ {ion} .#.
+	        .o. KILL ?* -> 0 || MG1 _ .#. 
+	        .o. KILL -> 0 ;
+
+# Steps 5a and 5b are short.
+# Consult Step1bPost for one way to replace double letters with single ones.
+
+define Step5a	{e} -> 0 || MG1 _ .#.
+	.o.	{e} -> 0 || .#. [M1 & ~EndsO] _ .#.;
+
+define Step5b	? -> ... EOS || _ .#.
+	.o.	EOS -> BACKSPACE || [MG1 & EndsD & [?* l]] _ .#.
+	.o.	EOS -> 0
+	.o.	? BACKSPACE -> 0;
+
+# Put it all together!  
+# 
+# Note: We start out by prefiltering the input to Stemmer by
+# Alphabet*.  Thus, a string containing non-letters will not survive
+# this initial filter and so will not be mapped to anything.  
+# This trick eliminates many useless arcs: for example,
+#       Step1a .o. Step1b                   has 141 states and 6708 arcs
+#   but Alphabet* .o. Step1a .o. Step1b has only 85 states and 2219 arcs
+#
+# Without this prefiltering, the machines for subsequent steps
+# (Step1a, etc.)  cannot assume anything about the input string.  They
+# must faithfully implement the regular expressions even for input
+# strings containing multiple instances of DONE, POST, BACKSPACE, or
+# KILL.  But the regular expressions were not even written with such
+# strings in mind.  Such handling would be useless, and it complicates
+# the machines so much that Stemmer becomes extremely large and takes
+# forever to compile.  Prefiltering saves the day.
+
+define Stemmer  Alphabet* .o. Step1a .o. Step1b .o. Step1c .o. Step2 .o. Step3 .o. Step4 .o. Step5a .o. Step5b ;
+

@@ -1,0 +1,82 @@
+: load networks/test.net
+: start all
+: usp
+[main] simnet: Rebuilt ShortestPath routing table on JHU
+[main] simnet: Rebuilt ShortestPath routing table on FLORAM
+[main] simnet: Rebuilt ShortestPath routing table on CMU
+[main] simnet: Rebuilt ShortestPath routing table on ISI
+[main] simnet: Rebuilt ShortestPath routing table on IMN
+[main] simnet: Rebuilt ShortestPath routing table on PARC
+[main] simnet: Rebuilt ShortestPath routing table on CERT
+[main] simnet: Rebuilt ShortestPath routing table on MIT
+[main] simnet: Rebuilt ShortestPath routing table on ATT
+[main] simnet: Rebuilt ShortestPath routing table on BBN
+[main] simnet: Rebuilt ShortestPath routing table on ANS3
+[main] simnet: Rebuilt ShortestPath routing table on DEC
+[main] simnet: Rebuilt ShortestPath routing table on GOODNET
+[main] simnet: Rebuilt ShortestPath routing table on CAIS
+[main] simnet: Rebuilt ShortestPath routing table on RIPE
+[main] simnet: Rebuilt ShortestPath routing table on ANS1
+[main] simnet: Rebuilt ShortestPath routing table on SPRINT
+: v 4
+[main] simnet: Verbosity Level = 4, Categories: OUTPUT
+: s CMU
+CMU(63.216.65.73)+: plug in A2.KerberosEvilEchoClient 17
+[main] CMU(63.216.65.73)-: socket was bound to port 1025
+CMU(63.216.65.73)+: plug in simnet.PacketDump 18
+CMU(63.216.65.73)+: dump any any
+CMU(63.216.65.73)+: s ISI
+ISI(128.220.98.76)+: plug in A2.KerberosAuthenticationServers 17
+ISI(128.220.98.76)+: wait 500
+[ISI-A2.KerberosAuthenticationServers:17] ISI(128.220.98.76)+: 1131520589253
+[ISI-A2.KerberosAuthenticationServers:17] ISI(128.220.98.76)+: 1131520589253
+[ISI-KDC] ISI(128.220.98.76)+: socket was bound to port 88
+[ISI-KDBM] ISI(128.220.98.76)+: socket was bound to port 90
+[ISI-TGS] ISI(128.220.98.76)+: socket was bound to port 89
+ISI(128.220.98.76)+: dumpState
+[main] ISI(128.220.98.76)+: Dumping Kerberos State:
+******** Authentication Keys ********
+	alice	daeccf0ad3c1fc8c8015205c332f5b42
+	admin	ee10c315eba2c75b403ea99136f5b48d
+	bob	ec121ff80513ae58ed478d5c5787075b
+******** Service Keys ********
+	krbtgs@ISI	78432e2a285e81cb1ce277088a6a3aa7
+	echo@MIT	2d61bfbcb50d147b98b46529894646f2
+	krbkdbm@ISI	8fb91cfa3a325608c103829d6e132315
+ISI(128.220.98.76)+: s CMU
+CMU(63.216.65.73)+: login ISI alice apples
+[ISI-KDC] ISI(128.220.98.76)+: Received Authentication Request from `alice@CMU' to `krbtgs@ISI'
+[ISI-KDC] ISI(128.220.98.76)+: Valid user and service, sending a response.
+[main] CMU(63.216.65.73)+: 
+******** Received Message ********
+	Received nonce: 932543819
+	Received ticket: (should be encrypted.)
+	Received key: 3aefaf5694a3d651f7dd11c3fc2d71a7
+[main] CMU(63.216.65.73)+: Adding key/tickets keyed by krbtgs@ISI
+CMU(63.216.65.73)+: crack 400
+[main] CMU(63.216.65.73)+: You are guessing that the TGS key was created between 400 and 500 ms before you logged in.
+[main] CMU(63.216.65.73)+: Trying file bytes (0,0)
+[main] CMU(63.216.65.73)+: Trying file bytes (1,0)
+[CMU-TicketUpdater] CMU(63.216.65.73)+: Expiration of ticket: krbtgs@ISI
+[main] CMU(63.216.65.73)+: Trying file bytes (0,1)
+[main] CMU(63.216.65.73)+: Trying file bytes (1,1)
+[main] CMU(63.216.65.73)+: Trying file bytes (2,0)
+[main] CMU(63.216.65.73)+: Trying file bytes (0,2)
+[main] CMU(63.216.65.73)+: Trying file bytes (2,1)
+[main] CMU(63.216.65.73)+: Trying file bytes (1,2)
+[main] CMU(63.216.65.73)+: Trying file bytes (2,2)
+[main] CMU(63.216.65.73)+: Trying file bytes (4,0)
+[main] CMU(63.216.65.73)+: Trying file bytes (0,4)
+[main] CMU(63.216.65.73)+: Trying file bytes (4,1)
+[main] CMU(63.216.65.73)+: Trying file bytes (1,4)
+[main] CMU(63.216.65.73)+: Trying file bytes (4,2)
+[main] CMU(63.216.65.73)+: Trying file bytes (2,4)
+[main] CMU(63.216.65.73)+: Trying file bytes (4,4)
+[main] CMU(63.216.65.73)+: Trying file bytes (3,0)
+[main] CMU(63.216.65.73)+: Trying file bytes (0,3)
+[main] CMU(63.216.65.73)+: Trying file bytes (3,1)
+[main] CMU(63.216.65.73)+: Trying file bytes (1,3)
+[main] CMU(63.216.65.73)+: Got it!: 
+[main] CMU(63.216.65.73)+: TGS Key: 78432e2a285e81cb1ce277088a6a3aa7
+[main] CMU(63.216.65.73)+: 3 seeds: 1ecfebae200e 20ee7c3fb580000 cafebabf0000002d
+CMU(63.216.65.73)+: 

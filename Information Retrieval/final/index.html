@@ -1,0 +1,147 @@
+<HTML><HEAD>
+<TITLE>Sanford's CS Homepage</TITLE>
+</HEAD>
+<BODY>
+
+<strong><em><span style="font-size:24px">TravelBot</span></em></strong>
+<BR>
+<strong>A web robot which serves your trip planning needs</strong>
+<BR>
+<em>Written By: </em> Benny Tsai & Sanford Phillips
+<BR>
+<em>For: </em> <a href="http://www.cs.jhu.edu/~yarowsky/cs466.html">600.466 Web Agents</a>
+<BR>
+<BR><BR>
+<strong>Please enter your trip information:</strong>
+<FORM METHOD="POST"
+ACTION="http://ugrad.cs.jhu.edu/cgi-bin/cgiwrap/sanford/agentcgi.pl">
+
+<TABLE>
+<TR><TD>
+<input type="checkbox" name="flights">Check flights</TD>
+<TD><input type="checkbox" name="drive">Check driving</TD>
+<TD><input type="checkbox" name="train">Check trains</TD>
+<TD><input type="checkbox" name="destinfo">Destination Info</TD>
+</TR>
+</TABLE>
+
+<TABLE>
+<TR><TD>From: <INPUT NAME="from"></TD>
+	<TD ALIGN=RIGHT><input type="checkbox" name="useDefaults" CHECKED>Check to use the default costs</TD>
+</TR>
+<TR><TD>To:&nbsp;&nbsp;&nbsp;&nbsp; <INPUT NAME="to"></TD>
+	<TD ALIGN=RIGHT>SAC Van Cost per Mile: <INPUT NAME="sacCost"></TD>
+</TR>
+<TR><TD>Depart:&nbsp;<SELECT class=content-fxd-sm NAME="leaveMonth" SIZE=1>
+
+<OPTION VALUE="1"> Jan</OPTION>
+<OPTION VALUE="2"> Feb</OPTION>
+<OPTION VALUE="3"> Mar</OPTION>
+<OPTION VALUE="4"> Apr</OPTION>
+<OPTION SELECTED VALUE="5"> May</OPTION>
+<OPTION VALUE="6"> Jun</OPTION>
+<OPTION VALUE="7"> Jul</OPTION>
+<OPTION VALUE="8"> Aug</OPTION>
+<OPTION VALUE="9"> Sep</OPTION>
+<OPTION VALUE="10"> Oct</OPTION>
+<OPTION VALUE="11"> Nov</OPTION>
+<OPTION VALUE="12"> Dec</OPTION>
+</SELECT>
+
+&nbsp;<SELECT class=content-fxd-sm NAME="leaveDay" SIZE=1>
+<OPTION VALUE="1"> 1</OPTION>
+<OPTION VALUE="2"> 2</OPTION>
+<OPTION VALUE="3"> 3</OPTION>
+<OPTION VALUE="4"> 4</OPTION>
+<OPTION VALUE="5"> 5</OPTION>
+<OPTION VALUE="6"> 6</OPTION>
+<OPTION VALUE="7"> 7</OPTION>
+<OPTION VALUE="8"> 8</OPTION>
+<OPTION VALUE="9"> 9</OPTION>
+<OPTION VALUE="10"> 10</OPTION>
+<OPTION VALUE="11"> 11</OPTION>
+<OPTION VALUE="12"> 12</OPTION>
+<OPTION VALUE="13"> 13</OPTION>
+<OPTION VALUE="14"> 14</OPTION>
+<OPTION VALUE="15"> 15</OPTION>
+<OPTION VALUE="16"> 16</OPTION>
+<OPTION VALUE="17"> 17</OPTION>
+<OPTION VALUE="18"> 18</OPTION>
+<OPTION VALUE="19"> 19</OPTION>
+<OPTION VALUE="20"> 20</OPTION>
+<OPTION VALUE="21"> 21</OPTION>
+<OPTION VALUE="22"> 22</OPTION>
+<OPTION VALUE="23"> 23</OPTION>
+<OPTION VALUE="24"> 24</OPTION>
+<OPTION VALUE="25"> 25</OPTION>
+<OPTION SELECTED VALUE="26"> 26</OPTION>
+<OPTION VALUE="27"> 27</OPTION>
+<OPTION VALUE="28"> 28</OPTION>
+<OPTION VALUE="29"> 29</OPTION>
+<OPTION VALUE="30"> 30</OPTION>
+<OPTION VALUE="31"> 31</OPTION>
+</SELECT></TD>
+<TD ALIGN=RIGHT>SAC Van Miles per Gallon: <INPUT NAME="sacMPG"></TD>
+</TR>
+
+<TR><TD>Return:&nbsp;<SELECT class=content-fxd-sm
+NAME="returnMonth" SIZE=1>
+<OPTION VALUE="1"> Jan</OPTION>
+<OPTION VALUE="2"> Feb</OPTION>
+<OPTION VALUE="3"> Mar</OPTION>
+<OPTION VALUE="4"> Apr</OPTION>
+<OPTION SELECTED VALUE="5"> May</OPTION>
+<OPTION VALUE="6"> Jun</OPTION>
+<OPTION VALUE="7"> Jul</OPTION>
+<OPTION VALUE="8"> Aug</OPTION>
+<OPTION VALUE="9"> Sep</OPTION>
+<OPTION VALUE="10"> Oct</OPTION>
+<OPTION VALUE="11"> Nov</OPTION>
+<OPTION VALUE="12"> Dec</OPTION>
+</SELECT>
+
+&nbsp;<SELECT class=content-fxd-sm NAME="returnDay" SIZE=1>
+<OPTION VALUE="1"> 1</OPTION>
+<OPTION VALUE="2"> 2</OPTION>
+<OPTION VALUE="3"> 3</OPTION>
+<OPTION VALUE="4"> 4</OPTION>
+<OPTION VALUE="5"> 5</OPTION>
+<OPTION VALUE="6"> 6</OPTION>
+<OPTION VALUE="7"> 7</OPTION>
+<OPTION VALUE="8"> 8</OPTION>
+<OPTION VALUE="9"> 9</OPTION>
+<OPTION VALUE="10"> 10</OPTION>
+<OPTION VALUE="11"> 11</OPTION>
+<OPTION VALUE="12"> 12</OPTION>
+<OPTION VALUE="13"> 13</OPTION>
+<OPTION VALUE="14"> 14</OPTION>
+<OPTION VALUE="15"> 15</OPTION>
+<OPTION VALUE="16"> 16</OPTION>
+<OPTION VALUE="17"> 17</OPTION>
+<OPTION VALUE="18"> 18</OPTION>
+<OPTION VALUE="19"> 19</OPTION>
+<OPTION VALUE="20"> 20</OPTION>
+<OPTION VALUE="21"> 21</OPTION>
+<OPTION VALUE="22"> 22</OPTION>
+<OPTION VALUE="23"> 23</OPTION>
+<OPTION VALUE="24"> 24</OPTION>
+<OPTION VALUE="25"> 25</OPTION>
+<OPTION SELECTED VALUE="26"> 26</OPTION>
+<OPTION VALUE="27"> 27</OPTION>
+<OPTION VALUE="28"> 28</OPTION>
+<OPTION VALUE="29"> 29</OPTION>
+<OPTION VALUE="30"> 30</OPTION>
+<OPTION VALUE="31"> 31</OPTION>
+</SELECT></TD>
+<TD ALIGN=RIGHT>Other Vehicle Miles per Gallon: <INPUT NAME="otherMPG"></TD>
+</TR>
+
+<TR><TD><input type="checkbox" name="round"> Roundtrip?</TD>
+	<TD ALIGN=RIGHT>Cost of Gas per Gallon: <INPUT NAME="gasPrice"></TD>
+</TR>
+
+
+</TABLE>
+<INPUT TYPE="SUBMIT" VALUE="Submit">
+</BODY>
+</HTML>

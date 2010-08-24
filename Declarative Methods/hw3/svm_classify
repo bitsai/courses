@@ -1,0 +1,3 @@
+#!/bin/sh
+./svm train_extended.gz model 10 > training_error
+./svm --test model test_extended.gz > test_error

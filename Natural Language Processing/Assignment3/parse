@@ -1,0 +1,7 @@
+#!/usr/local/bin/perl -w
+$grammar = $ARGV[0];
+$sentences = $ARGV[1];
+
+system("java -Xmx128m earley.Earley $grammar $sentences");
+system("perl prettyprint OUTPUT");
+system("perl prettyprint OUTPUT > PRETTY_OUTPUT");

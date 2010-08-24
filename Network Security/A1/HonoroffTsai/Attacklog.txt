@@ -1,0 +1,420 @@
+: load networks/test.net
+: start all
+: usp
+[main] simnet: Rebuilt ShortestPath routing table on JHU
+[main] simnet: Rebuilt ShortestPath routing table on FLORAM
+[main] simnet: Rebuilt ShortestPath routing table on CMU
+[main] simnet: Rebuilt ShortestPath routing table on ISI
+[main] simnet: Rebuilt ShortestPath routing table on IMN
+[main] simnet: Rebuilt ShortestPath routing table on PARC
+[main] simnet: Rebuilt ShortestPath routing table on CERT
+[main] simnet: Rebuilt ShortestPath routing table on MIT
+[main] simnet: Rebuilt ShortestPath routing table on ATT
+[main] simnet: Rebuilt ShortestPath routing table on BBN
+[main] simnet: Rebuilt ShortestPath routing table on ANS3
+[main] simnet: Rebuilt ShortestPath routing table on DEC
+[main] simnet: Rebuilt ShortestPath routing table on GOODNET
+[main] simnet: Rebuilt ShortestPath routing table on CAIS
+[main] simnet: Rebuilt ShortestPath routing table on RIPE
+[main] simnet: Rebuilt ShortestPath routing table on ANS1
+[main] simnet: Rebuilt ShortestPath routing table on SPRINT
+: slp all all 0 0 0 0
+: s GOODNET
+GOODNET(18.2.3.4)+: plug in A1.TLSRC4Crack 4
+GOODNET(18.2.3.4)+: crack MIT JHU
+GOODNET(18.2.3.4)+: s JHU
+JHU(128.220.2.80)+: plug in simnet.TLSEchoServer 3
+JHU(128.220.2.80)+: startServer 443
+JHU(128.220.2.80)+: s MIT
+MIT(18.181.0.31)+: plug in A1.TLSCrackedClient 2
+MIT(18.181.0.31)+: doHandshake JHU 443
+[main] MIT(18.181.0.31)+: The client key is: 42165033586fdeaf
+[Thread-106] JHU(128.220.2.80)+: The client key is: 4961e6a4c315ac97
+MIT(18.181.0.31)+: echo ENCRYPT_THIS_MESSAGE
+[main] MIT(18.181.0.31)+: Sent 0 packets
+[main] MIT(18.181.0.31)+: Sent 2048 packets
+[main] MIT(18.181.0.31)+: Sent 4096 packets
+[main] MIT(18.181.0.31)+: Sent 6144 packets
+[main] MIT(18.181.0.31)+: Sent 8192 packets
+[main] MIT(18.181.0.31)+: Sent 10240 packets
+[main] MIT(18.181.0.31)+: Sent 12288 packets
+[main] MIT(18.181.0.31)+: Sent 14336 packets
+[main] MIT(18.181.0.31)+: Sent 16384 packets
+[main] MIT(18.181.0.31)+: Sent 18432 packets
+[main] MIT(18.181.0.31)+: Sent 20480 packets
+[main] MIT(18.181.0.31)+: Sent 22528 packets
+[main] MIT(18.181.0.31)+: Sent 24576 packets
+[main] MIT(18.181.0.31)+: Sent 26624 packets
+[main] MIT(18.181.0.31)+: Sent 28672 packets
+[main] MIT(18.181.0.31)+: Sent 30720 packets
+[main] MIT(18.181.0.31)+: Sent 32768 packets
+[main] MIT(18.181.0.31)+: Sent 34816 packets
+[main] MIT(18.181.0.31)+: Sent 36864 packets
+[main] MIT(18.181.0.31)+: Sent 38912 packets
+[main] MIT(18.181.0.31)+: Sent 40960 packets
+[main] MIT(18.181.0.31)+: Sent 43008 packets
+[main] MIT(18.181.0.31)+: Sent 45056 packets
+[main] MIT(18.181.0.31)+: Sent 47104 packets
+[main] MIT(18.181.0.31)+: Sent 49152 packets
+[main] MIT(18.181.0.31)+: Sent 51200 packets
+[main] MIT(18.181.0.31)+: Sent 53248 packets
+[main] MIT(18.181.0.31)+: Sent 55296 packets
+[main] MIT(18.181.0.31)+: Sent 57344 packets
+[main] MIT(18.181.0.31)+: Sent 59392 packets
+[main] MIT(18.181.0.31)+: Sent 61440 packets
+[main] MIT(18.181.0.31)+: Sent 63488 packets
+[main] MIT(18.181.0.31)+: Sent 65536 packets
+[main] MIT(18.181.0.31)+: Sent 67584 packets
+[main] MIT(18.181.0.31)+: Sent 69632 packets
+[main] MIT(18.181.0.31)+: Sent 71680 packets
+[main] MIT(18.181.0.31)+: Sent 73728 packets
+[main] MIT(18.181.0.31)+: Sent 75776 packets
+[main] MIT(18.181.0.31)+: Sent 77824 packets
+[main] MIT(18.181.0.31)+: Sent 79872 packets
+[main] MIT(18.181.0.31)+: Sent 81920 packets
+[main] MIT(18.181.0.31)+: Sent 83968 packets
+[main] MIT(18.181.0.31)+: Sent 86016 packets
+[main] MIT(18.181.0.31)+: Sent 88064 packets
+[main] MIT(18.181.0.31)+: Sent 90112 packets
+[main] MIT(18.181.0.31)+: Sent 92160 packets
+[main] MIT(18.181.0.31)+: Sent 94208 packets
+[main] MIT(18.181.0.31)+: Sent 96256 packets
+[main] MIT(18.181.0.31)+: Sent 98304 packets
+[main] MIT(18.181.0.31)+: Sent 100352 packets
+[main] MIT(18.181.0.31)+: Sent 102400 packets
+[main] MIT(18.181.0.31)+: Sent 104448 packets
+[main] MIT(18.181.0.31)+: Sent 106496 packets
+[main] MIT(18.181.0.31)+: Sent 108544 packets
+[main] MIT(18.181.0.31)+: Sent 110592 packets
+[main] MIT(18.181.0.31)+: Sent 112640 packets
+[main] MIT(18.181.0.31)+: Sent 114688 packets
+[main] MIT(18.181.0.31)+: Sent 116736 packets
+[main] MIT(18.181.0.31)+: Sent 118784 packets
+[main] MIT(18.181.0.31)+: Sent 120832 packets
+[main] MIT(18.181.0.31)+: Sent 122880 packets
+[main] MIT(18.181.0.31)+: Sent 124928 packets
+[main] MIT(18.181.0.31)+: Sent 126976 packets
+[main] MIT(18.181.0.31)+: Sent 129024 packets
+[GOODNET-main] GOODNET(18.2.3.4)+: Occurrence: 4
+[GOODNET-main] GOODNET(18.2.3.4)+: Recovered 1 bytes of client key: 4200000000000000
+[GOODNET-main] GOODNET(18.2.3.4)+: Occurrence: 6
+[GOODNET-main] GOODNET(18.2.3.4)+: Recovered 1 bytes of server key: 4900000000000000
+[main] MIT(18.181.0.31)+: Sent 131072 packets
+[main] MIT(18.181.0.31)+: Sent 133120 packets
+[main] MIT(18.181.0.31)+: Sent 135168 packets
+[main] MIT(18.181.0.31)+: Sent 137216 packets
+[main] MIT(18.181.0.31)+: Sent 139264 packets
+[main] MIT(18.181.0.31)+: Sent 141312 packets
+[main] MIT(18.181.0.31)+: Sent 143360 packets
+[main] MIT(18.181.0.31)+: Sent 145408 packets
+[main] MIT(18.181.0.31)+: Sent 147456 packets
+[main] MIT(18.181.0.31)+: Sent 149504 packets
+[main] MIT(18.181.0.31)+: Sent 151552 packets
+[main] MIT(18.181.0.31)+: Sent 153600 packets
+[main] MIT(18.181.0.31)+: Sent 155648 packets
+[main] MIT(18.181.0.31)+: Sent 157696 packets
+[main] MIT(18.181.0.31)+: Sent 159744 packets
+[main] MIT(18.181.0.31)+: Sent 161792 packets
+[GOODNET-main] GOODNET(18.2.3.4)+: Occurrence: 4
+[GOODNET-main] GOODNET(18.2.3.4)+: Recovered 2 bytes of client key: 4216000000000000
+[GOODNET-main] GOODNET(18.2.3.4)+: Occurrence: 5
+[GOODNET-main] GOODNET(18.2.3.4)+: Recovered 2 bytes of server key: 4961000000000000
+[main] MIT(18.181.0.31)+: Sent 163840 packets
+[main] MIT(18.181.0.31)+: Sent 165888 packets
+[main] MIT(18.181.0.31)+: Sent 167936 packets
+[main] MIT(18.181.0.31)+: Sent 169984 packets
+[main] MIT(18.181.0.31)+: Sent 172032 packets
+[main] MIT(18.181.0.31)+: Sent 174080 packets
+[main] MIT(18.181.0.31)+: Sent 176128 packets
+[main] MIT(18.181.0.31)+: Sent 178176 packets
+[main] MIT(18.181.0.31)+: Sent 180224 packets
+[main] MIT(18.181.0.31)+: Sent 182272 packets
+[main] MIT(18.181.0.31)+: Sent 184320 packets
+[main] MIT(18.181.0.31)+: Sent 186368 packets
+[main] MIT(18.181.0.31)+: Sent 188416 packets
+[main] MIT(18.181.0.31)+: Sent 190464 packets
+[main] MIT(18.181.0.31)+: Sent 192512 packets
+[main] MIT(18.181.0.31)+: Sent 194560 packets
+[GOODNET-main] GOODNET(18.2.3.4)+: Occurrence: 4
+[GOODNET-main] GOODNET(18.2.3.4)+: Recovered 3 bytes of client key: 4216500000000000
+[GOODNET-main] GOODNET(18.2.3.4)+: Occurrence: 4
+[GOODNET-main] GOODNET(18.2.3.4)+: Recovered 3 bytes of server key: 4961e60000000000
+[main] MIT(18.181.0.31)+: Sent 196608 packets
+[main] MIT(18.181.0.31)+: Sent 198656 packets
+[main] MIT(18.181.0.31)+: Sent 200704 packets
+[main] MIT(18.181.0.31)+: Sent 202752 packets
+[main] MIT(18.181.0.31)+: Sent 204800 packets
+[main] MIT(18.181.0.31)+: Sent 206848 packets
+[main] MIT(18.181.0.31)+: Sent 208896 packets
+[main] MIT(18.181.0.31)+: Sent 210944 packets
+[main] MIT(18.181.0.31)+: Sent 212992 packets
+[main] MIT(18.181.0.31)+: Sent 215040 packets
+[main] MIT(18.181.0.31)+: Sent 217088 packets
+[main] MIT(18.181.0.31)+: Sent 219136 packets
+[main] MIT(18.181.0.31)+: Sent 221184 packets
+[main] MIT(18.181.0.31)+: Sent 223232 packets
+[main] MIT(18.181.0.31)+: Sent 225280 packets
+[main] MIT(18.181.0.31)+: Sent 227328 packets
+[GOODNET-main] GOODNET(18.2.3.4)+: Occurrence: 5
+[GOODNET-main] GOODNET(18.2.3.4)+: Recovered 4 bytes of client key: 4216503300000000
+[GOODNET-main] GOODNET(18.2.3.4)+: Occurrence: 5
+[GOODNET-main] GOODNET(18.2.3.4)+: Recovered 4 bytes of server key: 4961e6a400000000
+[main] MIT(18.181.0.31)+: Sent 229376 packets
+[main] MIT(18.181.0.31)+: Sent 231424 packets
+[main] MIT(18.181.0.31)+: Sent 233472 packets
+[main] MIT(18.181.0.31)+: Sent 235520 packets
+[main] MIT(18.181.0.31)+: Sent 237568 packets
+[main] MIT(18.181.0.31)+: Sent 239616 packets
+[main] MIT(18.181.0.31)+: Sent 241664 packets
+[main] MIT(18.181.0.31)+: Sent 243712 packets
+[main] MIT(18.181.0.31)+: Sent 245760 packets
+[main] MIT(18.181.0.31)+: Sent 247808 packets
+[main] MIT(18.181.0.31)+: Sent 249856 packets
+[main] MIT(18.181.0.31)+: Sent 251904 packets
+[main] MIT(18.181.0.31)+: Sent 253952 packets
+[main] MIT(18.181.0.31)+: Sent 256000 packets
+[main] MIT(18.181.0.31)+: Sent 258048 packets
+[main] MIT(18.181.0.31)+: Sent 260096 packets
+[GOODNET-main] GOODNET(18.2.3.4)+: Occurrence: 4
+[GOODNET-main] GOODNET(18.2.3.4)+: Recovered 5 bytes of client key: 4216503358000000
+[GOODNET-main] GOODNET(18.2.3.4)+: Occurrence: 4
+[GOODNET-main] GOODNET(18.2.3.4)+: Recovered 5 bytes of server key: 4961e6a4c3000000
+[main] MIT(18.181.0.31)+: Sent 262144 packets
+[main] MIT(18.181.0.31)+: Sent 264192 packets
+[main] MIT(18.181.0.31)+: Sent 266240 packets
+[main] MIT(18.181.0.31)+: Sent 268288 packets
+[main] MIT(18.181.0.31)+: Sent 270336 packets
+[main] MIT(18.181.0.31)+: Sent 272384 packets
+[main] MIT(18.181.0.31)+: Sent 274432 packets
+[main] MIT(18.181.0.31)+: Sent 276480 packets
+[main] MIT(18.181.0.31)+: Sent 278528 packets
+[main] MIT(18.181.0.31)+: Sent 280576 packets
+[main] MIT(18.181.0.31)+: Sent 282624 packets
+[main] MIT(18.181.0.31)+: Sent 284672 packets
+[main] MIT(18.181.0.31)+: Sent 286720 packets
+[main] MIT(18.181.0.31)+: Sent 288768 packets
+[main] MIT(18.181.0.31)+: Sent 290816 packets
+[main] MIT(18.181.0.31)+: Sent 292864 packets
+[GOODNET-main] GOODNET(18.2.3.4)+: Occurrence: 10
+[GOODNET-main] GOODNET(18.2.3.4)+: Recovered 6 bytes of client key: 42165033586f0000
+[GOODNET-main] GOODNET(18.2.3.4)+: Occurrence: 4
+[GOODNET-main] GOODNET(18.2.3.4)+: Recovered 6 bytes of server key: 4961e6a4c3f70000
+[main] MIT(18.181.0.31)+: Sent 294912 packets
+[main] MIT(18.181.0.31)+: Sent 296960 packets
+[main] MIT(18.181.0.31)+: Sent 299008 packets
+[main] MIT(18.181.0.31)+: Sent 301056 packets
+[main] MIT(18.181.0.31)+: Sent 303104 packets
+[main] MIT(18.181.0.31)+: Sent 305152 packets
+[main] MIT(18.181.0.31)+: Sent 307200 packets
+[main] MIT(18.181.0.31)+: Sent 309248 packets
+[main] MIT(18.181.0.31)+: Sent 311296 packets
+[main] MIT(18.181.0.31)+: Sent 313344 packets
+[main] MIT(18.181.0.31)+: Sent 315392 packets
+[main] MIT(18.181.0.31)+: Sent 317440 packets
+[main] MIT(18.181.0.31)+: Sent 319488 packets
+[main] MIT(18.181.0.31)+: Sent 321536 packets
+[main] MIT(18.181.0.31)+: Sent 323584 packets
+[main] MIT(18.181.0.31)+: Sent 325632 packets
+[GOODNET-main] GOODNET(18.2.3.4)+: Occurrence: 5
+[GOODNET-main] GOODNET(18.2.3.4)+: Recovered 7 bytes of client key: 42165033586fde00
+[GOODNET-main] GOODNET(18.2.3.4)+: Occurrence: 3
+[GOODNET-main] GOODNET(18.2.3.4)+: Recovered 7 bytes of server key: 4961e6a4c3f70500
+[main] MIT(18.181.0.31)+: Sent 327680 packets
+[main] MIT(18.181.0.31)+: Sent 329728 packets
+[main] MIT(18.181.0.31)+: Sent 331776 packets
+[main] MIT(18.181.0.31)+: Sent 333824 packets
+[main] MIT(18.181.0.31)+: Sent 335872 packets
+[main] MIT(18.181.0.31)+: Sent 337920 packets
+[main] MIT(18.181.0.31)+: Sent 339968 packets
+[main] MIT(18.181.0.31)+: Sent 342016 packets
+[main] MIT(18.181.0.31)+: Sent 344064 packets
+[main] MIT(18.181.0.31)+: Sent 346112 packets
+[main] MIT(18.181.0.31)+: Sent 348160 packets
+[main] MIT(18.181.0.31)+: Sent 350208 packets
+[main] MIT(18.181.0.31)+: Sent 352256 packets
+[main] MIT(18.181.0.31)+: Sent 354304 packets
+[main] MIT(18.181.0.31)+: Sent 356352 packets
+[main] MIT(18.181.0.31)+: Sent 358400 packets
+[GOODNET-main] GOODNET(18.2.3.4)+: Occurrence: 4
+[GOODNET-main] GOODNET(18.2.3.4)+: Recovered 8 bytes of client key: 42165033586fde9f
+[GOODNET-main] GOODNET(18.2.3.4)+: Recovered client key: 42165033586fde9f
+[GOODNET-main] GOODNET(18.2.3.4)+: Occurrence: 4
+[GOODNET-main] GOODNET(18.2.3.4)+: Recovered 8 bytes of server key: 4961e6a4c3f7055c
+[GOODNET-main] GOODNET(18.2.3.4)+: Recovered server key: 4961e6a4c3f7055c
+[main] MIT(18.181.0.31)+: Sent 360448 packets
+[main] MIT(18.181.0.31)+: Sent 362496 packets
+[main] MIT(18.181.0.31)+: Sent 364544 packets
+[main] MIT(18.181.0.31)+: Sent 366592 packets
+[main] MIT(18.181.0.31)+: Sent 368640 packets
+[main] MIT(18.181.0.31)+: Sent 370688 packets
+[main] MIT(18.181.0.31)+: Sent 372736 packets
+[main] MIT(18.181.0.31)+: Sent 374784 packets
+[main] MIT(18.181.0.31)+: Sent 376832 packets
+[main] MIT(18.181.0.31)+: Sent 378880 packets
+[main] MIT(18.181.0.31)+: Sent 380928 packets
+[main] MIT(18.181.0.31)+: Sent 382976 packets
+[main] MIT(18.181.0.31)+: Sent 385024 packets
+[main] MIT(18.181.0.31)+: Sent 387072 packets
+[main] MIT(18.181.0.31)+: Sent 389120 packets
+[main] MIT(18.181.0.31)+: Sent 391168 packets
+[main] MIT(18.181.0.31)+: Sent 393216 packets
+[main] MIT(18.181.0.31)+: Sent 395264 packets
+[main] MIT(18.181.0.31)+: Sent 397312 packets
+[main] MIT(18.181.0.31)+: Sent 399360 packets
+[main] MIT(18.181.0.31)+: Sent 401408 packets
+[main] MIT(18.181.0.31)+: Sent 403456 packets
+[main] MIT(18.181.0.31)+: Sent 405504 packets
+[main] MIT(18.181.0.31)+: Sent 407552 packets
+[main] MIT(18.181.0.31)+: Sent 409600 packets
+[main] MIT(18.181.0.31)+: Sent 411648 packets
+[main] MIT(18.181.0.31)+: Sent 413696 packets
+[main] MIT(18.181.0.31)+: Sent 415744 packets
+[main] MIT(18.181.0.31)+: Sent 417792 packets
+[main] MIT(18.181.0.31)+: Sent 419840 packets
+[main] MIT(18.181.0.31)+: Sent 421888 packets
+[main] MIT(18.181.0.31)+: Sent 423936 packets
+[main] MIT(18.181.0.31)+: Sent 425984 packets
+[main] MIT(18.181.0.31)+: Sent 428032 packets
+[main] MIT(18.181.0.31)+: Sent 430080 packets
+[main] MIT(18.181.0.31)+: Sent 432128 packets
+[main] MIT(18.181.0.31)+: Sent 434176 packets
+[main] MIT(18.181.0.31)+: Sent 436224 packets
+[main] MIT(18.181.0.31)+: Sent 438272 packets
+[main] MIT(18.181.0.31)+: Sent 440320 packets
+[main] MIT(18.181.0.31)+: Sent 442368 packets
+[main] MIT(18.181.0.31)+: Sent 444416 packets
+[main] MIT(18.181.0.31)+: Sent 446464 packets
+[main] MIT(18.181.0.31)+: Sent 448512 packets
+[main] MIT(18.181.0.31)+: Sent 450560 packets
+[main] MIT(18.181.0.31)+: Sent 452608 packets
+[main] MIT(18.181.0.31)+: Sent 454656 packets
+[main] MIT(18.181.0.31)+: Sent 456704 packets
+[main] MIT(18.181.0.31)+: Sent 458752 packets
+[main] MIT(18.181.0.31)+: Sent 460800 packets
+[main] MIT(18.181.0.31)+: Sent 462848 packets
+[main] MIT(18.181.0.31)+: Sent 464896 packets
+[main] MIT(18.181.0.31)+: Sent 466944 packets
+[main] MIT(18.181.0.31)+: Sent 468992 packets
+[main] MIT(18.181.0.31)+: Sent 471040 packets
+[main] MIT(18.181.0.31)+: Sent 473088 packets
+[main] MIT(18.181.0.31)+: Sent 475136 packets
+[main] MIT(18.181.0.31)+: Sent 477184 packets
+[main] MIT(18.181.0.31)+: Sent 479232 packets
+[main] MIT(18.181.0.31)+: Sent 481280 packets
+[main] MIT(18.181.0.31)+: Sent 483328 packets
+[main] MIT(18.181.0.31)+: Sent 485376 packets
+[main] MIT(18.181.0.31)+: Sent 487424 packets
+[main] MIT(18.181.0.31)+: Sent 489472 packets
+[main] MIT(18.181.0.31)+: Sent 491520 packets
+[main] MIT(18.181.0.31)+: Sent 493568 packets
+[main] MIT(18.181.0.31)+: Sent 495616 packets
+[main] MIT(18.181.0.31)+: Sent 497664 packets
+[main] MIT(18.181.0.31)+: Sent 499712 packets
+[main] MIT(18.181.0.31)+: Sent 501760 packets
+[main] MIT(18.181.0.31)+: Sent 503808 packets
+[main] MIT(18.181.0.31)+: Sent 505856 packets
+[main] MIT(18.181.0.31)+: Sent 507904 packets
+[main] MIT(18.181.0.31)+: Sent 509952 packets
+[main] MIT(18.181.0.31)+: Sent 512000 packets
+[main] MIT(18.181.0.31)+: Sent 514048 packets
+[main] MIT(18.181.0.31)+: Sent 516096 packets
+[main] MIT(18.181.0.31)+: Sent 518144 packets
+[main] MIT(18.181.0.31)+: Sent 520192 packets
+[main] MIT(18.181.0.31)+: Sent 522240 packets
+[main] MIT(18.181.0.31)+: Sent 524288 packets
+[main] MIT(18.181.0.31)+: Sent 526336 packets
+[main] MIT(18.181.0.31)+: Sent 528384 packets
+[main] MIT(18.181.0.31)+: Sent 530432 packets
+[main] MIT(18.181.0.31)+: Sent 532480 packets
+[main] MIT(18.181.0.31)+: Sent 534528 packets
+[main] MIT(18.181.0.31)+: Sent 536576 packets
+[main] MIT(18.181.0.31)+: Sent 538624 packets
+[main] MIT(18.181.0.31)+: Sent 540672 packets
+[main] MIT(18.181.0.31)+: Sent 542720 packets
+[main] MIT(18.181.0.31)+: Sent 544768 packets
+[main] MIT(18.181.0.31)+: Sent 546816 packets
+[main] MIT(18.181.0.31)+: Sent 548864 packets
+[main] MIT(18.181.0.31)+: Sent 550912 packets
+[main] MIT(18.181.0.31)+: Sent 552960 packets
+[main] MIT(18.181.0.31)+: Sent 555008 packets
+[main] MIT(18.181.0.31)+: Sent 557056 packets
+[main] MIT(18.181.0.31)+: Sent 559104 packets
+[main] MIT(18.181.0.31)+: Sent 561152 packets
+[main] MIT(18.181.0.31)+: Sent 563200 packets
+[main] MIT(18.181.0.31)+: Sent 565248 packets
+[main] MIT(18.181.0.31)+: Sent 567296 packets
+[main] MIT(18.181.0.31)+: Sent 569344 packets
+[main] MIT(18.181.0.31)+: Sent 571392 packets
+[main] MIT(18.181.0.31)+: Sent 573440 packets
+[main] MIT(18.181.0.31)+: Sent 575488 packets
+[main] MIT(18.181.0.31)+: Sent 577536 packets
+[main] MIT(18.181.0.31)+: Sent 579584 packets
+[main] MIT(18.181.0.31)+: Sent 581632 packets
+[main] MIT(18.181.0.31)+: Sent 583680 packets
+[main] MIT(18.181.0.31)+: Sent 585728 packets
+[main] MIT(18.181.0.31)+: Sent 587776 packets
+[main] MIT(18.181.0.31)+: Sent 589824 packets
+[main] MIT(18.181.0.31)+: Sent 591872 packets
+[main] MIT(18.181.0.31)+: Sent 593920 packets
+[main] MIT(18.181.0.31)+: Sent 595968 packets
+[main] MIT(18.181.0.31)+: Sent 598016 packets
+[main] MIT(18.181.0.31)+: Sent 600064 packets
+[main] MIT(18.181.0.31)+: Sent 602112 packets
+[main] MIT(18.181.0.31)+: Sent 604160 packets
+[main] MIT(18.181.0.31)+: Sent 606208 packets
+[main] MIT(18.181.0.31)+: Sent 608256 packets
+[main] MIT(18.181.0.31)+: Sent 610304 packets
+[main] MIT(18.181.0.31)+: Sent 612352 packets
+[main] MIT(18.181.0.31)+: Sent 614400 packets
+[main] MIT(18.181.0.31)+: Sent 616448 packets
+[main] MIT(18.181.0.31)+: Sent 618496 packets
+[main] MIT(18.181.0.31)+: Sent 620544 packets
+[main] MIT(18.181.0.31)+: Sent 622592 packets
+[main] MIT(18.181.0.31)+: Sent 624640 packets
+[main] MIT(18.181.0.31)+: Sent 626688 packets
+[main] MIT(18.181.0.31)+: Sent 628736 packets
+[main] MIT(18.181.0.31)+: Sent 630784 packets
+[main] MIT(18.181.0.31)+: Sent 632832 packets
+[main] MIT(18.181.0.31)+: Sent 634880 packets
+[main] MIT(18.181.0.31)+: Sent 636928 packets
+[main] MIT(18.181.0.31)+: Sent 638976 packets
+[main] MIT(18.181.0.31)+: Sent 641024 packets
+[main] MIT(18.181.0.31)+: Sent 643072 packets
+[main] MIT(18.181.0.31)+: Sent 645120 packets
+[main] MIT(18.181.0.31)+: Sent 647168 packets
+[main] MIT(18.181.0.31)+: Sent 649216 packets
+[main] MIT(18.181.0.31)+: Sent 651264 packets
+[main] MIT(18.181.0.31)+: Sent 653312 packets
+[main] MIT(18.181.0.31)+: Sent 655360 packets
+[main] MIT(18.181.0.31)+: Sent 657408 packets
+[main] MIT(18.181.0.31)+: Sent 659456 packets
+[main] MIT(18.181.0.31)+: Sent 661504 packets
+[main] MIT(18.181.0.31)+: Sent 663552 packets
+[main] MIT(18.181.0.31)+: Sent 665600 packets
+[main] MIT(18.181.0.31)+: Sent 667648 packets
+[main] MIT(18.181.0.31)+: Sent 669696 packets
+[main] MIT(18.181.0.31)+: Sent 671744 packets
+[main] MIT(18.181.0.31)+: Sent 673792 packets
+[main] MIT(18.181.0.31)+: Sent 675840 packets
+[main] MIT(18.181.0.31)+: Sent 677888 packets
+[main] MIT(18.181.0.31)+: Sent 679936 packets
+[main] MIT(18.181.0.31)+: Sent 681984 packets
+[main] MIT(18.181.0.31)+: Sent 684032 packets
+[main] MIT(18.181.0.31)+: Sent 686080 packets
+[main] MIT(18.181.0.31)+: Sent 688128 packets
+[main] MIT(18.181.0.31)+: Sent 690176 packets
+[main] MIT(18.181.0.31)+: Sent 692224 packets
+[main] MIT(18.181.0.31)+: Sent 694272 packets
+[main] MIT(18.181.0.31)+: Sent 696320 packets
+[main] MIT(18.181.0.31)+: Sent 698368 packets
+[main] MIT(18.181.0.31)+: Sent 700416 packets
+[main] MIT(18.181.0.31)+: Sent 702464 packets
+[main] MIT(18.181.0.31)+: Sent 704512 packets
+[main] MIT(18.181.0.31)+: Sent 706560 packets
+[main] MIT(18.181.0.31)+: Sent 708608 packets
+[main] MIT(18.181.0.31)+: Sent 710656 packets
+[main] MIT(18.181.0.31)+: Sent 712704 packets
+[main] MIT(18.181.0.31)+: Sent 714752 packets
+[main] MIT(18.181.0.31)+: Sent 716800 packets
+[main] MIT(18.181.0.31)+: Sent 718848 packets
+MIT(18.181.0.31)+: quit

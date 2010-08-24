@@ -1,0 +1,202 @@
+% The names of U.S. Presidents and First Ladies are in all caps.
+% There is a big database of presidents and their relatives at 
+%     http://www.pgvhosting.com/demo , but I didn't use that one.
+
+% ----------------------------------------------------------------------
+
+% Descendants of Claes Martenszen van Rosenvelt, 
+% including FRANKLIN, THEODORE, and ELEANOR ROOSEVELT
+% data from http://www.gwu.edu/~erpapers/abouteleanor/q-and-a/q6.htm 
+% (useful picture there!)
+
+child("Nicholas Roosevelt 1658-1742", "Claes Martenszen van Rosenvelt") := 1.
+child("Nicholas Roosevelt 1658-1742", "not shown 1") := 1.
+
+   child("Jacobus Roosevelt 1692-1776", "Nicholas Roosevelt 1658-1742") := 1.
+   child("Jacobus Roosevelt 1692-1776", "not shown 5") := 1.
+
+      child("Isaac Roosevelt 1726-1794", "Jacobus Roosevelt 1692-1776") := 1.
+      child("Isaac Roosevelt 1726-1794", "not shown 6") := 1.
+
+         child("James Roosevelt 1760-1847", "Isaac Roosevelt 1726-1794") := 1.
+         child("James Roosevelt 1760-1847", "not shown 7") := 1.
+
+            child("Isaac Roosevelt 1790-1863", "James Roosevelt 1760-1847") := 1.
+            child("Isaac Roosevelt 1790-1863", "not shown 8") := 1.
+
+               child("James Roosevelt 1828-1900", "Isaac Roosevelt 1790-1863") := 1.
+               child("James Roosevelt 1828-1900", "not shown 9") := 1.
+
+                  child("FRANKLIN DELANO ROOSEVELT 1882-1945", "James Roosevelt 1828-1900") := 1.
+                  child("FRANKLIN DELANO ROOSEVELT 1882-1945", "Sara Delano 1854-1941") := 1.  % http://www.nps.gov/elro/glossary/roosevelt-sara-delano.htm
+
+   child("Johannes Roosevelt 1689-1750", "Nicholas Roosevelt 1658-1742") := 1.
+   child("Johannes Roosevelt 1689-1750", "not shown 2") := 1.
+
+      child("Jacobus Roosevelt 1724-1777", "Johannes Roosevelt 1689-1750") := 1.
+      child("Jacobus Roosevelt 1724-1777", "not shown 3") := 1.
+
+         child("Jacobus (James J.) Roosevelt 1759-1840", "Jacobus Roosevelt 1724-1777") := 1.
+         child("Jacobus (James J.) Roosevelt 1759-1840", "not shown 4") := 1.
+
+            % data from http://members.aol.com/Rdkone/RooseveltCousins.html 
+            child("Cornelius Van Schaick Roosevelt 1794-1871", "Jacobus (James J.) Roosevelt 1759-1840") := 1.
+            child("Cornelius Van Schaick Roosevelt 1794-1871", "Maria Van Schaick 1773?-1845") := 1.
+
+               child("Theodore Roosevelt 1831-1878", "Cornelius Van Schaick Roosevelt 1794-1871") := 1.
+               child("Theodore Roosevelt 1831-1878", "Margaret Barnhill 1794-1821") := 1.
+
+                  child("THEODORE ROOSEVELT 1858-1919", "Theodore Roosevelt 1831-1878") := 1.
+                  child("THEODORE ROOSEVELT 1858-1919", "Martha Bulloch 1834-1884") := 1.
+
+	          % data from http://www.gwu.edu/~erpapers/abouteleanor/q-and-a/q6.htm again
+                  child("Elliott Roosevelt 1860-1894", "Theodore Roosevelt 1831-1878") := 1.
+                  child("Elliott Roosevelt 1860-1894", "Martha Bulloch 1834-1884") := 1.
+
+                     child("ANNA ELEANOR ROOSEVELT 1884-1962", "Elliott Roosevelt 1860-1894") := 1.
+
+% FRANKLIN and ELEANOR's children together
+% data from http://womenshistory.about.com/library/bio/blbio_roosevelt_eleanor.htm
+
+child("Anna Roosevelt 1906-?", "FRANKLIN DELANO ROOSEVELT 1882-1945") := 1.
+child("Anna Roosevelt 1906-?", "ANNA ELEANOR ROOSEVELT 1884-1962") := 1.
+
+child("James Roosevelt 1907-?", "FRANKLIN DELANO ROOSEVELT 1882-1945") := 1.
+child("James Roosevelt 1907-?", "ANNA ELEANOR ROOSEVELT 1884-1962") := 1.
+
+child("Franklin Roosevelt 1909-1909?", "FRANKLIN DELANO ROOSEVELT 1882-1945") := 1.
+child("Franklin Roosevelt 1909-1909?", "ANNA ELEANOR ROOSEVELT 1884-1962") := 1.
+
+child("Elliott Roosevelt 1910-?", "FRANKLIN DELANO ROOSEVELT 1882-1945") := 1.
+child("Elliott Roosevelt 1910-?", "ANNA ELEANOR ROOSEVELT 1884-1962") := 1.
+
+child("Franklin Roosevelt 1914-?", "FRANKLIN DELANO ROOSEVELT 1882-1945") := 1.
+child("Franklin Roosevelt 1914-?", "ANNA ELEANOR ROOSEVELT 1884-1962") := 1.
+
+child("John Roosevelt 1916-?", "FRANKLIN DELANO ROOSEVELT 1882-1945") := 1.
+child("John Roosevelt 1916-?", "ANNA ELEANOR ROOSEVELT 1884-1962") := 1.
+ 
+
+% ----------------------------------------------------------------------
+
+% data from http://members.aol.com/Rdkone/RooseveltCousins.html                 
+ 
+child("Laurens Van Schaick 1675-?", "Niclaas (Claas) Van Schaick 1635?-1699") := 1.
+child("Laurens Van Schaick 1675-?", "Jannetje Cornelis 1642-1728(9?) := 1.") := 1.
+
+   child("Jannetje Van Schaick 1705-?", "Laurens Van Schaick 1675-?") := 1.
+   child("Jannetje Van Schaick 1705-?", "Jannetje Oothout") := 1.
+
+      child("Maria Hoes", "Jannetje Van Schaick 1705-?") := 1.
+      child("Maria Hoes", "Johannes Dircksen Hoes") := 1.
+
+	 child("MARTIN VAN BUREN 1782-1862", "Maria Hoes") := 1.
+	 child("MARTIN VAN BUREN 1782-1862", "Abraham Van Buren") := 1.
+
+child("Emanuel Van Schaick 1677-?", "Niclaas (Claas) Van Schaick 1635?-1699") := 1.
+child("Emanuel Van Schaick 1677-?", "Jannetje Cornelis 1642-1728(9?) := 1.") := 1.
+
+   child("Cornelis Van Schaick 1705-1784", "Emanuel Van Schaick 1677-?") := 1.
+   child("Cornelis Van Schaick 1705-1784", "Margreta Lucasse Wyngaard ") := 1.
+
+      child("Cornelius Van Schaick 1730?-?", "Cornelis Van Schaick 1705-1784") := 1.
+      child("Cornelius Van Schaick 1730?-?", "Lydia Van Dyck Born: 1707?-?") := 1.
+
+         child("Maria Van Schaick 1773?-1845", "Cornelius Van Schaick 1730?-?") := 1.
+         child("Maria Van Schaick 1773?-1845", "Angeletje Yates 1750?-?") := 1.
+
+            % Maria married Jacobus (James J.) Roosevelt.
+            % Their descendants are shown above, including THEODORE and ELEANOR.
+
+% ----------------------------------------------------------------------
+
+% Descendants of JOHN ADAMS and ABIGAIL SMITH
+% Data from http://www.masshist.org/adams/genealogy.cfm
+
+child("JOHN QUINCY ADAMS 1767-1848", "JOHN ADAMS 1735-1826") := 1.
+child("JOHN QUINCY ADAMS 1767-1848", "ABIGAIL SMITH 1744-1818") := 1.
+
+   child("George Washington Adams 1801-1829", "JOHN QUINCY ADAMS 1767-1848") := 1.
+   child("John Adams 1803-1834", "LOUISA CATHERINE JOHNSON 1775-1852") := 1.
+ 
+   child("John Adams 1803-1834", "JOHN QUINCY ADAMS 1767-1848") := 1.
+   child("John Adams 1803-1834", "LOUISA CATHERINE JOHNSON 1775-1852") := 1.
+ 
+   child("Charles Francis Adams 1807-1886", "JOHN QUINCY ADAMS 1767-1848") := 1.
+   child("Charles Francis Adams 1807-1886", "LOUISA CATHERINE JOHNSON 1775-1852") := 1.
+ 
+      child("Louisa Catherine Adams 1831-1870", "Charles Francis Adams 1807-1886") := 1.
+      child("Louisa Catherine Adams 1831-1870", "Abigail Brown Brooks 1808-1889") := 1.
+  
+      child("John Quincy Adams 1833-1894", "Charles Francis Adams 1807-1886") := 1.
+      child("John Quincy Adams 1833-1894", "Abigail Brown Brooks 1808-1889") := 1.
+  
+      child("Charles Francis Adams 1835-1915", "Charles Francis Adams 1807-1886") := 1.
+      child("Charles Francis Adams 1835-1915", "Abigail Brown Brooks 1808-1889") := 1.
+  
+      child("Henry Brooks Adams 1838-1918", "Charles Francis Adams 1807-1886") := 1.
+      child("Henry Brooks Adams 1838-1918", "Abigail Brown Brooks 1808-1889") := 1.
+  
+      child("Arthur Adams 1841-1846", "Charles Francis Adams 1807-1886") := 1.
+      child("Arthur Adams 1841-1846", "Abigail Brown Brooks 1808-1889") := 1.
+  
+      child("Mary Adams 1846-1928", "Charles Francis Adams 1807-1886") := 1.
+      child("Mary Adams 1846-1928", "Abigail Brown Brooks 1808-1889") := 1.
+  
+      child("Brooks Adams 1848-1927", "Charles Francis Adams 1807-1886") := 1.
+      child("Brooks Adams 1848-1927", "Abigail Brown Brooks 1808-1889") := 1.
+ 
+   child("Louisa Catherine Adams 1811-1812", "JOHN QUINCY ADAMS 1767-1848") := 1.
+   child("Louisa Catherine Adams 1811-1812", "LOUISA CATHERINE JOHNSON 1775-1852") := 1.
+ 
+child("Abigail Adams 1765-1813", "JOHN ADAMS 1735-1826") := 1.
+child("Abigail Adams 1765-1813", "ABIGAIL SMITH 1744-1818") := 1.
+ 
+   child("William Steuben Smith 1787-1850", "Abigail Adams 1765-1813") := 1.
+   child("William Steuben Smith 1787-1850", "William Stephens Smith 1755-1816") := 1.
+ 
+   child("John Adams Smith 1788-1854", "Abigail Adams 1765-1813") := 1.
+   child("John Adams Smith 1788-1854", "William Stephens Smith 1755-1816") := 1.
+ 
+   child("Thomas Hollis Smith 1790-1791", "Abigail Adams 1765-1813") := 1.
+   child("Thomas Hollis Smith 1790-1791", "William Stephens Smith 1755-1816") := 1.
+ 
+   child("Caroline Amelia Smith 1795-1852", "Abigail Adams 1765-1813") := 1.
+   child("Caroline Amelia Smith 1795-1852", "William Stephens Smith 1755-1816") := 1.
+ 
+child("Susanna Adams 1768-1770", "JOHN ADAMS 1735-1826") := 1.
+child("Susanna Adams 1768-1770", "ABIGAIL SMITH 1744-1818") := 1.
+ 
+child("Charles Adams 1770-1800", "JOHN ADAMS 1735-1826") := 1.
+child("Charles Adams 1770-1800", "ABIGAIL SMITH 1744-1818") := 1.
+ 
+   child("Susanna Boylston Adams 1796-1884", "Charles Adams 1770-1800") := 1.
+   child("Susanna Boylston Adams 1796-1884", "Sarah Smith 1769-1828") := 1.
+ 
+   child("Abigail Louisa Smith 1798-1836", "Charles Adams 1770-1800") := 1.
+   child("Abigail Louisa Smith 1798-1836", "Sarah Smith 1769-1828") := 1.
+ 
+child("Thomas Boylston Adams 1772-1832", "JOHN ADAMS 1735-1826") := 1.
+child("Thomas Boylston Adams 1772-1832", "ABIGAIL SMITH 1744-1818") := 1.
+ 
+   child("Abigail Smith Adams 1806-1845", "Thomas Boylston Adams 1772-1832") := 1.
+   child("Abigail Smith Adams 1806-1845", "Ann Harrod 1774-1846") := 1.
+ 
+   child("Elizabeth Coombs Adams 1808-1903", "Thomas Boylston Adams 1772-1832") := 1.
+   child("Elizabeth Coombs Adams 1808-1903", "Ann Harrod 1774-1846") := 1.
+ 
+   child("Thomas Boylston Adams 1809-1837", "Thomas Boylston Adams 1772-1832") := 1.
+   child("Thomas Boylston Adams 1809-1837", "Ann Harrod 1774-1846") := 1.
+ 
+   child("Frances Foster Adams 1811-1812", "Thomas Boylston Adams 1772-1832") := 1.
+   child("Frances Foster Adams 1811-1812", "Ann Harrod 1774-1846") := 1.
+ 
+   child("Isaac Hull Adams 1813-1900", "Thomas Boylston Adams 1772-1832") := 1.
+   child("Isaac Hull Adams 1813-1900", "Ann Harrod 1774-1846") := 1.
+ 
+   child("John Quincy Adams 1815-1854", "Thomas Boylston Adams 1772-1832") := 1.
+   child("John Quincy Adams 1815-1854", "Ann Harrod 1774-1846") := 1.
+ 
+   child("Joseph Harrod Adams 1817-1853", "Thomas Boylston Adams 1772-1832") := 1.
+   child("Joseph Harrod Adams 1817-1853", "Ann Harrod 1774-1846") := 1.
+

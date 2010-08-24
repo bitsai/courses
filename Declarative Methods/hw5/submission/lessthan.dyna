@@ -1,0 +1,33 @@
+% Since Dyna doesn't yet allow constraints like X < Y,
+% one has three choices for implementing them "manually":
+% 
+%   1) implement lessthan(X,Y) on Peano integers rather than ordinary ints.
+%   2) implement lessthan(X,Y) as a C++ function that can be called
+%      from Dyna (possible, but not yet fully cleaned up for public use).
+%   3) implement lessthan(X,Y) by listing a lot of stupid arithmetic facts.
+%
+% Here is some code for 3), which is arguably the worst option, but 
+% please use it anyway for this assignment.
+% 
+% It implements lessthan on just the digits 0 through 9, as well as a
+% special "infinity" value of 9999, in case your strategy requires you
+% to represent infinity somehow.
+% 
+% This is not very general.  However, at least the code here is not
+% totally brute force.  It does not list all 55 lessthan facts.  It
+% derives them by rule from 9 simpler facts.
+
+lessthan(X,Y) max= succ(X,Y).
+lessthan(X,Y) max= lessthan(X,Z) + succ(Z,Y).
+lessthan(X,9999) max= succ(X,_).  % if X has any successor, then X < infinity.
+
+succ(-1,0) := 0.	% Need this if the list starts with 0
+succ(0,1) := 0.
+succ(1,2) := 0.
+succ(2,3) := 0.
+succ(3,4) := 0.
+succ(4,5) := 0.
+succ(5,6) := 0.
+succ(6,7) := 0.
+succ(7,8) := 0.
+succ(8,9) := 0.

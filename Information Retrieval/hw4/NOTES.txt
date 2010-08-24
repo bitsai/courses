@@ -1,0 +1,9 @@
+Benny Tsai
+bitsai@hotmail.com
+600.466
+Homework 4
+
+Some assumptions I made:
+1. It is ok to traverse subdomains of the cs.jhu.edu domain, such as ugrad.cs.jhu.edu.
+2. An implicit goal is to find as much contact info in as little time as possible.  The relevance function implemented in robot_base.pl was written with that goal in mind.
+3. It is ok to contact a server around once a second.  The minute delay was way too long for development purposes.  Current setting is robot->delay(0.02).

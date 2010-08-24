@@ -1,0 +1,109 @@
+# This grammar uses a convention that
+#    - terminals are lowercase          (president)
+#    - preterminals are capitalized     (Noun)
+#    - other nonterminals are all-caps  (NP)
+# 
+# This convention just makes grammars more readable to humans.  Thus:
+#
+#    - When *you* are writing grammars in questions 3 and 6, you should 
+#      follow this convention unless you have a good reason not to.  
+#
+#    - But your *program* should still work with grammars that don't 
+#      follow this convention.  It should not pay any attention to
+#      upper/lower case.  From your program's point of view, 
+#      if there is at least one rule for rewriting a symbol, then
+#      that symbol is a nonterminal and should be rewritten.
+#######################
+
+# Rules for creating full sentences.
+
+4 ROOT	S .
+1 ROOT	S !
+2 ROOT	is it true that S ?     # mixing terminals and nonterminals is ok.
+
+# The basic grammar rules.  Here's what the abbreviations stand for:
+#    S  = sentence
+#    NP = noun phrase
+#    VP = verb phrase
+#    PP = prepositional phrase
+#    Det = determiner (sometimes called "article")
+#    Prep = preposition
+#    Adj = adjective
+
+1 S	NP VP
+1 VP	Verb NP
+3 NP	Det Noun
+1 NP	NP PP
+1 PP	Prep NP
+3 Noun	Adj Noun
+
+# Vocabulary.  Your program can see that "ate" is a terminal
+# symbol because there exists no rule for rewriting it.
+# Any symbol that can rewrite as a terminal (or a string of 
+# terminals, like "chief of staff") is called a "preterminal."  Notice 
+# that a preterminal is a special kind of nonterminal.
+
+1 Verb	ate
+1 Verb	wanted
+1 Verb	kissed
+1 Verb	understood
+1 Verb	pickled
+
+1 Det	the
+1 Det	a
+1 Det	every
+
+1 Noun	president
+1 Noun	sandwich
+1 Noun	pickle
+1 Noun	chief of staff
+1 Noun	floor
+
+1 Adj	fine
+1 Adj	delicious
+1 Adj	perplexed
+1 Adj	pickled
+
+1 Prep	with
+1 Prep	on
+1 Prep	under
+1 Prep	in
+
+# Note: I retained the modifications in grammar2 that shortened sentences and
+# increased adjective utilization.  
+
+# 3a
+3 NP	Noun_Proper
+1 Noun_Proper	Sally
+1 Noun_Proper	Kassad
+1 Noun_Proper	Moneta
+
+# 3b
+1 NP	NP and NP
+1 Verb	Verb and Verb
+
+# 3c
+1 VP	Verb_Intrans
+1 Verb_Intrans	sighed
+1 Verb_Intrans	exploded
+1 Verb_Intrans	disappeared
+
+# 3d
+1 ROOT	NP Verb_Connecting that S .
+1 Verb_Connecting	thought
+1 Verb_Connecting	dreamt
+1 Verb_Connecting	wrote
+
+# 3e
+1 ROOT	that S Verb_Passive NP .
+1 Verb_Passive	perplexed
+1 Verb_Passive	confused
+1 Verb_Passive	astonished
+
+# 3f
+1 Adj	very Adj
+
+# 3g
+1 Verb	worked on
+1 Noun	proposal
+1 Noun	desk

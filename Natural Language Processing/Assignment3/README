@@ -1,0 +1,72 @@
+Benny Tsai
+600.465
+Intro. to NLP
+Assignment 3
+
+*** parse and parse2 produces two output files, OUTPUT and PRETTY_OUTPUT.  OUTPUT is the raw output of the parsers, and PRETTY_OUTPUT is that raw output piped through prettyprint (this is what you see printed to the screen when you run parse or parse2).
+
+1)	See files in "earley" directory for details.
+
+	a. For each column, a given LHS symbol such as "NP" should only be predicted once; the Hashset predictedTable keeps track of what symbols have already been predicted in which column.  For Attach operations, Hashmap attachedTable maintains pointers to entries that have already been attached.
+
+	b. Columns are stored as ArrayLists (in Java, same as Vectors in functionality, but faster), which allows the addition of entries to the "bottom" of the column in O(1) time.
+
+	c. Each Entry object has a weight field to keep track of the weight of the current best parse, and two backpointers (one to an earlier version of itself where the dotposition was less advanced, and one to the entry that was attached to that earlier version to form the current version) to allow recovery of the best parse.
+
+	Extra Credit: When I attach a completed constituent Z to customers Y1, Y2 ... Yn (which only happens once, since we only process any given entry in a column once), I associate pointers to Y1, Y2 ... Yn with a pointer to Z in the Hashmap attachedByTable (pointer to Z is the key, pointers to Y1, Y2 ... Yn are the values of that key).  If later I build a lower-weight version of Z, call it Z', attachedTable will give me a pointer to Z when I try to add Z' to the entry table (I believe only Attach operations will produce this set of circumstances).  So what I do is use the pointer to Z with attachedByTable to get pointers to Y1, Y2 ... Yn, which are exactly the entries whose weights must be updated because of Z'.  I update their weights, and then replace Z with Z'.  I believe this is an O(n^3) solution, since any entry can only be attached to k other entries, k a constant based on the grammar we're using (although k may be a very large constant... ).
+
+2)	See files in "earley2" directory for details.
+
+	Parses: While parses for the shorter sentences look fine, as sentences get longer the parses seems to make less sense intuitively.  The parses favor segmentation, where a long sequence of words that should be one whole clause is broken up into several clauses.  I suspect this is because the rules for making short clauses have lower weight than rules that would produce long clauses.  This makes me think that in the training corpora, the sentences tend to be short, resulting in a grammar that favors rules the produce short clauses.  So when the program encounters a long clause, it tries to break it up into short clauses because the grammar is telling it that "shorter is more likely".  But the problem here is that the most probable parse for a given sentence doesn't necessarily coincide with its intended meaning, or make any sense intuitively.  I don't know how to fix this problem.
+
+	Implemented speedup methods:
+	a. Every time an entry is added to the entry table, I add a pointer to that entry in CustomerTable, which is built around a Hashmap.  The pointers are associated with a key that combines column number i and symbol X after the entry's dot; now when Attach operations look back on columns for potential customers, I can get exactly the desired entries by feeding CustomerTable the desired i and X.  A side benefit of this speedup is that now columns are only needed to ensure I process entries in the correct order; once all entries in a column are processed I can clear that column and save some memory.
+	b. Left-corner look-ahead, exactly as detailed in the packet.
+
+	Estimated speedup:
+	Sentence 1 ("John is happy ."):	parse = 75.61 seconds; parse2 = 5.70 seconds
+	Sentence 2 ("The very biggest companies are not likely to go under ."):	parse = 2064.60 seconds; parse2 = 43.22 seconds
+
+3)	Nothing to hand in.
+
+4)	Nothing to hand in.
+
+5)
+	a.i	(%x loves(Mary,x))
+	a.ii	loves(Mary)
+	b.	V NP
+	c.i	(%a A%x woman(x) => loves(x,a))
+	c.ii	f = "Loves every woman"
+		f(John) = "John loves every woman"
+	d.	(%a %x Obviously(a(x)))
+		f(%x loves(Mary,x))(Sue)
+	e.i	(%a A%y woman(y) => a(y))
+	e.ii	f(%x loves(Mary,x)) = "Every woman loves Mary"
+		(%x loves(Mary,x)) = "Loves Mary"
+		f = "Every woman"
+	f.i	(%b %a A%y b(y) => a(y))
+	f.ii	"Every"
+	g.i	(%a a(Papa))
+	g.ii	Giving Papa these funny semantics allows us to treat all NP's in a standard and consistent manner, instead of having to have separate rules for, say, NP's of the form "Det Noun" and those of other forms.
+
+6)
+	"Papa eat -ed every bonbon with a spoon .": Feature assignment associates "with a spoon" with "bonbon" rather than "eat -ed", which is probably what was originally intended.  A different parse would solve this problem.
+
+	"Laura say -s that George might sleep on the floor !": Feature assignment associates "on the floor" with "might" rather than "sleep", which is probably what was originally intended.  A different parse would solve this problem.
+
+	"Papa would have eat -ed his sandwich -s .": There is ambiguity in just whose sandwich Papa is eating; in the feature assignment, we have no idea who the "him" that owns the sandwich is referring to.  But the original sentence itself has this ambiguity, so it's not really the parse or the feature assignment's fault that this ambiguity shows up.  This wouldn't be fixed by a different parse.  And I have no idea what tense this sentence has, so I have no idea if the representation is ok.
+
+	"Every sandwich was going to have been delicious .": I have no idea what tense this sentence has, so I have no idea if the representation is ok.
+
+	"The fine and blue woman and every man must have eat -ed two sandwich -s and sleep -ed on the floor .": Feature assignment associates "on the floor" with "must" rather than "sleep -ed", which is probably what was originally intended.  A different parse would solve this problem.  Also, the sentence is only talking about one specific fine blue woman, whereas the feature assignment can be construed to be talking about any x that is fine, blue, and a woman.  This wouldn't be fixed by a different parse; a different treatment of determiners is needed here.
+
+7)	See end of "english.grf" for new additions to the original system.  Also see "caviar.sen" for some sample sentences about caviar.  The first four should parse and have features built correctly using the modified english.grf.  Sentences 4 through 8 should fail during feature assignment because the second NP containing caviar in each sentence has the wrong determiners.  Sentence 9 should also fail during feature assignment because caviar in the subject NP does not agree with the plural verb in the VP.
+
+8)
+	a. "Two": The lambda terms express that there exists two distinct objects that satisfy the domain restriction and the predicate is true for both these objects.
+
+	Singular "the": There exists an object that satisfies the domain restriction (and there are no other objects that satisfy the domain restriction) and the predicate is true for this object.
+
+	Plural "the": There exists a set of objects such that all objects in the set satisfies the domain restriction and the predicate is true for all objects in this set.
+
+	b. 2(1)(3)

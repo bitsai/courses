@@ -1,0 +1,302 @@
+Benny Tsai
+600.465
+Intro. to NLP
+Assignment2
+
+1)
+a.	Let Y, Z be any two events, X {= Y
+	Let X be Z ^ /Y
+	Then X ^ Y = 0, and Z = X U Y
+	p(X U Y) = p(X) + p(Y), since X ^ Y = 0
+	p(Z) = p(X) + p(Y), since Z = X U Y
+	p(Y) + p(X) = p(Z)
+	p(Y) + p(Z ^ /Y) = p(Z), by def. of X
+	If Z ^ /Y = 0, p(Y) = p(Z)
+	Otherwise p(Y) < p(Z)
+	There are no other cases, since 0 <= p() <= 1, by def. p()
+	Therefore p(Y) <= p(Z)
+
+b.	p(X | Z) = p(X ^ Z) / p(Z), by def.
+	0 <= p(X ^ Z) / p(Z), since p(X ^ Z) <= 0, by def. of p()
+	p(X ^ Z) <= p(Z), since X ^ Z {= Z, and 1a
+	Therefore p(X ^ Z) / p(Z) <= 1
+	0 <= p(X ^ Z) / p(Z) <= 1
+	0 <= p(X | Z) <= 1
+
+c.	p(E U 0) = p(E) + p(0), since E ^ 0 = 0
+	p(E U 0) - p(E) = p(0)
+	p(E) - p(E) = p(0), since E U 0 = E
+	1 - 1 = p(0), since p(E) = 1
+	0 = p(0)
+
+d.	p(X U /X) = p(X) + p(/X), since X ^ /X = 0
+	p(E) = p(X) + p(/X), since X U /X = E
+	1 = p(X) + p(/X), since p(E) = 1
+	1 - p(/X) = p(X)
+
+e.	p(singing AND rainy | rainy) = p(singing ^ rainy ^ rainy) / p(rainy)
+	= p(singing ^ rainy) / p(rainy), since X ^ X = X
+	= p(singing | rainy), by def. of p(X | Y)
+
+f.	Y = (X ^ Y) U (/X ^ Y)
+	p(Y) = p((X ^ Y) U (/X ^ Y))
+	p(Y) = p(X ^ Y) + p(/X ^ Y), since (X ^ Y) ^ (/X ^ Y) = X ^ /X ^ Y = 0 ^ Y = 0
+	1 = p(X ^ Y) / p(Y) + p(/X ^ Y) / p(Y)
+	1 = p(X | Y) + p(/X | Y), by def. of p(X | Y)
+	1 - p(/X | Y) = p(X | Y)
+
+g.	(p(X | Y) * p(Y) + p(X | /Y) * p(/Y)) * p(/Z | X) / p(/Z)
+	= p(X) * p(/Z | X) / p(/Z), since p(X | Y) * p(Y) + p(X | /Y) * p(/Y) = p(X)
+	= p(X) * p(/Z ^ X) / p(X) / p(/Z), by def. p(X | Y)
+	= p(/Z ^ X) / p(/Z)
+	= p(X ^ /Z) / p(/Z)
+	= p(X | /Z), by def. p(X | Y)
+
+h.	If "singing" and "rainy" are mutually exclusive events, i.e. p(singing) ^ p(rainy) = 0.
+
+i.	If "singing" and "rainy" are independent events, i.e. p(singing) U p(rainy) = 0.
+
+j.	Suppose p(X | Y) = 0
+	p(X ^ Y) / p(Y) = 0, by def. p(X | Y)
+	p(X ^ Y) = 0
+	p(X | Y, Z) = p(X ^ Y ^ Z) / p(Y ^ Z) = p(Z ^ (X ^ Y)) / p(Y ^ Z)
+	= p(Z | X ^ Y) * p(X ^ Y) / p(Y ^ Z), since p(X | Y) = p(X ^ Y) / p(Y) -> p(X ^ Y) = p(X | Y) * p(Y)
+	= 0, since p(X ^ Y) = 0
+
+k.	Suppose p(W | Y) = 1
+	p(/W | Y) = 0, by 1f
+	p(/W | Y, Z) = 0, by 1j
+	p(W | Y, Z) = 1, by 1f
+
+2)
+a.	p(true = blue | claimed = blue) * p(claimed = blue) = p(true = blue ^ claimed = blue) 
+	= p(claimed = blue | true = blue) * p(true = blue)
+
+b.	p(true = blue) -> prior probability
+	p(true = blue | claimed = blue) -> posterior probability
+	p(claimed = blue | true = blue) -> likelihood of evidence
+
+c.	p(true = blue) = 0.1
+	p(claimed = blue | true = blue) = 0.8
+	p(true = blue | claimed = blue) = p(claimed blue | true = blue) * p(true = blue) / 
+	p(claimed blue | true = blue) * p(true = blue) + p(claimed blue | true = red) * p(true = red)
+	= (0.8 * 0.1) / ((0.8 * 0.1) + (0.2 * 0.9))
+	= 0.3077
+
+d.	p(A | B, Y) = p(A ^ B ^ Y) / p(B ^ Y) = p(B ^ A ^ Y) / (p(B | Y) * p(Y))
+	= (p(B | A, Y) * p(A ^ Y)) / (p(B | Y) * p(Y))
+	= (p(B | A, Y) * p(A | Y) * p(Y)) / (p(B | Y) * p(Y))
+	= (p(B | A, Y) * p(A | Y)) / p(B | Y)
+
+e.	Proposition 1: p(B | A, Y) * p(A | Y) + p(B | /A, Y) * p(/A | Y) = p(B | Y)
+	Proof:	p(B | A, Y) * p(A | Y) + p(B | /A, Y) * p(/A | Y) 
+		= (p(B ^ A ^ Y) / p(A ^ Y)) * (p(A ^ Y) / p(Y)) + (p(B ^ /A ^ Y) / p(/A ^ Y)) * (p(/A ^ Y) / p(Y))
+		= p(B ^ A ^ Y) / p(Y) + p(B ^ /A ^ Y) / p(Y)
+		= (p(B ^ A ^ Y) + p(B ^ /A ^ Y)) / p(Y)
+		= p((B ^ A ^ Y) U (B ^ /A ^ Y)) / p(Y), since (B ^ A ^ Y) ^ (B ^ /A ^ Y) = B ^ A ^ /A ^ Y = B ^ 0 ^ Y = 0
+		= p((A ^ B ^ Y) U (/A ^ B ^ Y)) / p(Y)
+		= p(B ^ Y) / p(Y)
+		= p(B | Y), by def. p(X | Y)
+
+	p(A | B, Y) = (p(B | A, Y) * p(B | Y)) / p(B | Y)
+		= (p(B | A, Y) * p(B | Y)) / (p(B | A, Y) * p(A | Y) + p(B | /A, Y) * p(/A | Y)), by Prop. 1
+
+f.	p(true = blue | claim = blue, city = Baltimore)
+	= (p(claim = blue | true = blue, city = Baltimore) * p(true = blue | city = Baltimore)) /
+		((p(claim = blue | true = blue, city = Baltimore) * p(true = blue | city = Baltimore)) +
+		(p(claim = blue | true = red, city = Baltimore) * p(true = red | city = Baltimore)))
+
+3)	Proposition 2: If A {= B, then p(A | C) <= p(B | C)
+	Proof:	Suppose A {= B
+		A ^ C {= B ^ C
+		p(A ^ C) <= p(B ^ C), by 1a
+		p(A | C) = p(A ^ C) / p(C)
+		p(B | C) = p(B ^ C) / p(C)
+		p(A ^ C) / p(C) <= p(B ^ C) / p(C), since p(A ^ C) <= p(B ^ C)
+		p(A | C) <= p(B | C)
+
+	p(-f, -r, -h, -s | -n) 
+		= p(-f | -r, -h, -s, -n) 
+		* p(-r | -h, -s, -n) 
+		* p(-h | -s, -n) 
+		* p(-s | -n)
+		= 1, since p(-f | -r) = 1 and by 1k
+		* 1, since p(-r | -h) = 1 and by 1k
+		* 1, since p(-h | -s) = 1 and by 1k
+		* 1, since p(-s | -n) = 1 and by 1k
+		= 1
+
+	(-f ^ -r ^ -h ^ -s) {= -f
+	p(-f, -r, -h, -s | -n) <= p(-f | -n), by Prop. 2
+	1 <= p(-f | -n), since p(-f, -r, -h, -s | -n) = 1
+	0 <= p(-f | -n) <= 1, by 1b
+	p(-f | -n) = 1
+
+4)
+a.	p(w) = p(w1) * p(w2 | w1) * p(w3 | w1, w2) * p(w4 | w2, w3) ... p(wn | wn-2, wn-1)
+	= c(w1) * c(w2 ^ w1) / c(w1) * c(w1 ^ w2 ^ w3) / c(w1 ^ w2) * c(w2 ^ w3 ^ w4) / c(w2 ^ w3) ... c(wn-2 ^ wn-1 ^ wn) / c(wn-2 ^ wn-1)
+	= (c(w1 ^ w2 ^ w3) * c(w2 ^ w3 ^ w4) ... c(wn-2 ^ wn-1 ^ wn)) / (c(w2 ^ w3) * c(w3 ^ w4) ... c(wn-2 ^ wn-1))
+
+b.	p_reversed(w) = p(wn) * p(wn-1 | wn) * p(wn-2 | wn-1, wn) * p(wn-3 | wn-2, wn-1) ... p(w2 | w3, w4) * p(w1 | w2, w3)
+	= c(wn) * c(w-1 ^ wn) / c(wn) * c(wn-2 ^ wn-1 ^ wn) / c(wn-1 ^ wn) * c(wn-3 ^ wn-2 ^ wn-1) / c(wn-2 ^ wn-1) ... c(w2 ^ w3 ^ w4) / c(w3 ^ w4) * c(w1 ^ w2 ^ w3) / c(w2 ^ w3)
+	= (c(wn-2 ^ wn-1 ^ wn) ... c(w2 ^ w3 ^ w4) * c(w1 ^ w2 ^ w3)) / (c(wn-2 ^ wn-1) ... c(w3 ^ w4) * c(w2 ^ w3))
+	= p(w)
+
+c.	Grammatical English sentences almost never end with "the" (I was originally going to state that they never do, except that statement itself ends with
+	"the"). Therefore good language models should assign the sentence "<s> do you think the </s>" a low probability. In the case of the trigram model, 
+	this should be reflected in a very low p(</s> | think, the).
+
+
+d.	(1) = (B), since (B) is the probability of a sequence of words enclosed by <s> and </s>, which represents a complete sentence.
+	(2) = (A), since (A) is the only expression whose sequence of words begins with "do".
+	(3) = (C), by process of elimination.
+
+	p(w) = (2) = (A), since p(w) is defined as the probability of the next observed sequence of words being w, not knowing or caring whether the sequence 
+	is the beginning, middle, or end of a complete sentence.
+
+5)	Switchboard-small
+	Sample1	Log2Probability = -14598.35
+		Perplexity/Word = 404.10
+	Sample2 Log2Probability = -8649.61
+		Perplexity/Word = 459.58
+	Sample3 Log2Probability = -8941.65
+		Perplexity/Word = 540.38
+
+	Switchboard
+	Sample1 Log2Probability = -13754.44
+		Perplexity/Word = 285.63
+	Sample2 Log2Probability = -8277.38
+		Perplexity/Word = 353.01
+	Sample3 Log2Probability = -8617.64
+		Perplexity/Word = 430.20
+
+	The larger switchboard training corpus reduces the magnitude of both log2probability and perplexity per word since it produces a "better-informed" 
+	model that has seen more trigrams, and so on the average will be less likely to be surprised by a never-before-seen trigram in the test data.
+
+6)	See file "textcat".
+
+7)
+a.	4.65%
+
+b.	Lambda = 0.01
+
+c.	3.46%
+
+d.	Type "xgraph graph1"
+
+e.	Type "xgraph graph2"
+
+8)
+a.	Uniform: The sum of p(z | xy) for all z in the vocabulary would become 20000/19999, which is greater than 1, 
+	invalidating p(z |xy) as a probability distribution function.
+
+	AddL: Same problem as Uniform, where sum of p(z | xy) for all z in the vocabulary becomes greater than 1,
+	invalidating p(z | xy) as a probability distribution function.
+
+b.	Setting lambda to 0 means no smoothing is done at all. So any trigram that did not appear in the training corpus is assigned probability 0. 
+	This is bad because any test document we see is likely to have atleast one novel trigram, and will therefore have atleast one 0 in its chain of 
+	probabilities. This makes the total probability 0 for the test document. A model that gives us probability 0 for most test documents is pretty 
+	useless, since we can't really compare probabilities of value 0 meaningfully.
+
+c.	c(xyz) = c(xyz') = 0
+	p(z | xy) = (0 + lambda * V * p(z | y)) / (c(xy) + lambda * V) = lambda * V * p(z | y) / (c(xy) + lambda * V)
+	p(z' | xy) = lambda * V * p(z' | y) / (c(xy) + lambda * V)
+
+	c(xyz) = c(xyz') = 1
+	p(z | xy) = (1 + lambda * V * p(z | y)) / (c(xy) + lambda * V)
+	p(z' | xy) = (1 + lambda * V * p(z' | y)) / (c(xy) + lambda * V)
+
+d.	V is typically large compared to c(xyz) and c(xy), so as we increase lambda the terms with lambda * V will dominate 
+	the equation. As lambda increases, p(z | xy) will tend towards lambda * V * p(z | y) / lambda * V, or simply p(z | 
+	y). So as we increase lambda, addL backoff becomes closer and closer to a bigram model estimate.
+
+9)
+a.	See file "Probs.pm".
+
+b.	1.42%
+
+c.	Lambda1 = 0.1. Using this lambda, a reduced error rate of 1.22% was achived. I suspect that the slightly larger lambda1 works better than lambda0
+	because a larger lambda allows the backed off bigram estimate to play more of a role in the trigram model's probability estimate.
+
+10)
+a.	p_disc(z | xy) will be very close to c(xyz) / c(xy) when T(xy) is small, i.e. when very few types of z's have been 
+	observed to follow xy. p_disc(z | xy) will heavily discount historical estimate c(xyz) / c(xy) when many types of z's 
+	have been observed after xy. The intuition here is that if we observe many types of z's after xy in the training 	
+	corpus, it is likely that there are also many types of z's outside the training corpus that follows xy, so we should 	
+	heavily discount the historical estimate we got from the training corpus. If, on the other hand, we see only a few 	
+	types of z's after xy in training, then there are probably only a few types of z's outside the training corpus that 	
+	follow xy, and so it's safe for us to stick to the historical estimate.
+
+b.	If all T values are set to 0, then all discounted estimates become naive historical estimates. All alpha values must
+	be set to 0 in order to make the distributions sum to 1.
+
+c.	alpha() = T() / (c() + T())
+
+d.	alpha(y) = (1 - Sum p_disc(z | y)) / (1 - Sum p(z))
+
+e.	i.	Sum p_disc(z | xy) = Sum (c(xyz) / (c(xy) + T(xy)))
+		= Sum c(xyz) / (c(xy) + T(xy))
+		= c(xy) / (c(xy) + T(xy)), since Sum c(xyz) for all z in Z(xy) is exactly c(xy)
+	ii.	For each z in Z(xy), c(xyz) > 0, by def.
+		c(xyz) > 0 means that xyz was observed atleast once
+		Therefore yz must also have been observed atleast once
+		c(yz) > 0
+	iii.	for each xyz
+		{
+			sum{xy} += c(yz)
+		}
+
+f.	alpha(y) = (1 - Sum p_disc(z | y)) / (1 - Sum p(z))
+	Sum p_disc(z | y) = c(y) / (c(y) + T(y))
+	Sum p(z) = Sum c(z) / (c() + T())
+	Sum c(z) = 	for each yz
+			{
+				sum{y} += c(z)
+			}
+
+11)	6.52%
+
+12)	The original textcat functions by comparing the perplexity per word of a document when trained under different 
+	corpora. The perplexity per word is derived from the sum of the log2probability of individual trigrams. The problem 
+	here is that prob(xyz) as returned by Probs.pm is really prob(xyz | Ti), where Ti is one of two training corpora. 
+	What we really want is p(Ci | xyz), where Ci is either ling or spam (or english vs. spanish). Assuming the training 
+	corpora do a good job of representing their corresponding Ci, p(Ci | xyz) is proportional to p(Ti | xyz). So we do 
+	the following:
+
+	p(Ci | xyz) ~ p(Ti | xyz) = p(xyz | Ti) * p(Ti) / (p(xyz | T1) * p(T1) + p(xyz | T2) * p(T2))
+
+	Our trigram model gives us p(xyz | Ti), and p(Ti) = 1/6 or 5/6, depending on whether Ti is ling or spam.
+
+13)
+a.	Given candidates w1, w2 ... w9, we want to find wi such that p(wi | U) is maximized. Assuming that both U and all 
+	candidates wi are English, we can use the generalized Baye's formula from 2d:
+
+	p(wi | U, English) = p(U | wi, English) * p(wi | English) / p(U | English)
+
+	What textcat did, and what speechrec should do, is compare the cross entropies. So we do:
+
+	log2(p(wi | U, English)) = log2(p(U | wi, English) * p(wi | English) / p(U | English))
+	= log2(p(U | wi, English)) + log2(p(wi | English)) - log2(p(U | English))
+	= log2(p(U | wi, English)) + log2(p(wi | English)), since the third term is subtracted from all log2probabilities, so we can safely discard it when 
+	all we want is comparing their magnitude
+
+	xent(wi) = (log2(p(U | wi, English)) + log2(p(wi | English))) / length of wi
+
+	Candidate wi with the lowest xent is exactly wi with the highest p(wi | U, English)
+
+b.	See file "speechrec".
+
+c.	I chose to use the Witten-Bell smoothing method. Reason one is that it seemed to perform better than addL or backoff addL on the development data.
+	Reason two is that since I went through a lot of trouble implementing it, I figured it must be good for something in this assignment. An unfair way
+	choose a smoothing method would be to compare performance on the test data. That will give us the method that minimizes the error rate on this
+	particular set of test data, but will not necessarily give us the method that performs the best.
+	
+	test/easy
+	3-gram Overall Error Rate: 0.2064
+	2-gram Overall Error Rate: 0.2127
+	1-gram Overall Error Rate: 0.2143
+	
+	test/unrestricted
+	3-gram Overall Error Rate: 0.4877
+	2-gram Overall Error Rate: 0.4866
+	1-gram Overall Error Rate: 0.4988	

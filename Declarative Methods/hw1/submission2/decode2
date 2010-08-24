@@ -1,0 +1,74 @@
+#!/usr/local/bin/perl -w
+
+my $puzzleFile = shift;
+my $solutionFile = shift;
+
+my $rows = 0;
+my $columns = 0;
+my %tiles = ();
+
+### Main code ###
+
+&readPuzzle;
+
+&readSolution;
+
+&printTiles;
+
+### Subroutines ###
+
+sub readPuzzle {
+	open PUZZLE, $puzzleFile or die;
+	
+	my $dimensions = <PUZZLE>;
+	$dimensions =~ /([0-9]+) ([0-9]+)/;
+
+	$rows = $1;
+	$columns = $2;
+
+	for (my $column = 0; $column <= $columns + 1; $column++) {
+		$tiles{"$column\_0"} = ".";
+	}
+
+	for (my $row = 0; $row < $rows; $row++) {
+		my $line = uc <PUZZLE>;
+		my $y = $row + 1;
+		$tiles{"0\_$y"} = ".";
+
+		for (my $column = 0; $column < $columns; $column++) {
+			my $tile = substr($line, $column, 1);
+			my $x = $column + 1;
+			$tiles{"$x\_$y"} = $tile;
+		}
+	}
+	
+	close PUZZLE;
+}
+
+sub readSolution {
+	open SOLUTION, $solutionFile or die;
+
+	while (my $line = <SOLUTION>) {
+		$line =~ /(-*)([#A-Z])\_([0-9]+)\_([0-9]+)/;
+		
+		my $sign = $1;
+		my $letter = $2;
+		my $column = $3;
+		my $row = $4;
+		
+		if ($sign eq "") { $tiles{"$column\_$row"} = $letter; }
+	}
+
+	close SOLUTION;
+}
+
+sub printTiles {
+	print "$rows $columns\n";
+
+	for (my $row = 1; $row <= $rows; $row++) {
+		for (my $column = 1; $column <= $columns; $column++) {
+			print $tiles{"$column\_$row"};
+		}
+		print "\n";
+	}
+}

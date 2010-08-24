@@ -1,0 +1,27 @@
+# Trick edge sampling traceback into reconstructing false attack path.
+
+# Initialize network.
+load networks/test.net
+start all
+usp
+
+# Initialize traceback routers.
+plug in all A0.TracebackRouter
+
+# Initialize traceback at JHU.
+s JHU
+plug in A0.Traceback 100
+start_tb
+
+# Launch traceback-defeating DoS attack from ISI, pretending to be from FLORAM.
+s ISI
+plug in A0.TracebackAttack 100
+ta FLORAM 1111 JHU 80 17 1000 100 0 0
+
+# JHU reconstructs false attack path.
+wait 2000
+s JHU
+tb
+
+# Traceroute shows that attack seems to be from FLORAM, not ISI.
+tr FLORAM

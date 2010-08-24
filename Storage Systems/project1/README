@@ -1,0 +1,16 @@
+Project 1 README
+Zachary Peterson (zachary@cs.jhu.edu)
+
+Included here should be all the tools you need to generate
+experiments and extract results for Project 1.  I've
+included a Makefile that shows how to link to the DiskSim
+library; feel free to use it.  
+
+project1.h contains prototypes for any and all system calls 
+needed for this project, as well as pretty detailed description
+of each call.
+
+The disk being simulated is the Seagate Barracuda (ST32171W),
+similar to one of the drives seen in the Talagala paper.
+
+Please contact me with any questions.

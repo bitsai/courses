@@ -1,0 +1,431 @@
+#!/usr/bin/env rune
+
+# Supervised tree node code
+
+def makePeer(myChatController) :any {
+	var label := "None"
+	var super := null
+	var myName := "None"
+
+	var succ := null
+	var succLabel := "None"
+	var pred := null
+	var predLabel := "None"
+	var parent := null
+	var parentLabel := "None"
+	var lchild := null
+	var lchildLabel := "None"
+	var rchild := null
+	var rchildLabel := "None"
+
+	def peer {
+		to join(inName, s) :any {
+			if (super == null) {
+				super := s
+				myName := inName
+				s <- join(inName, peer)
+			} else {
+				println("\nAlready part of a network!")
+			}
+		}
+
+		to leave() :any {
+			if (super != null) {
+				super <- leave(myName, label, pred, predLabel, succ, succLabel, parent, parentLabel, lchild, lchildLabel, rchild, rchildLabel)
+				peer <- clear()
+			} else {
+				println("\nNot part of a network!")
+			}
+		}
+
+		to setup(l, p, pl, s, sl, f, fl, lc, lcl, rc, rcl) :any {
+			label := l
+			pred := p
+			predLabel := pl
+			succ := s
+			succLabel := sl
+			parent := f
+			parentLabel := fl
+			lchild := lc
+			lchildLabel := lcl
+			rchild := rc			
+			rchildLabel := rcl
+		}
+
+		to setSucc(w, wl) :any {
+			succ := w
+			succLabel := wl
+		}
+
+		to setPred(w, wl) :any {
+			pred := w
+			predLabel := wl
+		}
+
+		to setParent(w, wl) :any {
+			parent := w
+			parentLabel := wl
+		}
+
+		to setLeftChild(w, wl) :any {
+			lchild := w
+			lchildLabel := wl
+		}
+
+		to setRightChild(w, wl) :any {
+			rchild := w
+			rchildLabel := wl
+		}
+
+		to getSucc() :any { return succ }
+
+		to getPred() :any { return pred }
+
+		to getPredPred() :any { return pred <- getPred() }
+
+		to clear() :any {
+			label := "None"
+			super := null
+			myName := "None"
+
+			pred := null
+			predLabel := "None"
+			succ := null
+			succLabel := "None"
+			parent := null
+			parentLabel := "None"
+			lchild := null
+			lchildLabel := "None"
+			rchild := null			
+			rchildLabel := "None"
+		}
+
+		to broadcast(m) :any { super <- sendMessage(myName, m) }
+
+		# Upon receipt of a message, pass it to my children (if any), and to chatController if it's not from myself
+		to sendMessage(name, message) :any {
+			if (name != myName) { myChatController.receiveMessage(name, message) }
+			if (lchildLabel != "None") { lchild <- sendMessage(name, message) }
+			if (rchildLabel != "None") { rchild <- sendMessage(name, message) }
+		}
+		
+		# Upon receipt of knock notification, pass it to my children (if any), and to chatController
+		to sendKnock(senderName, recipientName, sender) :any {
+			if (recipientName == myName) {
+				myChatController.receiveKnock(senderName, sender)
+			} else {
+				if (lchildLabel != "None") { lchild <- sendKnock(senderName, recipientName, sender) }
+				if (rchildLabel != "None") { rchild <- sendKnock(senderName, recipientName, sender) }
+			}
+		}
+		
+		# Upon receipt of disconnect notification, pass it to my children (if any)
+		# Tell chatController to remove disconnected peer from friends list
+		# Tell chatController to remove disconnected peer from knockers list
+		to sendDisconnect(name) :any {
+			myChatController.removeFriend(name)
+			myChatController.removeKnocker(name)
+			if (lchildLabel != "None") { lchild <- sendDisconnect(name) }
+			if (rchildLabel != "None") { rchild <- sendDisconnect(name) }
+		}
+
+		to getLabel() :String { return label }
+
+		to getName() :String { return myName }
+	}
+	return peer
+}
+
+# Begin GUI and chatController code
+
+def Title := "eChat"
+def chatReceiver
+def sturdyChatReceiver
+
+def getObjectFromURI(uri) :any {
+    introducer.sturdyFromURI(uri).getRcvr()
+}
+
+def findSupervisorFile(chatWin) :any {
+    def dialog := <awt:FileDialog>(chatWin, "Select a Supervisor")
+    dialog.show()
+    var path := dialog.getFile()
+    if (path != null) {
+        path := dialog.getDirectory() + path
+    }
+    <file: path>
+}
+
+def set1LineComponentParameters(component) :void {
+    component.setPreferredSize(<awt:Dimension>(250,25))
+    component.setMaximumSize(<awt:Dimension>(1000,25))
+    component.setAlignmentX(0.5)
+}
+
+def chatUIMaker(chatController) :any {
+    def chatWin := <swing:JFrame>(Title)
+    def chatPane := chatWin.getContentPane()
+    def border := <swing:BoxLayout>(chatPane,1)
+
+    chatPane.setLayout(border)
+
+    def windowListener {
+        to windowClosing(event) :void {
+            chatController.disconnect()
+            interp.continueAtTop()
+        }
+        match _ {}
+    }
+
+    chatWin.addWindowListener(windowListener)
+
+    def newButton(labelText, verb) :any {
+        def button := <swing:JButton>(labelText)
+        set1LineComponentParameters(button)
+
+        def buttonListener {
+            to actionPerformed(event) :void {
+                E.call(chatController, verb, [])
+            }
+        }
+
+        button.addActionListener(buttonListener)
+        button
+    }
+
+    def findSupervisorButton := newButton("Find Supervisor", "findSupervisor")
+    findSupervisorButton.setEnabled(true)
+
+    def chatScroller := <swing:JScrollPane>()
+    chatScroller.setMaximumSize(<awt:Dimension>(2000,1000))
+    chatScroller.setPreferredSize(<awt:Dimension>(350,200))
+
+    def chatTextArea := <swing:JTextArea>()
+    chatTextArea.setLineWrap(true)
+    chatScroller.getViewport().add(chatTextArea)
+
+    def nextMessageBox := <swing:JTextField>("Type your message here",30)
+    set1LineComponentParameters(nextMessageBox)
+    chatPane.add(nextMessageBox)
+
+    def processMessageButton := newButton("Enter", "process")
+    processMessageButton.setEnabled(false)
+
+    chatPane.add(JPanel`$findSupervisorButton
+                        $chatScroller.Y
+                        $nextMessageBox
+                        $processMessageButton`)
+
+    chatWin.pack()
+    chatWin.show()
+
+    def chatUI {
+        to getChatWin()           :any { chatWin }
+        to getFindSupervisorButton()  :any { findSupervisorButton }
+        to getChatTextArea()      :any { chatTextArea }
+        to getNextMessageBox()    :any { nextMessageBox }
+        to getProcessMessageButton() :any { processMessageButton }
+    }
+}
+
+def chatControllerMaker() :any {
+    def chatController := {
+        def chatUI := chatUIMaker(chatController)
+
+        var myName := "Not Logged In"
+        var mySupervisor := null
+    	var myPeer := makePeer(chatController)
+
+        def myFriends := [].asMap().diverge()
+        def myKnockers := [].asMap().diverge()
+        def mySquelched := [].asMap().diverge()
+
+        def showMessage(senderName, message) :void {
+        	if (mySquelched.maps(senderName) == false) {
+			chatUI.getChatTextArea().append(senderName +": "+ message + "\n")
+		}
+        }
+
+        def showDebug(message) :void {
+            chatUI.getChatTextArea().append("Debug: " + message + "\n")
+        }
+
+        def chatController {
+        
+            # Reads entered text, and calls appropriate functions based on its contect
+            to process() :void {
+                def nextMsgBox := chatUI.getNextMessageBox()
+                def nextMessage := nextMsgBox.getText()
+                nextMsgBox.setText("")
+                println("Entered: " + nextMessage)
+                showMessage(myName, nextMessage)
+
+            	if (myName == "Not Logged In" && nextMessage !~ `/login @username @password`) {
+            		showMessage("System", "you must log in first")
+            	} else if (nextMessage =~ `/login @username @password`) {
+            		if (myName == "Not Logged In") {
+				mySupervisor <- authenticate(username, password, chatController)
+                	} else {
+                		showMessage("System", "you are already logged in")
+                	}
+                } else if (nextMessage =~ `/who`) {
+                	mySupervisor <- getUsers(chatController)
+                } else if (nextMessage =~ `/logout`) {
+                	chatController.disconnect()
+                } else if (nextMessage =~ `/knock @username`) {
+                	mySupervisor <- sendKnock(myName, username, chatController)
+                } else if (nextMessage =~ `/accept @username`) {
+                	if (myKnockers.maps(username)) {
+                		chatController.addFriend(username, myKnockers[username])
+                		myKnockers[username] <- addFriend(myName, chatController)
+                		chatController.removeKnocker(username)
+                	} else {
+                		showMessage("System", username + " is not knocking")
+                	}
+                } else if (nextMessage =~ `/deny @username`) {
+                	if (myKnockers.maps(username)) {
+                		myKnockers[username] <- receiveMessage("System", myName + " denied your knock")
+                		chatController.removeKnocker(username)
+                	} else {
+                		showMessage("System", username + " is not knocking")
+                	}
+                } else if (nextMessage =~ `/msg @username @message`) {
+                	if (myFriends.maps(username)) {
+                		myFriends[username] <- receiveMessage(myName, "<private> " + message)
+                	} else {
+                		showMessage("System", username + " is not a friend")
+                	}
+                } else if (nextMessage =~ `/endprivate @username`) {
+                	if (myFriends.maps(username)) {
+                		myFriends[username] <- removeFriend(myName)
+                		chatController.removeFriend(username)
+                	} else {
+                		showMessage("System", username + " is not a friend")
+                	}
+                } else if (nextMessage =~ `/squelch @username`) {
+                	mySquelched[username] := 1
+                } else if (nextMessage =~ `/unsquelch @username`) {
+                	mySquelched.removeKey(username)
+                } else if (nextMessage =~ `/friends`) {
+			chatController.viewMap("Friends", myFriends)
+                } else if (nextMessage =~ `/knockers`) {
+			chatController.viewMap("Knockers", myKnockers)
+                } else if (nextMessage =~ `/squelched`) {
+			chatController.viewMap("Squelched", mySquelched)
+                } else {
+                	mySupervisor <- sendMessage(myName, nextMessage)
+                }
+            }
+
+	    # Called by supervisor if user name and password are good; now we can join supervised tree network
+            to login(un) :void {
+            	showMessage("System", "user name & password authenticated")
+            	myName := un
+            	myPeer.join(un, mySupervisor)
+            }
+
+	    # Add friend's name and chatController to friends list
+            to addFriend(name, chatController) :void {
+            	showMessage("System", "private messaging with " + name + " initiated")
+            	myFriends[name] := chatController
+            }
+
+	    # Remove friend's name and chatController from friends list
+            to removeFriend(name) :void {
+            	if (myFriends.maps(name)) {
+			showMessage("System", "private messaging with " + name + " terminated")
+            		myFriends.removeKey(name)
+            	}
+            }
+
+	    # Add knocker's name and chatController to knockers list
+            to removeKnocker(name) :void {
+            	if (myKnockers.maps(name)) {
+            		showMessage("System", name + " is no longer knocking")
+            		myKnockers.removeKey(name)
+            	}
+            }
+
+	    # Print received message
+            to receiveMessage(name, message) :void {
+                showMessage(name, message)
+                println(name + ": " + message)
+            }
+
+	    # Print knock notification
+            to receiveKnock(senderName, sender) :void {
+            	showMessage("System", senderName + " is knocking")
+            	myKnockers[senderName] := sender
+            }
+
+	    # Generic function used for displaying friends, knockers, and squelched lists
+            to viewMap(display, map) :void {
+		var output := ""
+		
+		for key => value in map {
+			if (output == "") {
+				output := key
+			} else {
+				output += ", " + key
+			}
+		}
+
+		if (output == "") { output := "none" }
+
+		showMessage(display, output)
+            }
+
+	    # Set up supervisor and alter GUI to enable logging on
+            to receiveSupervisor(supervisor) :any {
+                mySupervisor := supervisor
+                chatUI.getProcessMessageButton().setEnabled(true)
+                chatUI.getFindSupervisorButton().setEnabled(false)
+                showMessage("System", "supervisor has been received")
+
+                Ref.whenBroken(supervisor, def observer(prom) :void { chatController.disconnect() })
+                myName
+            }
+
+	    # Find supervisor cap file
+            to findSupervisor() :void {
+                def file := findSupervisorFile(chatUI.getChatWin())
+
+                if (file != null) {
+                    def supervisorURI := file.getText()
+                    def supervisor := getObjectFromURI(supervisorURI)
+		    chatController.receiveSupervisor(supervisor)
+                }
+                
+                println("supervisor found")
+            }
+
+	    # Called when supervisor leaves, user logs out, or GUI is closed, we disconnect from network and perform clean-up
+	    to disconnect() :void {                
+                if (mySupervisor != null) { 
+                	myPeer.leave()
+                	mySupervisor <- sendDisconnect(myName) 
+                } else {
+                	myPeer.clear()
+                	showMessage("System", "supervisor has left")
+                }
+
+                showMessage("System", "disconnected from network")
+
+                myFriends.removeAll()
+                myKnockers.removeAll()
+
+                chatUI.getProcessMessageButton().setEnabled(false)
+                chatUI.getFindSupervisorButton().setEnabled(true)
+
+            	myName := "Not Logged In"
+                mySupervisor := null
+            }
+        }
+    }
+}
+
+introducer.onTheAir()
+def controller := chatControllerMaker()
+
+println("peer waiting...")
+interp.blockAtTop()

@@ -1,0 +1,99 @@
+Transitioning from 0 to 1 (19 10)
+Transitioning from 1 to 2 (19 10)
+Transitioning from 2 to 3 (19 10)
+Transitioning from 3 to 4 (19 10)
+Transitioning from 4 to 5 (16 10)
+Transitioning from 5 to 6 (15 10)
+Transitioning from 6 to 7 (13 10)
+Transitioning from 7 to 8 (11 10)
+Transitioning from 8 to 9 (11 10)
+Interval 0
+Num Packets: 617
+Total packet size: 42050
+Total time: 182
+Num Requests: 190
+Avg time: 0.294975688816856
+Avg time per packet: 0.294975688816856
+Avg request size: 221.315789473684
+Avg packet size: 68.1523500810373
+Interval 1
+Num Packets: 2054
+Total packet size: 135590
+Total time: 427
+Num Requests: 760
+Avg time: 0.207887049659202
+Avg time per packet: 0.207887049659202
+Avg request size: 178.407894736842
+Avg packet size: 66.0126582278481
+Interval 2
+Num Packets: 3489
+Total packet size: 224158
+Total time: 607
+Num Requests: 1292
+Avg time: 0.173975351103468
+Avg time per packet: 0.173975351103468
+Avg request size: 173.496904024768
+Avg packet size: 64.2470621954715
+Interval 3
+Num Packets: 4374
+Total packet size: 276800
+Total time: 816
+Num Requests: 1710
+Avg time: 0.186556927297668
+Avg time per packet: 0.186556927297668
+Avg request size: 161.87134502924
+Avg packet size: 63.2830361225423
+Interval 4
+Num Packets: 5159
+Total packet size: 336910
+Total time: 976
+Num Requests: 1995
+Avg time: 0.18918395037798
+Avg time per packet: 0.18918395037798
+Avg request size: 168.877192982456
+Avg packet size: 65.3052917232022
+Interval 5
+Num Packets: 5893
+Total packet size: 376295
+Total time: 1002
+Num Requests: 2090
+Avg time: 0.170032241642627
+Avg time per packet: 0.170032241642627
+Avg request size: 180.045454545455
+Avg packet size: 63.8545732224673
+Interval 6
+Num Packets: 5337
+Total packet size: 346129
+Total time: 880
+Num Requests: 1995
+Avg time: 0.164886640434701
+Avg time per packet: 0.164886640434701
+Avg request size: 173.498245614035
+Avg packet size: 64.8545999625258
+Interval 7
+Num Packets: 3302
+Total packet size: 215165
+Total time: 592
+Num Requests: 1710
+Avg time: 0.179285281647486
+Avg time per packet: 0.179285281647486
+Avg request size: 125.827485380117
+Avg packet size: 65.1620230163537
+Interval 8
+Num Packets: 2551
+Total packet size: 168372
+Total time: 488
+Num Requests: 1292
+Avg time: 0.191297530380243
+Avg time per packet: 0.191297530380243
+Avg request size: 130.318885448916
+Avg packet size: 66.0023520188162
+Interval 9
+Num Packets: 5660
+Total packet size: 380957
+Total time: 795
+Num Requests: 760
+Avg time: 0.140459363957597
+Avg time per packet: 0.140459363957597
+Avg request size: 501.259210526316
+Avg packet size: 67.306890459364

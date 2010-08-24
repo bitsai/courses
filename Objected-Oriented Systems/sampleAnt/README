@@ -1,0 +1,2 @@
+Look at the build.xml file for basic ant file setup. You will need to setup ant on your local machine, it's actually an apache thing but all the ugrad machines have them. When you are done setting up the files, all you have to type up is 'ant target-name', for example, to make the javadocs, type 'ant javadoc'.
+

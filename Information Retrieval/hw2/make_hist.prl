@@ -1,0 +1,47 @@
+#!/usr/local/bin/perl
+
+##########################################################
+##########################################################
+
+while (<STDIN>) {
+   chop;
+   if ($_ =~ /^[.]I/) {
+      if ($totdocfreq > 0) {
+        &process_doc_freqs;
+      }
+   } 
+   else {
+     $curdocfreq{$_}++;
+     $totdocfreq++;
+   }
+}
+
+if ($totdocfreq > 0) {
+     &process_doc_freqs;
+}
+
+&print_freqs;
+
+
+
+
+##########################################################
+##########################################################
+
+sub process_doc_freqs {
+
+  while (($term,$freq) = each %curdocfreq) {
+    $corpusfreq{$term}+=$freq;
+    $numdocs{$term}++;
+  }
+  $totdocfreq = 0;
+  undef %curdocfreq;
+}
+
+sub print_freqs {
+  while (($term,$freq) = each %numdocs) {
+    printf("%5d\t%5d\t%s\n",$freq,$corpusfreq{$term},$term);
+  }
+}  
+
+

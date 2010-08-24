@@ -1,0 +1,46 @@
+< nodelist >
+A near far infinite   % A has three values
+B true false          % B and C are boolean variables
+C true false
+
+< graph >
+
+A
+.3 .5 .2            % A has no parents
+B                   % B has no parents
+.5 .5
+C A B                % C depends on A and B; we need to specify 6 probability
+.5 .5  % near true   % distributions; values occur in the order shown
+.1 .9  % far true
+.9 .1  % infinite true
+.8 .2  % near false
+.2 .8  % far false
+.3 .7  % infinite false
+
+< decision >
+Motion forward backward stop  % Three possible decision values
+
+< utility >
+U C Motion                      % utility depends on variable C and Motion
+3   % true forward
+-2  % false forward
+5   % true backward
+10  % false backward
+-10 % true stop
+2   % false stop
+
+< evidence >
+A near
+C true
+
+< query >
+
+B        % distribution P(B | A=near, C = true)
+
+< evidence >
+
+B true
+
+< query >
+
+Motion   % Best motion given that B=true

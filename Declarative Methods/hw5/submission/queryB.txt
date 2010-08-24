@@ -1,0 +1,37 @@
+goal = 11
+  times(times(times(person(1,"MARTIN VAN BUREN 1782-1862"),person(2,"THEODORE ROOSEVELT 1858-1919")),pathto("MARTIN VAN BUREN 1782-1862","Niclaas (Claas) Van Schaick 1635?-1699")),pathto("THEODORE ROOSEVELT 1858-1919","Niclaas (Claas) Van Schaick 1635?-1699"))
+    times(times(person(1,"MARTIN VAN BUREN 1782-1862"),person(2,"THEODORE ROOSEVELT 1858-1919")),pathto("MARTIN VAN BUREN 1782-1862","Niclaas (Claas) Van Schaick 1635?-1699"))
+      times(person(1,"MARTIN VAN BUREN 1782-1862"),person(2,"THEODORE ROOSEVELT 1858-1919"))
+        person(1,"MARTIN VAN BUREN 1782-1862") = 0
+        person(2,"THEODORE ROOSEVELT 1858-1919") = 0
+      pathto("MARTIN VAN BUREN 1782-1862","Niclaas (Claas) Van Schaick 1635?-1699") = 4
+        times(pathto("MARTIN VAN BUREN 1782-1862","Laurens Van Schaick 1675-?"),child("Laurens Van Schaick 1675-?","Niclaas (Claas) Van Schaick 1635?-1699"))
+          pathto("MARTIN VAN BUREN 1782-1862","Laurens Van Schaick 1675-?") = 3
+            times(pathto("MARTIN VAN BUREN 1782-1862","Jannetje Van Schaick 1705-?"),child("Jannetje Van Schaick 1705-?","Laurens Van Schaick 1675-?"))
+              pathto("MARTIN VAN BUREN 1782-1862","Jannetje Van Schaick 1705-?") = 2
+                times(pathto("MARTIN VAN BUREN 1782-1862","Maria Hoes"),child("Maria Hoes","Jannetje Van Schaick 1705-?"))
+                  pathto("MARTIN VAN BUREN 1782-1862","Maria Hoes") = 1
+                    child("MARTIN VAN BUREN 1782-1862","Maria Hoes") = 1
+                  child("Maria Hoes","Jannetje Van Schaick 1705-?") = 1
+              child("Jannetje Van Schaick 1705-?","Laurens Van Schaick 1675-?") = 1
+          child("Laurens Van Schaick 1675-?","Niclaas (Claas) Van Schaick 1635?-1699") = 1
+    pathto("THEODORE ROOSEVELT 1858-1919","Niclaas (Claas) Van Schaick 1635?-1699") = 7
+      times(pathto("THEODORE ROOSEVELT 1858-1919","Emanuel Van Schaick 1677-?"),child("Emanuel Van Schaick 1677-?","Niclaas (Claas) Van Schaick 1635?-1699"))
+        pathto("THEODORE ROOSEVELT 1858-1919","Emanuel Van Schaick 1677-?") = 6
+          times(pathto("THEODORE ROOSEVELT 1858-1919","Cornelis Van Schaick 1705-1784"),child("Cornelis Van Schaick 1705-1784","Emanuel Van Schaick 1677-?"))
+            pathto("THEODORE ROOSEVELT 1858-1919","Cornelis Van Schaick 1705-1784") = 5
+              times(pathto("THEODORE ROOSEVELT 1858-1919","Cornelius Van Schaick 1730?-?"),child("Cornelius Van Schaick 1730?-?","Cornelis Van Schaick 1705-1784"))
+                pathto("THEODORE ROOSEVELT 1858-1919","Cornelius Van Schaick 1730?-?") = 4
+                  times(pathto("THEODORE ROOSEVELT 1858-1919","Maria Van Schaick 1773?-1845"),child("Maria Van Schaick 1773?-1845","Cornelius Van Schaick 1730?-?"))
+                    pathto("THEODORE ROOSEVELT 1858-1919","Maria Van Schaick 1773?-1845") = 3
+                      times(pathto("THEODORE ROOSEVELT 1858-1919","Cornelius Van Schaick Roosevelt 1794-1871"),child("Cornelius Van Schaick Roosevelt 1794-1871","Maria Van Schaick 1773?-1845"))
+                        pathto("THEODORE ROOSEVELT 1858-1919","Cornelius Van Schaick Roosevelt 1794-1871") = 2
+                          times(pathto("THEODORE ROOSEVELT 1858-1919","Theodore Roosevelt 1831-1878"),child("Theodore Roosevelt 1831-1878","Cornelius Van Schaick Roosevelt 1794-1871"))
+                            pathto("THEODORE ROOSEVELT 1858-1919","Theodore Roosevelt 1831-1878") = 1
+                              child("THEODORE ROOSEVELT 1858-1919","Theodore Roosevelt 1831-1878") = 1
+                            child("Theodore Roosevelt 1831-1878","Cornelius Van Schaick Roosevelt 1794-1871") = 1
+                        child("Cornelius Van Schaick Roosevelt 1794-1871","Maria Van Schaick 1773?-1845") = 1
+                    child("Maria Van Schaick 1773?-1845","Cornelius Van Schaick 1730?-?") = 1
+                child("Cornelius Van Schaick 1730?-?","Cornelis Van Schaick 1705-1784") = 1
+            child("Cornelis Van Schaick 1705-1784","Emanuel Van Schaick 1677-?") = 1
+        child("Emanuel Van Schaick 1677-?","Niclaas (Claas) Van Schaick 1635?-1699") = 1

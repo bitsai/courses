@@ -1,0 +1,28 @@
+# Simnet, version 0.8
+# COPYRIGHT Seny Kamara, Darren Davis, Fabian Monrose, 2002-2003
+# Please read the DISCLAIMER
+
+load networks/test.net
+
+s JHU
+usp
+start all
+
+# traceroute to all nodes from the current node
+traceroute ATT
+traceroute GOODNET
+traceroute CAIS
+traceroute SPRINT
+traceroute ANS1
+traceroute ANS3
+traceroute DEC
+traceroute BBN
+traceroute RIPE
+traceroute FLORAM
+traceroute MIT
+traceroute CMU
+traceroute CERT
+traceroute ISI
+traceroute JHU
+traceroute IMN
+traceroute PARC

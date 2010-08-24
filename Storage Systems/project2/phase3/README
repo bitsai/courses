@@ -1,0 +1,10 @@
+Project 2 README
+Benny Tsai (bitsai@hotmail.com, frolffreak@jhu.edu)
+
+To run the project code, make the Makefile, then run the partition executable.
+
+Answers to questions:
+
+1) dorothy references the same inode as ohmy.txt.  This means that dorothy is just another link to the same file.
+
+2) Symbolic links take on two forms, fast and slow.  Fast links can be used when the pathname referenced is no greater than 64 bytes.  It is encoded by placing the reference directly in the inode itself, at the locations for the inode's block pointers.  Slow links are used when the pathname is longer than 64 bytes.  Slow links are encoded by storing the pathname in a block, and pointing the inode's first direct block pointer to this block.

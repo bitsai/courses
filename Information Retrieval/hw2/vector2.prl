@@ -1,0 +1,837 @@
+#!/usr/local/bin/perl5.003
+
+##########################################################
+##  VECTOR2
+##
+##  Usage:   ./vector2     (no command line arguments)
+##
+##  The function &main_loop below gives the menu for the system.
+##
+##  This is an example program that shows how the core
+##  of a vector-based IR engine may be implemented in Perl.
+##
+##  Some of the functions below are unimplemented, and some
+##  are only partially implemented. Suggestions for additions
+##  are given below and in the assignment handout.
+##
+##  You should feel free to modify this program directly,
+##  and probably use this as a base for your implemented
+##  extensions.  As with all assignments, the range of
+##  possible enhancements is open ended and creativity
+##  is strongly encouraged.
+##########################################################
+
+&main_loop;
+
+##########################################################
+##  INIT_INPUT_FILENAMES
+##
+##  This function specifies the names and locations of
+##  input files used by the program. 
+##
+##  Parameter:  $type   ("stemmed" or "unstemmed")
+##
+##  If $type == "stemmed", the filenames are initialized
+##  to the versions stemmed with the Porter stemmer, while
+##  in the default ("unstemmed") case initializes to files
+##  containing raw, unstemmed tokens.
+##  
+##  This function saves having very long command line arguments.
+##########################################################
+
+sub init_input_filenames {
+  local($type) = @_;
+
+  $DIR=".";
+
+  if ($type eq "stemmed") {
+    $tokenized_docs_fn   ="$DIR/cacm.stemmed";
+    $corpus_freq_fn      ="$DIR/cacm.stemmed.hist";
+    $stoplist_fn         ="$DIR/common_words.stemmed";
+    $titles_fn           ="$DIR/titles.short";
+    $tokenized_queries_fn="$DIR/query.stemmed";
+    $query_termfreq_fn   ="$DIR/query.stemmed.hist";
+    $query_relevance_fn  ="$DIR/query.rels"; 
+
+    $tokenized_inter_fn  = "$DIR/interactive.stemmed";
+    $inter_termfreq_fn   = "$DIR/interactive.stemmed.hist";
+
+  }
+  else {
+    $tokenized_docs_fn   ="$DIR/cacm.tokenized";
+    $corpus_freq_fn      ="$DIR/cacm.tokenized.hist";
+    $stoplist_fn         ="$DIR/common_words";
+    $titles_fn           ="$DIR/titles.short";
+    $tokenized_queries_fn="$DIR/query.tokenized";
+    $query_termfreq_fn   ="$DIR/query.tokenized.hist";
+    $query_relevance_fn  ="$DIR/query.rels"; 
+
+    $tokenized_inter_fn  = "$DIR/interactive.tokenized";
+    $inter_termfreq_fn   = "$DIR/interactive.tokenized.hist";
+  }
+}
+
+
+##########################################################
+## MAIN_LOOP
+##
+## Parameters: currently no explicit parameters.
+##             performance dictated by user imput.
+## 
+## Initializes document and query vectors using the
+## input files specified in &init_input_filenames.
+## Then offers a menu and switch to appropriate functions
+## in an endless loop.
+## 
+## Possible extensions at this level:  prompt the user
+## to specify additional system parameters, such as the
+## similarity function to be used.
+##
+## Currently, the key parameters to the system (stemmed/unstemmed,
+## stoplist/no-stoplist, term weighting functions, vector
+## similarity functions, are hardwired in.
+##
+## Initializing the document vectors are clearly the
+## most time consuming section of the program, as 213334 
+## to 258429 tokens must be processed, weighted and added
+## to dynamically growing vectors.
+## 
+##########################################################
+
+
+sub main_loop {
+ print "INITIALIZING VECTORS....\n";
+ &init_input_filenames("stemmed");
+ &init_corpus_freqs;
+ &initialize_doc_vectors;
+ &initialize_query_vectors;
+
+ while (1)
+ {
+
+ print <<"END_OF_MENU";
+
+   ==========================================================
+   ==       Welcome to the 600.466 Vector-based IR Engine
+   ==
+   == Total Documents: $total_docs
+   == Total Queries:   $total_queries
+   ==========================================================
+
+   OPTIONS:
+     1 = Find documents most similar to a given query or document
+     2 = Compute precision/recall for the full query set
+     3 = Compute cosine similarity between two queries/documents
+     4 = Quit
+  
+   ==========================================================
+  
+END_OF_MENU
+
+    print "Enter Option: ";
+    $opt = <STDIN>;
+    if ($opt == 4) {
+      exit;
+    }
+    elsif ($opt == 1) {
+      &get_and_show_retrieved_set;
+    }
+    elsif ($opt == 2) {
+      &full_precision_recall_test;
+    }
+    elsif ($opt == 3) {
+      &do_full_cosine_similarity;
+    }
+    else {
+      &get_and_show_retrieved_set;  ## Default case
+    }
+  }
+}
+
+
+##########################################################
+## GET_AND_SHOW_RETRIEVED_SET
+##   
+##  This function requests key retrieval parameters,
+##  including:
+##  
+##  A) Is a query vector or document vector being used
+##     as the retrieval seed? The vector representations
+##     but they are stored in different data structures,
+##     and one may optionally want to treat them slightly
+##     differently.
+##
+##  B) Enter the number of the query or document vector
+##     used as the retrieval seed.
+##
+##  C) Request the maximum number of retrieved documents
+##     to display.
+##
+##  In the case of query-based searches, the function
+##  displays 
+##
+##  Perl note: one reads a line from a file <FILE> or <STDIN>
+##             by the assignment $string=<STDIN>; Beware of
+##             string equality testing, as these strings 
+##             will have a newline (\n) attached.
+##########################################################
+
+sub get_and_show_retrieved_set {
+
+  print "Find documents similar to: \n";
+  print "    (1) a query from 'query.raw'      \n";
+  print "    (2) an interactive query          \n";
+  print "    (3) another document              \n";
+
+  print "\n";
+  print "Choice: ";
+
+  $comparison_type=<STDIN>;
+  if ($comparison_type !~ /[123]/) {$comparison_type=1;}
+
+  if($comparison_type != 2) {
+    print "\nTarget Document/Query number: ";
+    $vn=<STDIN>;
+    
+    if ($vn !~ /[0-9]/) {$vn=1;}
+  }
+
+  print "\nShow how many of best matching documents (20): ";
+  $max_to_show=<STDIN>;
+  if ($max_to_show !~ /[0-9]/) {$max_to_show=20;}
+  
+  if ($comparison_type == 3) {
+    print "DOCUMENT-DOCUMENT COMPARISON\n";
+    &get_retrieved_set($vecs[$vn]);
+    &show_retrieved_set($max_to_show,$vn,$vecs[$vn],"DOCUMENT");
+  } 
+  elsif($comparison_type ==2) {
+
+    system "./interactive.prl";
+    
+    print "QUERY-DOCUMENT COMPARISON\n";
+
+    undef @interactive_vec;
+
+    &initialize_interactive_vector;
+    &get_retrieved_set($interactive_vec[1]);
+   
+    &show_retrieved_set($max_to_show,$vn,$interactive_vec[1],"INTERACTIVE");
+  }
+  elsif($comparison_type == 1) {
+    print "QUERY-DOCUMENT COMPARISON\n";
+    &get_retrieved_set($qvecs[$vn]);
+    &show_retrieved_set($max_to_show,$vn,$qvecs[$vn],"QUERY");
+    &compute_prec_recall($relevant[$vn],$vn);
+    &show_relevant($relevant[$vn],$vn,$qvecs[$vn]);
+  }
+}
+
+
+##########################################################
+##  INIT_CORPUS_FREQS 
+##
+##  This function reads in corpus and document frequencies from
+##  the provided histogram file for both the document set
+##  and the query set. This information will be used in
+##  term weighting.
+##
+##  It also initializes the arrays representing the stoplist,
+##  title list and relevance of document given query.
+##########################################################
+
+
+sub init_corpus_freqs {
+
+  open(CORPUS_FREQS,$corpus_freq_fn) || die "Can't open $corpus_freq_fn: $!\n";
+ 
+  while(<CORPUS_FREQS>) {
+    ($doc_freq1,$corpus_freq1,$term) = split(' ', $_);
+      $doc_freq{$term}    = $doc_freq1;
+      $corpus_freq{$term} = $corpus_freq1;
+  }
+
+  open(QUERY_TERMFREQS,$query_termfreq_fn) || die "Can't open $query_termfreq_fn: $!\n";
+  
+  while(<QUERY_TERMFREQS>) {
+    ($qdoc_freq1,$qcorpus_freq1,$term) = split(' ', $_);
+      $doc_freq{$term}    += $qdoc_freq1;
+      $corpus_freq{$term} += $qcorpus_freq1;
+  }
+
+  open(STOPLIST,$stoplist_fn) || die "Can't open $stoplist_fn: $!\n";
+  
+  while(<STOPLIST>) {
+    chop;
+    $stoplist{$_} = 1;
+  }
+
+  open(TITLES,$titles_fn) || die "Can't open $titles_fn: $!\n";
+ 
+  $i=1; 
+  while(<TITLES>) { 
+    chop;
+    $titles[$i++] = $_;
+  }
+
+  open(QUERY_RELEVANCE,$query_relevance_fn) || die "Can't open $query_relevance_fn: $!\n";
+ 
+  while(<QUERY_RELEVANCE>) {
+    ($qn,$reldoc) = split(' ', $_);
+     $relevant[$qn]{$reldoc} = 1;
+  }
+
+}
+
+##########################################################
+##  INITIALIZE_DOC_VECTORS
+##
+##  This function reads in tokens from the document file.
+##  When a .I token is encountered, indicating a document
+##  break, a new vector is begun. When individual terms
+##  are encountered, they are added to a running sum of
+##  term frequencies. To save time and space, it is possible
+##  to normalize these term frequencies by inverse document
+##  frequency (or whatever other weighting strategy is
+##  being used) while the terms are being summed or in
+##  a posthoc pass.  The 2D vector array $vecs[$docn]{$term},
+##  stores these normalized term weights.
+##
+##  It is possible to weight different regions of the document
+##  differently depending on likely importance to the classification.
+##  The relative base weighting factors can be set when 
+##  different segment boundaries are encountered.
+##
+##  This function is currently set up for simple TF weighting.
+##########################################################
+
+sub initialize_doc_vectors {
+
+  $TITLE_BASE_WEIGHT = 4;
+  $KEYWORD_BASE_WEIGHT = 3;
+  $ABSTRACT_BASE_WEIGHT = 1;
+  $AUTHOR_BASE_WEIGHT = 4;
+
+  open(TOKENIZED_DOCS,$tokenized_docs_fn) || die "Can't open $tokenized_docs_fn: $!\n";
+
+  $docn=0;
+  while (<TOKENIZED_DOCS>) {
+     chop;
+     if ($_ =~ /^[.]I 0/) {
+        $total_docs = $docn;
+        return;
+     }
+     elsif ($_ =~ /^[.]I/) {
+        $docn++;
+     }
+     elsif ($_ =~ /^[.]T/) {
+        $tweight = $TITLE_BASE_WEIGHT;
+     }
+     elsif ($_ =~ /^[.]K/) {
+        $tweight = $KEYWORD_BASE_WEIGHT;
+     }
+     elsif ($_ =~ /^[.]W/) {
+        $tweight = $ABSTRACT_BASE_WEIGHT;
+     }
+     elsif ($_ =~ /^[.]A/) {
+        $tweight = $AUTHOR_BASE_WEIGHT;
+     }
+     else {
+      if ($_ =~ /[A-Za-z]/ && ($stoplist{$_} != 1)) {
+        if ($doc_freq{$_}==0) {
+           printf("ERROR - Document frequency of 0: %s\t%s\n",$_,$doc_freq{$_});
+        }
+        else {
+          $vecs[$docn]{$_} += $tweight;
+        }
+      }
+     }
+  }
+ $total_docs = $docn;
+
+## Optionally normalize the raw term frequency in $vecs[$docn]{$term} 
+## by log($total_docs/$doc_freq{$term});
+
+
+}
+
+##########################################################
+##  INITIALIZE_QUERY_VECTORS
+##
+##  This function should be nearly identical to the step
+##  for initializing document vectors.
+##
+##  This function is currently set up for simple TF weighting.
+##########################################################
+ 
+sub initialize_query_vectors {
+
+  $QUERY_BASE_WEIGHT = 2;
+  $QUERY_AUTHOR_BASE_WEIGHT = 2;
+ 
+  $qn=0;
+
+  open(TOKENIZED_QUERIES,$tokenized_queries_fn) || die "Can't open $tokenized_queries_fn: $!\n";
+ 
+  while (<TOKENIZED_QUERIES>) {
+     chop;
+     if ($_ =~ /^[.]I/) {
+         $qn++;  
+     }
+     elsif ($_ =~ /^[.]W/) {
+        $tweight = $QUERY_BASE_WEIGHT;
+      }
+     elsif ($_ =~ /^[.]A/) {
+       $tweight = $QUERY_AUTHOR_BASE_WEIGHT;
+     }
+     else {
+      if ($_ =~ /[A-Za-z]/ && ($stoplist{$_} != 1)) {
+        if ($doc_freq{$_}==0) {
+	  printf("ERROR - Document frequency of 0: %s\t%s\n",$_,$doc_freq{$_});
+        }
+        else {
+          $qvecs[$qn]{$_} += $tweight;
+        }
+      }
+    }
+   }
+  $total_queries = $qn;
+  ## Optionally normalize the raw term frequency in $qvecs[$qn]{$term} 
+  ## by log(($total_docs+$total_queries)/($doc_freq{$term}+qdoc_freq{$term}));
+  
+}
+
+##########################################################
+##  INITIALIZE_INTERACTIVE_VECTOR
+##
+##  This function should be nearly identical to the step
+##  for initializing document and query vectors.
+##
+##  This function is currently set up for simple TF weighting.
+##########################################################
+ 
+sub initialize_interactive_vector {
+
+  $QUERY_BASE_WEIGHT = 2;
+  $QUERY_AUTHOR_BASE_WEIGHT = 2;
+ 
+  open(TOKENIZED_QUERY,$tokenized_inter_fn) || die "Can't open $tokenized_inter_fn: $!\n";
+ 
+  while (<TOKENIZED_QUERY>) {
+     chop;
+     if ($_ =~ /^[.]I/) {
+       # do nothing, this will always be .I 1
+     }
+     elsif ($_ =~ /^[.]W/) {
+        $tweight = $QUERY_BASE_WEIGHT;
+     }
+     elsif ($_ =~ /^[.]A/) {
+        $tweight = $QUERY_AUTHOR_BASE_WEIGHT;
+     }
+     else {
+      if ($_ =~ /[A-Za-z]/ && ($stoplist{$_} != 1)) {
+        if ($doc_freq{$_}==0) {
+           printf("ERROR - Document frequency of 0: %s\t%s\n",$_,$doc_freq{$_});
+        }
+        else {
+          $interactive_vec[1]{$_} += $tweight;
+        }
+      }
+     }
+  }
+
+}
+
+
+ 
+##########################################################
+## GET_RETRIEVED_SET
+##
+##  Parameters:
+## 
+##  $qvec{} - the query vector to be compared with the
+##            document set. May also be another document vector.
+##
+##  This function computes the document similarity between
+##  the given vector $qvec{} and all vectors in the document
+##  collection ($vecs[$i] for $i=1 to $total_docs), storing
+##  these values in the array $doc_sim[$docn].
+##
+##  An array of the document numbers is then sorted by
+##  this similarity function, forming the rank order
+##  of documents for use in the retrieval set.  
+##
+##  The -1 in the simcomp similarity comparision function
+##  makes the sorted list in descending order.
+##########################################################
+ 
+sub get_retrieved_set {
+  local(*qvec) = @_;
+
+  for($docn=1;$docn<=$total_docs;$docn++) {
+    $doc_sim[$docn] = &cosine_sim_B(*qvec,$vecs[$docn]);
+  }    
+
+  sub simcomp { -1*($doc_sim[$a] <=> $doc_sim[$b]); }
+
+  @docs = 1..$total_docs;
+
+  @docs_sorted_by_similarity = sort simcomp @docs;
+
+}
+
+
+
+##########################################################
+## SHOW_RETRIEVED_SET
+##
+## Assumes the following global data structures have been
+## initialized, based on the results of &get_retrieved_set.
+##
+## 1) sorted_docs[$rank] - contains the document numbers sorted in rank order
+## 2) doc_sim[$docn]     - The similarity measure for each document, 
+##                         computed by &get_retrieved_set.
+##
+## Also assumes that the following have been initialized in advance:
+##
+##       $titles[$docn]  - the document title for a document number $docn
+##       $relevant[$qvn]{$docn} - is $docn relevant given query number $qvn
+##
+## Parameters:
+##   $num_to_show - the maximum number of matched documents to display.
+##   $qvn         - the vector number of the query
+##   *qvec        - the query vector (passed by reference)
+##   $comparison_type - "QUERY" or "DOCUMENT" (type of vector being compared to)
+##
+## In the case of "QUERY"-based retrieval, the relevance judgements
+## for the returned set are displayed. This is ignored when doing
+## document-to-document comparisons, as there are nor relevance judgements.
+##########################################################
+
+sub show_retrieved_set {
+   local($num_to_show,$qvn,*qvec,$comparison_type) = @_;  
+
+   print "***************************************************************************\n";
+   print "    DOCUMENTS MOST SIMILAR TO $comparison_type # $qvn\n";
+   print "***************************************************************************\n\n";
+   print 
+   "  SIMILRTY   DOC#  AUTHOR       TITLE                                                \n";
+   print
+   "  ========   ==== ========      =====================================================\n";
+
+
+   for($i=0;$i<$num_to_show;$i++) {
+     $v2=$docs_sorted_by_similarity[$i];
+     if (($comparison_type eq "QUERY") && ($relevant[$qvn]{$v2}==1)) {
+       print "* ";
+     }
+     else {
+       print "  ";
+     }
+     printf("%f   %s\n",$doc_sim[$v2],$titles[$v2]);
+   }
+
+  print "\nShow the terms that overlap between the query and retrieved docs (y/n): ";
+  $show_terms=<STDIN>;
+  if ($show_terms !~ /[nN]/) {
+
+     for($i=0;$i<$num_to_show;$i++) {
+       $v2=$docs_sorted_by_similarity[$i];
+       show_overlap(*qvec,$vecs[$v2],$qvn,$v2);
+       if ($i % 5 == 4) {
+          print "\nContinue (y/n)? ";
+          $cont=<STDIN>;
+          if ($cont =~ /[nN]/) {
+              last;
+          }
+       }
+     }
+   } 
+  
+}
+
+##########################################################
+## SHOW_RELEVANT
+## 
+## UNIMPLEMENTED
+##
+## This function should take the rank orders and similarity
+## arrays described in &show_retrieved_set and &compute_prec_recall
+## and print out only the relevant documents, in an order
+## and manner of presentation very similar to &show_retrieved_set.
+##########################################################
+
+
+sub show_relevant {
+
+  print "To be implemented\n";
+
+}
+ 
+########################################################
+## SHOW_OVERLAP
+## 
+## Parameters:
+##  - Two vectors (*vec1 and *vec2), passed by reference.
+##  - The number of the vectors for display purposes
+##
+## PARTIALLY IMPLEMENTED:
+## 
+## This function should show the terms that two vectors
+## have in common, the relative weights of these terms
+## in the two vectors, and any additional useful information
+## such as the document frequency of the terms, etc.
+##
+## Useful for understanding the reason why documents
+## are judged as relevant. 
+##
+## Present in a sorted order most informative to the user.
+##
+## A simple version of this function would be similar to
+## print_vec_A below.
+########################################################
+
+sub show_overlap {
+  local(*vec1,*vec2,$num_of_vec1,$num_of_vec2) = @_;
+ 
+  print "======================================================\n";
+    printf("%-15s   %-8d     %-8d\t %s\n","VECTOR OVERLAP",
+                        $num_of_vec1,$num_of_vec2,"Docfreq");
+  print "======================================================\n";
+ 
+  while (($term1,$weight1) = each %vec1) {
+    if ($vec2{$term1} > 0) {
+      printf("%-15s  %f     %f\t %7.3f\n",$term1,$weight1,$vec2{$term1},$doc_freq{$term1});
+    }
+  }
+}
+
+########################################################
+## DO_FULL_COSINE_SIMILARITY
+## 
+##  Prompts for a document number and query number,
+##  and then calls a function to show similarity.
+##
+##  Could/should be expanded to handle a variety of
+##  similarity measures.
+########################################################
+
+sub do_full_cosine_similarity {
+
+  print "\nFirst Document/Query number: ";
+  $num1=<STDIN>;
+  if ($num1 !~ /[0-9]/) {$num1=1;}
+  print "\nSecond Document/Query number: ";
+  $num2=<STDIN>;
+  if ($num2 !~ /[0-9]/) {$num2=1;}
+
+  full_cosine_similarity($qvecs[$num1],$vecs[$num2],$num1,$num2);
+ 
+}
+
+########################################################
+## FULL_COSINE_SIMILARITY
+## 
+## UNIMPLEMENTED
+## 
+## This function should compute cosine similarity between
+## two vectors and display the information that went into
+## this calculation, useful for debugging purposes.
+## Similar in structure to &show_overlap.
+########################################################
+ 
+sub full_cosine_similarity {
+  local(*vec1,*vec2,$num_of_vec1,$num_of_vec2) = @_;
+
+  print "To be implemented\n";
+
+}
+ 
+ 
+
+########################################################
+## COSINE_SIM_A
+## 
+## Computes the cosine similarity for two vectors
+## represented as associate arrays.
+##
+## This is the least efficient implementation.
+## Included here for comparison purposes.
+########################################################
+
+sub cosine_sim_A {
+  local(*vec1,*vec2) = @_;
+  $num=0; $sumsq1=0; $sumsq2=0;
+
+  foreach $term (keys (%vec1)) {
+    $num += $vec1{$term} * $vec2{$term}; 
+    $sumsq1 += $vec1{$term} * $vec1{$term}; 
+  }
+  
+  foreach $term (keys (%vec2)) {
+    $sumsq2 += $vec2{$term} * $vec2{$term}; 
+  } 
+
+  return ( $num / ( sqrt($sumsq1*$sumsq2) ) );
+
+
+}
+
+########################################################
+## COSINE_SIM_B
+## 
+## Computes the cosine similarity for two vectors
+## represented as associate arrays.
+##
+## The "while..each" construct is more effient than 
+## method A. 
+########################################################
+
+sub cosine_sim_B {
+  local(*vec1,*vec2) = @_;
+  $num=0; $sumsq1=0; $sumsq2=0;
+
+  while (($term1,$weight1) = each %vec1) {
+    $num += ( $weight1 * $vec2{$term1} );
+    $sumsq1 += ( $weight1 * $weight1 );
+  }
+
+  while (($term2,$weight2) = each %vec2) {
+    $sumsq2 += ( $weight2 * $weight2 );
+  }
+
+  return ( $num / ( sqrt($sumsq1*$sumsq2) ) );
+
+}
+########################################################
+##  COSINE_SIM_C
+##  
+##  This function assumes that the sum of the squares
+##  of the term weights have been stored in advance for
+##  each document and are passed as arguments. Saves
+##  repeated computation over methods A and B.
+########################################################
+
+sub cosine_sim_C {
+  local(*vec1,*vec2,*sumsq1,*sumsq2) = @_;
+
+  while (($term1,$weight1) = each %vec1) {
+    $num += ( $weight1 * $vec2{$term1} );
+  }
+
+  return ( $num / ( sqrt($sumsq1*$sumsq2) ) );
+ 
+}
+##########################################################
+##  FULL_PRECISION_RECALL_TEST
+##
+##  This function should test the various precision/recall 
+##  measures discussed in the assignment and store cumulative
+##  statistics over all queries.
+##
+##  As each query takes a few seconds to process, print
+##  some sort of feedback for each query so the user
+##  has something to watch.
+##
+##  It is helpful to also log this information to a file.
+##########################################################
+
+sub full_precision_recall_test {
+
+  print "Function is currently unimplemented\n";
+  return;
+  
+  ### Suggestion: if using global variables to store
+  ###             cumulative statistics, initialize them here.
+
+  for($q=1;$q<=$total_queries;$q++) {
+    &get_retrieved_set($qvecs[$q]);
+    &compute_prec_recall($relevant[$q],$q);
+    ### Suggestion: Collect cumulative statistics here or
+    ###             in global variables set in the above function
+  }
+  ### Suggestion: Print some sort of summary here
+}
+
+##########################################################
+## COMPUTE_PREC_RECALL
+##
+## Like &show_retrieved_set, this function makes use of the following
+## data structures which may either be passed as parameters or
+## used as global variables. These values are set by the function
+## &get_retrieved_set.
+##
+## 1) docs_sorted_by_similarity[$rank] - contains the document numbers sorted 
+##                                       in rank order based on the results of 
+##                                       the similarity function
+##
+## 2) doc_sim[$docn]     - The similarity measure for each document, 
+##                         relative to the query vector ( computed by 
+##                         &get_retrieved_set).
+##
+## Also assumes that the following have been initialzied in advance:
+##       $titles[$docn]  - the document title for a document number $docn
+##       $relevant[$qvn]{$docn} - is $docn relevant given query number $qvn
+##
+## 
+##
+##  The first step of this function should be to take the rank ordering
+##  of the documents given a similarity measure to a query 
+##  (i.e. the list docs_sorted_by_similarity[$rank]) and make a list 
+##  of the ranks of just the relevant documents. In an ideal world,
+##  if there are k=8 relevant documents for a query, for example, the list 
+##  of rank orders should be (1 2 3 4 5 6 7 8) - i.e. the relevant documents
+##  are the top 8 entries of all documents sorted by similarity.
+##  However, in real life the relevant documents may be ordered
+##  much lower in the similarity list, with rank orders of
+##  the 8 relevant of, for example, (3 27 51 133 159 220 290 1821).
+##  
+##  Given this list, compute the k (e.g. 8) recall/precison pairs for
+##  the list (as discussed in class). Then to determine precision
+##  at fixed levels of recall, either identify the closest recall
+##  level represented in the list and use that precision, or
+##  do linear interpolation between the closest values.
+##
+##  This function should also either return the various measures
+##  of precision/recall specified in the assignment, or store
+##  these values in a cumulative sum for later averaging.
+##########################################################
+
+sub compute_prec_recall {
+
+  print "To be implemented\n";
+
+}
+ 
+
+########################################################
+##  PRINT_VEC_A
+##
+##  A simple debugging tool. Prints the contents of a 
+##  given document or query vector. Note that the order
+##  in which the terms are enumerated is arbitrary.
+########################################################
+
+sub print_vec_A {
+  local(*vec) = @_;
+
+  while (($term,$weight) = each %vec) {
+    printf("TERM = %10s \t WEIGHT = %s\n",$term,$weight); 
+  }
+}
+
+########################################################
+##  PRINT_VEC_B
+##
+##  An implementation variant of print_vec_A.
+########################################################
+
+sub print_vec_B {
+  local(*vec) = @_;
+
+  foreach $term (keys (%vec)) {
+    printf("TERM = %10s \t WEIGHT = %s\n",$term,$vec{$term}); 
+  } 
+}
+
+

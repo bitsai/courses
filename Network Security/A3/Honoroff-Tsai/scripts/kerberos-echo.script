@@ -1,0 +1,53 @@
+load networks/test.net
+start all
+usp
+v 4
+
+
+#plug in the echo client
+s CMU
+plug in A2.KerberosEchoClient 17
+plug in simnet.PacketDump 18
+dump any any
+
+#plug in a service at MIT and set its private key
+s MIT
+plug in A2.KerberosEchoServer 17
+setPrivateKey copycat
+
+
+#plug in kerberos
+s ISI
+plug in A2.KerberosAuthenticationServers 17
+wait 500
+dumpState
+
+#let Alice login
+s CMU
+login ISI alice apples
+wait 500
+
+#make an authenticated connection to MIT
+#this will generate a lot of output, as Kerberos tries to authenticate
+connect MIT
+wait 500
+
+echo hi
+wait 500
+
+echo bye
+wait 500
+
+close
+
+#connect to MIT again
+#do we still have a valid ticket?
+connect MIT
+wait 500
+echo hi_again
+wait 500
+echo bye_again
+wait 500
+close
+
+exit

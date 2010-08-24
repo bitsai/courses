@@ -1,0 +1,52 @@
+Benny Tsai
+600.425
+Declarative Methods
+Homework 1
+
+9)	How to run: Both encode2 and decode2 are perl scripts, so you should be able to invoke them from the command line.
+		Or use the crossword2 script, which can be run as "./crossword <name>", where <name> is the name of some .puzzle
+		file.  The script will return the answer to a file named "<name>.ans", as specified in the problem.  Also provided
+		is a new script named "resolve", which takes a .DIMACS file and produces an .ans file.  You can use this script to 
+		try solving a puzzle again (after having already run crossword2 on it once), to skip the costly initial encoding steps
+		(I found this script useful because I often had to re-run a puzzle many times before I found a solution to my liking).
+		
+	Details:	A variable of the form <S>_<C>_<R> is used to represent the proposition that symbol S is present
+			at column C and row R.
+			
+			To encode the constraint(s) that all words in the puzzle must be in the dictionary, I used the following
+			approach:
+
+			- When reading in the puzzle file, pad it with an extra column and an extra row, both of which consist entirely
+			of black tiles.
+			
+			- Read in each row and column as a series of spaces of the form (#_0_1, ._1_1, ._1_2, ._1_3, ... ._1_n); the first
+			space is always black because of the previous padding step.
+
+			- When reading in the dictionary file, pad each word with an extra # at the beginning and the end.
+
+			- Maintain a hash of hashes for letters and prefixes.  When reading in the dictionary file, for each letter 
+			in each word, add the letter to the hash indexed by length of the word and its prefix, and add the prefix to 
+			the hash indexed by the length of prefix. For example, if we're reading the word "cat", it becomes "#cat#" because
+			of the previous padding step.  Suppose we're processing the letter "t".  We would add "t" to the "5 #ca" letters 
+			hash, and add "#ca" to the "3" prefix hash.
+			
+			- To create the dictionary constraints, we simply process each series of spaces iteratively as shown in the
+			following example.  Suppose our dictionary has the words "bob", "cat" and "cab", and we're processing the series
+			(1_0, 2_0, 3_0).  Since the series has 3 spaces we know we only need to worry about words of length 3.  For
+			1_0, the prefix length is 0, so the only possibilities for 1_0 are the letters that can start a 3-letter word, 
+			"b" and "c"; we add the rule "b_1_0 v c_1_0". For 2_0, we look at prefixes of length 1 for words of length 3, 
+			which are "b" and "c".  "o" can follow "b", and "a" can follow "c", so we add the rules "~b_1_0 v o_2_0" and
+			"~c_1_0 v a_2_0".  For 3_0, we have prefixes "bo" and "ca".  "b" follows "bo", "b" and "t" follow "ca", so we add
+			the rules "~b_1_0 v ~o_2_0 v b_3_0" and "~c_1_0 v ~a_2_0 v b_3_0 v t_3_0".
+			
+			- To create the dictionary constraints, we simply process each space in each series of spaces iteratively as follows.
+			For each of those spaces, look at every prefix that can preceed that space, from smallest to largest.  For each prefix,
+			see if there are words having that prefix which can fit into the available space.  If so, add the next letter as a
+			possibility for the tile we're processing.  When we're done, we'll have a rule of the form "~#_0_0 v ~c_0_1 v ~a_0_2 v
+			b_0_3 v t_0_3".
+			
+			We also add constraints so that each tile has a symbol (a letter or the black symbol), no tile can be more than one symbol,
+			force the 0th row and 0th column tiles to remain black, and force symmetry in black tiles.  I chose to weight the rules
+			such that the "has atleast one symbol" rule has weight 1, each "must be legal word" rule weighs the same as all "has
+			atleast one symbol" rules combined, and the "no more than one symbol", "0th row and column tiles are black", and "black tile symmetry"
+			rules all weigh the same as all "must be legal word" rules combined.  See encode2 for details.

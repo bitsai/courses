@@ -1,0 +1,221 @@
+
+Byte Order (Endian):               Little
+Init Seed:                          42
+Real Seed:                          42
+Statistic warm-up period:           0.0 seconds
+Checkpoint to null every:           0.0 seconds
+Stat (dist) definition file:        statdefs.validgrow
+Output file for trace of I/O requests simulated:0
+
+I/O Subsystem Input Parameters
+------------------------------
+
+PRINTED I/O SUBSYSTEM STATISTICS
+
+Print driver size stats?            1
+Print driver locality stats?        0
+Print driver blocking stats?        0
+Print driver interference stats?    0
+Print driver queue stats?           1
+Print driver crit stats?            1
+Print driver idle stats?            1
+Print driver intarr stats?          1
+Print driver streak stats?          1
+Print driver stamp stats?           1
+Print driver per-device stats?      1
+Print bus idle stats?               1
+Print bus arbwait stats?            1
+Print controller cache stats?       1
+Print controller size stats?        1
+Print controller locality stats?    1
+Print controller blocking stats?    1
+Print controller interference stats? 1
+Print controller queue stats?       1
+Print controller crit stats?        1
+Print controller idle stats?        1
+Print controller intarr stats?      1
+Print controller streak stats?      1
+Print controller stamp stats?       1
+Print controller per-device stats?  1
+Print device queue stats?           0
+Print device crit stats?            0
+Print device idle stats?            0
+Print device intarr stats?          0
+Print device size stats?            0
+Print device seek stats?            1
+Print device latency stats?         1
+Print device xfer stats?            1
+Print device acctime stats?         1
+Print device interfere stats?       0
+Print device buffer stats?          1
+
+GENERAL I/O SUBSYSTEM PARAMETERS
+
+I/O Trace Time Scale:               1.0
+Number of I/O Mappings:             0
+
+COMPONENT SPECIFICATIONS
+
+Number of device drivers:          1
+
+Device Driver Spec #1
+# drivers with Spec:                1
+Device driver type:                 1
+Constant access time:               0.0
+Scheduling policy:                  1
+Cylinder mapping strategy:          1
+Write initiation delay:             0.0
+Read initiation delay:              0.0
+Sequential stream scheme:           0
+Maximum concat size:                128
+Overlapping request scheme:         0
+Sequential stream diff maximum:     0
+Scheduling timeout scheme:          0
+Timeout time/weight:                6
+Timeout scheduling:                 4
+Scheduling priority scheme:         0
+Priority scheduling:                4
+Use queueing in subsystem:          1
+
+Number of buses:                    2
+
+Bus Spec #1
+# buses with Spec:                  1
+Bus Type:                           1
+Arbitration type:                   1
+Arbitration time:                   0.0
+Read block transfer time:           0.0
+Write block transfer time:          0.0
+Print stats for bus:                0
+
+Bus Spec #2
+# buses with Spec:                  1
+Bus Type:                           1
+Arbitration type:                   1
+Arbitration time:                   0.0
+Read block transfer time:           0.0
+Write block transfer time:          0.0
+Print stats for bus:                1
+
+Number of controllers:              1
+
+Controller Spec #1
+# controllers with Spec:            1
+Controller Type:                    1
+Scale for delays:                   0.0
+Bulk sector transfer time:          0.0
+Maximum queue length:               0
+Print stats for controller:         1
+
+Number of storage devices:          1
+
+Device Spec #1
+# devices with Spec:                1
+Device type for Spec:               disk
+Disk brand name:                    SEAGATE_ST32171W_validate
+Disk specification file:            barracuda.diskspecs
+
+PHYSICAL ORGANIZATION
+
+Driver #1
+# of connected buses: 1
+Connected buses: 1
+
+Controller #1
+# of connected buses: 1
+Connected buses: #+1
+
+Bus #1
+# of utilized slots: 1
+Slots: Controllers 1
+
+Bus #2
+# of utilized slots: 2
+Slots: Controllers #-1
+Slots: Devices 1
+
+SYNCHRONIZATION
+
+Number of synchronized sets: 0
+
+LOGICAL ORGANIZATION
+
+# of system-level organizations:    1
+
+Organization #1: Parts Asis Noredun Whole
+Number of devices:                  1
+Devices:                            1-1
+High-level device number:           1
+Stripe unit (in sectors):           4110000
+Synch writes for safety:            0
+Number of copies:                   2
+Copy choice on read:                6
+RMW vs. reconstruct:                0.5
+Parity stripe unit:                 64
+Parity rotation type:               1
+Time stamp interval:                0.000000
+Time stamp start time:              60000.000000
+Time stamp stop time:               10000000000.000000
+Time stamp file name:               stamps
+
+# of controller-level organizations:0
+
+
+Process-Flow Input Parameters
+-----------------------------
+
+PRINTED PROCESS-FLOW STATISTICS
+
+Print per-process stats?            1
+Print per-CPU stats?                1
+Print all interrupt stats?          1
+Print sleep stats?                  1
+
+GENERAL PROCESS-FLOW PARAMETERS
+
+Number of processors:               1
+Process-Flow Time Scale:            1.0
+
+SYNTHETIC I/O TRACE PARAMETERS
+
+Number of generators:               5
+Number of I/O requests to generate: 10000
+Maximum time of trace generated (in seconds):1000.0
+System call/return with each request:0
+Think time from call to request:    0.0
+Think time from request to return:  0.0
+
+Generator description #1
+Generators with description:        5
+Storage capacity per device (in blocks):4110000
+Number of storage devices:          1
+Blocking factor:                    8
+Probability of sequential access:   0.0
+Probability of local access:        0.0
+Probability of read access:         0.66
+Probability of time-critical request:1.0
+Probability of time-limited request:0.0
+Time-limited think times (in milliseconds)
+Type of distribution: normal
+Mean:                               30.0
+Variance:                           100.0
+General inter-arrival times (in milliseconds)
+Type of distribution: exponential
+Base value:                         0.0
+Mean:                               0.0
+Sequential inter-arrival times (in milliseconds)
+Type of distribution: normal
+Mean:                               0.0
+Variance:                           0.0
+Local inter-arrival times (in milliseconds)
+Type of distribution: exponential
+Base value:                         0.0
+Mean:                               0.0
+Local distances (in blocks)
+Type of distribution: normal
+Mean:                               0.0
+Variance:                           40000.0
+Sizes (in blocks)
+Type of distribution: exponential
+Base value:                         0.0
+Mean:                               8.0

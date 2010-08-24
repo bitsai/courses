@@ -1,0 +1,63 @@
+BattleTech GUI needs
+
+// Buttons that should be present
+
+Button			Supporting Class/Method			What happens
+
+Stand			mech.setMovementMode(0)			user clicks button
+Walk			mech.setMovementMode(1)
+Run			mech.setMovementMode(2)
+Jump			mech.setMovementMode(3)
+
+Turn Right		mech.turnMech(-1)			user holds down button until turn is complete
+Turn Left		mech.turnMech(1)
+Torso Twist Right	mech.turnTorso(-1)
+Torso Twist Left	mech.turnTorso(1)
+
+Drop			mech.drop()				user clicks button
+Get Up			mech.stand()				chooses new facing in popup window
+			mech.setFacing(int newFacing)
+
+Move			mech.moveMech(Point destination)	user clicks some point on the map; if jumped, choose new facing in popup window
+			mech.setFacing(int newFacing)
+
+End Turn		mech.endTurn()				user clicks button
+
+<Name of weapon>	weapon.fireWeapon(Mech target)		user clicks button, target already passed in by button
+Right Punch		physicalAttacks.punch(Mech target, 0)	* get a mech's physical attacks via mech.getPhysicalAttacks()
+Left Punch		physicalAttacks.punch(Mech target, 1)
+Kick			physicalAttacks.kick(Mech target)
+
+// Displays
+
+Display				Supporting Class/Method						Notes
+
+Armor				mech.getBodyParts().getArmor(String location, String side)	locations: Head, RTorso, CTorso, LTorso, RArm, LArm, RLeg, LLeg
+Internal Structure		mech.getBodyParts().getIS(String location)			sides: Front, Rear
+
+Total Armor			mech.getBodyParts().getArmor()					optional
+Total IS			mech.getBodyParts().getIS()					optional
+
+Weapon				mech.getWeapons().getWeapon(int num).toString()			a method that combines weapon name and ammo count, if applicable
+Ammo				mech.getAmmos().getAmmo(int num).toString()			a method that combines ammo name and shots count
+
+Engine Hits			mech.getComponents().getEngineHits()
+Gyro Hits			mech.getComponents().getGyroHits()
+Sensors Hits			mech.getComponents().getSensorsHits()
+Life Support Hits		mech.getComponents().getLifeSupportHits()
+
+MechWarrior Gunnery		mech.getMW().getGunnery()
+MechWarrior Piloting		mech.getMW().getPiloting()
+MechWarrior Damage		mech.getMW().getDamage()
+MechWarrior Unconscious?	mech.getMW().isUnconscious()					returns true if unconscious, false otherwise
+
+Heat				mech.getHeat()
+Heat Sinks			mech.getHeatSinks()
+
+Movement Mode			mech.getMovementMode()						return an integer; 0 = standing, 1 = walking, 2 = running, 3 = jumping
+Movement Points			mech.getMovementPoints()
+Prone?				mech.isProne()							returns true if prone, false otherwise
+
+Mech Type			mech.getType()
+Mech Tonnage			mech.getMass()
+Mech Engine Rating		mech.getEngineRating()

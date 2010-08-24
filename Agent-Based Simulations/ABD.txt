@@ -1,0 +1,126 @@
+//We will have a list of particles containing all known particles and their
+properties, call it pKnown
+//Set aside mUse of the E for mass of new particles.
+//Varying mUse will allow us to observe high, medium, or low Pt productions
+
+Etot = Sum(sqrt(m^2 + ((1/2) m vx^2)^2 + ((1/2) m vy^2))); //The sum is over all
+initial particles
+Eavail = mUse * Etot;
+px = Sum(m * vx); //Sum over all initial particles
+py = Sum(m * vy);
+Qi = sum(Q of particles)
+Si = sum(S of particles)
+Bi = Sum(B of particles)
+Qf = 0
+Sf = 0
+Bf = 0
+
+//Particle Creation
+while (true) {
+      if (no particle with m < Eavail){
+	 pop two partices or restart from zero, your choice, I don't know which will
+work better
+       }
+
+      Select rand particle from pKnown with m < Eavail call it new;
+      //This is so that if 1/2 of the available energy has been used in particle
+creation, all new creations must converge towards our final Q, S, and B
+      //There are definately better ways to do this, if you think of any, go for
+it
+      if (Eavail <= (1/2) * mUse * E) {
+	  if (abs(Qf + new.Q - Qi) + abs(Sf + new.S - Si) + abs(Bf + new.B - Bi) >=
+abs(Qf - Qi) + abs(Sf - Si) + abs(Bf - Bi)) {
+	     do not use the particle
+	     next;
+	  }
+      }
+
+      create instance of that particle, push onto stack of created particles (p)
+      QuantUpdate;
+      if (Qf == Qi && Sf == Si && Bf == Bi)
+	 break;
+}
+
+balance_mom(p, px, py, Eavail + Etot * (1 - mUse))
+
+-----------------------------------------------------------
+
+//Particle decay
+//Each particle will have a mean lifetime (Tau) before decay as well as a list
+of particle modes (just a set of particles) it can decay into and the
+probability of each decay mode and should known how many rounds it has been
+alive (timeAlive)
+
+Each round loop over all particles and do:
+willDecay = Rand # between 0 and 1;
+If (willDecay > e^(-timeAlive/Tau)) {
+	v = sqrt(vx^2 + vy^2)
+	E = sqrt(((1/2) m v^2)^2 + m^2);
+
+
+	Rand select one of the decay modes which will have n particles 
+	create the particles as array or list p;
+	E = E - Sum((p[i].m)^2); //Sum is over all particles in p
+	px = m*vx
+	py = m*vy
+	Eavail = E / number of particles in p
+	for each item in p {
+		vassign = sqrt(2*Eavail/p[i].m)
+		p[i].vx = vassign * (rand # btw 0 and 1);
+		p[i].vy = vassign - p[i].vx;
+	}
+	
+	balance_mom(p, px, py, 0);
+}
+
+--------------------------------------------------------------
+
+void balance_mom (list of particles p, px, py, Eavail) {
+
+	ppx = Sum(p[k].m * p[k].vx);
+	ppy = Sum(p[k].m * p[k].vy;
+
+	//you may want to make this a bit more hazy so if ppx is very close to px
+that's good enough or make a "no infinite loop" clause.
+	while ((ppx != px) || (ppy != py)) {		
+		
+		direc = (px - ppx) / abs(px - ppx);
+
+
+		if (ppx != px) {
+			choose a random particle i
+			p[i].vx = p[i].vx + direc;
+			while (Eavail < p[i].m) {
+				chose at random a particle j with (p[j].vx/p[i].vx) < 0
+				p[j].vx = p[j].vx - 1;
+				Eavail = sqrt(Eavail^2 + p[j].m^2);
+			}
+		}
+
+		if (ppy != py) {
+			chose at random a particle i;
+			p[i].vy + = p[i].vy + direc;
+			while (Eavail < p[i].m) {
+				chose at random a particle j with (p[j].vy/p[i].vy) < 0
+				p[j].vy = p[j].vy - 1;
+				Eavail = sqrt(Eavail^2 + p[j].m^2);
+			}
+		}
+
+		Eavail = sqrt(Eavail^2 - p[i].m^2);
+
+		ppx = Sum(p[k].m * p[k].vx);
+		ppy = Sum(p[k].m * p[k].vy;				
+
+	}
+}
+
+bool QuantUpdate(particle)
+{
+     Eavail = sqrt( Eavail^2 - m^2);
+     Qf = Qf + Qparticle
+     Sf = Sf + Sparticle
+     Bf = Bf + Bparticle
+
+     return true;
+}

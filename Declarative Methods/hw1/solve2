@@ -1,0 +1,10 @@
+#!/bin/sh
+
+echo "Converting to DIMACS...."
+perl convertToWeightedDIMACS.pl $1.cnf > $1.DIMACS
+echo "Solving with UBCSat...."
+/usr/local/data/cs325/hw1/ubcsat/ubcsat -r best -i $1.DIMACS -alg samd -w > $1.solution
+echo "Trimming...."
+perl trimoutput.pl $1.solution > $1.trimmed
+echo "Converting...."
+perl convertBack.pl $1.trimmed $1.key > $1.output

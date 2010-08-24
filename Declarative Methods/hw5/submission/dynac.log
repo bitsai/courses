@@ -1,0 +1,3232 @@
+
+!!! Wed May 11 00:01:18 2005 /home/3/data/cs325/dyna/bin/dynac-latest 0.3.8-r2530 helloworld.dyna --driver=goal !!!
+########## dynac 0.3.8-r2530: /home/1/btsai/DM/hw5/helloworld.dyna##########
+% My first Dyna program (helloworld.dyna)
+:- item(item, double, 0).   % says that values are double-precision real numbers
+goal += hello*world.        % an inference rule for deriving values
+hello := 6.                 % some initial values
+world := 7.##########dynac: end file ##########
+
+!!! Wed May 11 00:06:15 2005 /home/3/data/cs325/dyna/bin/dynac-latest 0.3.8-r2530 helloworld2.dyna --driver=goal !!!
+########## dynac 0.3.8-r2530: /home/1/btsai/DM/hw5/helloworld2.dyna##########
+% My second Dyna program.  This time it doesn't specify any
+% initial values.  All values will come from the driver program.
+
+:- item(item, double, 0).  
+goal += hello*hello.
+goal += hello*world.##########dynac: end file ##########
+
+!!! Wed May 11 00:19:50 2005 /home/3/data/cs325/dyna/bin/dynac-latest 0.3.8-r2530 path.dyna --driver=goal !!!
+########## dynac 0.3.8-r2530: /home/1/btsai/DM/hw5/path.dyna##########
+:- item(item, double, inf).
+pathto(V) min= edge("Start", V).
+pathto(V) min= pathto(U) + edge(U,V).
+goal      min= pathto("End").
+##########dynac: end file ##########
+
+!!! Wed May 11 00:22:05 2005 /home/3/data/cs325/dyna/bin/dynac-latest 0.3.8-r2530 path.dyna --driver=backtrace !!!
+########## dynac 0.3.8-r2530: /home/1/btsai/DM/hw5/path.dyna##########
+:- pragma(keep_best_antecedents(item)).
+:- item(item, double, inf).
+pathto(V) min= edge("Start", V).
+pathto(V) min= pathto(U) + edge(U,V).
+goal      min= pathto("End").
+##########dynac: end file ##########
+
+!!! Wed May 11 02:49:11 2005 /home/3/data/cs325/dyna/bin/dynac-latest 0.3.8-r2530 ancestor.dyna --driver=backtrace !!!
+########## dynac 0.3.8-r2530: /home/1/btsai/DM/hw5/ancestor.dyna##########
+:- pragma(keep_best_antecedents(item)).
+:- item(item, double, inf).
+:- structure(child(string,string)).
+whois(A)	min= person(A,B).
+pathto(C,A)	min= child(C,A).
+pathto(C,A)	min= pathto(C,B) + child(B,A).
+goal		min= pathto(whois(1),A) + pathto(whois(2),A).
+##########dynac: end file ##########
+The current version of dyna does not allow using types that include ints or strings together with other terms
+declaration inference failed
+make: *** [ancestor.dyna_dcl0] Error 1
+
+!!! Wed May 11 02:49:53 2005 /home/3/data/cs325/dyna/bin/dynac-latest 0.3.8-r2530 ancestor.dyna --driver=backtrace !!!
+########## dynac 0.3.8-r2530: /home/1/btsai/DM/hw5/ancestor.dyna##########
+:- pragma(keep_best_antecedents(item)).
+:- item(item, double, inf).
+:- structure(child(string,string)).
+whois(1)	min= person(1,X).
+whois(2)	min= person(2,X).
+pathto(C,A)	min= child(C,A).
+pathto(C,A)	min= pathto(C,B) + child(B,A).
+goal		min= pathto(whois(1),A) + pathto(whois(2),A).
+##########dynac: end file ##########
+The current version of dyna does not allow using types that include ints or strings together with other terms
+declaration inference failed
+make: *** [ancestor.dyna_dcl0] Error 1
+
+!!! Wed May 11 02:50:47 2005 /home/3/data/cs325/dyna/bin/dynac-latest 0.3.8-r2530 ancestor.dyna --driver=backtrace !!!
+########## dynac 0.3.8-r2530: /home/1/btsai/DM/hw5/ancestor.dyna##########
+:- pragma(keep_best_antecedents(item)).
+:- item(item, double, inf).
+:- structure(child(string,string)).
+whois(X)	min= person(X,Y).
+pathto(C,A)	min= child(C,A).
+pathto(C,A)	min= pathto(C,B) + child(B,A).
+goal		min= pathto(whois(1),A) + pathto(whois(2),A).
+##########dynac: end file ##########
+The current version of dyna does not allow using types that include ints or strings together with other terms
+declaration inference failed
+make: *** [ancestor.dyna_dcl0] Error 1
+
+!!! Wed May 11 02:51:09 2005 /home/3/data/cs325/dyna/bin/dynac-latest 0.3.8-r2530 ancestor.dyna --driver=backtrace !!!
+########## dynac 0.3.8-r2530: /home/1/btsai/DM/hw5/ancestor.dyna##########
+:- pragma(keep_best_antecedents(item)).
+:- item(item, double, inf).
+:- structure(child(string,string)).
+whois(X)	min= person(X,Y).
+pathto(C,A)	min= child(C,A).
+pathto(C,A)	min= pathto(C,B) + child(B,A).
+goal		min= pathto(1,A) + pathto(2,A).
+##########dynac: end file ##########
+The current version of dyna does not allow using types that include ints or strings together with other terms
+declaration inference failed
+make: *** [ancestor.dyna_dcl0] Error 1
+
+!!! Wed May 11 02:51:26 2005 /home/3/data/cs325/dyna/bin/dynac-latest 0.3.8-r2530 ancestor.dyna --driver=backtrace !!!
+########## dynac 0.3.8-r2530: /home/1/btsai/DM/hw5/ancestor.dyna##########
+:- pragma(keep_best_antecedents(item)).
+:- item(item, double, inf).
+:- structure(child(string,string)).
+pathto(C,A)	min= child(C,A).
+pathto(C,A)	min= pathto(C,B) + child(B,A).
+goal		min= pathto(1,A) + pathto(2,A).
+##########dynac: end file ##########
+The current version of dyna does not allow using types that include ints or strings together with other terms
+declaration inference failed
+make: *** [ancestor.dyna_dcl0] Error 1
+
+!!! Wed May 11 02:51:53 2005 /home/3/data/cs325/dyna/bin/dynac-latest 0.3.8-r2530 ancestor.dyna --driver=backtrace !!!
+########## dynac 0.3.8-r2530: /home/1/btsai/DM/hw5/ancestor.dyna##########
+:- pragma(keep_best_antecedents(item)).
+:- item(item, int, inf).
+:- structure(child(string,string)).
+pathto(C,A)	min= child(C,A).
+pathto(C,A)	min= pathto(C,B) + child(B,A).
+goal		min= pathto(1,A) + pathto(2,A).
+##########dynac: end file ##########
+The current version of dyna does not allow using types that include ints or strings together with other terms
+declaration inference failed
+make: *** [ancestor.dyna_dcl0] Error 1
+
+!!! Wed May 11 02:52:51 2005 /home/3/data/cs325/dyna/bin/dynac-latest 0.3.8-r2530 ancestor.dyna --driver=backtrace !!!
+########## dynac 0.3.8-r2530: /home/1/btsai/DM/hw5/ancestor.dyna##########
+:- pragma(keep_best_antecedents(item)).
+:- item(item, int, inf).
+:- structure(child(string,string)).
+pathto(C,A)	min= child(C,A).
+pathto(C,A)	min= pathto(C,B) + child(B,A).
+goal		min= pathto(X,A) + pathto(Y,A).
+##########dynac: end file ##########
+compiler: unimplemented: invalid item declaration or operator set: int/inf/min=/+/
+currently, these are the only valid item declarations and operator sets, and you must have one of them:
+:- item(item,double,0) with += and *
+:- item(item,bool,false) with |= and &
+:- item(item,double,-inf) with log+= and +
+:- item(item,double,-inf) with max= and +
+:- item(item,double,inf) with min= and +
+compilation failed
+make: *** [ancestor_dyna.cpp] Error 1
+
+!!! Wed May 11 02:53:48 2005 /home/3/data/cs325/dyna/bin/dynac-latest 0.3.8-r2530 ancestor.dyna --driver=backtrace !!!
+########## dynac 0.3.8-r2530: /home/1/btsai/DM/hw5/ancestor.dyna##########
+:- pragma(keep_best_antecedents(item)).
+:- item(item, double, inf).
+:- structure(child(string,string)).
+pathto(C,A)	min= child(C,A).
+pathto(C,A)	min= pathto(C,B) + child(B,A).
+goal		min= pathto(X,A) + pathto(Y,A).
+##########dynac: end file ##########
+
+!!! Wed May 11 02:55:45 2005 /home/3/data/cs325/dyna/bin/dynac-latest 0.3.8-r2530 ancestor.dyna --driver=backtrace !!!
+########## dynac 0.3.8-r2530: /home/1/btsai/DM/hw5/ancestor.dyna##########
+:- pragma(keep_best_antecedents(item)).
+:- item(item, double, inf).
+:- structure(child(string,string)).
+:- structure(person(double,string)).
+pathto(C,A)	min= child(C,A).
+pathto(C,A)	min= pathto(C,B) + child(B,A).
+goal		min= pathto(X,A) + pathto(Y,A).
+##########dynac: end file ##########
+In file included from ancestor_dyna.cpp:2:
+ancestor_dyna.h:37: error: expected identifier before "double"
+ancestor_dyna.h:69: error: expected unqualified-id before "double"
+ancestor_dyna.h:69: error: ISO C++ forbids declaration of `type name' with no type
+ancestor_dyna.h:69: error: expected `;' before "double"
+ancestor_dyna.h:120: error: expected identifier before "double"
+ancestor_dyna.h:120: error: ISO C++ forbids declaration of `other' with no type
+ancestor_dyna.h:133: error: expected identifier before "double"
+ancestor_dyna.h:133: error: ISO C++ forbids declaration of `to_double' with no type
+ancestor_dyna.h:467: error: expected identifier before "double"
+ancestor_dyna.h:467: error: ISO C++ forbids declaration of `other' with no type
+ancestor_dyna.h:472: error: expected identifier before "double"
+ancestor_dyna.h:472: error: ISO C++ forbids declaration of `to_double' with no type
+ancestor_dyna.h:512: error: expected identifier before "double"
+ancestor_dyna.h:512: error: ISO C++ forbids declaration of `other' with no type
+ancestor_dyna.h:525: error: expected identifier before "double"
+ancestor_dyna.h:525: error: ISO C++ forbids declaration of `to_double' with no type
+ancestor_dyna.h:906: error: expected identifier before "double"
+ancestor_dyna.h:906: error: expected unqualified-id before '{' token
+ancestor_dyna.h:906: error: expected `,' or `;' before '{' token
+ancestor_dyna.h:940: error: expected identifier before "double"
+ancestor_dyna.h:940: error: ISO C++ forbids declaration of `t' with no type
+ancestor_dyna.h:942: error: expected identifier before "double"
+ancestor_dyna.h:942: error: `extern' can only be specified for objects and functions
+ancestor_dyna.h:1221: error: expected identifier before "double"
+ancestor_dyna.h:1221: error: friend declaration does not name a class or function
+ancestor_dyna.cpp:52: error: expected constructor, destructor, or type conversion before '(' token
+ancestor_dyna.cpp:52: error: expected `,' or `;' before '(' token
+ancestor_dyna.cpp:106: error: expected identifier before "double"
+ancestor_dyna.cpp:106: error: ISO C++ forbids declaration of `to_double' with no type
+ancestor_dyna.cpp: In member function `const int& ancestor::term::to_double() const':
+ancestor_dyna.cpp:108: error: expected primary-expression before "class"
+ancestor_dyna.cpp:108: error: expected `)' before "class"
+ancestor_dyna.cpp: In function `std::ostream& ancestor::operator<<(std::ostream&, const ancestor::term&)':
+ancestor_dyna.cpp:355: error: ambiguous overload for 'operator<<' in 'os << (+t)->ancestor::term::to_double()'
+/usr/lib/gcc/i386-redhat-linux/3.4.3/../../../../include/c++/3.4.3/bits/ostream.tcc:63: note: candidates are: std::basic_ostream<_CharT, _Traits>& std::basic_ostream<_CharT, _Traits>::operator<<(std::basic_ostream<_CharT, _Traits>&(*)(std::basic_ostream<_CharT, _Traits>&)) [with _CharT = char, _Traits = std::char_traits<char>] <near match>
+/usr/lib/gcc/i386-redhat-linux/3.4.3/../../../../include/c++/3.4.3/bits/ostream.tcc:74: note:                 std::basic_ostream<_CharT, _Traits>& std::basic_ostream<_CharT, _Traits>::operator<<(std::basic_ios<_CharT, _Traits>&(*)(std::basic_ios<_CharT, _Traits>&)) [with _CharT = char, _Traits = std::char_traits<char>] <near match>
+/usr/lib/gcc/i386-redhat-linux/3.4.3/../../../../include/c++/3.4.3/bits/ostream.tcc:86: note:                 std::basic_ostream<_CharT, _Traits>& std::basic_ostream<_CharT, _Traits>::operator<<(std::ios_base&(*)(std::ios_base&)) [with _CharT = char, _Traits = std::char_traits<char>] <near match>
+/usr/lib/gcc/i386-redhat-linux/3.4.3/../../../../include/c++/3.4.3/bits/ostream.tcc:121: note:                 std::basic_ostream<_CharT, _Traits>& std::basic_ostream<_CharT, _Traits>::operator<<(long int) [with _CharT = char, _Traits = std::char_traits<char>]
+/usr/lib/gcc/i386-redhat-linux/3.4.3/../../../../include/c++/3.4.3/bits/ostream.tcc:155: note:                 std::basic_ostream<_CharT, _Traits>& std::basic_ostream<_CharT, _Traits>::operator<<(long unsigned int) [with _CharT = char, _Traits = std::char_traits<char>]
+/usr/lib/gcc/i386-redhat-linux/3.4.3/../../../../include/c++/3.4.3/bits/ostream.tcc:98: note:                 std::basic_ostream<_CharT, _Traits>& std::basic_ostream<_CharT, _Traits>::operator<<(bool) [with _CharT = char, _Traits = std::char_traits<char>]
+/usr/lib/gcc/i386-redhat-linux/3.4.3/../../../../include/c++/3.4.3/ostream:178: note:                 std::basic_ostream<_CharT, _Traits>& std::basic_ostream<_CharT, _Traits>::operator<<(short int) [with _CharT = char, _Traits = std::char_traits<char>]
+/usr/lib/gcc/i386-redhat-linux/3.4.3/../../../../include/c++/3.4.3/ostream:189: note:                 std::basic_ostream<_CharT, _Traits>& std::basic_ostream<_CharT, _Traits>::operator<<(short unsigned int) [with _CharT = char, _Traits = std::char_traits<char>]
+/usr/lib/gcc/i386-redhat-linux/3.4.3/../../../../include/c++/3.4.3/ostream:193: note:                 std::basic_ostream<_CharT, _Traits>& std::basic_ostream<_CharT, _Traits>::operator<<(int) [with _CharT = char, _Traits = std::char_traits<char>]
+/usr/lib/gcc/i386-redhat-linux/3.4.3/../../../../include/c++/3.4.3/ostream:204: note:                 std::basic_ostream<_CharT, _Traits>& std::basic_ostream<_CharT, _Traits>::operator<<(unsigned int) [with _CharT = char, _Traits = std::char_traits<char>]
+/usr/lib/gcc/i386-redhat-linux/3.4.3/../../../../include/c++/3.4.3/bits/ostream.tcc:179: note:                 std::basic_ostream<_CharT, _Traits>& std::basic_ostream<_CharT, _Traits>::operator<<(long long int) [with _CharT = char, _Traits = std::char_traits<char>]
+/usr/lib/gcc/i386-redhat-linux/3.4.3/../../../../include/c++/3.4.3/bits/ostream.tcc:214: note:                 std::basic_ostream<_CharT, _Traits>& std::basic_ostream<_CharT, _Traits>::operator<<(long long unsigned int) [with _CharT = char, _Traits = std::char_traits<char>]
+/usr/lib/gcc/i386-redhat-linux/3.4.3/../../../../include/c++/3.4.3/bits/ostream.tcc:238: note:                 std::basic_ostream<_CharT, _Traits>& std::basic_ostream<_CharT, _Traits>::operator<<(double) [with _CharT = char, _Traits = std::char_traits<char>]
+/usr/lib/gcc/i386-redhat-linux/3.4.3/../../../../include/c++/3.4.3/ostream:219: note:                 std::basic_ostream<_CharT, _Traits>& std::basic_ostream<_CharT, _Traits>::operator<<(float) [with _CharT = char, _Traits = std::char_traits<char>]
+/usr/lib/gcc/i386-redhat-linux/3.4.3/../../../../include/c++/3.4.3/bits/ostream.tcc:261: note:                 std::basic_ostream<_CharT, _Traits>& std::basic_ostream<_CharT, _Traits>::operator<<(long double) [with _CharT = char, _Traits = std::char_traits<char>]
+/usr/lib/gcc/i386-redhat-linux/3.4.3/../../../../include/c++/3.4.3/bits/ostream.tcc:284: note:                 std::basic_ostream<_CharT, _Traits>& std::basic_ostream<_CharT, _Traits>::operator<<(const void*) [with _CharT = char, _Traits = std::char_traits<char>] <near match>
+/usr/lib/gcc/i386-redhat-linux/3.4.3/../../../../include/c++/3.4.3/bits/ostream.tcc:307: note:                 std::basic_ostream<_CharT, _Traits>& std::basic_ostream<_CharT, _Traits>::operator<<(std::basic_streambuf<_CharT, _Traits>*) [with _CharT = char, _Traits = std::char_traits<char>] <near match>
+ancestor_dyna.cpp:345: note:                 std::ostream& ancestor::operator<<(std::ostream&, const ancestor::term&)
+ancestor_dyna.h:497: note:                 std::ostream& ancestor::operator<<(std::ostream&, const ancestor::dyna_atom&)
+ancestor_dyna.h:571: note:                 std::ostream& ancestor::operator<<(std::ostream&, const ancestor::dyna_term&)
+ancestor_dyna.h:940: note:                 std::ostream& ancestor::operator<<(std::ostream&, const int&)
+/usr/lib/gcc/i386-redhat-linux/3.4.3/../../../../include/c++/3.4.3/ostream:504: note:                 std::basic_ostream<char, _Traits>& std::operator<<(std::basic_ostream<char, _Traits>&, const unsigned char*) [with _Traits = std::char_traits<char>] <near match>
+/usr/lib/gcc/i386-redhat-linux/3.4.3/../../../../include/c++/3.4.3/ostream:499: note:                 std::basic_ostream<char, _Traits>& std::operator<<(std::basic_ostream<char, _Traits>&, const signed char*) [with _Traits = std::char_traits<char>] <near match>
+/usr/lib/gcc/i386-redhat-linux/3.4.3/../../../../include/c++/3.4.3/bits/ostream.tcc:612: note:                 std::basic_ostream<char, _Traits>& std::operator<<(std::basic_ostream<char, _Traits>&, const char*) [with _Traits = std::char_traits<char>] <near match>
+/usr/lib/gcc/i386-redhat-linux/3.4.3/../../../../include/c++/3.4.3/bits/ostream.tcc:567: note:                 std::basic_ostream<_CharT, _Traits>& std::operator<<(std::basic_ostream<_CharT, _Traits>&, const char*) [with _CharT = char, _Traits = std::char_traits<char>] <near match>
+/usr/lib/gcc/i386-redhat-linux/3.4.3/../../../../include/c++/3.4.3/ostream:465: note:                 std::basic_ostream<char, _Traits>& std::operator<<(std::basic_ostream<char, _Traits>&, unsigned char) [with _Traits = std::char_traits<char>]
+/usr/lib/gcc/i386-redhat-linux/3.4.3/../../../../include/c++/3.4.3/ostream:460: note:                 std::basic_ostream<char, _Traits>& std::operator<<(std::basic_ostream<char, _Traits>&, signed char) [with _Traits = std::char_traits<char>]
+/usr/lib/gcc/i386-redhat-linux/3.4.3/../../../../include/c++/3.4.3/bits/ostream.tcc:505: note:                 std::basic_ostream<char, _Traits>& std::operator<<(std::basic_ostream<char, _Traits>&, char) [with _Traits = std::char_traits<char>]
+/usr/lib/gcc/i386-redhat-linux/3.4.3/../../../../include/c++/3.4.3/ostream:449: note:                 std::basic_ostream<_CharT, _Traits>& std::operator<<(std::basic_ostream<_CharT, _Traits>&, char) [with _CharT = char, _Traits = std::char_traits<char>]
+ancestor_dyna.cpp: At global scope:
+ancestor_dyna.cpp:1228: error: expected constructor, destructor, or type conversion before '(' token
+ancestor_dyna.cpp:1228: error: expected `,' or `;' before '(' token
+ancestor_dyna.cpp:1244: error: expected identifier before "double"
+ancestor_dyna.cpp:1244: error: ISO C++ forbids declaration of `to_double' with no type
+ancestor_dyna.cpp: In member function `const int& ancestor::dyna_atom::to_double() const':
+ancestor_dyna.cpp:1246: error: expected primary-expression before "class"
+ancestor_dyna.cpp:1246: error: expected `)' before "class"
+ancestor_dyna.cpp: In function `std::ostream& ancestor::operator<<(std::ostream&, const ancestor::dyna_atom&)':
+ancestor_dyna.cpp:1344: error: ambiguous overload for 'operator<<' in 'os << (+t)->ancestor::dyna_atom::to_double()'
+/usr/lib/gcc/i386-redhat-linux/3.4.3/../../../../include/c++/3.4.3/bits/ostream.tcc:63: note: candidates are: std::basic_ostream<_CharT, _Traits>& std::basic_ostream<_CharT, _Traits>::operator<<(std::basic_ostream<_CharT, _Traits>&(*)(std::basic_ostream<_CharT, _Traits>&)) [with _CharT = char, _Traits = std::char_traits<char>] <near match>
+/usr/lib/gcc/i386-redhat-linux/3.4.3/../../../../include/c++/3.4.3/bits/ostream.tcc:74: note:                 std::basic_ostream<_CharT, _Traits>& std::basic_ostream<_CharT, _Traits>::operator<<(std::basic_ios<_CharT, _Traits>&(*)(std::basic_ios<_CharT, _Traits>&)) [with _CharT = char, _Traits = std::char_traits<char>] <near match>
+/usr/lib/gcc/i386-redhat-linux/3.4.3/../../../../include/c++/3.4.3/bits/ostream.tcc:86: note:                 std::basic_ostream<_CharT, _Traits>& std::basic_ostream<_CharT, _Traits>::operator<<(std::ios_base&(*)(std::ios_base&)) [with _CharT = char, _Traits = std::char_traits<char>] <near match>
+/usr/lib/gcc/i386-redhat-linux/3.4.3/../../../../include/c++/3.4.3/bits/ostream.tcc:121: note:                 std::basic_ostream<_CharT, _Traits>& std::basic_ostream<_CharT, _Traits>::operator<<(long int) [with _CharT = char, _Traits = std::char_traits<char>]
+/usr/lib/gcc/i386-redhat-linux/3.4.3/../../../../include/c++/3.4.3/bits/ostream.tcc:155: note:                 std::basic_ostream<_CharT, _Traits>& std::basic_ostream<_CharT, _Traits>::operator<<(long unsigned int) [with _CharT = char, _Traits = std::char_traits<char>]
+/usr/lib/gcc/i386-redhat-linux/3.4.3/../../../../include/c++/3.4.3/bits/ostream.tcc:98: note:                 std::basic_ostream<_CharT, _Traits>& std::basic_ostream<_CharT, _Traits>::operator<<(bool) [with _CharT = char, _Traits = std::char_traits<char>]
+/usr/lib/gcc/i386-redhat-linux/3.4.3/../../../../include/c++/3.4.3/ostream:178: note:                 std::basic_ostream<_CharT, _Traits>& std::basic_ostream<_CharT, _Traits>::operator<<(short int) [with _CharT = char, _Traits = std::char_traits<char>]
+/usr/lib/gcc/i386-redhat-linux/3.4.3/../../../../include/c++/3.4.3/ostream:189: note:                 std::basic_ostream<_CharT, _Traits>& std::basic_ostream<_CharT, _Traits>::operator<<(short unsigned int) [with _CharT = char, _Traits = std::char_traits<char>]
+/usr/lib/gcc/i386-redhat-linux/3.4.3/../../../../include/c++/3.4.3/ostream:193: note:                 std::basic_ostream<_CharT, _Traits>& std::basic_ostream<_CharT, _Traits>::operator<<(int) [with _CharT = char, _Traits = std::char_traits<char>]
+/usr/lib/gcc/i386-redhat-linux/3.4.3/../../../../include/c++/3.4.3/ostream:204: note:                 std::basic_ostream<_CharT, _Traits>& std::basic_ostream<_CharT, _Traits>::operator<<(unsigned int) [with _CharT = char, _Traits = std::char_traits<char>]
+/usr/lib/gcc/i386-redhat-linux/3.4.3/../../../../include/c++/3.4.3/bits/ostream.tcc:179: note:                 std::basic_ostream<_CharT, _Traits>& std::basic_ostream<_CharT, _Traits>::operator<<(long long int) [with _CharT = char, _Traits = std::char_traits<char>]
+/usr/lib/gcc/i386-redhat-linux/3.4.3/../../../../include/c++/3.4.3/bits/ostream.tcc:214: note:                 std::basic_ostream<_CharT, _Traits>& std::basic_ostream<_CharT, _Traits>::operator<<(long long unsigned int) [with _CharT = char, _Traits = std::char_traits<char>]
+/usr/lib/gcc/i386-redhat-linux/3.4.3/../../../../include/c++/3.4.3/bits/ostream.tcc:238: note:                 std::basic_ostream<_CharT, _Traits>& std::basic_ostream<_CharT, _Traits>::operator<<(double) [with _CharT = char, _Traits = std::char_traits<char>]
+/usr/lib/gcc/i386-redhat-linux/3.4.3/../../../../include/c++/3.4.3/ostream:219: note:                 std::basic_ostream<_CharT, _Traits>& std::basic_ostream<_CharT, _Traits>::operator<<(float) [with _CharT = char, _Traits = std::char_traits<char>]
+/usr/lib/gcc/i386-redhat-linux/3.4.3/../../../../include/c++/3.4.3/bits/ostream.tcc:261: note:                 std::basic_ostream<_CharT, _Traits>& std::basic_ostream<_CharT, _Traits>::operator<<(long double) [with _CharT = char, _Traits = std::char_traits<char>]
+/usr/lib/gcc/i386-redhat-linux/3.4.3/../../../../include/c++/3.4.3/bits/ostream.tcc:284: note:                 std::basic_ostream<_CharT, _Traits>& std::basic_ostream<_CharT, _Traits>::operator<<(const void*) [with _CharT = char, _Traits = std::char_traits<char>] <near match>
+/usr/lib/gcc/i386-redhat-linux/3.4.3/../../../../include/c++/3.4.3/bits/ostream.tcc:307: note:                 std::basic_ostream<_CharT, _Traits>& std::basic_ostream<_CharT, _Traits>::operator<<(std::basic_streambuf<_CharT, _Traits>*) [with _CharT = char, _Traits = std::char_traits<char>] <near match>
+ancestor_dyna.cpp:345: note:                 std::ostream& ancestor::operator<<(std::ostream&, const ancestor::term&)
+ancestor_dyna.cpp:1341: note:                 std::ostream& ancestor::operator<<(std::ostream&, const ancestor::dyna_atom&)
+ancestor_dyna.h:571: note:                 std::ostream& ancestor::operator<<(std::ostream&, const ancestor::dyna_term&)
+ancestor_dyna.h:940: note:                 std::ostream& ancestor::operator<<(std::ostream&, const int&)
+/usr/lib/gcc/i386-redhat-linux/3.4.3/../../../../include/c++/3.4.3/ostream:504: note:                 std::basic_ostream<char, _Traits>& std::operator<<(std::basic_ostream<char, _Traits>&, const unsigned char*) [with _Traits = std::char_traits<char>] <near match>
+/usr/lib/gcc/i386-redhat-linux/3.4.3/../../../../include/c++/3.4.3/ostream:499: note:                 std::basic_ostream<char, _Traits>& std::operator<<(std::basic_ostream<char, _Traits>&, const signed char*) [with _Traits = std::char_traits<char>] <near match>
+/usr/lib/gcc/i386-redhat-linux/3.4.3/../../../../include/c++/3.4.3/bits/ostream.tcc:612: note:                 std::basic_ostream<char, _Traits>& std::operator<<(std::basic_ostream<char, _Traits>&, const char*) [with _Traits = std::char_traits<char>] <near match>
+/usr/lib/gcc/i386-redhat-linux/3.4.3/../../../../include/c++/3.4.3/bits/ostream.tcc:567: note:                 std::basic_ostream<_CharT, _Traits>& std::operator<<(std::basic_ostream<_CharT, _Traits>&, const char*) [with _CharT = char, _Traits = std::char_traits<char>] <near match>
+/usr/lib/gcc/i386-redhat-linux/3.4.3/../../../../include/c++/3.4.3/ostream:465: note:                 std::basic_ostream<char, _Traits>& std::operator<<(std::basic_ostream<char, _Traits>&, unsigned char) [with _Traits = std::char_traits<char>]
+/usr/lib/gcc/i386-redhat-linux/3.4.3/../../../../include/c++/3.4.3/ostream:460: note:                 std::basic_ostream<char, _Traits>& std::operator<<(std::basic_ostream<char, _Traits>&, signed char) [with _Traits = std::char_traits<char>]
+/usr/lib/gcc/i386-redhat-linux/3.4.3/../../../../include/c++/3.4.3/bits/ostream.tcc:505: note:                 std::basic_ostream<char, _Traits>& std::operator<<(std::basic_ostream<char, _Traits>&, char) [with _Traits = std::char_traits<char>]
+/usr/lib/gcc/i386-redhat-linux/3.4.3/../../../../include/c++/3.4.3/ostream:449: note:                 std::basic_ostream<_CharT, _Traits>& std::operator<<(std::basic_ostream<_CharT, _Traits>&, char) [with _CharT = char, _Traits = std::char_traits<char>]
+ancestor_dyna.cpp: At global scope:
+ancestor_dyna.cpp:1364: error: expected constructor, destructor, or type conversion before '(' token
+ancestor_dyna.cpp:1364: error: expected `,' or `;' before '(' token
+ancestor_dyna.cpp:1406: error: expected identifier before "double"
+ancestor_dyna.cpp:1406: error: ISO C++ forbids declaration of `to_double' with no type
+ancestor_dyna.cpp: In member function `const int& ancestor::dyna_term::to_double() const':
+ancestor_dyna.cpp:1408: error: expected primary-expression before "class"
+ancestor_dyna.cpp:1408: error: expected `)' before "class"
+ancestor_dyna.cpp: In function `std::ostream& ancestor::operator<<(std::ostream&, const ancestor::dyna_term&)':
+ancestor_dyna.cpp:1668: error: ambiguous overload for 'operator<<' in 'os << (+t)->ancestor::dyna_term::to_double()'
+/usr/lib/gcc/i386-redhat-linux/3.4.3/../../../../include/c++/3.4.3/bits/ostream.tcc:63: note: candidates are: std::basic_ostream<_CharT, _Traits>& std::basic_ostream<_CharT, _Traits>::operator<<(std::basic_ostream<_CharT, _Traits>&(*)(std::basic_ostream<_CharT, _Traits>&)) [with _CharT = char, _Traits = std::char_traits<char>] <near match>
+/usr/lib/gcc/i386-redhat-linux/3.4.3/../../../../include/c++/3.4.3/bits/ostream.tcc:74: note:                 std::basic_ostream<_CharT, _Traits>& std::basic_ostream<_CharT, _Traits>::operator<<(std::basic_ios<_CharT, _Traits>&(*)(std::basic_ios<_CharT, _Traits>&)) [with _CharT = char, _Traits = std::char_traits<char>] <near match>
+/usr/lib/gcc/i386-redhat-linux/3.4.3/../../../../include/c++/3.4.3/bits/ostream.tcc:86: note:                 std::basic_ostream<_CharT, _Traits>& std::basic_ostream<_CharT, _Traits>::operator<<(std::ios_base&(*)(std::ios_base&)) [with _CharT = char, _Traits = std::char_traits<char>] <near match>
+/usr/lib/gcc/i386-redhat-linux/3.4.3/../../../../include/c++/3.4.3/bits/ostream.tcc:121: note:                 std::basic_ostream<_CharT, _Traits>& std::basic_ostream<_CharT, _Traits>::operator<<(long int) [with _CharT = char, _Traits = std::char_traits<char>]
+/usr/lib/gcc/i386-redhat-linux/3.4.3/../../../../include/c++/3.4.3/bits/ostream.tcc:155: note:                 std::basic_ostream<_CharT, _Traits>& std::basic_ostream<_CharT, _Traits>::operator<<(long unsigned int) [with _CharT = char, _Traits = std::char_traits<char>]
+/usr/lib/gcc/i386-redhat-linux/3.4.3/../../../../include/c++/3.4.3/bits/ostream.tcc:98: note:                 std::basic_ostream<_CharT, _Traits>& std::basic_ostream<_CharT, _Traits>::operator<<(bool) [with _CharT = char, _Traits = std::char_traits<char>]
+/usr/lib/gcc/i386-redhat-linux/3.4.3/../../../../include/c++/3.4.3/ostream:178: note:                 std::basic_ostream<_CharT, _Traits>& std::basic_ostream<_CharT, _Traits>::operator<<(short int) [with _CharT = char, _Traits = std::char_traits<char>]
+/usr/lib/gcc/i386-redhat-linux/3.4.3/../../../../include/c++/3.4.3/ostream:189: note:                 std::basic_ostream<_CharT, _Traits>& std::basic_ostream<_CharT, _Traits>::operator<<(short unsigned int) [with _CharT = char, _Traits = std::char_traits<char>]
+/usr/lib/gcc/i386-redhat-linux/3.4.3/../../../../include/c++/3.4.3/ostream:193: note:                 std::basic_ostream<_CharT, _Traits>& std::basic_ostream<_CharT, _Traits>::operator<<(int) [with _CharT = char, _Traits = std::char_traits<char>]
+/usr/lib/gcc/i386-redhat-linux/3.4.3/../../../../include/c++/3.4.3/ostream:204: note:                 std::basic_ostream<_CharT, _Traits>& std::basic_ostream<_CharT, _Traits>::operator<<(unsigned int) [with _CharT = char, _Traits = std::char_traits<char>]
+/usr/lib/gcc/i386-redhat-linux/3.4.3/../../../../include/c++/3.4.3/bits/ostream.tcc:179: note:                 std::basic_ostream<_CharT, _Traits>& std::basic_ostream<_CharT, _Traits>::operator<<(long long int) [with _CharT = char, _Traits = std::char_traits<char>]
+/usr/lib/gcc/i386-redhat-linux/3.4.3/../../../../include/c++/3.4.3/bits/ostream.tcc:214: note:                 std::basic_ostream<_CharT, _Traits>& std::basic_ostream<_CharT, _Traits>::operator<<(long long unsigned int) [with _CharT = char, _Traits = std::char_traits<char>]
+/usr/lib/gcc/i386-redhat-linux/3.4.3/../../../../include/c++/3.4.3/bits/ostream.tcc:238: note:                 std::basic_ostream<_CharT, _Traits>& std::basic_ostream<_CharT, _Traits>::operator<<(double) [with _CharT = char, _Traits = std::char_traits<char>]
+/usr/lib/gcc/i386-redhat-linux/3.4.3/../../../../include/c++/3.4.3/ostream:219: note:                 std::basic_ostream<_CharT, _Traits>& std::basic_ostream<_CharT, _Traits>::operator<<(float) [with _CharT = char, _Traits = std::char_traits<char>]
+/usr/lib/gcc/i386-redhat-linux/3.4.3/../../../../include/c++/3.4.3/bits/ostream.tcc:261: note:                 std::basic_ostream<_CharT, _Traits>& std::basic_ostream<_CharT, _Traits>::operator<<(long double) [with _CharT = char, _Traits = std::char_traits<char>]
+/usr/lib/gcc/i386-redhat-linux/3.4.3/../../../../include/c++/3.4.3/bits/ostream.tcc:284: note:                 std::basic_ostream<_CharT, _Traits>& std::basic_ostream<_CharT, _Traits>::operator<<(const void*) [with _CharT = char, _Traits = std::char_traits<char>] <near match>
+/usr/lib/gcc/i386-redhat-linux/3.4.3/../../../../include/c++/3.4.3/bits/ostream.tcc:307: note:                 std::basic_ostream<_CharT, _Traits>& std::basic_ostream<_CharT, _Traits>::operator<<(std::basic_streambuf<_CharT, _Traits>*) [with _CharT = char, _Traits = std::char_traits<char>] <near match>
+ancestor_dyna.cpp:345: note:                 std::ostream& ancestor::operator<<(std::ostream&, const ancestor::term&)
+ancestor_dyna.cpp:1341: note:                 std::ostream& ancestor::operator<<(std::ostream&, const ancestor::dyna_atom&)
+ancestor_dyna.cpp:1664: note:                 std::ostream& ancestor::operator<<(std::ostream&, const ancestor::dyna_term&)
+ancestor_dyna.h:940: note:                 std::ostream& ancestor::operator<<(std::ostream&, const int&)
+/usr/lib/gcc/i386-redhat-linux/3.4.3/../../../../include/c++/3.4.3/ostream:504: note:                 std::basic_ostream<char, _Traits>& std::operator<<(std::basic_ostream<char, _Traits>&, const unsigned char*) [with _Traits = std::char_traits<char>] <near match>
+/usr/lib/gcc/i386-redhat-linux/3.4.3/../../../../include/c++/3.4.3/ostream:499: note:                 std::basic_ostream<char, _Traits>& std::operator<<(std::basic_ostream<char, _Traits>&, const signed char*) [with _Traits = std::char_traits<char>] <near match>
+/usr/lib/gcc/i386-redhat-linux/3.4.3/../../../../include/c++/3.4.3/bits/ostream.tcc:612: note:                 std::basic_ostream<char, _Traits>& std::operator<<(std::basic_ostream<char, _Traits>&, const char*) [with _Traits = std::char_traits<char>] <near match>
+/usr/lib/gcc/i386-redhat-linux/3.4.3/../../../../include/c++/3.4.3/bits/ostream.tcc:567: note:                 std::basic_ostream<_CharT, _Traits>& std::operator<<(std::basic_ostream<_CharT, _Traits>&, const char*) [with _CharT = char, _Traits = std::char_traits<char>] <near match>
+/usr/lib/gcc/i386-redhat-linux/3.4.3/../../../../include/c++/3.4.3/ostream:465: note:                 std::basic_ostream<char, _Traits>& std::operator<<(std::basic_ostream<char, _Traits>&, unsigned char) [with _Traits = std::char_traits<char>]
+/usr/lib/gcc/i386-redhat-linux/3.4.3/../../../../include/c++/3.4.3/ostream:460: note:                 std::basic_ostream<char, _Traits>& std::operator<<(std::basic_ostream<char, _Traits>&, signed char) [with _Traits = std::char_traits<char>]
+/usr/lib/gcc/i386-redhat-linux/3.4.3/../../../../include/c++/3.4.3/bits/ostream.tcc:505: note:                 std::basic_ostream<char, _Traits>& std::operator<<(std::basic_ostream<char, _Traits>&, char) [with _Traits = std::char_traits<char>]
+/usr/lib/gcc/i386-redhat-linux/3.4.3/../../../../include/c++/3.4.3/ostream:449: note:                 std::basic_ostream<_CharT, _Traits>& std::operator<<(std::basic_ostream<_CharT, _Traits>&, char) [with _CharT = char, _Traits = std::char_traits<char>]
+ancestor_dyna.cpp: At global scope:
+ancestor_dyna.cpp:2215: error: two or more data types in declaration of `type'
+ancestor_dyna.cpp:2215: error: declaration of `ancestor::typetag type()' not in a namespace surrounding `::'
+ancestor_dyna.cpp:2215: error: `ancestor::typetag type()' should have been declared inside `::'
+ancestor_dyna.cpp:2215: error: non-member function `ancestor::typetag type()' cannot have `const' method qualifier
+ancestor_dyna.cpp: In function `ancestor::typetag type()':
+ancestor_dyna.cpp:2216: error: `TAG_double' undeclared (first use this function)
+ancestor_dyna.cpp:2216: error: (Each undeclared identifier is reported only once for each function it appears in.)
+ancestor_dyna.cpp: At global scope:
+ancestor_dyna.cpp:2219: error: expected init-declarator before "double"
+ancestor_dyna.cpp:2219: error: expected `,' or `;' before "double"
+ancestor_dyna.cpp:2220: error: expected id-expression before "double"
+ancestor_dyna.cpp:2220: error: expected init-declarator before "double"
+ancestor_dyna.cpp:2220: error: expected `,' or `;' before "double"
+ancestor_dyna.cpp:2230: error: expected id-expression before "double"
+ancestor_dyna.cpp:2230: error: expected init-declarator before "double"
+ancestor_dyna.cpp:2230: error: expected `,' or `;' before "double"
+ancestor_dyna.cpp:2233: error: expected id-expression before '~' token
+ancestor_dyna.cpp:2233: error: expected init-declarator before '~' token
+ancestor_dyna.cpp:2233: error: expected `,' or `;' before '~' token
+ancestor_dyna.cpp:2236: error: two or more data types in declaration of `hash_function'
+ancestor_dyna.cpp:2236: error: declaration of `hash_function' not in a namespace surrounding `::'
+ancestor_dyna.cpp:2236: error: `hash_function' should have been declared inside `::'
+ancestor_dyna.cpp:2236: error: expected primary-expression before '*' token
+ancestor_dyna.cpp:2236: error: `t' was not declared in this scope
+ancestor_dyna.cpp:2236: error: expected `,' or `;' before '{' token
+ancestor_dyna.cpp:2240: error: two or more data types in declaration of `hashcode'
+ancestor_dyna.cpp:2240: error: declaration of `int hashcode()' not in a namespace surrounding `::'
+ancestor_dyna.cpp:2240: error: `int hashcode()' should have been declared inside `::'
+ancestor_dyna.cpp:2240: error: non-member function `int hashcode()' cannot have `const' method qualifier
+ancestor_dyna.cpp: In function `int hashcode()':
+ancestor_dyna.cpp:2241: error: `ptr' undeclared (first use this function)
+ancestor_dyna.cpp: At global scope:
+ancestor_dyna.cpp:2244: error: two or more data types in declaration of `equality_function'
+ancestor_dyna.cpp:2244: error: declaration of `equality_function' not in a namespace surrounding `::'
+ancestor_dyna.cpp:2244: error: `equality_function' should have been declared inside `::'
+ancestor_dyna.cpp:2244: error: expected primary-expression before '*' token
+ancestor_dyna.cpp:2244: error: `a' was not declared in this scope
+ancestor_dyna.cpp:2244: error: expected primary-expression before '*' token
+ancestor_dyna.cpp:2244: error: `b' was not declared in this scope
+ancestor_dyna.cpp:2244: error: initializer expression list treated as compound expression
+ancestor_dyna.cpp:2244: error: expected `,' or `;' before '{' token
+ancestor_dyna.cpp:2248: error: two or more data types in declaration of `equals'
+ancestor_dyna.cpp:2248: error: declaration of `int equals(const double&)' not in a namespace surrounding `::'
+ancestor_dyna.cpp:2248: error: `int equals(const double&)' should have been declared inside `::'
+ancestor_dyna.cpp:2248: error: non-member function `int equals(const double&)' cannot have `const' method qualifier
+ancestor_dyna.cpp: In function `int equals(const double&)':
+ancestor_dyna.cpp:2249: error: `ptr' undeclared (first use this function)
+ancestor_dyna.cpp:2249: error: request for member `ptr' in `other', which is of non-class type `const double'
+ancestor_dyna.cpp: At global scope:
+ancestor_dyna.cpp:2251: error: expected identifier before "double"
+ancestor_dyna.cpp:2251: error: expected unqualified-id before "double"
+ancestor_dyna.cpp:2251: error: expected init-declarator before "double"
+ancestor_dyna.cpp:2251: error: expected `,' or `;' before "double"
+ancestor_dyna.cpp:2256: error: two or more data types in declaration of `null'
+ancestor_dyna.cpp:2256: error: declaration of `bool null()' not in a namespace surrounding `::'
+ancestor_dyna.cpp:2256: error: `bool null()' should have been declared inside `::'
+ancestor_dyna.cpp:2256: error: non-member function `bool null()' cannot have `const' method qualifier
+ancestor_dyna.cpp: In function `bool null()':
+ancestor_dyna.cpp:2257: error: `ptr' undeclared (first use this function)
+ancestor_dyna.cpp: At global scope:
+ancestor_dyna.cpp:2259: error: expected identifier before "double"
+ancestor_dyna.cpp:2259: error: expected unqualified-id before "double"
+ancestor_dyna.cpp:2259: error: expected init-declarator before "double"
+ancestor_dyna.cpp:2259: error: expected `,' or `;' before "double"
+ancestor_dyna.cpp:2260: error: expected identifier before "double"
+ancestor_dyna.cpp:2260: error: ISO C++ forbids declaration of `t' with no type
+ancestor_dyna.cpp: In function `std::ostream& ancestor::operator<<(std::ostream&, const int&)':
+ancestor_dyna.cpp:2261: error: request for member `ptr' in `t', which is of non-class type `const int'
+ancestor_dyna.cpp: At global scope:
+ancestor_dyna.cpp:2263: error: expected identifier before "double"
+ancestor_dyna.cpp: In constructor `ancestor::double_DIRECT::double_DIRECT()':
+ancestor_dyna.cpp:2725: error: `TAG_double' undeclared (first use this function)
+ancestor_dyna.cpp: In member function `void ancestor::chart::output_storage_statistics()':
+ancestor_dyna.cpp:3191: error: expected primary-expression before "double"
+ancestor_dyna.cpp:3191: error: expected `;' before "double"
+ancestor_dyna.cpp:3201: error: ambiguous overload for 'operator<<' in 'std::operator<< [with _Traits = std::char_traits<char>](((std::basic_ostream<char, std::char_traits<char> >&)(&std::cerr)), ((const char*)"priority queue size: ")) << (((ancestor::item_queue*)((ancestor::chart*)this)) + 4u)->ancestor::item_queue::size()'
+/usr/lib/gcc/i386-redhat-linux/3.4.3/../../../../include/c++/3.4.3/bits/ostream.tcc:63: note: candidates are: std::basic_ostream<_CharT, _Traits>& std::basic_ostream<_CharT, _Traits>::operator<<(std::basic_ostream<_CharT, _Traits>&(*)(std::basic_ostream<_CharT, _Traits>&)) [with _CharT = char, _Traits = std::char_traits<char>] <near match>
+/usr/lib/gcc/i386-redhat-linux/3.4.3/../../../../include/c++/3.4.3/bits/ostream.tcc:74: note:                 std::basic_ostream<_CharT, _Traits>& std::basic_ostream<_CharT, _Traits>::operator<<(std::basic_ios<_CharT, _Traits>&(*)(std::basic_ios<_CharT, _Traits>&)) [with _CharT = char, _Traits = std::char_traits<char>] <near match>
+/usr/lib/gcc/i386-redhat-linux/3.4.3/../../../../include/c++/3.4.3/bits/ostream.tcc:86: note:                 std::basic_ostream<_CharT, _Traits>& std::basic_ostream<_CharT, _Traits>::operator<<(std::ios_base&(*)(std::ios_base&)) [with _CharT = char, _Traits = std::char_traits<char>] <near match>
+/usr/lib/gcc/i386-redhat-linux/3.4.3/../../../../include/c++/3.4.3/bits/ostream.tcc:121: note:                 std::basic_ostream<_CharT, _Traits>& std::basic_ostream<_CharT, _Traits>::operator<<(long int) [with _CharT = char, _Traits = std::char_traits<char>]
+/usr/lib/gcc/i386-redhat-linux/3.4.3/../../../../include/c++/3.4.3/bits/ostream.tcc:155: note:                 std::basic_ostream<_CharT, _Traits>& std::basic_ostream<_CharT, _Traits>::operator<<(long unsigned int) [with _CharT = char, _Traits = std::char_traits<char>]
+/usr/lib/gcc/i386-redhat-linux/3.4.3/../../../../include/c++/3.4.3/bits/ostream.tcc:98: note:                 std::basic_ostream<_CharT, _Traits>& std::basic_ostream<_CharT, _Traits>::operator<<(bool) [with _CharT = char, _Traits = std::char_traits<char>]
+/usr/lib/gcc/i386-redhat-linux/3.4.3/../../../../include/c++/3.4.3/ostream:178: note:                 std::basic_ostream<_CharT, _Traits>& std::basic_ostream<_CharT, _Traits>::operator<<(short int) [with _CharT = char, _Traits = std::char_traits<char>]
+/usr/lib/gcc/i386-redhat-linux/3.4.3/../../../../include/c++/3.4.3/ostream:189: note:                 std::basic_ostream<_CharT, _Traits>& std::basic_ostream<_CharT, _Traits>::operator<<(short unsigned int) [with _CharT = char, _Traits = std::char_traits<char>]
+/usr/lib/gcc/i386-redhat-linux/3.4.3/../../../../include/c++/3.4.3/ostream:193: note:                 std::basic_ostream<_CharT, _Traits>& std::basic_ostream<_CharT, _Traits>::operator<<(int) [with _CharT = char, _Traits = std::char_traits<char>]
+/usr/lib/gcc/i386-redhat-linux/3.4.3/../../../../include/c++/3.4.3/ostream:204: note:                 std::basic_ostream<_CharT, _Traits>& std::basic_ostream<_CharT, _Traits>::operator<<(unsigned int) [with _CharT = char, _Traits = std::char_traits<char>]
+/usr/lib/gcc/i386-redhat-linux/3.4.3/../../../../include/c++/3.4.3/bits/ostream.tcc:179: note:                 std::basic_ostream<_CharT, _Traits>& std::basic_ostream<_CharT, _Traits>::operator<<(long long int) [with _CharT = char, _Traits = std::char_traits<char>]
+/usr/lib/gcc/i386-redhat-linux/3.4.3/../../../../include/c++/3.4.3/bits/ostream.tcc:214: note:                 std::basic_ostream<_CharT, _Traits>& std::basic_ostream<_CharT, _Traits>::operator<<(long long unsigned int) [with _CharT = char, _Traits = std::char_traits<char>]
+/usr/lib/gcc/i386-redhat-linux/3.4.3/../../../../include/c++/3.4.3/bits/ostream.tcc:238: note:                 std::basic_ostream<_CharT, _Traits>& std::basic_ostream<_CharT, _Traits>::operator<<(double) [with _CharT = char, _Traits = std::char_traits<char>]
+/usr/lib/gcc/i386-redhat-linux/3.4.3/../../../../include/c++/3.4.3/ostream:219: note:                 std::basic_ostream<_CharT, _Traits>& std::basic_ostream<_CharT, _Traits>::operator<<(float) [with _CharT = char, _Traits = std::char_traits<char>]
+/usr/lib/gcc/i386-redhat-linux/3.4.3/../../../../include/c++/3.4.3/bits/ostream.tcc:261: note:                 std::basic_ostream<_CharT, _Traits>& std::basic_ostream<_CharT, _Traits>::operator<<(long double) [with _CharT = char, _Traits = std::char_traits<char>]
+/usr/lib/gcc/i386-redhat-linux/3.4.3/../../../../include/c++/3.4.3/bits/ostream.tcc:284: note:                 std::basic_ostream<_CharT, _Traits>& std::basic_ostream<_CharT, _Traits>::operator<<(const void*) [with _CharT = char, _Traits = std::char_traits<char>] <near match>
+/usr/lib/gcc/i386-redhat-linux/3.4.3/../../../../include/c++/3.4.3/bits/ostream.tcc:307: note:                 std::basic_ostream<_CharT, _Traits>& std::basic_ostream<_CharT, _Traits>::operator<<(std::basic_streambuf<_CharT, _Traits>*) [with _CharT = char, _Traits = std::char_traits<char>] <near match>
+ancestor_dyna.cpp:345: note:                 std::ostream& ancestor::operator<<(std::ostream&, const ancestor::term&)
+ancestor_dyna.cpp:1341: note:                 std::ostream& ancestor::operator<<(std::ostream&, const ancestor::dyna_atom&)
+ancestor_dyna.cpp:1664: note:                 std::ostream& ancestor::operator<<(std::ostream&, const ancestor::dyna_term&)
+ancestor_dyna.cpp:2260: note:                 std::ostream& ancestor::operator<<(std::ostream&, const int&)
+/usr/lib/gcc/i386-redhat-linux/3.4.3/../../../../include/c++/3.4.3/ostream:504: note:                 std::basic_ostream<char, _Traits>& std::operator<<(std::basic_ostream<char, _Traits>&, const unsigned char*) [with _Traits = std::char_traits<char>] <near match>
+/usr/lib/gcc/i386-redhat-linux/3.4.3/../../../../include/c++/3.4.3/ostream:499: note:                 std::basic_ostream<char, _Traits>& std::operator<<(std::basic_ostream<char, _Traits>&, const signed char*) [with _Traits = std::char_traits<char>] <near match>
+/usr/lib/gcc/i386-redhat-linux/3.4.3/../../../../include/c++/3.4.3/bits/ostream.tcc:612: note:                 std::basic_ostream<char, _Traits>& std::operator<<(std::basic_ostream<char, _Traits>&, const char*) [with _Traits = std::char_traits<char>] <near match>
+/usr/lib/gcc/i386-redhat-linux/3.4.3/../../../../include/c++/3.4.3/bits/ostream.tcc:567: note:                 std::basic_ostream<_CharT, _Traits>& std::operator<<(std::basic_ostream<_CharT, _Traits>&, const char*) [with _CharT = char, _Traits = std::char_traits<char>] <near match>
+/usr/lib/gcc/i386-redhat-linux/3.4.3/../../../../include/c++/3.4.3/ostream:465: note:                 std::basic_ostream<char, _Traits>& std::operator<<(std::basic_ostream<char, _Traits>&, unsigned char) [with _Traits = std::char_traits<char>]
+/usr/lib/gcc/i386-redhat-linux/3.4.3/../../../../include/c++/3.4.3/ostream:460: note:                 std::basic_ostream<char, _Traits>& std::operator<<(std::basic_ostream<char, _Traits>&, signed char) [with _Traits = std::char_traits<char>]
+/usr/lib/gcc/i386-redhat-linux/3.4.3/../../../../include/c++/3.4.3/bits/ostream.tcc:505: note:                 std::basic_ostream<char, _Traits>& std::operator<<(std::basic_ostream<char, _Traits>&, char) [with _Traits = std::char_traits<char>]
+/usr/lib/gcc/i386-redhat-linux/3.4.3/../../../../include/c++/3.4.3/ostream:449: note:                 std::basic_ostream<_CharT, _Traits>& std::operator<<(std::basic_ostream<_CharT, _Traits>&, char) [with _CharT = char, _Traits = std::char_traits<char>]
+make: *** [ancestor_dyna.o] Error 1
+
+!!! Wed May 11 02:56:26 2005 /home/3/data/cs325/dyna/bin/dynac-latest 0.3.8-r2530 ancestor.dyna --driver=backtrace !!!
+########## dynac 0.3.8-r2530: /home/1/btsai/DM/hw5/ancestor.dyna##########
+:- pragma(keep_best_antecedents(item)).
+:- item(item, double, inf).
+:- structure(child(string,string)).
+:- structure(person(int,string)).
+pathto(C,A)	min= child(C,A).
+pathto(C,A)	min= pathto(C,B) + child(B,A).
+goal		min= pathto(X,A) + pathto(Y,A).
+##########dynac: end file ##########
+
+!!! Wed May 11 02:58:38 2005 /home/3/data/cs325/dyna/bin/dynac-latest 0.3.8-r2530 ancestor.dyna --driver=backtrace !!!
+########## dynac 0.3.8-r2530: /home/1/btsai/DM/hw5/ancestor.dyna##########
+:- pragma(keep_best_antecedents(item)).
+:- item(item, double, inf).
+:- structure(child(string,string)).
+:- structure(person(int,string)).
+whois(X)	min= person(X,Y).
+pathto(C,A)	min= child(C,A).
+pathto(C,A)	min= pathto(C,B) + child(B,A).
+goal		min= pathto(whois(1),A) + pathto(whois(2),A).
+##########dynac: end file ##########
+The current version of dyna does not allow using types that include ints or strings together with other terms
+declaration inference failed
+make: *** [ancestor.dyna_dcl0] Error 1
+
+!!! Wed May 11 03:00:50 2005 /home/3/data/cs325/dyna/bin/dynac-latest 0.3.8-r2530 ancestor.dyna --driver=backtrace !!!
+########## dynac 0.3.8-r2530: /home/1/btsai/DM/hw5/ancestor.dyna##########
+:- pragma(keep_best_antecedents(item)).
+:- item(item, double, inf).
+:- structure(child(string,string)).
+:- structure(person(string,string)).
+whois(X)	min= person(X,Y).
+pathto(C,A)	min= child(C,A).
+pathto(C,A)	min= pathto(C,B) + child(B,A).
+goal		min= pathto(whois("1"),A) + pathto(whois("2"),A).
+##########dynac: end file ##########
+The current version of dyna does not allow using types that include ints or strings together with other terms
+declaration inference failed
+make: *** [ancestor.dyna_dcl0] Error 1
+
+!!! Wed May 11 03:01:56 2005 /home/3/data/cs325/dyna/bin/dynac-latest 0.3.8-r2530 ancestor.dyna --driver=backtrace !!!
+########## dynac 0.3.8-r2530: /home/1/btsai/DM/hw5/ancestor.dyna##########
+:- pragma(keep_best_antecedents(item)).
+:- item(item, double, inf).
+:- structure(child(string,string)).
+:- structure(person(string,string)).
+whois(X)	min= person(X,Y).
+pathto(C,A)	min= child(C,A).
+pathto(C,A)	min= pathto(C,B) + child(B,A).
+goal		min= pathto(whois("First"),A) + pathto(whois("Second"),A).
+##########dynac: end file ##########
+The current version of dyna does not allow using types that include ints or strings together with other terms
+declaration inference failed
+make: *** [ancestor.dyna_dcl0] Error 1
+
+!!! Wed May 11 03:02:15 2005 /home/3/data/cs325/dyna/bin/dynac-latest 0.3.8-r2530 ancestor.dyna --driver=backtrace !!!
+########## dynac 0.3.8-r2530: /home/1/btsai/DM/hw5/ancestor.dyna##########
+:- pragma(keep_best_antecedents(item)).
+:- item(item, double, inf).
+:- structure(child(string,string)).
+whois(X)	min= person(X,Y).
+pathto(C,A)	min= child(C,A).
+pathto(C,A)	min= pathto(C,B) + child(B,A).
+goal		min= pathto(whois("First"),A) + pathto(whois("Second"),A).
+##########dynac: end file ##########
+The current version of dyna does not allow using types that include ints or strings together with other terms
+declaration inference failed
+make: *** [ancestor.dyna_dcl0] Error 1
+
+!!! Wed May 11 03:04:31 2005 /home/3/data/cs325/dyna/bin/dynac-latest 0.3.8-r2530 ancestor.dyna --driver=backtrace !!!
+########## dynac 0.3.8-r2530: /home/1/btsai/DM/hw5/ancestor.dyna##########
+:- pragma(keep_best_antecedents(item)).
+:- item(item, double, inf).
+:- structure(child(string,string)).
+pathto(C,A)	min= child(C,A).
+pathto(C,A)	min= pathto(C,B) + child(B,A).
+goal		min= person(1,First), person(2,Second), pathto(First,A) + pathto(Second,A).
+##########dynac: end file ##########
+ancestor.dyna:6: Syntax error
+ancestor.dyna:6: Syntax error
+make: *** [ancestor.dyna_bin] Error 1
+
+!!! Wed May 11 03:04:50 2005 /home/3/data/cs325/dyna/bin/dynac-latest 0.3.8-r2530 ancestor.dyna --driver=backtrace !!!
+########## dynac 0.3.8-r2530: /home/1/btsai/DM/hw5/ancestor.dyna##########
+:- pragma(keep_best_antecedents(item)).
+:- item(item, double, inf).
+:- structure(child(string,string)).
+pathto(C,A)	min= child(C,A).
+pathto(C,A)	min= pathto(C,B) + child(B,A).
+goal		min= person(1,First) + person(2,Second) + pathto(First,A) + pathto(Second,A).
+##########dynac: end file ##########
+make: *** [libancestor.a] Error 1
+
+!!! Wed May 11 03:07:36 2005 /home/3/data/cs325/dyna/bin/dynac-latest 0.3.8-r2530 ancestor.dyna --driver=backtrace !!!
+########## dynac 0.3.8-r2530: /home/1/btsai/DM/hw5/ancestor.dyna##########
+:- pragma(keep_best_antecedents(item)).
+:- item(item, double, inf).
+:- structure(child(string,string)).
+pathto(C,A)	min= child(C,A).
+pathto(C,A)	min= pathto(C,B) + child(B,A).
+goal		min= pathto(First,A) + pathto(Second,A).
+##########dynac: end file ##########
+
+!!! Wed May 11 03:10:38 2005 /home/3/data/cs325/dyna/bin/dynac-latest 0.3.8-r2530 ancestor.dyna --driver=backtrace !!!
+########## dynac 0.3.8-r2530: /home/1/btsai/DM/hw5/ancestor.dyna##########
+:- pragma(keep_best_antecedents(item)).
+:- item(item, double, inf).
+:- structure(child(string,string)).
+pathto(C,A)	min= child(C,A).
+pathto(C,A)	min= pathto(C,B) + child(B,A).
+goal		min= person(1,X) + person(2,Y).
+##########dynac: end file ##########
+
+!!! Wed May 11 03:11:42 2005 /home/3/data/cs325/dyna/bin/dynac-latest 0.3.8-r2530 ancestor.dyna --driver=backtrace !!!
+########## dynac 0.3.8-r2530: /home/1/btsai/DM/hw5/ancestor.dyna##########
+:- pragma(keep_best_antecedents(item)).
+:- item(item, double, inf).
+:- structure(child(string,string)).
+:- structure(person(string,string)).
+pathto(C,A)	min= child(C,A).
+pathto(C,A)	min= pathto(C,B) + child(B,A).
+goal		min= person(1,X) + person(2,Y).
+##########dynac: end file ##########
+Inconsistent type declarations allow and forbid int for person/2:1
+declaration inference failed
+make: *** [ancestor.dyna_dcl0] Error 1
+
+!!! Wed May 11 03:11:59 2005 /home/3/data/cs325/dyna/bin/dynac-latest 0.3.8-r2530 ancestor.dyna --driver=backtrace !!!
+########## dynac 0.3.8-r2530: /home/1/btsai/DM/hw5/ancestor.dyna##########
+:- pragma(keep_best_antecedents(item)).
+:- item(item, double, inf).
+:- structure(child(string,string)).
+:- structure(person(int,string)).
+pathto(C,A)	min= child(C,A).
+pathto(C,A)	min= pathto(C,B) + child(B,A).
+goal		min= person(1,X) + person(2,Y).
+##########dynac: end file ##########
+
+!!! Wed May 11 03:13:14 2005 /home/3/data/cs325/dyna/bin/dynac-latest 0.3.8-r2530 ancestor.dyna --driver=backtrace !!!
+########## dynac 0.3.8-r2530: /home/1/btsai/DM/hw5/ancestor.dyna##########
+:- pragma(keep_best_antecedents(item)).
+:- item(item, double, inf).
+:- structure(child(string,string)).
+:- structure(person(int,string)).
+pathto(C,A)	min= child(C,A).
+pathto(C,A)	min= pathto(C,B) + child(B,A).
+goal		min= person(1,X) + person(2,Y) + pathto(X,A) + pathto(Y,A).
+##########dynac: end file ##########
+make: *** [libancestor.a] Error 1
+
+!!! Wed May 11 03:15:12 2005 /home/3/data/cs325/dyna/bin/dynac-latest 0.3.8-r2530 ancestor.dyna --driver=backtrace !!!
+########## dynac 0.3.8-r2530: /home/1/btsai/DM/hw5/ancestor.dyna##########
+:- pragma(keep_best_antecedents(item)).
+:- item(item, double, inf).
+:- structure(child(string,string)).
+:- structure(person(int,string)).
+pathto(X,Z)	min= child(X,Z).
+pathto(X,Z)	min= pathto(X,Y) + child(Y,Z).
+goal		min= person(1,B) + person(2,C) + pathto(B,A) + pathto(C,A).
+##########dynac: end file ##########
+make: *** [libancestor.a] Error 1
+
+!!! Wed May 11 03:15:45 2005 /home/3/data/cs325/dyna/bin/dynac-latest 0.3.8-r2530 ancestor.dyna --driver=backtrace !!!
+########## dynac 0.3.8-r2530: /home/1/btsai/DM/hw5/ancestor.dyna##########
+:- pragma(keep_best_antecedents(item)).
+:- item(item, double, inf).
+:- structure(child(string,string)).
+:- structure(person(double,string)).
+pathto(X,Z)	min= child(X,Z).
+pathto(X,Z)	min= pathto(X,Y) + child(Y,Z).
+goal		min= person(1,B) + person(2,C) + pathto(B,A) + pathto(C,A).
+##########dynac: end file ##########
+Inconsistent type declarations allow and forbid int for person/2:1
+declaration inference failed
+make: *** [ancestor.dyna_dcl0] Error 1
+
+!!! Wed May 11 03:15:58 2005 /home/3/data/cs325/dyna/bin/dynac-latest 0.3.8-r2530 ancestor.dyna --driver=backtrace !!!
+########## dynac 0.3.8-r2530: /home/1/btsai/DM/hw5/ancestor.dyna##########
+:- pragma(keep_best_antecedents(item)).
+:- item(item, double, inf).
+:- structure(child(string,string)).
+:- structure(person(int,string)).
+pathto(X,Z)	min= child(X,Z).
+pathto(X,Z)	min= pathto(X,Y) + child(Y,Z).
+goal		min= person(1,B) + person(2,C) + pathto(B,A) + pathto(C,A).
+##########dynac: end file ##########
+make: *** [libancestor.a] Error 1
+
+!!! Wed May 11 03:24:04 2005 /home/3/data/cs325/dyna/bin/dynac-latest 0.3.8-r2530 ancestor.dyna --driver=backtrace !!!
+########## dynac 0.3.8-r2530: /home/1/btsai/DM/hw5/ancestor.dyna##########
+:- pragma(keep_best_antecedents(item)).
+:- structure(child(string,string)).
+:- structure(person(int,string)).
+:- item(item, double, inf).
+pathto(X,Z)	min= child(X,Z).
+pathto(X,Z)	min= pathto(X,Y) + child(Y,Z).
+goal		min= person(1,B) + person(2,C) + pathto(B,A) + pathto(C,A).
+##########dynac: end file ##########
+make: *** [libancestor.a] Error 1
+
+!!! Wed May 11 03:26:03 2005 /home/3/data/cs325/dyna/bin/dynac-latest 0.3.8-r2530 ancestor.dyna --driver=backtrace !!!
+########## dynac 0.3.8-r2530: /home/1/btsai/DM/hw5/ancestor.dyna##########
+:- pragma(keep_best_antecedents(item)).
+:- structure(child(string,string)).
+:- structure(person(int,string)).
+:- item(item, double, inf).
+pathto(X,Z)	min= child(X,Z).
+pathto(X,Z)	min= pathto(X,Y) + child(Y,Z).
+goal		min= person(1,B) + person(2,C) + pathto(B,A) + pathto(C,A).
+##########dynac: end file ##########
+
+!!! Wed May 11 05:02:05 2005 /home/3/data/cs325/dyna/bin/dynac-latest 0.3.8-r2530 ancestor.dyna --driver=backtrace !!!
+########## dynac 0.3.8-r2530: /home/1/btsai/DM/hw5/ancestor.dyna##########
+:- pragma(keep_best_antecedents(item)).
+:- structure(child(string,string)).
+:- item(item, double, inf).
+pathto(X,Z)	min= child(X,Z).
+pathto(X,Z)	min= pathto(X,Y) + child(Y,Z).
+goal		min= person(1,B) + person(2,C) + pathto(B,A) + pathto(C,A).
+##########dynac: end file ##########
+
+!!! Wed May 11 05:04:49 2005 /home/3/data/cs325/dyna/bin/dynac-latest 0.3.8-r2530 ancestor.dyna --driver=backtrace !!!
+########## dynac 0.3.8-r2530: /home/1/btsai/DM/hw5/ancestor.dyna##########
+:- pragma(keep_best_antecedents(item)).
+:- structure(child(string,string)).
+:- item(item, double, inf).
+pathto(Child,Ancestor)	min= child(Child,Ancestor).
+pathto(Child,Ancestor)	min= pathto(Child,Parent) + child(Parent,Ancestor).
+goal			min= person(1,First) + person(2,Second) + pathto(First,Ancestor) + pathto(Second,Ancestor).
+##########dynac: end file ##########
+
+!!! Wed May 11 23:51:41 2005 /home/3/data/cs325/dyna/bin/dynac-latest 0.3.8-r2536 lis.dyna --driver=backtrace !!!
+########## dynac 0.3.8-r2536: /home/1/btsai/DM/hw5/lis.dyna##########
+#include "lessthan.dyna"
+:- pragma(keep_best_antecedents(item)).
+:- structure(cons(int,list)).
+:- item(item, double, inf).
+interesting(Xs) max= input(Xs).
+interesting(Xs) max= interesting([X|Xs]).
+lis([X|Xs], K) max= lis(Xs, X) whenever interesting(Xs).
+lis([X|Xs], K) max= lis(Xs, K) whenever interesting(Xs).
+goal max= lis(X) whenever input(X).##########dynac: end file ##########
+Inconsistent type declarations allow and forbid cons for lis.dyna:9:R5:Xs
+declaration inference failed
+make: *** [lis.dyna_dcl0] Error 1
+
+!!! Wed May 11 23:52:41 2005 /home/3/data/cs325/dyna/bin/dynac-latest 0.3.8-r2536 lis.dyna --driver=backtrace !!!
+########## dynac 0.3.8-r2536: /home/1/btsai/DM/hw5/lis.dyna##########
+#include "lessthan.dyna"
+:- pragma(keep_best_antecedents(item)).
+:- structure(cons(int,list)).
+:- item(item, double, inf).
+interesting(Xs) max= input(Xs).
+interesting(Xs) max= interesting([X|Xs]).
+goal max= lis(X) whenever input(X).##########dynac: end file ##########
+compiler: unimplemented: invalid item declaration or operator set: double/inf/max=/+/
+currently, these are the only valid item declarations and operator sets, and you must have one of them:
+:- item(item,double,0) with += and *
+:- item(item,bool,false) with |= and &
+:- item(item,double,-inf) with log+= and +
+:- item(item,double,-inf) with max= and +
+:- item(item,double,inf) with min= and +
+compilation failed
+make: *** [lis_dyna.cpp] Error 1
+
+!!! Wed May 11 23:53:18 2005 /home/3/data/cs325/dyna/bin/dynac-latest 0.3.8-r2536 lis.dyna --driver=backtrace !!!
+########## dynac 0.3.8-r2536: /home/1/btsai/DM/hw5/lis.dyna##########
+#include "lessthan.dyna"
+:- pragma(keep_best_antecedents(item)).
+:- structure(cons(int,list)).
+:- item(item, double, inf).
+interesting(Xs) max= input(Xs).
+interesting(Xs) max= interesting([X|Xs]).
+lis([X|Xs], K) max= lis(Xs, X) whenever interesting(Xs).
+lis([X|Xs], K) max= lis(Xs, K) whenever interesting(Xs).
+goal max= lis(X) whenever input(X).##########dynac: end file ##########
+Inconsistent type declarations allow and forbid cons for lis.dyna:9:R5:Xs
+declaration inference failed
+make: *** [lis.dyna_dcl0] Error 1
+
+!!! Wed May 11 23:56:27 2005 /home/3/data/cs325/dyna/bin/dynac-latest 0.3.8-r2536 lis.dyna --driver=backtrace !!!
+########## dynac 0.3.8-r2536: /home/1/btsai/DM/hw5/lis.dyna##########
+#include "lessthan.dyna"
+:- pragma(keep_best_antecedents(item)).
+:- structure([int|list]).
+:- item(item, double, inf).
+interesting(Xs) max= input(Xs).
+interesting(Xs) max= interesting([X|Xs]).
+lis([X|Xs], K) max= lis(Xs, X) whenever interesting(Xs).
+lis([X|Xs], K) max= lis(Xs, K) whenever interesting(Xs).
+goal max= lis(X) whenever input(X).##########dynac: end file ##########
+Inconsistent type declarations allow and forbid cons for lis.dyna:9:R5:Xs
+declaration inference failed
+make: *** [lis.dyna_dcl0] Error 1
+
+!!! Wed May 11 23:57:44 2005 /home/3/data/cs325/dyna/bin/dynac-latest 0.3.8-r2536 lis.dyna --driver=backtrace !!!
+########## dynac 0.3.8-r2536: /home/1/btsai/DM/hw5/lis.dyna##########
+#include "lessthan.dyna"
+:- pragma(keep_best_antecedents(item)).
+:- structure(cons(int,list)).
+:- item(item, double, inf).
+interesting(Xs) max= input(Xs).
+interesting(Xs) max= interesting([X|Xs]).
+goal max= interesting(X) whenever input(X).##########dynac: end file ##########
+compiler: unimplemented: invalid item declaration or operator set: double/inf/max=/+/
+currently, these are the only valid item declarations and operator sets, and you must have one of them:
+:- item(item,double,0) with += and *
+:- item(item,bool,false) with |= and &
+:- item(item,double,-inf) with log+= and +
+:- item(item,double,-inf) with max= and +
+:- item(item,double,inf) with min= and +
+compilation failed
+make: *** [lis_dyna.cpp] Error 1
+
+!!! Wed May 11 23:58:10 2005 /home/3/data/cs325/dyna/bin/dynac-latest 0.3.8-r2536 lis.dyna --driver=backtrace !!!
+########## dynac 0.3.8-r2536: /home/1/btsai/DM/hw5/lis.dyna##########
+#include "lessthan.dyna"
+:- pragma(keep_best_antecedents(item)).
+:- structure(cons(int,list)).
+:- item(item, double, inf).
+interesting(Xs) max= input(Xs).
+interesting(Xs) max= interesting([X|Xs]).
+goal max= interesting(X) whenever input(X).##########dynac: end file ##########
+compiler: unimplemented: invalid item declaration or operator set: double/inf/max=/+/
+currently, these are the only valid item declarations and operator sets, and you must have one of them:
+:- item(item,double,0) with += and *
+:- item(item,bool,false) with |= and &
+:- item(item,double,-inf) with log+= and +
+:- item(item,double,-inf) with max= and +
+:- item(item,double,inf) with min= and +
+compilation failed
+make: *** [lis_dyna.cpp] Error 1
+
+!!! Wed May 11 23:58:45 2005 /home/3/data/cs325/dyna/bin/dynac-latest 0.3.8-r2536 lis.dyna --driver=backtrace !!!
+########## dynac 0.3.8-r2536: /home/1/btsai/DM/hw5/lis.dyna##########
+#include "lessthan.dyna"
+:- pragma(keep_best_antecedents(item)).
+:- structure(cons(int,list)).
+:- item(item, double, inf).
+interesting(Xs) max= input(Xs).
+interesting(Xs) max= interesting([X|Xs]).
+goal max= interesting(X) whenever input(X).##########dynac: end file ##########
+compiler: unimplemented: invalid item declaration or operator set: double/inf/max=/+/
+currently, these are the only valid item declarations and operator sets, and you must have one of them:
+:- item(item,double,0) with += and *
+:- item(item,bool,false) with |= and &
+:- item(item,double,-inf) with log+= and +
+:- item(item,double,-inf) with max= and +
+:- item(item,double,inf) with min= and +
+compilation failed
+make: *** [lis_dyna.cpp] Error 1
+
+!!! Wed May 11 23:59:15 2005 /home/3/data/cs325/dyna/bin/dynac-latest 0.3.8-r2536 lis.dyna --driver=backtrace !!!
+########## dynac 0.3.8-r2536: /home/1/btsai/DM/hw5/lis.dyna##########
+#include "lessthan.dyna"
+:- pragma(keep_best_antecedents(item)).
+:- structure(cons(int,list)).
+:- item(item, double, inf).
+interesting(Xs) max= input(Xs).
+interesting(Xs) max= interesting([X|Xs]).##########dynac: end file ##########
+compiler: unimplemented: invalid item declaration or operator set: double/inf/max=/+/
+currently, these are the only valid item declarations and operator sets, and you must have one of them:
+:- item(item,double,0) with += and *
+:- item(item,bool,false) with |= and &
+:- item(item,double,-inf) with log+= and +
+:- item(item,double,-inf) with max= and +
+:- item(item,double,inf) with min= and +
+compilation failed
+make: *** [lis_dyna.cpp] Error 1
+
+!!! Wed May 11 23:59:37 2005 /home/3/data/cs325/dyna/bin/dynac-latest 0.3.8-r2536 lis.dyna --driver=backtrace !!!
+########## dynac 0.3.8-r2536: /home/1/btsai/DM/hw5/lis.dyna##########
+#include "lessthan.dyna"
+:- structure(cons(int,list)).
+interesting(Xs) max= input(Xs).
+interesting(Xs) max= interesting([X|Xs]).##########dynac: end file ##########
+compiler: no item value type specified.  You need to add an item declaration such as :- item(item,double,0).
+compilation failed
+make: *** [lis_dyna.cpp] Error 1
+
+!!! Thu May 12 00:00:09 2005 /home/3/data/cs325/dyna/bin/dynac-latest 0.3.8-r2536 lis.dyna --driver=backtrace !!!
+########## dynac 0.3.8-r2536: /home/1/btsai/DM/hw5/lis.dyna##########
+#include "lessthan.dyna"
+:- structure(cons(int,list)).
+:- item(item, double, inf).
+interesting(Xs) max= input(Xs).
+interesting(Xs) max= interesting([X|Xs]).##########dynac: end file ##########
+compiler: unimplemented: invalid item declaration or operator set: double/inf/max=/+/
+currently, these are the only valid item declarations and operator sets, and you must have one of them:
+:- item(item,double,0) with += and *
+:- item(item,bool,false) with |= and &
+:- item(item,double,-inf) with log+= and +
+:- item(item,double,-inf) with max= and +
+:- item(item,double,inf) with min= and +
+compilation failed
+make: *** [lis_dyna.cpp] Error 1
+
+!!! Thu May 12 00:00:28 2005 /home/3/data/cs325/dyna/bin/dynac-latest 0.3.8-r2536 lis.dyna --driver=backtrace !!!
+########## dynac 0.3.8-r2536: /home/1/btsai/DM/hw5/lis.dyna##########
+#include "lessthan.dyna"
+:- structure(cons(int,list)).
+:- item(item, double, -inf).
+interesting(Xs) max= input(Xs).
+interesting(Xs) max= interesting([X|Xs]).##########dynac: end file ##########
+lis_generated_driver.cpp: In function `int main(int, char**)':
+lis_generated_driver.cpp:99: error: `goal' undeclared (first use this function)
+lis_generated_driver.cpp:99: error: (Each undeclared identifier is reported only once for each function it appears in.)
+make: *** [lis_generated_driver.o] Error 1
+
+!!! Thu May 12 00:01:16 2005 /home/3/data/cs325/dyna/bin/dynac-latest 0.3.8-r2536 lis.dyna --driver=backtrace !!!
+########## dynac 0.3.8-r2536: /home/1/btsai/DM/hw5/lis.dyna##########
+#include "lessthan.dyna"
+:- structure(cons(int,list)).
+:- item(item, double, -inf).
+interesting(Xs)	max= input(Xs).
+interesting(Xs)	max= interesting([X|Xs]).
+goal		max= interesting(X) whenever input(X).##########dynac: end file ##########
+
+!!! Thu May 12 00:02:24 2005 /home/3/data/cs325/dyna/bin/dynac-latest 0.3.8-r2536 lis.dyna --driver=backtrace !!!
+########## dynac 0.3.8-r2536: /home/1/btsai/DM/hw5/lis.dyna##########
+#include "lessthan.dyna"
+:- pragma(keep_best_antecedents(item)).
+:- structure(cons(int,list)).
+:- item(item, double, -inf).
+interesting(Xs)	max= input(Xs).
+interesting(Xs)	max= interesting([X|Xs]).
+goal		max= interesting(X) whenever input(X).##########dynac: end file ##########
+
+!!! Thu May 12 00:03:43 2005 /home/3/data/cs325/dyna/bin/dynac-latest 0.3.8-r2536 lis.dyna --driver=backtrace !!!
+########## dynac 0.3.8-r2536: /home/1/btsai/DM/hw5/lis.dyna##########
+#include "lessthan.dyna"
+:- pragma(keep_best_antecedents(item)).
+:- structure(cons(int,list)).
+:- item(item, double, -inf).
+interesting(Xs)	max= input(Xs).
+interesting(Xs)	max= interesting([X|Xs]).
+lis([X|Xs], K)	max= lis(Xs, X).
+lis([X|Xs], K)	max= lis(Xs, K).
+goal		max= interesting(X) whenever input(X).##########dynac: end file ##########
+Inconsistent type declarations allow and forbid cons for lis.dyna:9:R5:Xs
+declaration inference failed
+make: *** [lis.dyna_dcl0] Error 1
+
+!!! Thu May 12 00:05:00 2005 /home/3/data/cs325/dyna/bin/dynac-latest 0.3.8-r2536 lis.dyna --driver=backtrace !!!
+########## dynac 0.3.8-r2536: /home/1/btsai/DM/hw5/lis.dyna##########
+#include "lessthan.dyna"
+:- pragma(keep_best_antecedents(item)).
+:- structure(cons(int,list)).
+:- item(item, double, -inf).
+interesting(Xs)	max= input(Xs).
+interesting(Xs)	max= interesting([X|Xs]).
+lis([X|Xs], K)	max= interesting(Xs).
+goal		max= interesting(X) whenever input(X).##########dynac: end file ##########
+Inconsistent type declarations allow and forbid cons for lis.dyna:8:R7:Xs
+declaration inference failed
+make: *** [lis.dyna_dcl0] Error 1
+
+!!! Thu May 12 00:05:22 2005 /home/3/data/cs325/dyna/bin/dynac-latest 0.3.8-r2536 lis.dyna --driver=backtrace !!!
+########## dynac 0.3.8-r2536: /home/1/btsai/DM/hw5/lis.dyna##########
+#include "lessthan.dyna"
+:- pragma(keep_best_antecedents(item)).
+:- structure(cons(int,list)).
+:- item(item, double, -inf).
+lis([X|Xs], K)	max= interesting(Xs).
+interesting(Xs)	max= input(Xs).
+interesting(Xs)	max= interesting([X|Xs]).
+goal		max= interesting(X) whenever input(X).##########dynac: end file ##########
+Inconsistent type declarations allow and forbid cons for lis.dyna:6:R4:Xs
+declaration inference failed
+make: *** [lis.dyna_dcl0] Error 1
+
+!!! Thu May 12 00:07:18 2005 /home/3/data/cs325/dyna/bin/dynac-latest 0.3.8-r2536 lis.dyna --driver=backtrace !!!
+########## dynac 0.3.8-r2536: /home/1/btsai/DM/hw5/lis.dyna##########
+#include "lessthan.dyna"
+:- pragma(keep_best_antecedents(item)).
+:- structure(cons(int,list)).
+:- item(item, double, -inf).
+interesting(Xs)	max= input(Xs).
+interesting(Xs)	max= interesting([X|Xs]).
+lis([X|Xs])	max= interesting(Xs) + interesting(X)
+goal		max= interesting(X) whenever input(X).##########dynac: end file ##########
+lis.dyna:9: parse error near 'maxequals'
+make: *** [lis.dyna_bin] Error 1
+
+!!! Thu May 12 00:07:37 2005 /home/3/data/cs325/dyna/bin/dynac-latest 0.3.8-r2536 lis.dyna --driver=backtrace !!!
+########## dynac 0.3.8-r2536: /home/1/btsai/DM/hw5/lis.dyna##########
+#include "lessthan.dyna"
+:- pragma(keep_best_antecedents(item)).
+:- structure(cons(int,list)).
+:- item(item, double, -inf).
+interesting(Xs)	max= input(Xs).
+interesting(Xs)	max= interesting([X|Xs]).
+lis([X|Xs])	max= interesting(Xs) + interesting(X)
+goal		max= interesting(X) whenever input(X).
+##########dynac: end file ##########
+lis.dyna:9: parse error near 'maxequals'
+make: *** [lis.dyna_bin] Error 1
+
+!!! Thu May 12 00:07:46 2005 /home/3/data/cs325/dyna/bin/dynac-latest 0.3.8-r2536 lis.dyna --driver=backtrace !!!
+########## dynac 0.3.8-r2536: /home/1/btsai/DM/hw5/lis.dyna##########
+#include "lessthan.dyna"
+:- pragma(keep_best_antecedents(item)).
+:- structure(cons(int,list)).
+:- item(item, double, -inf).
+interesting(Xs)	max= input(Xs).
+interesting(Xs)	max= interesting([X|Xs]).
+lis([X|Xs])	max= interesting(Xs) + interesting(X)
+goal		max= interesting(X) whenever input(X).
+##########dynac: end file ##########
+lis.dyna:9: parse error near 'maxequals'
+make: *** [lis.dyna_bin] Error 1
+
+!!! Thu May 12 00:08:26 2005 /home/3/data/cs325/dyna/bin/dynac-latest 0.3.8-r2536 lis.dyna --driver=backtrace !!!
+########## dynac 0.3.8-r2536: /home/1/btsai/DM/hw5/lis.dyna##########
+#include "lessthan.dyna"
+:- pragma(keep_best_antecedents(item)).
+:- structure(cons(int,list)).
+:- item(item, double, -inf).
+interesting(Xs)	max= input(Xs).
+interesting(Xs)	max= interesting([X|Xs]).
+goal		max= interesting(X) whenever input(X).
+##########dynac: end file ##########
+
+!!! Thu May 12 00:09:35 2005 /home/3/data/cs325/dyna/bin/dynac-latest 0.3.8-r2536 lis.dyna --driver=backtrace !!!
+########## dynac 0.3.8-r2536: /home/1/btsai/DM/hw5/lis.dyna##########
+#include "lessthan.dyna"
+:- pragma(keep_best_antecedents(item)).
+:- structure(cons(int,list)).
+:- item(item, double, -inf).
+interesting(Xs)	max= input(Xs).
+interesting(Xs)	max= interesting([X|Xs]).
+lis(X)		max= interesting(X).
+goal		max= lis(X) whenever input(X).
+##########dynac: end file ##########
+
+!!! Thu May 12 00:10:32 2005 /home/3/data/cs325/dyna/bin/dynac-latest 0.3.8-r2536 lis.dyna --driver=backtrace !!!
+########## dynac 0.3.8-r2536: /home/1/btsai/DM/hw5/lis.dyna##########
+#include "lessthan.dyna"
+:- pragma(keep_best_antecedents(item)).
+:- structure(cons(int,list)).
+:- item(item, double, -inf).
+interesting(Xs)	max= input(Xs).
+interesting(Xs)	max= interesting([X|Xs]).
+lis([X|Xs])	max= interesting(Xs).
+goal		max= lis(X) whenever input(X).
+##########dynac: end file ##########
+Inconsistent type declarations allow and forbid cons for lis.dyna:8:R7:Xs
+declaration inference failed
+make: *** [lis.dyna_dcl0] Error 1
+
+!!! Thu May 12 00:11:00 2005 /home/3/data/cs325/dyna/bin/dynac-latest 0.3.8-r2536 lis.dyna --driver=backtrace !!!
+########## dynac 0.3.8-r2536: /home/1/btsai/DM/hw5/lis.dyna##########
+#include "lessthan.dyna"
+:- pragma(keep_best_antecedents(item)).
+:- structure(cons(int,list)).
+:- item(item, double, -inf).
+interesting(Xs)	max= input(Xs).
+interesting(Xs)	max= interesting([X|Xs]).
+lis([X|Xs])	max= interesting(Xs) + interesting(X).
+goal		max= lis(X) whenever input(X).
+##########dynac: end file ##########
+Inconsistent type declarations allow and forbid cons for lis.dyna:8:R7:X
+declaration inference failed
+make: *** [lis.dyna_dcl0] Error 1
+
+!!! Thu May 12 00:12:33 2005 /home/3/data/cs325/dyna/bin/dynac-latest 0.3.8-r2536 lis.dyna --driver=backtrace !!!
+########## dynac 0.3.8-r2536: /home/1/btsai/DM/hw5/lis.dyna##########
+#include "lessthan.dyna"
+:- pragma(keep_best_antecedents(item)).
+:- structure(cons(int,list)).
+:- item(item, double, -inf).
+interesting(Xs)	max= input(Xs).
+interesting(Xs)	max= interesting([X|Xs]).
+lis([X|Xs])	max= interesting(Xs) whenever interesting([X|Xs]).
+goal		max= lis(X) whenever input(X).
+##########dynac: end file ##########
+
+!!! Thu May 12 00:13:36 2005 /home/3/data/cs325/dyna/bin/dynac-latest 0.3.8-r2536 lis.dyna --driver=backtrace !!!
+########## dynac 0.3.8-r2536: /home/1/btsai/DM/hw5/lis.dyna##########
+#include "lessthan.dyna"
+:- pragma(keep_best_antecedents(item)).
+:- structure(cons(int,list)).
+:- item(item, double, -inf).
+interesting(Xs)	max= input(Xs).
+interesting(Xs)	max= interesting([X|Xs]).
+lis([X|Xs], K)	max= interesting(Xs) whenever interesting([X|Xs]).
+goal		max= lis(X) whenever input(X).
+##########dynac: end file ##########
+compiler: lis.dyna:8: variable K in consequent appears nowhere in the right hand side of the rule
+compilation failed
+make: *** [lis_dyna.cpp] Error 1
+
+!!! Thu May 12 00:14:46 2005 /home/3/data/cs325/dyna/bin/dynac-latest 0.3.8-r2536 lis.dyna --driver=backtrace !!!
+########## dynac 0.3.8-r2536: /home/1/btsai/DM/hw5/lis.dyna##########
+#include "lessthan.dyna"
+:- pragma(keep_best_antecedents(item)).
+:- structure(cons(int,list)).
+:- item(item, double, -inf).
+interesting(Xs)	max= input(Xs).
+interesting(Xs)	max= interesting([X|Xs]).
+lis([X|Xs], K)	max= lessthan(K,X) + interesting(Xs) whenever interesting([X|Xs]).
+goal		max= lis(X) whenever input(X).
+##########dynac: end file ##########
+
+!!! Thu May 12 00:15:37 2005 /home/3/data/cs325/dyna/bin/dynac-latest 0.3.8-r2536 lis.dyna --driver=backtrace !!!
+########## dynac 0.3.8-r2536: /home/1/btsai/DM/hw5/lis.dyna##########
+#include "lessthan.dyna"
+:- pragma(keep_best_antecedents(item)).
+:- structure(cons(int,list)).
+:- item(item, double, -inf).
+interesting(Xs)	max= input(Xs).
+interesting(Xs)	max= interesting([X|Xs]).
+lis([X|Xs], K)	max= lessthan(K,X) + interesting(Xs) whenever interesting([X|Xs]).
+goal		max= lis(X, -inf) whenever input(X).
+##########dynac: end file ##########
+type_inference2/GraphFactory.h:303: Cannot create graph: No implementation for value_double("-inf")
+
+declaration inference failed
+make: *** [lis.dyna_dcl0] Error 1
+
+!!! Thu May 12 00:16:04 2005 /home/3/data/cs325/dyna/bin/dynac-latest 0.3.8-r2536 lis.dyna --driver=backtrace !!!
+########## dynac 0.3.8-r2536: /home/1/btsai/DM/hw5/lis.dyna##########
+#include "lessthan.dyna"
+:- pragma(keep_best_antecedents(item)).
+:- structure(cons(int,list)).
+:- item(item, double, -inf).
+interesting(Xs)	max= input(Xs).
+interesting(Xs)	max= interesting([X|Xs]).
+lis([X|Xs], K)	max= lessthan(K,X) + interesting(Xs) whenever interesting([X|Xs]).
+goal		max= lis(X, 0) whenever input(X).
+##########dynac: end file ##########
+
+!!! Thu May 12 00:18:13 2005 /home/3/data/cs325/dyna/bin/dynac-latest 0.3.8-r2536 lis.dyna --driver=backtrace !!!
+########## dynac 0.3.8-r2536: /home/1/btsai/DM/hw5/lis.dyna##########
+#include "lessthan.dyna"
+:- pragma(keep_best_antecedents(item)).
+:- structure(cons(int,list)).
+:- item(item, double, -inf).
+interesting(Xs)	max= input(Xs).
+interesting(Xs)	max= interesting([X|Xs]).
+lis([X|Xs], K)	max= lessthan(K,X) + lis(Xs, X) whenever interesting([X|Xs]).
+lis([X|Xs], K)	max= lis(Xs, K) whenever interesting([X|Xs]).
+goal		max= lis(X, 0) whenever input(X).
+##########dynac: end file ##########
+
+!!! Thu May 12 00:19:40 2005 /home/3/data/cs325/dyna/bin/dynac-latest 0.3.8-r2536 lis.dyna --driver=backtrace !!!
+########## dynac 0.3.8-r2536: /home/1/btsai/DM/hw5/lis.dyna##########
+#include "lessthan.dyna"
+:- pragma(keep_best_antecedents(item)).
+:- structure(cons(int,list)).
+:- item(item, double, -inf).
+interesting(Xs)	max= input(Xs).
+interesting(Xs)	max= interesting([X|Xs]).
+lis([X|Xs], K)	max= lessthan(K,X) + lis(Xs, X) whenever interesting([X|Xs]).
+lis([X|Xs], K)	max= lis(Xs, K) whenever interesting([X|Xs]).
+goal		max= lis(X, -1) whenever input(X).
+##########dynac: end file ##########
+
+!!! Thu May 12 00:21:36 2005 /home/3/data/cs325/dyna/bin/dynac-latest 0.3.8-r2536 lis.dyna --driver=backtrace !!!
+########## dynac 0.3.8-r2536: /home/1/btsai/DM/hw5/lis.dyna##########
+#include "lessthan.dyna"
+:- pragma(keep_best_antecedents(item)).
+:- structure(cons(int,list)).
+:- item(item, double, -inf).
+interesting(Xs)	max= input(Xs).
+interesting(Xs)	max= interesting([X|Xs]).
+zero		max= 0.
+lis([], K)	max= zero.
+lis([X|Xs], K)	max= lessthan(K,X) + lis(Xs, X) whenever interesting([X|Xs]).
+lis([X|Xs], K)	max= lis(Xs, K) whenever interesting([X|Xs]).
+goal		max= lis(X, -1) whenever input(X).
+##########dynac: end file ##########
+lis.dyna:8: The current dyna version does not allow primitive values as right-hand sides. Right-hand sides must consist of one or more terms
+duplicate subexpression elimination failed
+make: *** [lis.dyna_dse] Error 1
+
+!!! Thu May 12 00:22:07 2005 /home/3/data/cs325/dyna/bin/dynac-latest 0.3.8-r2536 lis.dyna --driver=backtrace !!!
+########## dynac 0.3.8-r2536: /home/1/btsai/DM/hw5/lis.dyna##########
+#include "lessthan.dyna"
+:- pragma(keep_best_antecedents(item)).
+:- structure(cons(int,list)).
+:- item(item, double, -inf).
+interesting(Xs)	max= input(Xs).
+interesting(Xs)	max= interesting([X|Xs]).
+lis([], K)	max= 0.
+lis([X|Xs], K)	max= lessthan(K,X) + lis(Xs, X) whenever interesting([X|Xs]).
+lis([X|Xs], K)	max= lis(Xs, K) whenever interesting([X|Xs]).
+goal		max= lis(X, -1) whenever input(X).
+##########dynac: end file ##########
+lis.dyna:8: The current dyna version does not allow primitive values as right-hand sides. Right-hand sides must consist of one or more terms
+duplicate subexpression elimination failed
+make: *** [lis.dyna_dse] Error 1
+
+!!! Thu May 12 00:22:57 2005 /home/3/data/cs325/dyna/bin/dynac-latest 0.3.8-r2536 lis.dyna --driver=backtrace !!!
+########## dynac 0.3.8-r2536: /home/1/btsai/DM/hw5/lis.dyna##########
+#include "lessthan.dyna"
+:- pragma(keep_best_antecedents(item)).
+:- structure(cons(int,list)).
+:- item(item, double, -inf).
+interesting(Xs)	max= input(Xs).
+interesting(Xs)	max= interesting([X|Xs]).
+zero		max= 0.
+lis([X|Xs], K)	max= lessthan(K,X) + lis(Xs, X) whenever interesting([X|Xs]).
+lis([X|Xs], K)	max= lis(Xs, K) whenever interesting([X|Xs]).
+goal		max= lis(X, -1) whenever input(X).
+##########dynac: end file ##########
+lis.dyna:8: The current dyna version does not allow primitive values as right-hand sides. Right-hand sides must consist of one or more terms
+duplicate subexpression elimination failed
+make: *** [lis.dyna_dse] Error 1
+
+!!! Thu May 12 00:23:35 2005 /home/3/data/cs325/dyna/bin/dynac-latest 0.3.8-r2536 lis.dyna --driver=backtrace !!!
+########## dynac 0.3.8-r2536: /home/1/btsai/DM/hw5/lis.dyna##########
+#include "lessthan.dyna"
+:- pragma(keep_best_antecedents(item)).
+:- structure(cons(int,list)).
+:- item(item, double, -inf).
+interesting(Xs)	max= input(Xs).
+interesting(Xs)	max= interesting([X|Xs]).
+zero		:= 0.
+lis([X|Xs], K)	max= lessthan(K,X) + lis(Xs, X) whenever interesting([X|Xs]).
+lis([X|Xs], K)	max= lis(Xs, K) whenever interesting([X|Xs]).
+goal		max= lis(X, -1) whenever input(X).
+##########dynac: end file ##########
+
+!!! Thu May 12 00:24:16 2005 /home/3/data/cs325/dyna/bin/dynac-latest 0.3.8-r2536 lis.dyna --driver=backtrace !!!
+########## dynac 0.3.8-r2536: /home/1/btsai/DM/hw5/lis.dyna##########
+#include "lessthan.dyna"
+:- pragma(keep_best_antecedents(item)).
+:- structure(cons(int,list)).
+:- item(item, double, -inf).
+
+interesting(Xs)	max= input(Xs).
+interesting(Xs)	max= interesting([X|Xs]).
+zero		:= 0.
+lis([], K)	max= zero.
+lis([X|Xs], K)	max= lessthan(K,X) + lis(Xs, X) whenever interesting([X|Xs]).
+lis([X|Xs], K)	max= lis(Xs, K) whenever interesting([X|Xs]).
+goal		max= lis(X, -1) whenever input(X).
+##########dynac: end file ##########
+compiler: lis.dyna:10: variable K in consequent appears nowhere in the right hand side of the rule
+compilation failed
+make: *** [lis_dyna.cpp] Error 1
+
+!!! Thu May 12 00:25:10 2005 /home/3/data/cs325/dyna/bin/dynac-latest 0.3.8-r2536 lis.dyna --driver=backtrace !!!
+########## dynac 0.3.8-r2536: /home/1/btsai/DM/hw5/lis.dyna##########
+#include "lessthan.dyna"
+:- pragma(keep_best_antecedents(item)).
+:- structure(cons(int,list)).
+:- item(item, double, -inf).
+
+interesting(Xs)	max= input(Xs).
+interesting(Xs)	max= interesting([X|Xs]).
+zero		:= 0.
+lis([], K)	max= lessthan(-1, K) + zero.
+lis([X|Xs], K)	max= lessthan(K,X) + lis(Xs, X) whenever interesting([X|Xs]).
+lis([X|Xs], K)	max= lis(Xs, K) whenever interesting([X|Xs]).
+goal		max= lis(X, -1) whenever input(X).
+##########dynac: end file ##########
+
+!!! Thu May 12 00:27:34 2005 /home/3/data/cs325/dyna/bin/dynac-latest 0.3.8-r2536 lis.dyna --driver=backtrace !!!
+########## dynac 0.3.8-r2536: /home/1/btsai/DM/hw5/lis.dyna##########
+#include "lessthan.dyna"
+:- pragma(keep_best_antecedents(item)).
+:- structure(cons(int,list)).
+:- item(item, double, -inf).
+
+interesting(Xs)	max= input(Xs).
+interesting(Xs)	max= interesting([X|Xs]).
+zero		:= 0.
+lis([], K)	max= zero whenever succ(K,_).
+lis([X|Xs], K)	max= lessthan(K,X) + lis(Xs, X) whenever interesting([X|Xs]).
+lis([X|Xs], K)	max= lis(Xs, K) whenever interesting([X|Xs]).
+goal		max= lis(X, -1) whenever input(X).
+##########dynac: end file ##########
+
+!!! Thu May 12 00:29:44 2005 /home/3/data/cs325/dyna/bin/dynac-latest 0.3.8-r2536 lis.dyna --driver=backtrace !!!
+########## dynac 0.3.8-r2536: /home/1/btsai/DM/hw5/lis.dyna##########
+#include "lessthan.dyna"
+:- pragma(keep_best_antecedents(item)).
+:- structure(cons(int,list)).
+:- item(item, double, -inf).
+
+interesting(Xs)	max= input(Xs).
+interesting(Xs)	max= interesting([X|Xs]).
+zero		:= 0.
+lis([], K)	max= zero whenever succ(K,_).
+lis([X|Xs], K)	max= lessthan(K,X) + lis(Xs, X) + 1 whenever interesting([X|Xs]).
+lis([X|Xs], K)	max= lis(Xs, K) whenever interesting([X|Xs]).
+goal		max= lis(X, -1) whenever input(X).
+##########dynac: end file ##########
+lis.dyna:11: All parts of the right-hand side must be terms
+duplicate subexpression elimination failed
+make: *** [lis.dyna_dse] Error 1
+
+!!! Thu May 12 00:36:29 2005 /home/3/data/cs325/dyna/bin/dynac-latest 0.3.8-r2536 lis.dyna --driver=backtrace !!!
+########## dynac 0.3.8-r2536: /home/1/btsai/DM/hw5/lis.dyna##########
+#include "lessthan.dyna"
+:- pragma(keep_best_antecedents(item)).
+:- structure(cons(int,list)).
+:- item(item, double, -inf).
+
+interesting(Xs)	max= input(Xs).
+interesting(Xs)	max= interesting([X|Xs]).
+zero		:= 0.
+one		:= 1.
+lis([], K)	max= zero whenever succ(K,_).
+lis([X|Xs], K)	max= lessthan(K,X) + lis(Xs, X) + one whenever interesting([X|Xs]).
+lis([X|Xs], K)	max= lis(Xs, K) whenever interesting([X|Xs]).
+goal		max= lis(X, -1) whenever input(X).
+##########dynac: end file ##########
+
+!!! Thu May 12 00:42:21 2005 /home/3/data/cs325/dyna/bin/dynac-latest 0.3.8-r2536 lis.dyna --driver=backtrace !!!
+########## dynac 0.3.8-r2536: /home/1/btsai/DM/hw5/lis.dyna##########
+#include "lessthan.dyna"
+:- pragma(keep_best_antecedents(item)).
+:- structure(cons(int,list)).
+:- item(item, double, -inf).
+
+interesting(Xs)	max= input(Xs).
+interesting(Xs)	max= interesting([X|Xs]).
+#zero		:= 0.
+one		:= 1.
+#lis([], K)	max= zero whenever succ(K,_).
+lis([X|Xs], K)	max= lessthan(K,X) + lis(Xs, X) + one whenever interesting([X|Xs]).
+lis([X|Xs], K)	max= lis(Xs, K) whenever interesting([X|Xs]).
+goal		max= lis(X, -1) whenever input(X).
+##########dynac: end file ##########
+lis.dyna:9: parse error near '#'
+lis.dyna:11: parse error near '#'
+make: *** [lis.dyna_bin] Error 1
+
+!!! Thu May 12 00:42:45 2005 /home/3/data/cs325/dyna/bin/dynac-latest 0.3.8-r2536 lis.dyna --driver=backtrace !!!
+########## dynac 0.3.8-r2536: /home/1/btsai/DM/hw5/lis.dyna##########
+#include "lessthan.dyna"
+:- pragma(keep_best_antecedents(item)).
+:- structure(cons(int,list)).
+:- item(item, double, -inf).
+
+interesting(Xs)	max= input(Xs).
+interesting(Xs)	max= interesting([X|Xs]).
+%zero		:= 0.
+one		:= 1.
+%lis([], K)	max= zero whenever succ(K,_).
+lis([X|Xs], K)	max= lessthan(K,X) + lis(Xs, X) + one whenever interesting([X|Xs]).
+lis([X|Xs], K)	max= lis(Xs, K) whenever interesting([X|Xs]).
+goal		max= lis(X, -1) whenever input(X).
+##########dynac: end file ##########
+
+!!! Thu May 12 00:45:54 2005 /home/3/data/cs325/dyna/bin/dynac-latest 0.3.8-r2536 lis.dyna --driver=backtrace !!!
+########## dynac 0.3.8-r2536: /home/1/btsai/DM/hw5/lis.dyna##########
+#include "lessthan.dyna"
+:- pragma(keep_best_antecedents(item)).
+:- structure(cons(int,list)).
+:- item(item, double, -inf).
+
+interesting(Xs)	max= input(Xs).
+interesting(Xs)	max= interesting([X|Xs]).
+zero		:= 0.
+one		:= 1.
+lis([], K)	max= zero whenever succ(K,_).
+lis([X|Xs], K)	max= lessthan(K,X) + lis(Xs, X) + one whenever interesting([X|Xs]).
+lis([X|Xs], K)	max= lis(Xs, K) whenever interesting([X|Xs]).
+goal		max= lis(X, -1) whenever input(X).
+##########dynac: end file ##########
+
+!!! Thu May 12 00:53:45 2005 /home/3/data/cs325/dyna/bin/dynac-latest 0.3.8-r2536 lis.dyna --driver=backtrace !!!
+########## dynac 0.3.8-r2536: /home/1/btsai/DM/hw5/lis.dyna##########
+#include "lessthan.dyna"
+:- pragma(keep_best_antecedents(item)).
+:- structure(cons(int,list)).
+:- item(item, double, -inf).
+
+interesting(Xs)	max= input(Xs).
+interesting(Xs)	max= interesting([X|Xs]).
+zero		:= 0.
+one		:= 1.
+lis([], K)	max= zero whenever succ(K,_).
+lis([X|Xs], K)	max= lessthan(K,X) + lis(Xs, X) + one whenever interesting([X|Xs]).
+lis([X|Xs], K)	max= lis(Xs, K) whenever interesting([X|Xs]).
+goal		max= lis(X, -1) whenever input(X).
+##########dynac: end file ##########
+
+!!! Thu May 12 00:55:12 2005 /home/3/data/cs325/dyna/bin/dynac-latest 0.3.8-r2536 lis.dyna --driver=backtrace !!!
+########## dynac 0.3.8-r2536: /home/1/btsai/DM/hw5/lis.dyna##########
+#include "lessthan.dyna"
+:- pragma(keep_best_antecedents(item)).
+:- structure(cons(int,list)).
+:- item(item, double, -inf).
+
+interesting(Xs)	max= input(Xs).
+interesting(Xs)	max= interesting([X|Xs]).
+zero		:= 0.
+one		:= 1.
+lis([], K)	max= zero whenever succ(K,_).
+lis([X|Xs], K)	max= lessthan(K,X) + lis(Xs, X) + one whenever interesting([X|Xs]).
+lis([X|Xs], K)	max= lis(Xs, K) whenever interesting([X|Xs]).
+goal		max= lis(X, -1) whenever input(X).
+##########dynac: end file ##########
+
+!!! Thu May 12 00:56:23 2005 /home/3/data/cs325/dyna/bin/dynac-latest 0.3.8-r2536 lis.dyna --driver=backtrace !!!
+########## dynac 0.3.8-r2536: /home/1/btsai/DM/hw5/lis.dyna##########
+#include "lessthan.dyna"
+:- pragma(keep_best_antecedents(item)).
+:- structure(cons(int,list)).
+:- item(item, double, -inf).
+
+interesting(Xs)	max= input(Xs).
+interesting(Xs)	max= interesting([X|Xs]).
+zero		:= 0.
+one		:= 1.
+lis([], K)	max= zero whenever succ(K,_).
+lis([X|Xs], K)	max= lessthan(K,X) + lis(Xs, X) + one whenever interesting([X|Xs]).
+lis([X|Xs], K)	max= lis(Xs, K) whenever interesting([X|Xs]).
+goal		max= lis(X, -1) whenever input(X).
+##########dynac: end file ##########
+
+!!! Thu May 12 01:00:54 2005 /home/3/data/cs325/dyna/bin/dynac-latest 0.3.8-r2536 lis.dyna --driver=backtrace !!!
+########## dynac 0.3.8-r2536: /home/1/btsai/DM/hw5/lis.dyna##########
+#include "lessthan.dyna"
+:- pragma(keep_best_antecedents(item)).
+:- structure(cons(int,list)).
+:- item(item, double, -inf).
+
+interesting(Xs)	max= input(Xs).
+interesting(Xs)	max= interesting([X|Xs]).
+zero		:= 0.
+one		:= 1.
+lis([], K)	max= zero whenever num(K).
+lis([X|Xs], K)	max= lessthan(K,X) + lis(Xs, X) + one.
+lis([X|Xs], K)	max= lis(Xs, K) whenever num(X).
+goal		max= lis(X, -1) whenever input(X).
+
+num(0) := 0
+num(1) := 0
+num(2) := 0
+num(3) := 0
+num(4) := 0
+num(5) := 0
+num(6) := 0
+num(7) := 0
+num(8) := 0
+num(9) := 0
+##########dynac: end file ##########
+lis.dyna:17: parse error near '('
+make: *** [lis.dyna_bin] Error 1
+
+!!! Thu May 12 01:01:09 2005 /home/3/data/cs325/dyna/bin/dynac-latest 0.3.8-r2536 lis.dyna --driver=backtrace !!!
+########## dynac 0.3.8-r2536: /home/1/btsai/DM/hw5/lis.dyna##########
+#include "lessthan.dyna"
+:- pragma(keep_best_antecedents(item)).
+:- structure(cons(int,list)).
+:- item(item, double, -inf).
+
+interesting(Xs)	max= input(Xs).
+interesting(Xs)	max= interesting([X|Xs]).
+zero		:= 0.
+one		:= 1.
+lis([], K)	max= zero whenever num(K).
+lis([X|Xs], K)	max= lessthan(K,X) + lis(Xs, X) + one.
+lis([X|Xs], K)	max= lis(Xs, K) whenever num(X).
+goal		max= lis(X, -1) whenever input(X).
+
+num(0) := 0.
+num(1) := 0.
+num(2) := 0.
+num(3) := 0.
+num(4) := 0.
+num(5) := 0.
+num(6) := 0.
+num(7) := 0.
+num(8) := 0.
+num(9) := 0.
+##########dynac: end file ##########
+Inconsistent type declarations allow and forbid cons for lis.dyna:13:R10:Xs
+declaration inference failed
+make: *** [lis.dyna_dcl0] Error 1
+
+!!! Thu May 12 01:01:36 2005 /home/3/data/cs325/dyna/bin/dynac-latest 0.3.8-r2536 lis.dyna --driver=backtrace !!!
+########## dynac 0.3.8-r2536: /home/1/btsai/DM/hw5/lis.dyna##########
+#include "lessthan.dyna"
+:- pragma(keep_best_antecedents(item)).
+:- structure(cons(int,list)).
+:- item(item, double, -inf).
+
+interesting(Xs)	max= input(Xs).
+interesting(Xs)	max= interesting([X|Xs]).
+zero		:= 0.
+one		:= 1.
+lis([], K)	max= zero whenever num(K).
+lis([X|Xs], K)	max= lessthan(K,X) + lis(Xs, X) + one whenever num(X).
+lis([X|Xs], K)	max= lis(Xs, K) whenever num(X).
+goal		max= lis(X, -1) whenever input(X).
+
+num(0) := 0.
+num(1) := 0.
+num(2) := 0.
+num(3) := 0.
+num(4) := 0.
+num(5) := 0.
+num(6) := 0.
+num(7) := 0.
+num(8) := 0.
+num(9) := 0.
+##########dynac: end file ##########
+Inconsistent type declarations allow and forbid cons for lis.dyna:13:R10:Xs
+declaration inference failed
+make: *** [lis.dyna_dcl0] Error 1
+
+!!! Thu May 12 01:02:04 2005 /home/3/data/cs325/dyna/bin/dynac-latest 0.3.8-r2536 lis.dyna --driver=backtrace !!!
+########## dynac 0.3.8-r2536: /home/1/btsai/DM/hw5/lis.dyna##########
+#include "lessthan.dyna"
+:- pragma(keep_best_antecedents(item)).
+:- structure(cons(int,list)).
+:- item(item, double, -inf).
+
+interesting(Xs)	max= input(Xs).
+interesting(Xs)	max= interesting([X|Xs]).
+zero		:= 0.
+one		:= 1.
+lis([], K)	max= zero whenever num(K).
+lis([X|Xs], K)	max= lessthan(K,X) + lis(Xs, X) + one whenever interesting([X|Xs]).
+lis([X|Xs], K)	max= lis(Xs, K) whenever interesting([X|Xs]).
+goal		max= lis(X, -1) whenever input(X).
+
+num(0) := 0.
+num(1) := 0.
+num(2) := 0.
+num(3) := 0.
+num(4) := 0.
+num(5) := 0.
+num(6) := 0.
+num(7) := 0.
+num(8) := 0.
+num(9) := 0.
+##########dynac: end file ##########
+
+!!! Thu May 12 01:09:47 2005 /home/3/data/cs325/dyna/bin/dynac-latest 0.3.8-r2536 lis.dyna --driver=dynasty_bestonly !!!
+########## dynac 0.3.8-r2536: /home/1/btsai/DM/hw5/lis.dyna##########
+#include "lessthan.dyna"
+:- pragma(keep_best_antecedents(item)).
+:- structure(cons(int,list)).
+:- item(item, double, -inf).
+
+interesting(Xs)	max= input(Xs).
+interesting(Xs)	max= interesting([X|Xs]).
+zero		:= 0.
+one		:= 1.
+lis([], K)	max= zero whenever num(K).
+lis([X|Xs], K)	max= lessthan(K,X) + lis(Xs, X) + one whenever interesting([X|Xs]).
+lis([X|Xs], K)	max= lis(Xs, K) whenever interesting([X|Xs]).
+goal		max= lis(X, -1) whenever input(X).
+
+num(0) := 0.
+num(1) := 0.
+num(2) := 0.
+num(3) := 0.
+num(4) := 0.
+num(5) := 0.
+num(6) := 0.
+num(7) := 0.
+num(8) := 0.
+num(9) := 0.
+##########dynac: end file ##########
+
+!!! Thu May 12 01:13:46 2005 /home/3/data/cs325/dyna/bin/dynac-latest 0.3.8-r2536 lis.dyna --driver=dynasty_bestonly !!!
+########## dynac 0.3.8-r2536: /home/1/btsai/DM/hw5/lis.dyna##########
+#include "lessthan.dyna"
+:- pragma(keep_best_antecedents(item)).
+:- structure(cons(int,list)).
+:- item(item, double, -inf).
+
+interesting(Xs)	max= input(Xs).
+interesting(Xs)	max= interesting([X|Xs]).
+zero		:= 0.
+one		:= 1.
+lis([], K)	:= 0 whenever num(K).
+lis([X|Xs], K)	max= lessthan(K,X) + lis(Xs, X) + one whenever interesting([X|Xs]).
+lis([X|Xs], K)	max= lis(Xs, K) whenever interesting([X|Xs]).
+goal		max= lis(X, -1) whenever input(X).
+
+num(0) := 0.
+num(1) := 0.
+num(2) := 0.
+num(3) := 0.
+num(4) := 0.
+num(5) := 0.
+num(6) := 0.
+num(7) := 0.
+num(8) := 0.
+num(9) := 0.
+##########dynac: end file ##########
+
+!!! Thu May 12 01:14:48 2005 /home/3/data/cs325/dyna/bin/dynac-latest 0.3.8-r2536 lis.dyna --driver=dynasty_bestonly !!!
+########## dynac 0.3.8-r2536: /home/1/btsai/DM/hw5/lis.dyna##########
+#include "lessthan.dyna"
+:- pragma(keep_best_antecedents(item)).
+:- structure(cons(int,list)).
+:- item(item, double, -inf).
+
+interesting(Xs)	max= input(Xs).
+interesting(Xs)	max= interesting([X|Xs]).
+zero		:= 0.
+one		:= 1.
+lis([], K)	max= zero whenever succ(K,_).
+lis([X|Xs], K)	max= lessthan(K,X) + lis(Xs, X) + one whenever interesting([X|Xs]).
+lis([X|Xs], K)	max= lis(Xs, K) whenever interesting([X|Xs]).
+goal		max= lis(X, -1) whenever input(X).
+##########dynac: end file ##########
+
+!!! Thu May 12 01:31:01 2005 /home/3/data/cs325/dyna/bin/dynac-latest 0.3.8-r2536 lis.dyna --driver=backtrace !!!
+########## dynac 0.3.8-r2536: /home/1/btsai/DM/hw5/lis.dyna##########
+#include "lessthan.dyna"
+:- pragma(keep_best_antecedents(item)).
+:- structure(cons(int,list)).
+:- item(item, double, -inf).
+
+interesting(Xs)	max= input(Xs).
+interesting(Xs)	max= interesting([X|Xs]).
+zero		:= 0.
+one		:= 1.
+lis([], K)	max= zero whenever succ(K,_).
+lis([X|Xs], K)	max= lessthan(K,X) + lis(Xs, X) + one whenever interesting([X|Xs]).
+lis([X|Xs], K)	max= lis(Xs, K) whenever interesting([X|Xs]).
+goal		max= lis(X, -1) whenever input(X).
+##########dynac: end file ##########
+
+!!! Thu May 12 01:34:25 2005 /home/3/data/cs325/dyna/bin/dynac-latest 0.3.8-r2536 lis.dyna --driver=dynasty_bestonly !!!
+########## dynac 0.3.8-r2536: /home/1/btsai/DM/hw5/lis.dyna##########
+#include "lessthan.dyna"
+:- pragma(keep_best_antecedents(item)).
+:- structure(cons(int,list)).
+:- item(item, double, -inf).
+
+interesting(Xs)	max= input(Xs).
+interesting(Xs)	max= interesting([X|Xs]).
+zero		:= 0.
+one		:= 1.
+lis([], K)	max= zero whenever succ(K,_).
+lis([X|Xs], K)	max= lessthan(K,X) + lis(Xs, X) + one whenever interesting([X|Xs]).
+lis([X|Xs], K)	max= lis(Xs, K) whenever interesting([X|Xs]).
+goal		max= lis(X, -1) whenever input(X).
+##########dynac: end file ##########
+
+!!! Thu May 12 01:41:43 2005 /home/3/data/cs325/dyna/bin/dynac-latest 0.3.8-r2536 lis.dyna --driver=backtrace !!!
+########## dynac 0.3.8-r2536: /home/1/btsai/DM/hw5/lis.dyna##########
+#include "lessthan.dyna"
+:- pragma(keep_best_antecedents(item)).
+:- structure(cons(int,list)).
+:- item(item, double, -inf).
+
+interesting(Xs)	max= input(Xs).
+interesting(Xs)	max= interesting([X|Xs]).
+zero		:= 0.
+one		:= 1.
+lis([], K)	max= zero whenever succ(K,_).
+lis([X|Xs], K)	max= lessthan(K,X) + lis(Xs, X) + one whenever interesting([X|Xs]).
+lis([X|Xs], K)	max= lis(Xs, K) whenever interesting([X|Xs]).
+goal		max= lis(X, -1) whenever input(X).
+##########dynac: end file ##########
+
+!!! Thu May 12 02:47:01 2005 /home/3/data/cs325/dyna/bin/dynac-latest 0.3.8-r2536 optBST.dyna --driver=backtrace !!!
+########## dynac 0.3.8-r2536: /home/1/btsai/DM/hw5/optBST.dyna##########
+:- pragma(keep_best_antecedents(item)).
+:- structure(key(string,int,int)).
+:- item(item, double, inf).
+
+cost(X, X)	:= 0.
+cost(X, Z)	min= key(String1, X, Y) + key(String2, Y, Z).
+goal		min= cost(3, N) whenever numkeys(N).
+##########dynac: end file ##########
+
+!!! Thu May 12 02:48:02 2005 /home/3/data/cs325/dyna/bin/dynac-latest 0.3.8-r2536 optBST.dyna --driver=backtrace !!!
+########## dynac 0.3.8-r2536: /home/1/btsai/DM/hw5/optBST.dyna##########
+:- pragma(keep_best_antecedents(item)).
+:- structure(key(string,int,int)).
+:- item(item, double, inf).
+
+zero		:= 0.
+cost(X, X)	min= zero.
+cost(X, Z)	min= key(String1, X, Y) + key(String2, Y, Z).
+goal		min= cost(3, N) whenever numkeys(N).
+##########dynac: end file ##########
+compiler: optBST.dyna:6: variable X in consequent appears nowhere in the right hand side of the rule
+compilation failed
+make: *** [optBST_dyna.cpp] Error 1
+
+!!! Thu May 12 02:49:15 2005 /home/3/data/cs325/dyna/bin/dynac-latest 0.3.8-r2536 optBST.dyna --driver=backtrace !!!
+########## dynac 0.3.8-r2536: /home/1/btsai/DM/hw5/optBST.dyna##########
+:- pragma(keep_best_antecedents(item)).
+:- structure(key(string,int,int)).
+:- item(item, double, inf).
+
+zero		:= 0.
+cost(X, X)	min= zero whenever key(SomeString, X, SomeNum).
+cost(X, Z)	min= key(String1, X, Y) + key(String2, Y, Z).
+goal		min= cost(3, N) whenever numkeys(N).
+##########dynac: end file ##########
+
+!!! Thu May 12 02:50:45 2005 /home/3/data/cs325/dyna/bin/dynac-latest 0.3.8-r2536 optBST.dyna --driver=backtrace !!!
+########## dynac 0.3.8-r2536: /home/1/btsai/DM/hw5/optBST.dyna##########
+:- pragma(keep_best_antecedents(item)).
+:- structure(key(string,int,int)).
+:- item(item, double, inf).
+
+zero		:= 0.
+cost(X, X)	min= zero whenever key(SomeString, X, SomeNum).
+cost(X, Z)	min= 1 * key(String1, X, Y) + 2 * key(String2, Y, Z).
+cost(X, Z)	min= 2 * key(String1, X, Y) + 1 * key(String2, Y, Z).
+goal		min= cost(3, N) whenever numkeys(N).
+##########dynac: end file ##########
+optBST.dyna:8: All parts of the right-hand side must be terms
+duplicate subexpression elimination failed
+make: *** [optBST.dyna_dse] Error 1
+
+!!! Thu May 12 02:51:38 2005 /home/3/data/cs325/dyna/bin/dynac-latest 0.3.8-r2536 optBST.dyna --driver=backtrace !!!
+########## dynac 0.3.8-r2536: /home/1/btsai/DM/hw5/optBST.dyna##########
+:- pragma(keep_best_antecedents(item)).
+:- structure(key(string,int,int)).
+:- item(item, double, inf).
+
+zero		:= 0.
+cost(X, X)	+= zero whenever key(SomeString, X, SomeNum).
+cost(X, Z)	+= 1 * key(String1, X, Y) + 2 * key(String2, Y, Z).
+cost(X, Z)	+= 2 * key(String1, X, Y) + 1 * key(String2, Y, Z).
+goal		min= cost(3, N) whenever numkeys(N).
+##########dynac: end file ##########
+optBST.dyna:8: All parts of the right-hand side must be terms
+duplicate subexpression elimination failed
+make: *** [optBST.dyna_dse] Error 1
+
+!!! Thu May 12 02:54:06 2005 /home/3/data/cs325/dyna/bin/dynac-latest 0.3.8-r2536 optBST.dyna --driver=backtrace !!!
+########## dynac 0.3.8-r2536: /home/1/btsai/DM/hw5/optBST.dyna##########
+:- pragma(keep_best_antecedents(item)).
+:- structure(key(string,int,int)).
+:- item(item, double, inf).
+
+zero		:= 0.
+cost(X, X, Depth)	min= zero whenever key(SomeString, X, SomeNum).
+cost(X, Z, Depth)	min= Depth * key(String1, X, Y) + (Depth + 1) * key(String2, Y, Z).
+goal			min= cost(3, N, 1) whenever numkeys(N).
+##########dynac: end file ##########
+optBST.dyna:7: All parts of the right-hand side must be terms
+duplicate subexpression elimination failed
+make: *** [optBST.dyna_dse] Error 1
+
+!!! Thu May 12 02:54:26 2005 /home/3/data/cs325/dyna/bin/dynac-latest 0.3.8-r2536 optBST.dyna --driver=backtrace !!!
+########## dynac 0.3.8-r2536: /home/1/btsai/DM/hw5/optBST.dyna##########
+:- pragma(keep_best_antecedents(item)).
+:- structure(key(string,int,int)).
+:- item(item, double, inf).
+
+zero		:= 0.
+cost(X, X, Depth)	min= zero whenever key(SomeString, X, SomeNum).
+cost(X, Z, Depth)	min= Depth * key(String1, X, Y) + (Depth) * key(String2, Y, Z).
+goal			min= cost(3, N, 1) whenever numkeys(N).
+##########dynac: end file ##########
+optBST.dyna:7: All parts of the right-hand side must be terms
+duplicate subexpression elimination failed
+make: *** [optBST.dyna_dse] Error 1
+
+!!! Thu May 12 02:55:04 2005 /home/3/data/cs325/dyna/bin/dynac-latest 0.3.8-r2536 optBST.dyna --driver=backtrace !!!
+########## dynac 0.3.8-r2536: /home/1/btsai/DM/hw5/optBST.dyna##########
+:- pragma(keep_best_antecedents(item)).
+:- structure(key(string,int,int)).
+:- item(item, double, inf).
+
+zero		:= 0.
+cost(X, X, Depth)	min= zero whenever key(SomeString, X, SomeNum).
+cost(X, Z, Depth)	min= (Depth * key(String1, X, Y)) + key(String2, Y, Z).
+goal			min= cost(3, N, 1) whenever numkeys(N).
+##########dynac: end file ##########
+optBST.dyna:7: All parts of the right-hand side must be terms
+duplicate subexpression elimination failed
+make: *** [optBST.dyna_dse] Error 1
+
+!!! Thu May 12 02:55:42 2005 /home/3/data/cs325/dyna/bin/dynac-latest 0.3.8-r2536 optBST.dyna --driver=backtrace !!!
+########## dynac 0.3.8-r2536: /home/1/btsai/DM/hw5/optBST.dyna##########
+:- pragma(keep_best_antecedents(item)).
+:- structure(key(string,int,int)).
+:- item(item, double, inf).
+
+cost(X, Z, Depth)	min= key(String1, X, Y) + key(String2, Y, Z).
+goal			min= cost(3, N, 1) whenever numkeys(N).
+##########dynac: end file ##########
+compiler: optBST.dyna:5: variable Depth in consequent appears nowhere in the right hand side of the rule
+compilation failed
+make: *** [optBST_dyna.cpp] Error 1
+
+!!! Thu May 12 02:55:58 2005 /home/3/data/cs325/dyna/bin/dynac-latest 0.3.8-r2536 optBST.dyna --driver=backtrace !!!
+########## dynac 0.3.8-r2536: /home/1/btsai/DM/hw5/optBST.dyna##########
+:- pragma(keep_best_antecedents(item)).
+:- structure(key(string,int,int)).
+:- item(item, double, inf).
+
+cost(X, Z)	min= key(String1, X, Y) + key(String2, Y, Z).
+goal			min= cost(3, N) whenever numkeys(N).
+##########dynac: end file ##########
+
+!!! Thu May 12 02:58:00 2005 /home/3/data/cs325/dyna/bin/dynac-latest 0.3.8-r2536 optBST.dyna --driver=backtrace !!!
+########## dynac 0.3.8-r2536: /home/1/btsai/DM/hw5/optBST.dyna##########
+:- pragma(keep_best_antecedents(item)).
+:- structure(key(string,int,int)).
+:- item(item, double, inf).
+
+cost(X, Z, Depth)	:= key(String1, X, Y) + key(String2, Y, Z).
+goal			:= cost(3, N, 1) whenever numkeys(N).
+##########dynac: end file ##########
+compiler: The dyna program is empty
+compilation failed
+make: *** [optBST_dyna.cpp] Error 1
+
+!!! Thu May 12 02:58:46 2005 /home/3/data/cs325/dyna/bin/dynac-latest 0.3.8-r2536 optBST.dyna --driver=backtrace !!!
+########## dynac 0.3.8-r2536: /home/1/btsai/DM/hw5/optBST.dyna##########
+:- pragma(keep_best_antecedents(item)).
+:- structure(key(string,int,int)).
+:- item(item, double, inf).
+
+cost(X, Z, Depth)	min= key(String1, X, Y) + key(String2, Y, Z) whenever num(Depth).
+goal			min= cost(3, N, 1) whenever numkeys(N).
+
+num(1) := 0.##########dynac: end file ##########
+
+!!! Thu May 12 02:59:42 2005 /home/3/data/cs325/dyna/bin/dynac-latest 0.3.8-r2536 optBST.dyna --driver=backtrace !!!
+########## dynac 0.3.8-r2536: /home/1/btsai/DM/hw5/optBST.dyna##########
+:- pragma(keep_best_antecedents(item)).
+:- structure(key(string,int,int)).
+:- item(item, double, inf).
+
+cost(X, Z, Depth)	min= (Depth + 1) * key(String1, X, Y) + key(String2, Y, Z) whenever num(Depth).
+goal			min= cost(3, N, 1) whenever numkeys(N).
+
+num(1) := 0.
+num(2) := 0.
+num(3) := 0.
+num(4) := 0.##########dynac: end file ##########
+optBST.dyna:5: All parts of the right-hand side must be terms
+duplicate subexpression elimination failed
+make: *** [optBST.dyna_dse] Error 1
+
+!!! Thu May 12 02:59:56 2005 /home/3/data/cs325/dyna/bin/dynac-latest 0.3.8-r2536 optBST.dyna --driver=backtrace !!!
+########## dynac 0.3.8-r2536: /home/1/btsai/DM/hw5/optBST.dyna##########
+:- pragma(keep_best_antecedents(item)).
+:- structure(key(string,int,int)).
+:- item(item, double, inf).
+
+cost(X, Z, Depth)	min= (Depth) * key(String1, X, Y) + key(String2, Y, Z) whenever num(Depth).
+goal			min= cost(3, N, 1) whenever numkeys(N).
+
+num(1) := 0.
+num(2) := 0.
+num(3) := 0.
+num(4) := 0.##########dynac: end file ##########
+optBST.dyna:5: All parts of the right-hand side must be terms
+duplicate subexpression elimination failed
+make: *** [optBST.dyna_dse] Error 1
+
+!!! Thu May 12 03:08:17 2005 /home/3/data/cs325/dyna/bin/dynac-latest 0.3.8-r2536 optBST.dyna --driver=backtrace !!!
+########## dynac 0.3.8-r2536: /home/1/btsai/DM/hw5/optBST.dyna##########
+:- pragma(keep_best_antecedents(item)).
+:- structure(key(string,int,int)).
+:- item(item, double, inf).
+
+weight(key(String, X, Y), 1)		:= key(String, X, Y).
+weight(key(String, X, Y), Depth)	:= key(String, X, Y) + weight(key(String, X, Y), Depth - 1).
+cost(X, Z, Depth)	min= key(String1, X, Y) + key(String2, Y, Z) whenever num(Depth).
+goal			min= cost(3, N, 1) whenever numkeys(N).
+
+num(1) := 0.
+num(2) := 0.
+num(3) := 0.
+num(4) := 0.##########dynac: end file ##########
+
+!!! Thu May 12 03:09:16 2005 /home/3/data/cs325/dyna/bin/dynac-latest 0.3.8-r2536 optBST.dyna --driver=backtrace !!!
+########## dynac 0.3.8-r2536: /home/1/btsai/DM/hw5/optBST.dyna##########
+:- pragma(keep_best_antecedents(item)).
+:- structure(key(string,int,int)).
+:- item(item, double, inf).
+
+
+cost(X, Z, Depth)	min= key(String1, X, Y) + key(String2, Y, Z) whenever num(Depth).
+goal			min= cost(3, N, 1) whenever numkeys(N).
+
+num(1) := 0.
+num(2) := 0.
+num(3) := 0.
+num(4) := 0.##########dynac: end file ##########
+
+!!! Thu May 12 03:10:46 2005 /home/3/data/cs325/dyna/bin/dynac-latest 0.3.8-r2536 optBST.dyna --driver=backtrace !!!
+########## dynac 0.3.8-r2536: /home/1/btsai/DM/hw5/optBST.dyna##########
+:- pragma(keep_best_antecedents(item)).
+:- structure(key(string,int,int)).
+:- item(item, double, inf).
+
+weight(key(String, X, Y), 0)		:= 0.
+weight(key(String, X, Y), Depth)	:= key(String, X, Y) + weight(key(String, X, Y), Depth - 1).
+cost(X, Z, Depth)	min= key(String1, X, Y) + key(String2, Y, Z) whenever num(Depth).
+goal			min= cost(3, N, 1) whenever numkeys(N).
+
+num(1) := 0.
+num(2) := 0.
+num(3) := 0.
+num(4) := 0.##########dynac: end file ##########
+
+!!! Thu May 12 03:11:39 2005 /home/3/data/cs325/dyna/bin/dynac-latest 0.3.8-r2536 optBST.dyna --driver=backtrace !!!
+########## dynac 0.3.8-r2536: /home/1/btsai/DM/hw5/optBST.dyna##########
+:- pragma(keep_best_antecedents(item)).
+:- structure(key(string,int,int)).
+:- item(item, double, inf).
+
+weight(key(String, X, Y), 0)		:= 0.
+weight(key(String, X, Y), Depth)	:= key(String, X, Y) + weight(key(String, X, Y), Depth - 1).
+cost(X, Z, Depth)	min= key(String1, X, Y) + key(String2, Y, Z) whenever num(Depth).
+goal			min= cost(3, N, 1) whenever numkeys(N).
+
+num(1) := 0.
+num(2) := 0.
+num(3) := 0.
+num(4) := 0.##########dynac: end file ##########
+
+!!! Thu May 12 03:15:52 2005 /home/3/data/cs325/dyna/bin/dynac-latest 0.3.8-r2536 optBST.dyna --driver=backtrace !!!
+########## dynac 0.3.8-r2536: /home/1/btsai/DM/hw5/optBST.dyna##########
+:- pragma(keep_best_antecedents(item)).
+:- structure(key(string,int,int)).
+:- item(item, double, inf).
+
+weight(key(String, X, Y), 0)		:= 0.
+weight(key(String, X, Y), Depth)	:= key(String, X, Y) + weight(key(String, X, Y), Depth - 1) whenever Depth > 0.
+cost(X, Z, Depth)	min= key(String1, X, Y) + key(String2, Y, Z) whenever num(Depth).
+goal			min= cost(3, N, 1) whenever numkeys(N).
+
+num(1) := 0.
+num(2) := 0.
+num(3) := 0.
+num(4) := 0.##########dynac: end file ##########
+
+!!! Thu May 12 03:18:45 2005 /home/3/data/cs325/dyna/bin/dynac-latest 0.3.8-r2536 optBST.dyna --driver=backtrace !!!
+########## dynac 0.3.8-r2536: /home/1/btsai/DM/hw5/optBST.dyna##########
+:- pragma(keep_best_antecedents(item)).
+:- structure(key(string,int,int)).
+:- item(item, double, inf).
+
+cost(X, Z)	min= key(String1, X, Y) + key(String1, X, Y) + key(String2, Y, Z).
+cost(X, Z)	min= key(String1, X, Y) + key(String2, Y, Z) + key(String2, Y, Z).
+goal		min= cost(3, N) whenever numkeys(N).
+##########dynac: end file ##########
+
+!!! Thu May 12 03:22:38 2005 /home/3/data/cs325/dyna/bin/dynac-latest 0.3.8-r2536 optBST.dyna --driver=backtrace !!!
+########## dynac 0.3.8-r2536: /home/1/btsai/DM/hw5/optBST.dyna##########
+:- pragma(keep_best_antecedents(item)).
+:- structure(key(string,int,int)).
+:- item(item, double, inf).
+
+zero := 0.
+weight(key(String1, X, Y), 0) min= zero.
+weight(key(String1, X, Y), Depth) min= key(String1, X, Y) + weight(key(String1, X, Y), Depth - 1).
+cost(X, Z)	min= key(String1, X, Y) + key(String1, X, Y) + key(String2, Y, Z).
+cost(X, Z)	min= key(String1, X, Y) + key(String2, Y, Z) + key(String2, Y, Z).
+goal		min= cost(3, N) whenever numkeys(N).
+##########dynac: end file ##########
+The current version of dyna does not allow using types that include ints or strings together with other terms
+declaration inference failed
+make: *** [optBST.dyna_dcl0] Error 1
+
+!!! Thu May 12 03:23:08 2005 /home/3/data/cs325/dyna/bin/dynac-latest 0.3.8-r2536 optBST.dyna --driver=backtrace !!!
+########## dynac 0.3.8-r2536: /home/1/btsai/DM/hw5/optBST.dyna##########
+:- pragma(keep_best_antecedents(item)).
+:- structure(key(string,int,int)).
+:- item(item, double, inf).
+
+zero := 0.
+one := 1.
+weight(key(String1, X, Y), 0) min= zero.
+weight(key(String1, X, Y), Depth) min= key(String1, X, Y) + weight(key(String1, X, Y), Depth - one).
+cost(X, Z)	min= key(String1, X, Y) + key(String1, X, Y) + key(String2, Y, Z).
+cost(X, Z)	min= key(String1, X, Y) + key(String2, Y, Z) + key(String2, Y, Z).
+goal		min= cost(3, N) whenever numkeys(N).
+##########dynac: end file ##########
+The current version of dyna does not allow using types that include ints or strings together with other terms
+declaration inference failed
+make: *** [optBST.dyna_dcl0] Error 1
+
+!!! Thu May 12 03:23:21 2005 /home/3/data/cs325/dyna/bin/dynac-latest 0.3.8-r2536 optBST.dyna --driver=backtrace !!!
+########## dynac 0.3.8-r2536: /home/1/btsai/DM/hw5/optBST.dyna##########
+:- pragma(keep_best_antecedents(item)).
+:- structure(key(string,int,int)).
+:- item(item, double, inf).
+
+zero := 0.
+one := 1.
+weight(key(String1, X, Y), 0) min= zero.
+weight(key(String1, X, Y), Depth) min= key(String1, X, Y) + weight(key(String1, X, Y), Depth - one).
+cost(X, Z)	min= key(String1, X, Y) + key(String1, X, Y) + key(String2, Y, Z).
+cost(X, Z)	min= key(String1, X, Y) + key(String2, Y, Z) + key(String2, Y, Z).
+goal		min= cost(3, N) whenever numkeys(N).
+##########dynac: end file ##########
+The current version of dyna does not allow using types that include ints or strings together with other terms
+declaration inference failed
+make: *** [optBST.dyna_dcl0] Error 1
+
+!!! Thu May 12 03:23:50 2005 /home/3/data/cs325/dyna/bin/dynac-latest 0.3.8-r2536 optBST.dyna --driver=backtrace !!!
+########## dynac 0.3.8-r2536: /home/1/btsai/DM/hw5/optBST.dyna##########
+:- pragma(keep_best_antecedents(item)).
+:- structure(key(string,int,int)).
+:- item(item, double, inf).
+
+zero := 0.
+one := 1.
+weight(key(String1, X, Y), zero) min= zero.
+weight(key(String1, X, Y), Depth) min= key(String1, X, Y) + weight(key(String1, X, Y), Depth - one).
+cost(X, Z)	min= key(String1, X, Y) + key(String1, X, Y) + key(String2, Y, Z).
+cost(X, Z)	min= key(String1, X, Y) + key(String2, Y, Z) + key(String2, Y, Z).
+goal		min= cost(3, N) whenever numkeys(N).
+##########dynac: end file ##########
+compiler: optBST.dyna:7: variable String1 in consequent appears nowhere in the right hand side of the rule
+compilation failed
+make: *** [optBST_dyna.cpp] Error 1
+
+!!! Thu May 12 03:24:28 2005 /home/3/data/cs325/dyna/bin/dynac-latest 0.3.8-r2536 optBST.dyna --driver=backtrace !!!
+########## dynac 0.3.8-r2536: /home/1/btsai/DM/hw5/optBST.dyna##########
+:- pragma(keep_best_antecedents(item)).
+:- structure(key(string,int,int)).
+:- item(item, double, inf).
+
+zero := 0.
+one := 1.
+weight(key(String1, X, Y), zero) min= zero whenever key(String1, X, Y).
+weight(key(String1, X, Y), Depth) min= key(String1, X, Y) + weight(key(String1, X, Y), Depth - one).
+cost(X, Z)	min= key(String1, X, Y) + key(String1, X, Y) + key(String2, Y, Z).
+cost(X, Z)	min= key(String1, X, Y) + key(String2, Y, Z) + key(String2, Y, Z).
+goal		min= cost(3, N) whenever numkeys(N).
+##########dynac: end file ##########
+compiler: optBST.dyna:9: variable 'Y' is used once with type 'term' and once with type 'int'
+compilation failed
+make: *** [optBST_dyna.cpp] Error 1
+
+!!! Thu May 12 03:25:44 2005 /home/3/data/cs325/dyna/bin/dynac-latest 0.3.8-r2536 optBST.dyna --driver=backtrace !!!
+########## dynac 0.3.8-r2536: /home/1/btsai/DM/hw5/optBST.dyna##########
+:- pragma(keep_best_antecedents(item)).
+:- structure(key(string,int,int)).
+:- item(item, double, inf).
+
+zero := 0.
+one := 1.
+%weight(key(String1, X, Y), zero) min= zero whenever key(String1, X, Y).
+%weight(key(String1, X, Y), Depth) min= key(String1, X, Y) + weight(key(String1, X, Y), Depth - one).
+cost(X, Z)	min= key(String1, X, Y) + key(String1, X, Y) + key(String2, Y, Z).
+cost(X, Z)	min= key(String1, X, Y) + key(String2, Y, Z) + key(String2, Y, Z).
+goal		min= cost(3, N) whenever numkeys(N).
+##########dynac: end file ##########
+
+!!! Thu May 12 03:27:00 2005 /home/3/data/cs325/dyna/bin/dynac-latest 0.3.8-r2536 optBST.dyna --driver=backtrace !!!
+########## dynac 0.3.8-r2536: /home/1/btsai/DM/hw5/optBST.dyna##########
+:- pragma(keep_best_antecedents(item)).
+:- structure(key(string,int,int)).
+:- item(item, double, inf).
+
+zero := 0.
+one := 1.
+weight(key(String, X, Y), zero) min= zero whenever key(String, X, Y).
+%weight(key(String, X, Y), Depth) min= key(String, X, Y) + weight(key(String, X, Y), Depth - one).
+cost(X, Z)	min= key(String1, X, Y) + key(String1, X, Y) + key(String2, Y, Z).
+cost(X, Z)	min= key(String1, X, Y) + key(String2, Y, Z) + key(String2, Y, Z).
+goal		min= cost(3, N) whenever numkeys(N).
+##########dynac: end file ##########
+compiler: optBST.dyna:9: variable 'Y' is used once with type 'term' and once with type 'int'
+compilation failed
+make: *** [optBST_dyna.cpp] Error 1
+
+!!! Thu May 12 03:27:33 2005 /home/3/data/cs325/dyna/bin/dynac-latest 0.3.8-r2536 optBST.dyna --driver=backtrace !!!
+########## dynac 0.3.8-r2536: /home/1/btsai/DM/hw5/optBST.dyna##########
+:- pragma(keep_best_antecedents(item)).
+:- structure(key(string,int,int)).
+:- item(item, double, inf).
+
+zero := 0.
+one := 1.
+weight(X, zero) min= zero whenever key(String, X, Y).
+%weight(key(String, X, Y), Depth) min= key(String, X, Y) + weight(key(String, X, Y), Depth - one).
+cost(X, Z)	min= key(String1, X, Y) + key(String1, X, Y) + key(String2, Y, Z).
+cost(X, Z)	min= key(String1, X, Y) + key(String2, Y, Z) + key(String2, Y, Z).
+goal		min= cost(3, N) whenever numkeys(N).
+##########dynac: end file ##########
+
+!!! Thu May 12 03:28:22 2005 /home/3/data/cs325/dyna/bin/dynac-latest 0.3.8-r2536 optBST.dyna --driver=backtrace !!!
+########## dynac 0.3.8-r2536: /home/1/btsai/DM/hw5/optBST.dyna##########
+:- pragma(keep_best_antecedents(item)).
+:- structure(key(string,int,int)).
+:- item(item, double, inf).
+
+zero := 0.
+one := 1.
+weight(X, zero) min= zero whenever key(String, X, Y).
+weight(X, Depth) min= key(String, X, Y) + weight(X, Depth - one).
+cost(X, Z)	min= key(String1, X, Y) + key(String1, X, Y) + key(String2, Y, Z).
+cost(X, Z)	min= key(String1, X, Y) + key(String2, Y, Z) + key(String2, Y, Z).
+goal		min= cost(3, N) whenever numkeys(N).
+##########dynac: end file ##########
+
+!!! Thu May 12 03:31:20 2005 /home/3/data/cs325/dyna/bin/dynac-latest 0.3.8-r2536 optBST.dyna --driver=backtrace !!!
+########## dynac 0.3.8-r2536: /home/1/btsai/DM/hw5/optBST.dyna##########
+:- pragma(keep_best_antecedents(item)).
+:- structure(key(string,int,int)).
+:- item(item, double, inf).
+
+zero 	:= 0.
+one 	:= 1.
+
+weight(X, zero)		min= zero whenever key(String, X, Y).
+weight(X, Depth)	min= key(String, X, Y) + weight(X, Depth - one).
+
+cost(X, Z, Depth)	min= weight(X, Depth) + weight(Z, Depth + one).
+cost(X, Z, Depth)	min= weight(X, Depth + one) + weight(Z, Depth).
+
+%cost(X, Z)		min= key(String1, X, Y) + key(String2, Y, Z).
+%cost(X, Z)		min= key(String1, X, Y) + key(String2, Y, Z).
+
+goal			min= cost(3, N, 1) whenever numkeys(N).
+##########dynac: end file ##########
+Inconsistent type declarations allow and forbid minus for cost/3:3
+declaration inference failed
+make: *** [optBST.dyna_dcl0] Error 1
+
+!!! Thu May 12 03:32:03 2005 /home/3/data/cs325/dyna/bin/dynac-latest 0.3.8-r2536 optBST.dyna --driver=backtrace !!!
+########## dynac 0.3.8-r2536: /home/1/btsai/DM/hw5/optBST.dyna##########
+:- pragma(keep_best_antecedents(item)).
+:- structure(key(string,int,int)).
+:- item(item, double, inf).
+
+zero 	:= 0.
+one 	:= 1.
+
+weight(X, zero)		min= zero whenever key(String, X, Y).
+weight(X, Depth)	min= key(String, X, Y) + weight(X, Depth - one).
+
+cost(X, Z, Depth)	min= weight(X, Depth) + weight(Z, Depth).
+
+%cost(X, Z)		min= key(String1, X, Y) + key(String2, Y, Z).
+%cost(X, Z)		min= key(String1, X, Y) + key(String2, Y, Z).
+
+goal			min= cost(3, N, 1) whenever numkeys(N).
+##########dynac: end file ##########
+The current version of dyna does not allow using types that include ints or strings together with other terms
+declaration inference failed
+make: *** [optBST.dyna_dcl0] Error 1
+
+!!! Thu May 12 03:32:51 2005 /home/3/data/cs325/dyna/bin/dynac-latest 0.3.8-r2536 optBST.dyna --driver=backtrace !!!
+########## dynac 0.3.8-r2536: /home/1/btsai/DM/hw5/optBST.dyna##########
+:- pragma(keep_best_antecedents(item)).
+:- structure(key(string,int,int)).
+:- item(item, double, inf).
+
+zero 	:= 0.
+one 	:= 1.
+
+weight(X, zero)		min= zero whenever key(String, X, Y).
+weight(X, Depth)	min= key(String, X, Y) + weight(X, Depth - one).
+
+cost(X, Z, Depth)	min= weight(X, Depth) + weight(Z, Depth).
+
+%cost(X, Z)		min= key(String1, X, Y) + key(String2, Y, Z).
+%cost(X, Z)		min= key(String1, X, Y) + key(String2, Y, Z).
+
+goal			min= cost(3, N, one) whenever numkeys(N).
+##########dynac: end file ##########
+
+!!! Thu May 12 03:36:45 2005 /home/3/data/cs325/dyna/bin/dynac-latest 0.3.8-r2536 optBST.dyna --driver=backtrace !!!
+########## dynac 0.3.8-r2536: /home/1/btsai/DM/hw5/optBST.dyna##########
+:- pragma(keep_best_antecedents(item)).
+:- structure(key(string,int,int)).
+:- item(item, double, inf).
+
+zero 	:= 0.
+one 	:= 1.
+
+weight(key(String, X, Y), zero)		min= zero whenever key(String, X, Y).
+weight(key(String, X, Y), Depth)	min= key(String, X, Y) + weight(X, Depth - one).
+
+cost(X, Z, Depth)	min= weight(key(String1, X, Y), Depth) + weight(key(String2, Y, Z), Depth).
+
+%cost(X, Z)		min= key(String1, X, Y) + key(String2, Y, Z).
+%cost(X, Z)		min= key(String1, X, Y) + key(String2, Y, Z).
+
+goal			min= cost(3, N, one) whenever numkeys(N).
+##########dynac: end file ##########
+compiler: optBST.dyna:9: variable 'X' is used once with type 'int' and once with type 'term'
+compilation failed
+make: *** [optBST_dyna.cpp] Error 1
+
+!!! Thu May 12 03:38:24 2005 /home/3/data/cs325/dyna/bin/dynac-latest 0.3.8-r2536 optBST.dyna --driver=backtrace !!!
+########## dynac 0.3.8-r2536: /home/1/btsai/DM/hw5/optBST.dyna##########
+:- pragma(keep_best_antecedents(item)).
+:- structure(key(string,int,int)).
+:- item(item, double, inf).
+
+zero 	:= 0.
+one 	:= 1.
+
+weight1(X, zero)	min= zero whenever key(String, X, Y).
+weight1(X, Depth)	min= key(String, X, Y) + weight(X, Depth - one).
+
+weight2(Z, zero)	min= zero whenever key(String, Y, Z).
+weight2(Z, Depth)	min= key(String, Y, Z) + weight(Z, Depth - one).
+
+cost(X, Z, Depth)	min= weight1(X, Depth) + weight2(Z, Depth).
+
+%cost(X, Z)		min= key(String1, X, Y) + key(String2, Y, Z).
+%cost(X, Z)		min= key(String1, X, Y) + key(String2, Y, Z).
+
+goal			min= cost(3, N, one) whenever numkeys(N).
+##########dynac: end file ##########
+
+!!! Thu May 12 03:39:22 2005 /home/3/data/cs325/dyna/bin/dynac-latest 0.3.8-r2536 optBST.dyna --driver=backtrace !!!
+########## dynac 0.3.8-r2536: /home/1/btsai/DM/hw5/optBST.dyna##########
+:- pragma(keep_best_antecedents(item)).
+:- structure(key(string,int,int)).
+:- item(item, double, inf).
+
+zero 	:= 0.
+one 	:= 1.
+
+weight1(X, zero)	min= zero whenever key(String, X, Y).
+weight1(X, Depth)	min= key(String, X, Y) + weight(X, Depth - one).
+
+weight2(Z, zero)	min= zero whenever key(String, Y, Z).
+weight2(Z, Depth)	min= key(String, Y, Z) + weight(Z, Depth - one).
+
+cost(X, Z, Depth)	min= weight1(X, Depth).
+%cost(X, Z, Depth)	min= weight1(X, Depth) + weight2(Z, Depth).
+
+%cost(X, Z)		min= key(String1, X, Y) + key(String2, Y, Z).
+%cost(X, Z)		min= key(String1, X, Y) + key(String2, Y, Z).
+
+goal			min= cost(3, N, one) whenever numkeys(N).
+##########dynac: end file ##########
+compiler: optBST.dyna:14: variable Z in consequent appears nowhere in the right hand side of the rule
+compilation failed
+make: *** [optBST_dyna.cpp] Error 1
+
+!!! Thu May 12 03:39:59 2005 /home/3/data/cs325/dyna/bin/dynac-latest 0.3.8-r2536 optBST.dyna --driver=backtrace !!!
+########## dynac 0.3.8-r2536: /home/1/btsai/DM/hw5/optBST.dyna##########
+:- pragma(keep_best_antecedents(item)).
+:- structure(key(string,int,int)).
+:- item(item, double, inf).
+
+zero 	:= 0.
+one 	:= 1.
+
+weight1(X, zero)	min= zero whenever key(String, X, Y).
+weight1(X, Depth)	min= key(String, X, Y) + weight(X, Depth - one).
+
+weight2(Z, zero)	min= zero whenever key(String, Y, Z).
+weight2(Z, Depth)	min= key(String, Y, Z) + weight(Z, Depth - one).
+
+cost(X, Z, Depth)	min= weight1(X, Depth) whenever num(Z).
+%cost(X, Z, Depth)	min= weight1(X, Depth) + weight2(Z, Depth).
+
+%cost(X, Z)		min= key(String1, X, Y) + key(String2, Y, Z).
+%cost(X, Z)		min= key(String1, X, Y) + key(String2, Y, Z).
+
+goal			min= cost(3, N, one) whenever numkeys(N).
+
+num(1) := 0.
+num(2) := 0.
+num(3) := 0.
+num(4) := 0.
+num(5) := 0.##########dynac: end file ##########
+
+!!! Thu May 12 03:41:20 2005 /home/3/data/cs325/dyna/bin/dynac-latest 0.3.8-r2536 optBST.dyna --driver=backtrace !!!
+########## dynac 0.3.8-r2536: /home/1/btsai/DM/hw5/optBST.dyna##########
+:- pragma(keep_best_antecedents(item)).
+:- structure(key(string,int,int)).
+:- item(item, double, inf).
+
+zero 	:= 0.
+one 	:= 1.
+
+weight1(X, zero)	min= zero whenever key(String, X, Y).
+weight1(X, Depth)	min= key(String, X, Y) + weight(X, Depth - one).
+
+%weight2(Z, zero)	min= zero whenever key(String, Y, Z).
+%weight2(Z, Depth)	min= key(String, Y, Z) + weight(Z, Depth - one).
+
+cost(X, Z, Depth)	min= weight1(X, Depth) whenever num(Z).
+%cost(X, Z, Depth)	min= weight1(X, Depth) + weight2(Z, Depth).
+
+%cost(X, Z)		min= key(String1, X, Y) + key(String2, Y, Z).
+%cost(X, Z)		min= key(String1, X, Y) + key(String2, Y, Z).
+
+goal			min= cost(3, N, one) whenever numkeys(N).
+
+num(1) := 0.
+num(2) := 0.
+num(3) := 0.
+num(4) := 0.
+num(5) := 0.##########dynac: end file ##########
+
+!!! Thu May 12 03:42:26 2005 /home/3/data/cs325/dyna/bin/dynac-latest 0.3.8-r2536 optBST.dyna --driver=backtrace !!!
+########## dynac 0.3.8-r2536: /home/1/btsai/DM/hw5/optBST.dyna##########
+:- pragma(keep_best_antecedents(item)).
+:- structure(key(string,int,int)).
+:- item(item, double, inf).
+
+zero 	:= 0.
+one 	:= 1.
+
+weight1(X, zero)	min= zero whenever key(String, X, Y).
+weight1(X, Depth)	min= key(String, X, Y) + weight(X, Depth - one).
+
+%weight2(Z, zero)	min= zero whenever key(String, Y, Z).
+%weight2(Z, Depth)	min= key(String, Y, Z) + weight(Z, Depth - one).
+
+cost(X, Z, Depth)	min= weight1(X, Depth) whenever num(Z).
+%cost(X, Z, Depth)	min= weight1(X, Depth) + weight2(Z, Depth).
+
+%cost(X, Z)		min= key(String1, X, Y) + key(String2, Y, Z).
+%cost(X, Z)		min= key(String1, X, Y) + key(String2, Y, Z).
+
+goal			min= cost(3, N, 1) whenever numkeys(N).
+
+num(1) := 0.
+num(2) := 0.
+num(3) := 0.
+num(4) := 0.
+num(5) := 0.##########dynac: end file ##########
+The current version of dyna does not allow using types that include ints or strings together with other terms
+declaration inference failed
+make: *** [optBST.dyna_dcl0] Error 1
+
+!!! Thu May 12 03:43:31 2005 /home/3/data/cs325/dyna/bin/dynac-latest 0.3.8-r2536 optBST.dyna --driver=backtrace !!!
+########## dynac 0.3.8-r2536: /home/1/btsai/DM/hw5/optBST.dyna##########
+:- pragma(keep_best_antecedents(item)).
+:- structure(key(string,int,int)).
+:- item(item, double, inf).
+
+zero 	:= 0.
+one 	:= 1.
+
+weight1(X, zero)	min= zero whenever key(String, X, Y).
+weight1(X, Depth)	min= key(String, X, Y) + weight(X, Depth - one).
+
+%weight2(Z, zero)	min= zero whenever key(String, Y, Z).
+%weight2(Z, Depth)	min= key(String, Y, Z) + weight(Z, Depth - one).
+
+cost(X, Z, Depth)	min= weight1(X, Depth) + weight1(Z, Depth) whenever num(Depth).
+%cost(X, Z, Depth)	min= weight1(X, Depth) + weight2(Z, Depth).
+
+%cost(X, Z)		min= key(String1, X, Y) + key(String2, Y, Z).
+%cost(X, Z)		min= key(String1, X, Y) + key(String2, Y, Z).
+
+goal			min= cost(3, N, 1) whenever numkeys(N).
+
+num(1) := 0.
+num(2) := 0.
+num(3) := 0.
+num(4) := 0.
+num(5) := 0.##########dynac: end file ##########
+compiler: optBST.dyna:14: variable 'Depth' is used once with type 'term' and once with type 'int'
+compilation failed
+make: *** [optBST_dyna.cpp] Error 1
+
+!!! Thu May 12 03:44:09 2005 /home/3/data/cs325/dyna/bin/dynac-latest 0.3.8-r2536 optBST.dyna --driver=backtrace !!!
+########## dynac 0.3.8-r2536: /home/1/btsai/DM/hw5/optBST.dyna##########
+:- pragma(keep_best_antecedents(item)).
+:- structure(key(string,int,int)).
+:- item(item, double, inf).
+
+zero 	:= 0.
+one 	:= 1.
+
+weight1(X, zero)	min= zero whenever key(String, X, Y).
+weight1(X, Depth)	min= key(String, X, Y) + weight(X, Depth - one).
+
+%weight2(Z, zero)	min= zero whenever key(String, Y, Z).
+%weight2(Z, Depth)	min= key(String, Y, Z) + weight(Z, Depth - one).
+
+cost(X, Z, Depth)	min= weight1(X, Depth) + weight1(Z, Depth).
+%cost(X, Z, Depth)	min= weight1(X, Depth) + weight2(Z, Depth).
+
+%cost(X, Z)		min= key(String1, X, Y) + key(String2, Y, Z).
+%cost(X, Z)		min= key(String1, X, Y) + key(String2, Y, Z).
+
+goal			min= cost(3, N, 1) whenever numkeys(N).
+
+num(1) := 0.
+num(2) := 0.
+num(3) := 0.
+num(4) := 0.
+num(5) := 0.##########dynac: end file ##########
+The current version of dyna does not allow using types that include ints or strings together with other terms
+declaration inference failed
+make: *** [optBST.dyna_dcl0] Error 1
+
+!!! Thu May 12 03:50:17 2005 /home/3/data/cs325/dyna/bin/dynac-latest 0.3.8-r2536 optBST.dyna --driver=backtrace !!!
+########## dynac 0.3.8-r2536: /home/1/btsai/DM/hw5/optBST.dyna##########
+:- pragma(keep_best_antecedents(item)).
+:- structure(key(string,int,int)).
+:- item(item, double, inf).
+
+zero 	:= 0.
+one 	:= 1.
+
+weight1(X, zero)	min= zero whenever key(String, X, Y).
+weight1(X, Depth)	min= key(String, X, Y) + weight(X, Depth - one).
+
+%weight2(Z, zero)	min= zero whenever key(String, Y, Z).
+%weight2(Z, Depth)	min= key(String, Y, Z) + weight(Z, Depth - one).
+
+%cost(X, Z, Depth)	min= weight1(X, Depth) + weight1(Z, Depth).
+%cost(X, Z, Depth)	min= weight1(X, Depth) + weight2(Z, Depth).
+
+%cost(X, Z)		min= key(String1, X, Y) + key(String2, Y, Z).
+%cost(X, Z)		min= key(String1, X, Y) + key(String2, Y, Z).
+
+goal			min= weight1(1, 2) whenever numkeys(N).
+%goal			min= cost(3, N, 1) whenever numkeys(N).
+
+num(1) := 0.
+num(2) := 0.
+num(3) := 0.
+num(4) := 0.
+num(5) := 0.##########dynac: end file ##########
+The current version of dyna does not allow using types that include ints or strings together with other terms
+declaration inference failed
+make: *** [optBST.dyna_dcl0] Error 1
+
+!!! Thu May 12 03:50:30 2005 /home/3/data/cs325/dyna/bin/dynac-latest 0.3.8-r2536 optBST.dyna --driver=backtrace !!!
+########## dynac 0.3.8-r2536: /home/1/btsai/DM/hw5/optBST.dyna##########
+:- pragma(keep_best_antecedents(item)).
+:- structure(key(string,int,int)).
+:- item(item, double, inf).
+
+zero 	:= 0.
+one 	:= 1.
+
+weight1(X, zero)	min= zero whenever key(String, X, Y).
+weight1(X, Depth)	min= key(String, X, Y) + weight(X, Depth - one).
+
+%weight2(Z, zero)	min= zero whenever key(String, Y, Z).
+%weight2(Z, Depth)	min= key(String, Y, Z) + weight(Z, Depth - one).
+
+%cost(X, Z, Depth)	min= weight1(X, Depth) + weight1(Z, Depth).
+%cost(X, Z, Depth)	min= weight1(X, Depth) + weight2(Z, Depth).
+
+%cost(X, Z)		min= key(String1, X, Y) + key(String2, Y, Z).
+%cost(X, Z)		min= key(String1, X, Y) + key(String2, Y, Z).
+
+goal			min= weight1(1, N) whenever numkeys(N).
+%goal			min= cost(3, N, 1) whenever numkeys(N).
+
+num(1) := 0.
+num(2) := 0.
+num(3) := 0.
+num(4) := 0.
+num(5) := 0.##########dynac: end file ##########
+
+!!! Thu May 12 03:52:06 2005 /home/3/data/cs325/dyna/bin/dynac-latest 0.3.8-r2536 optBST.dyna --driver=backtrace !!!
+########## dynac 0.3.8-r2536: /home/1/btsai/DM/hw5/optBST.dyna##########
+:- pragma(keep_best_antecedents(item)).
+:- structure(key(string,int,int)).
+:- item(item, double, inf).
+
+zero 	:= 0.
+one 	:= 1.
+
+weight1(X, zero)	min= zero whenever key(String, X, Y).
+weight1(X, Depth)	min= key(String, X, Y) + weight(X, Depth - one).
+
+%weight2(Z, zero)	min= zero whenever key(String, Y, Z).
+%weight2(Z, Depth)	min= key(String, Y, Z) + weight(Z, Depth - one).
+
+cost(X, Z, Depth)	min= weight1(X, Depth) + weight1(Z, Depth).
+%cost(X, Z, Depth)	min= weight1(X, Depth) + weight2(Z, Depth).
+
+%cost(X, Z)		min= key(String1, X, Y) + key(String2, Y, Z).
+%cost(X, Z)		min= key(String1, X, Y) + key(String2, Y, Z).
+
+goal			min= cost(3, N, Initial) whenever numkeys(N).
+
+num(1) := 0.
+num(2) := 0.
+num(3) := 0.
+num(4) := 0.
+num(5) := 0.
+
+Initial := 1.##########dynac: end file ##########
+type_inference2/GraphFactory.h:125: Encountered unexpected value assignment: You can only assign values to terms
+declaration inference failed
+make: *** [optBST.dyna_dcl0] Error 1
+
+!!! Thu May 12 03:52:56 2005 /home/3/data/cs325/dyna/bin/dynac-latest 0.3.8-r2536 optBST.dyna --driver=backtrace !!!
+########## dynac 0.3.8-r2536: /home/1/btsai/DM/hw5/optBST.dyna##########
+:- pragma(keep_best_antecedents(item)).
+:- structure(key(string,int,int)).
+:- item(item, double, inf).
+
+zero 	:= 0.
+one 	:= 1.
+
+weight1(X, zero)	min= zero whenever key(String, X, Y).
+weight1(X, Depth)	min= key(String, X, Y) + weight(X, Depth - one).
+
+%weight2(Z, zero)	min= zero whenever key(String, Y, Z).
+%weight2(Z, Depth)	min= key(String, Y, Z) + weight(Z, Depth - one).
+
+cost(X, Z, Depth)	min= weight1(X, Depth) + weight1(Z, Depth).
+%cost(X, Z, Depth)	min= weight1(X, Depth) + weight2(Z, Depth).
+
+%cost(X, Z)		min= key(String1, X, Y) + key(String2, Y, Z).
+%cost(X, Z)		min= key(String1, X, Y) + key(String2, Y, Z).
+
+goal			min= cost(3, N, initial) whenever numkeys(N).
+
+num(1) := 0.
+num(2) := 0.
+num(3) := 0.
+num(4) := 0.
+num(5) := 0.
+
+initial(1) := 0.##########dynac: end file ##########
+optBST.dyna:20: Arguments error: Arguments in 'initial' differ from initial structure declaration
+transformation failed
+make: *** [optBST.dyna_dcl] Error 1
+
+!!! Thu May 12 03:53:20 2005 /home/3/data/cs325/dyna/bin/dynac-latest 0.3.8-r2536 optBST.dyna --driver=backtrace !!!
+########## dynac 0.3.8-r2536: /home/1/btsai/DM/hw5/optBST.dyna##########
+:- pragma(keep_best_antecedents(item)).
+:- structure(key(string,int,int)).
+:- item(item, double, inf).
+
+zero 	:= 0.
+one 	:= 1.
+
+weight1(X, zero)	min= zero whenever key(String, X, Y).
+weight1(X, Depth)	min= key(String, X, Y) + weight(X, Depth - one).
+
+%weight2(Z, zero)	min= zero whenever key(String, Y, Z).
+%weight2(Z, Depth)	min= key(String, Y, Z) + weight(Z, Depth - one).
+
+cost(X, Z, Depth)	min= weight1(X, Depth) + weight1(Z, Depth).
+%cost(X, Z, Depth)	min= weight1(X, Depth) + weight2(Z, Depth).
+
+%cost(X, Z)		min= key(String1, X, Y) + key(String2, Y, Z).
+%cost(X, Z)		min= key(String1, X, Y) + key(String2, Y, Z).
+
+goal			min= cost(3, N, N) whenever numkeys(N).
+
+num(1) := 0.
+num(2) := 0.
+num(3) := 0.
+num(4) := 0.
+num(5) := 0.
+##########dynac: end file ##########
+compiler: optBST.dyna:20: While analyzing the compound term cost(3,N,N): type error: variables that correspond must be of exactly the same declared type.  Sorry, intercastable unions don't qualify yet (unimplemented)
+compilation failed
+make: *** [optBST_dyna.cpp] Error 1
+
+!!! Thu May 12 03:54:44 2005 /home/3/data/cs325/dyna/bin/dynac-latest 0.3.8-r2536 optBST.dyna --driver=backtrace !!!
+########## dynac 0.3.8-r2536: /home/1/btsai/DM/hw5/optBST.dyna##########
+:- pragma(keep_best_antecedents(item)).
+:- structure(key(string,int,int)).
+:- item(item, double, inf).
+
+zero 	:= 0.
+one 	:= 1.
+
+weight1(X, zero)	min= zero whenever key(String, X, Y).
+weight1(X, Depth)	min= key(String, X, Y) + weight(X, Depth - one).
+
+%weight2(Z, zero)	min= zero whenever key(String, Y, Z).
+%weight2(Z, Depth)	min= key(String, Y, Z) + weight(Z, Depth - one).
+
+cost(X, Z, Depth)	min= key(String1, X, Y) + key(String2, Y, Z) whenever num(Depth).
+cost(X, Z, Depth)	min= key(String1, X, Y) + key(String2, Y, Z) whenever num(Depth).
+
+%cost(X, Z)		min= key(String1, X, Y) + key(String2, Y, Z).
+%cost(X, Z)		min= key(String1, X, Y) + key(String2, Y, Z).
+
+goal			min= cost(3, N, 1) whenever numkeys(N).
+
+num(1) := 0.
+num(2) := 0.
+num(3) := 0.
+num(4) := 0.
+num(5) := 0.
+##########dynac: end file ##########
+
+!!! Thu May 12 03:56:08 2005 /home/3/data/cs325/dyna/bin/dynac-latest 0.3.8-r2536 optBST.dyna --driver=backtrace !!!
+########## dynac 0.3.8-r2536: /home/1/btsai/DM/hw5/optBST.dyna##########
+:- pragma(keep_best_antecedents(item)).
+:- structure(key(string,int,int)).
+:- item(item, double, inf).
+
+zero 	:= 0.
+one 	:= 1.
+
+weight1(X, zero)	min= zero whenever key(String, X, Y).
+weight1(X, Depth)	min= key(String, X, Y) + weight(X, Depth - one).
+
+weight2(Z, zero)	min= zero whenever key(String, Y, Z).
+weight2(Z, Depth)	min= key(String, Y, Z) + weight(Z, Depth - one).
+
+cost(X, Z, Depth)	min= weight1(X, Depth) + weight2(Z, Depth) whenever num(Depth).
+
+%cost(X, Z, Depth)	min= key(String1, X, Y) + key(String2, Y, Z) whenever num(Depth).
+%cost(X, Z, Depth)	min= key(String1, X, Y) + key(String2, Y, Z) whenever num(Depth).
+
+%cost(X, Z)		min= key(String1, X, Y) + key(String2, Y, Z).
+%cost(X, Z)		min= key(String1, X, Y) + key(String2, Y, Z).
+
+goal			min= cost(3, N, 1) whenever numkeys(N).
+
+num(1) := 0.
+num(2) := 0.
+num(3) := 0.
+num(4) := 0.
+num(5) := 0.
+##########dynac: end file ##########
+compiler: optBST.dyna:14: variable 'Depth' is used once with type 'term' and once with type 'int'
+compilation failed
+make: *** [optBST_dyna.cpp] Error 1
+
+!!! Thu May 12 03:56:29 2005 /home/3/data/cs325/dyna/bin/dynac-latest 0.3.8-r2536 optBST.dyna --driver=backtrace !!!
+########## dynac 0.3.8-r2536: /home/1/btsai/DM/hw5/optBST.dyna##########
+:- pragma(keep_best_antecedents(item)).
+:- structure(key(string,int,int)).
+:- item(item, double, inf).
+
+zero 	:= 0.
+one 	:= 1.
+
+weight1(X, zero)	min= zero whenever key(String, X, Y).
+weight1(X, Depth)	min= key(String, X, Y) + weight(X, Depth - one).
+
+weight2(Z, zero)	min= zero whenever key(String, Y, Z).
+weight2(Z, Depth)	min= key(String, Y, Z) + weight(Z, Depth - one).
+
+cost(X, Z, Depth)	min= weight1(X, Depth) + weight2(Z, Depth).
+
+%cost(X, Z, Depth)	min= key(String1, X, Y) + key(String2, Y, Z) whenever num(Depth).
+%cost(X, Z, Depth)	min= key(String1, X, Y) + key(String2, Y, Z) whenever num(Depth).
+
+%cost(X, Z)		min= key(String1, X, Y) + key(String2, Y, Z).
+%cost(X, Z)		min= key(String1, X, Y) + key(String2, Y, Z).
+
+goal			min= cost(3, N, 1) whenever numkeys(N).
+
+num(1) := 0.
+num(2) := 0.
+num(3) := 0.
+num(4) := 0.
+num(5) := 0.
+##########dynac: end file ##########
+The current version of dyna does not allow using types that include ints or strings together with other terms
+declaration inference failed
+make: *** [optBST.dyna_dcl0] Error 1
+
+!!! Thu May 12 03:56:46 2005 /home/3/data/cs325/dyna/bin/dynac-latest 0.3.8-r2536 optBST.dyna --driver=backtrace !!!
+########## dynac 0.3.8-r2536: /home/1/btsai/DM/hw5/optBST.dyna##########
+:- pragma(keep_best_antecedents(item)).
+:- structure(key(string,int,int)).
+:- item(item, double, inf).
+
+zero 	:= 0.
+one 	:= 1.
+
+weight1(X, zero)	min= zero whenever key(String, X, Y).
+weight1(X, Depth)	min= key(String, X, Y) + weight(X, Depth - 1).
+
+weight2(Z, zero)	min= zero whenever key(String, Y, Z).
+weight2(Z, Depth)	min= key(String, Y, Z) + weight(Z, Depth - 1).
+
+cost(X, Z, Depth)	min= weight1(X, Depth) + weight2(Z, Depth).
+
+%cost(X, Z, Depth)	min= key(String1, X, Y) + key(String2, Y, Z) whenever num(Depth).
+%cost(X, Z, Depth)	min= key(String1, X, Y) + key(String2, Y, Z) whenever num(Depth).
+
+%cost(X, Z)		min= key(String1, X, Y) + key(String2, Y, Z).
+%cost(X, Z)		min= key(String1, X, Y) + key(String2, Y, Z).
+
+goal			min= cost(3, N, 1) whenever numkeys(N).
+
+num(1) := 0.
+num(2) := 0.
+num(3) := 0.
+num(4) := 0.
+num(5) := 0.
+##########dynac: end file ##########
+The current version of dyna does not allow using types that include ints or strings together with other terms
+declaration inference failed
+make: *** [optBST.dyna_dcl0] Error 1
+
+!!! Thu May 12 03:57:20 2005 /home/3/data/cs325/dyna/bin/dynac-latest 0.3.8-r2536 optBST.dyna --driver=backtrace !!!
+########## dynac 0.3.8-r2536: /home/1/btsai/DM/hw5/optBST.dyna##########
+:- pragma(keep_best_antecedents(item)).
+:- structure(key(string,int,int)).
+:- item(item, double, inf).
+
+zero 	:= 0.
+one 	:= 1.
+
+weight(X, 0)		min= zero whenever key(String, X, Y).
+weight(X, Depth)	min= key(String, X, Y) + weight(X, Depth - 1).
+
+cost(X, Z, Depth)	min= weight(X, Depth).
+
+%cost(X, Z, Depth)	min= key(String1, X, Y) + key(String2, Y, Z) whenever num(Depth).
+%cost(X, Z, Depth)	min= key(String1, X, Y) + key(String2, Y, Z) whenever num(Depth).
+
+%cost(X, Z)		min= key(String1, X, Y) + key(String2, Y, Z).
+%cost(X, Z)		min= key(String1, X, Y) + key(String2, Y, Z).
+
+goal			min= cost(3, N, 1) whenever numkeys(N).
+
+num(1) := 0.
+num(2) := 0.
+num(3) := 0.
+num(4) := 0.
+num(5) := 0.
+##########dynac: end file ##########
+The current version of dyna does not allow using types that include ints or strings together with other terms
+declaration inference failed
+make: *** [optBST.dyna_dcl0] Error 1
+
+!!! Thu May 12 03:57:50 2005 /home/3/data/cs325/dyna/bin/dynac-latest 0.3.8-r2536 optBST.dyna --driver=backtrace !!!
+########## dynac 0.3.8-r2536: /home/1/btsai/DM/hw5/optBST.dyna##########
+:- pragma(keep_best_antecedents(item)).
+:- structure(key(string,int,int)).
+:- item(item, double, inf).
+
+zero 	:= 0.
+one 	:= 1.
+
+weight(X, zero)		min= zero whenever key(String, X, Y).
+weight(X, Depth)	min= key(String, X, Y) + weight(X, Depth - one).
+
+cost(X, Z, Depth)	min= weight(X, Depth).
+
+%cost(X, Z, Depth)	min= key(String1, X, Y) + key(String2, Y, Z) whenever num(Depth).
+%cost(X, Z, Depth)	min= key(String1, X, Y) + key(String2, Y, Z) whenever num(Depth).
+
+%cost(X, Z)		min= key(String1, X, Y) + key(String2, Y, Z).
+%cost(X, Z)		min= key(String1, X, Y) + key(String2, Y, Z).
+
+goal			min= cost(3, N, one) whenever numkeys(N).
+
+num(1) := 0.
+num(2) := 0.
+num(3) := 0.
+num(4) := 0.
+num(5) := 0.
+##########dynac: end file ##########
+compiler: optBST.dyna:11: variable Z in consequent appears nowhere in the right hand side of the rule
+compilation failed
+make: *** [optBST_dyna.cpp] Error 1
+
+!!! Thu May 12 03:58:13 2005 /home/3/data/cs325/dyna/bin/dynac-latest 0.3.8-r2536 optBST.dyna --driver=backtrace !!!
+########## dynac 0.3.8-r2536: /home/1/btsai/DM/hw5/optBST.dyna##########
+:- pragma(keep_best_antecedents(item)).
+:- structure(key(string,int,int)).
+:- item(item, double, inf).
+
+zero 	:= 0.
+one 	:= 1.
+
+weight(X, zero)		min= zero whenever key(String, X, Y).
+weight(X, Depth)	min= key(String, X, Y) + weight(X, Depth - one).
+
+cost(X, Z, Depth)	min= weight(X, Depth) + weight(Z, Depth).
+
+%cost(X, Z, Depth)	min= key(String1, X, Y) + key(String2, Y, Z) whenever num(Depth).
+%cost(X, Z, Depth)	min= key(String1, X, Y) + key(String2, Y, Z) whenever num(Depth).
+
+%cost(X, Z)		min= key(String1, X, Y) + key(String2, Y, Z).
+%cost(X, Z)		min= key(String1, X, Y) + key(String2, Y, Z).
+
+goal			min= cost(3, N, one) whenever numkeys(N).
+
+num(1) := 0.
+num(2) := 0.
+num(3) := 0.
+num(4) := 0.
+num(5) := 0.
+##########dynac: end file ##########
+
+!!! Thu May 12 04:07:47 2005 /home/3/data/cs325/dyna/bin/dynac-latest 0.3.8-r2536 optBST.dyna --driver=backtrace !!!
+########## dynac 0.3.8-r2536: /home/1/btsai/DM/hw5/optBST.dyna##########
+:- pragma(keep_best_antecedents(item)).
+:- structure(key(string,int,int)).
+:- item(item, double, inf).
+
+zero 	:= 0.
+one 	:= 1.
+
+weight(X, Depth)	+= Depth * key(String, X, Y).
+
+cost(X, Z, Depth)	min= weight(X, 1) + weight(Z, 2).
+
+%cost(X, Z)		min= key(String1, X, Y) + key(String2, Y, Z).
+
+goal			min= cost(3, N) whenever numkeys(N).
+
+num(1) := 0.
+num(2) := 0.
+num(3) := 0.
+num(4) := 0.
+num(5) := 0.
+##########dynac: end file ##########
+optBST.dyna:8: All parts of the right-hand side must be terms
+duplicate subexpression elimination failed
+make: *** [optBST.dyna_dse] Error 1
+
+!!! Thu May 12 04:08:07 2005 /home/3/data/cs325/dyna/bin/dynac-latest 0.3.8-r2536 optBST.dyna --driver=backtrace !!!
+########## dynac 0.3.8-r2536: /home/1/btsai/DM/hw5/optBST.dyna##########
+:- pragma(keep_best_antecedents(item)).
+:- structure(key(string,int,int)).
+:- item(item, double, inf).
+
+weight(X, Depth)	+= Depth * key(String, X, Y).
+
+cost(X, Z, Depth)	min= weight(X, 1) + weight(Z, 2).
+
+%cost(X, Z)		min= key(String1, X, Y) + key(String2, Y, Z).
+
+goal			min= cost(3, N) whenever numkeys(N).
+
+num(1) := 0.
+num(2) := 0.
+num(3) := 0.
+num(4) := 0.
+num(5) := 0.
+##########dynac: end file ##########
+optBST.dyna:5: All parts of the right-hand side must be terms
+duplicate subexpression elimination failed
+make: *** [optBST.dyna_dse] Error 1
+
+!!! Thu May 12 04:08:28 2005 /home/3/data/cs325/dyna/bin/dynac-latest 0.3.8-r2536 optBST.dyna --driver=backtrace !!!
+########## dynac 0.3.8-r2536: /home/1/btsai/DM/hw5/optBST.dyna##########
+:- pragma(keep_best_antecedents(item)).
+:- structure(key(string,int,int)).
+:- item(item, double, inf).
+
+weight(X)	+= 1 * key(String, X, Y).
+
+cost(X, Z, Depth)	min= weight(X, 1) + weight(Z, 2).
+
+%cost(X, Z)		min= key(String1, X, Y) + key(String2, Y, Z).
+
+goal			min= cost(3, N) whenever numkeys(N).
+
+num(1) := 0.
+num(2) := 0.
+num(3) := 0.
+num(4) := 0.
+num(5) := 0.
+##########dynac: end file ##########
+optBST.dyna:5: All parts of the right-hand side must be terms
+duplicate subexpression elimination failed
+make: *** [optBST.dyna_dse] Error 1
+
+!!! Thu May 12 04:08:43 2005 /home/3/data/cs325/dyna/bin/dynac-latest 0.3.8-r2536 optBST.dyna --driver=backtrace !!!
+########## dynac 0.3.8-r2536: /home/1/btsai/DM/hw5/optBST.dyna##########
+:- pragma(keep_best_antecedents(item)).
+:- structure(key(string,int,int)).
+:- item(item, double, inf).
+
+weight(X)	:= 1 * key(String, X, Y).
+
+cost(X, Z, Depth)	min= weight(X, 1) + weight(Z, 2).
+
+%cost(X, Z)		min= key(String1, X, Y) + key(String2, Y, Z).
+
+goal			min= cost(3, N) whenever numkeys(N).
+
+num(1) := 0.
+num(2) := 0.
+num(3) := 0.
+num(4) := 0.
+num(5) := 0.
+##########dynac: end file ##########
+compiler: optBST.dyna:7: variable Depth in consequent appears nowhere in the right hand side of the rule
+compilation failed
+make: *** [optBST_dyna.cpp] Error 1
+
+!!! Thu May 12 04:09:02 2005 /home/3/data/cs325/dyna/bin/dynac-latest 0.3.8-r2536 optBST.dyna --driver=backtrace !!!
+########## dynac 0.3.8-r2536: /home/1/btsai/DM/hw5/optBST.dyna##########
+:- pragma(keep_best_antecedents(item)).
+:- structure(key(string,int,int)).
+:- item(item, double, inf).
+
+weight(X)	:= 1 * key(String, X, Y).
+
+cost(X, Z)	min= weight(X, 1) + weight(Z, 2).
+
+%cost(X, Z)		min= key(String1, X, Y) + key(String2, Y, Z).
+
+goal			min= cost(3, N) whenever numkeys(N).
+
+num(1) := 0.
+num(2) := 0.
+num(3) := 0.
+num(4) := 0.
+num(5) := 0.
+##########dynac: end file ##########
+
+!!! Thu May 12 04:09:53 2005 /home/3/data/cs325/dyna/bin/dynac-latest 0.3.8-r2536 optBST.dyna --driver=backtrace !!!
+########## dynac 0.3.8-r2536: /home/1/btsai/DM/hw5/optBST.dyna##########
+:- pragma(keep_best_antecedents(item)).
+:- structure(key(string,int,int)).
+:- item(item, double, inf).
+
+weight(X)	:= 1 * key(String, X, Y).
+
+cost(X, Z)	min= weight(X) + weight(Z).
+
+%cost(X, Z)		min= key(String1, X, Y) + key(String2, Y, Z).
+
+goal			min= cost(3, N) whenever numkeys(N).
+
+num(1) := 0.
+num(2) := 0.
+num(3) := 0.
+num(4) := 0.
+num(5) := 0.
+##########dynac: end file ##########
+
+!!! Thu May 12 04:10:52 2005 /home/3/data/cs325/dyna/bin/dynac-latest 0.3.8-r2536 optBST.dyna --driver=backtrace !!!
+########## dynac 0.3.8-r2536: /home/1/btsai/DM/hw5/optBST.dyna##########
+:- pragma(keep_best_antecedents(item)).
+:- structure(key(string,int,int)).
+:- item(item, double, inf).
+
+weight(X)	:= 1 * key(String, X, Y).
+
+cost(X, Z)	min= weight(X) + weight(Z).
+
+goal			min= cost(3, N) whenever numkeys(N).
+##########dynac: end file ##########
+
+!!! Thu May 12 04:12:18 2005 /home/3/data/cs325/dyna/bin/dynac-latest 0.3.8-r2536 optBST.dyna --driver=backtrace !!!
+########## dynac 0.3.8-r2536: /home/1/btsai/DM/hw5/optBST.dyna##########
+:- pragma(keep_best_antecedents(item)).
+:- structure(key(string,int,int)).
+:- item(item, double, inf).
+
+weight(X)	+= 1 * key(String, X, Y).
+
+cost(X, Z)	min= weight(X) + weight(Z).
+
+goal			min= cost(3, N) whenever numkeys(N).
+##########dynac: end file ##########
+optBST.dyna:5: All parts of the right-hand side must be terms
+duplicate subexpression elimination failed
+make: *** [optBST.dyna_dse] Error 1
+
+!!! Thu May 12 04:12:35 2005 /home/3/data/cs325/dyna/bin/dynac-latest 0.3.8-r2536 optBST.dyna --driver=backtrace !!!
+########## dynac 0.3.8-r2536: /home/1/btsai/DM/hw5/optBST.dyna##########
+:- pragma(keep_best_antecedents(item)).
+:- structure(key(string,int,int)).
+:- item(item, double, -inf).
+
+weight(X)	+= 1 * key(String, X, Y).
+
+cost(X, Z)	min= weight(X) + weight(Z).
+
+goal			min= cost(3, N) whenever numkeys(N).
+##########dynac: end file ##########
+optBST.dyna:5: All parts of the right-hand side must be terms
+duplicate subexpression elimination failed
+make: *** [optBST.dyna_dse] Error 1
+
+!!! Thu May 12 04:12:47 2005 /home/3/data/cs325/dyna/bin/dynac-latest 0.3.8-r2536 optBST.dyna --driver=backtrace !!!
+########## dynac 0.3.8-r2536: /home/1/btsai/DM/hw5/optBST.dyna##########
+:- pragma(keep_best_antecedents(item)).
+:- structure(key(string,int,int)).
+:- item(item, double, -inf).
+
+weight(X)	:= 1 * key(String, X, Y).
+
+cost(X, Z)	min= weight(X) + weight(Z).
+
+goal			min= cost(3, N) whenever numkeys(N).
+##########dynac: end file ##########
+compiler: unimplemented: invalid item declaration or operator set: double/-inf/min=/+/
+currently, these are the only valid item declarations and operator sets, and you must have one of them:
+:- item(item,double,0) with += and *
+:- item(item,bool,false) with |= and &
+:- item(item,double,-inf) with log+= and +
+:- item(item,double,-inf) with max= and +
+:- item(item,double,inf) with min= and +
+compilation failed
+make: *** [optBST_dyna.cpp] Error 1
+
+!!! Thu May 12 04:13:27 2005 /home/3/data/cs325/dyna/bin/dynac-latest 0.3.8-r2536 optBST.dyna --driver=backtrace !!!
+########## dynac 0.3.8-r2536: /home/1/btsai/DM/hw5/optBST.dyna##########
+:- pragma(keep_best_antecedents(item)).
+:- structure(key(string,int,int)).
+:- item(item, double, 0).
+:- item(item, double, -inf).
+
+weight(X)	+= 1 * key(String, X, Y).
+
+cost(X, Z)	min= weight(X) + weight(Z).
+
+goal			min= cost(3, N) whenever numkeys(N).
+##########dynac: end file ##########
+optBST.dyna:6: All parts of the right-hand side must be terms
+duplicate subexpression elimination failed
+make: *** [optBST.dyna_dse] Error 1
+
+!!! Thu May 12 04:13:47 2005 /home/3/data/cs325/dyna/bin/dynac-latest 0.3.8-r2536 optBST.dyna --driver=backtrace !!!
+########## dynac 0.3.8-r2536: /home/1/btsai/DM/hw5/optBST.dyna##########
+:- pragma(keep_best_antecedents(item)).
+:- structure(key(string,int,int)).
+:- item(item, double, 0).
+%:- item(item, double, -inf).
+
+weight(X)	+= 1 * key(String, X, Y).
+
+cost(X, Z)	min= weight(X) + weight(Z).
+
+goal			min= cost(3, N) whenever numkeys(N).
+##########dynac: end file ##########
+optBST.dyna:6: All parts of the right-hand side must be terms
+duplicate subexpression elimination failed
+make: *** [optBST.dyna_dse] Error 1
+
+!!! Thu May 12 04:14:12 2005 /home/3/data/cs325/dyna/bin/dynac-latest 0.3.8-r2536 optBST.dyna --driver=backtrace !!!
+########## dynac 0.3.8-r2536: /home/1/btsai/DM/hw5/optBST.dyna##########
+:- pragma(keep_best_antecedents(item)).
+:- structure(key(string,int,int)).
+:- item(item, double, 0).
+:- item(item, double, -inf).
+
+one := 1.
+weight(X)	+= one * key(String, X, Y).
+
+cost(X, Z)	min= weight(X) + weight(Z).
+
+goal			min= cost(3, N) whenever numkeys(N).
+##########dynac: end file ##########
+compiler: item value type specified more than once.  You can currently only have one line of the form :- item(_,_,_).
+compilation failed
+make: *** [optBST_dyna.cpp] Error 1
+
+!!! Thu May 12 04:15:20 2005 /home/3/data/cs325/dyna/bin/dynac-latest 0.3.8-r2536 optBST.dyna --driver=backtrace !!!
+########## dynac 0.3.8-r2536: /home/1/btsai/DM/hw5/optBST.dyna##########
+:- pragma(keep_best_antecedents(item)).
+:- structure(key(string,int,int)).
+:- item(item, double, -inf).
+
+
+cost(X, Z)	min= key(String1, X, Y) + key(String2, Y, Z).
+goal		min= cost(3, N) whenever numkeys(N).
+##########dynac: end file ##########
+compiler: unimplemented: invalid item declaration or operator set: double/-inf/min=/+/
+currently, these are the only valid item declarations and operator sets, and you must have one of them:
+:- item(item,double,0) with += and *
+:- item(item,bool,false) with |= and &
+:- item(item,double,-inf) with log+= and +
+:- item(item,double,-inf) with max= and +
+:- item(item,double,inf) with min= and +
+compilation failed
+make: *** [optBST_dyna.cpp] Error 1
+
+!!! Thu May 12 04:15:33 2005 /home/3/data/cs325/dyna/bin/dynac-latest 0.3.8-r2536 optBST.dyna --driver=backtrace !!!
+########## dynac 0.3.8-r2536: /home/1/btsai/DM/hw5/optBST.dyna##########
+:- pragma(keep_best_antecedents(item)).
+:- structure(key(string,int,int)).
+:- item(item, double, inf).
+
+
+cost(X, Z)	min= key(String1, X, Y) + key(String2, Y, Z).
+goal		min= cost(3, N) whenever numkeys(N).
+##########dynac: end file ##########
+
+!!! Thu May 12 04:29:28 2005 /home/3/data/cs325/dyna/bin/dynac-latest 0.3.8-r2536 optBST.dyna --driver=backtrace !!!
+########## dynac 0.3.8-r2536: /home/1/btsai/DM/hw5/optBST.dyna##########
+:- pragma(keep_best_antecedents(item)).
+:- structure(key(string,int,int)).
+:- item(item, double, inf).
+
+
+cost(X, Z)	min= key(String1, X, Y) + key(String2, Y, Z) + key(String2, Y, Z).
+cost(X, Z)	min= key(String1, X, Y) + key(String1, X, Y) + key(String2, Y, Z).
+goal		min= cost(3, N) whenever numkeys(N).
+##########dynac: end file ##########
+
+!!! Thu May 12 04:33:28 2005 /home/3/data/cs325/dyna/bin/dynac-latest 0.3.8-r2536 optBST.dyna --driver=backtrace !!!
+########## dynac 0.3.8-r2536: /home/1/btsai/DM/hw5/optBST.dyna##########
+:- pragma(keep_best_antecedents(item)).
+:- structure(key(string,int,int)).
+:- item(item, double, inf).
+
+
+cost(A, C)	min= key(String1, A, B) + key(String2, B, C) + key(String2, B, C).
+cost(A, C)	min= key(String1, A, B) + key(String1, A, B) + key(String2, B, C).
+%cost(A, D)	min= cost(A, B) + key(String, B, C) + cost(C, D).
+goal		min= cost(3, N) whenever numkeys(N).
+##########dynac: end file ##########
+
+!!! Thu May 12 04:34:54 2005 /home/3/data/cs325/dyna/bin/dynac-latest 0.3.8-r2536 optBST.dyna --driver=backtrace !!!
+########## dynac 0.3.8-r2536: /home/1/btsai/DM/hw5/optBST.dyna##########
+:- pragma(keep_best_antecedents(item)).
+:- structure(key(string,int,int)).
+:- item(item, double, inf).
+
+
+cost(A, C)	min= key(String1, A, B) + key(String2, B, C) + key(String2, B, C).
+cost(A, C)	min= key(String1, A, B) + key(String1, A, B) + key(String2, B, C).
+cost(A, D)	min= cost(A, B) + key(String, B, C) + cost(C, D).
+goal		min= cost(2, N) whenever numkeys(N).
+##########dynac: end file ##########
+
+!!! Thu May 12 04:36:51 2005 /home/3/data/cs325/dyna/bin/dynac-latest 0.3.8-r2536 optBST.dyna --driver=backtrace !!!
+########## dynac 0.3.8-r2536: /home/1/btsai/DM/hw5/optBST.dyna##########
+:- pragma(keep_best_antecedents(item)).
+:- structure(key(string,int,int)).
+:- item(item, double, inf).
+
+cost(A, B)	min= key(String, A, B).
+cost(A, C)	min= key(String1, A, B) + key(String2, B, C) + key(String2, B, C).
+cost(A, C)	min= key(String1, A, B) + key(String1, A, B) + key(String2, B, C).
+cost(A, D)	min= cost(A, B) + key(String, B, C) + cost(C, D).
+goal		min= cost(2, N) whenever numkeys(N).
+##########dynac: end file ##########
+
+!!! Thu May 12 04:37:53 2005 /home/3/data/cs325/dyna/bin/dynac-latest 0.3.8-r2536 optBST.dyna --driver=backtrace !!!
+########## dynac 0.3.8-r2536: /home/1/btsai/DM/hw5/optBST.dyna##########
+:- pragma(keep_best_antecedents(item)).
+:- structure(key(string,int,int)).
+:- item(item, double, inf).
+
+cost(A, B)	min= key(String, A, B).
+cost(A, C)	min= key(String1, A, B) + key(String2, B, C) + key(String2, B, C).
+cost(A, C)	min= key(String1, A, B) + key(String1, A, B) + key(String2, B, C).
+cost(A, D)	min= cost(A, B) + key(String, B, C) + cost(C, D).
+goal		min= cost(0, N) whenever numkeys(N).
+##########dynac: end file ##########
+
+!!! Thu May 12 04:39:50 2005 /home/3/data/cs325/dyna/bin/dynac-latest 0.3.8-r2536 optBST.dyna --driver=backtrace !!!
+########## dynac 0.3.8-r2536: /home/1/btsai/DM/hw5/optBST.dyna##########
+:- pragma(keep_best_antecedents(item)).
+:- structure(key(string,int,int)).
+:- item(item, double, inf).
+
+cost(A, B)	min= key(String, A, B).
+%cost(A, C)	min= key(String1, A, B) + key(String2, B, C) + key(String2, B, C).
+%cost(A, C)	min= key(String1, A, B) + key(String1, A, B) + key(String2, B, C).
+cost(A, D)	min= cost(A, B) + key(String, B, C) + cost(C, D).
+goal		min= cost(0, N) whenever numkeys(N).
+##########dynac: end file ##########
+
+!!! Thu May 12 04:41:11 2005 /home/3/data/cs325/dyna/bin/dynac-latest 0.3.8-r2536 optBST.dyna --driver=backtrace !!!
+########## dynac 0.3.8-r2536: /home/1/btsai/DM/hw5/optBST.dyna##########
+:- pragma(keep_best_antecedents(item)).
+:- structure(key(string,int,int)).
+:- item(item, double, inf).
+
+zero := 0.
+cost(A, A)	min= zero.
+cost(A, B)	min= key(String, A, B).
+cost(A, D)	min= cost(A, B) + key(String, B, C) + cost(C, D).
+goal		min= cost(0, N) whenever numkeys(N).
+##########dynac: end file ##########
+compiler: optBST.dyna:6: variable A in consequent appears nowhere in the right hand side of the rule
+compilation failed
+make: *** [optBST_dyna.cpp] Error 1
+
+!!! Thu May 12 04:42:09 2005 /home/3/data/cs325/dyna/bin/dynac-latest 0.3.8-r2536 optBST.dyna --driver=backtrace !!!
+########## dynac 0.3.8-r2536: /home/1/btsai/DM/hw5/optBST.dyna##########
+:- pragma(keep_best_antecedents(item)).
+:- structure(key(string,int,int)).
+:- item(item, double, inf).
+
+cost(A, B)	min= key(String, A, B).
+cost(A, D)	min= cost(A, B) + key(String, B, C) + cost(C, D).
+goal		min= cost(3, N) whenever numkeys(N).
+##########dynac: end file ##########
+
+!!! Thu May 12 04:43:36 2005 /home/3/data/cs325/dyna/bin/dynac-latest 0.3.8-r2536 optBST.dyna --driver=backtrace !!!
+########## dynac 0.3.8-r2536: /home/1/btsai/DM/hw5/optBST.dyna##########
+:- pragma(keep_best_antecedents(item)).
+:- structure(key(string,int,int)).
+:- item(item, double, inf).
+
+cost(A, B)	min= key(String, A, B).
+cost(A, C)	min= cost(A, B) + key(String, B, C).
+cost(A, C)	min= key(String, A, B) + cost(B, C).
+cost(A, D)	min= cost(A, B) + key(String, B, C) + cost(C, D).
+goal		min= cost(3, N) whenever numkeys(N).
+##########dynac: end file ##########
+
+!!! Thu May 12 04:45:28 2005 /home/3/data/cs325/dyna/bin/dynac-latest 0.3.8-r2536 optBST.dyna --driver=backtrace !!!
+########## dynac 0.3.8-r2536: /home/1/btsai/DM/hw5/optBST.dyna##########
+:- pragma(keep_best_antecedents(item)).
+:- structure(key(string,int,int)).
+:- item(item, double, inf).
+
+cost(A, B)	min= key(String, A, B).
+cost(A, C)	min= cost(A, B) + cost(A, B) + key(String, B, C).
+cost(A, C)	min= key(String, A, B) + cost(B, C) + cost(B, C).
+cost(A, D)	min= cost(A, B) + cost(A, B) + key(String, B, C) + cost(C, D) + cost(C, D).
+goal		min= cost(3, N) whenever numkeys(N).
+##########dynac: end file ##########
+
+!!! Thu May 12 04:46:50 2005 /home/3/data/cs325/dyna/bin/dynac-latest 0.3.8-r2536 optBST.dyna --driver=backtrace !!!
+########## dynac 0.3.8-r2536: /home/1/btsai/DM/hw5/optBST.dyna##########
+:- pragma(keep_best_antecedents(item)).
+:- structure(key(string,int,int)).
+:- item(item, double, inf).
+
+cost(A, B)	min= key(String, A, B).
+cost(A, C)	min= cost(A, B) + cost(A, B) + key(String, B, C).
+cost(A, C)	min= key(String, A, B) + cost(B, C) + cost(B, C).
+cost(A, D)	min= cost(A, B) + cost(A, B) + key(String, B, C) + cost(C, D) + cost(C, D).
+goal		min= cost(0, N) whenever numkeys(N).
+##########dynac: end file ##########
+
+!!! Thu May 12 04:55:15 2005 /home/3/data/cs325/dyna/bin/dynac-latest 0.3.8-r2536 optBST.dyna --driver=backtrace !!!
+########## dynac 0.3.8-r2536: /home/1/btsai/DM/hw5/optBST.dyna##########
+:- pragma(keep_best_antecedents(item)).
+:- structure(key(string,int,int)).
+:- item(item, double, inf).
+
+sum(A, B)	min= key(String, A, B).
+sum(A, C)	min= sum(A, B) + key(String, B, C).
+sum(A, C)	min= key(String, A, B) + sum(B, C).
+sum(A, D)	min= sum(A, B) + key(String, B, C) + sum(C, D).
+
+cost(A, B)	min= key(String, A, B).
+cost(A, C)	min= cost(A, B) + sum(A, B) + key(String, B, C).
+cost(A, C)	min= key(String, A, B) + cost(B, C) + sum(B, C).
+cost(A, D)	min= cost(A, B) + sum(A, B) + key(String, B, C) + cost(C, D) + sum(C, D).
+
+goal		min= cost(0, N) whenever numkeys(N).
+##########dynac: end file ##########
+
+!!! Thu May 12 05:50:05 2005 /home/3/data/cs325/dyna/bin/dynac-latest 0.3.8-r2538 optBST.dyna --driver=backtrace !!!
+########## dynac 0.3.8-r2538: /home/1/btsai/DM/hw5/optBST.dyna##########
+:- pragma(keep_best_antecedents(item)).
+:- structure(key(string,int,int)).
+:- item(item, double, inf).
+:- converges(goal, first pop).
+
+sum(A, B)	min= key(String, A, B).
+sum(A, C)	min= sum(A, B) + key(String, B, C).
+sum(A, C)	min= key(String, A, B) + sum(B, C).
+sum(A, D)	min= sum(A, B) + key(String, B, C) + sum(C, D).
+
+cost(A, B)	min= key(String, A, B).
+cost(A, C)	min= cost(A, B) + sum(A, B) + key(String, B, C).
+cost(A, C)	min= key(String, A, B) + cost(B, C) + sum(B, C).
+cost(A, D)	min= cost(A, B) + sum(A, B) + key(String, B, C) + cost(C, D) + sum(C, D).
+
+goal		min= cost(0, N) whenever numkeys(N).
+##########dynac: end file ##########
+optBST.dyna:4: parse error near ')'
+make: *** [optBST.dyna_bin] Error 1
+
+!!! Thu May 12 05:50:28 2005 /home/3/data/cs325/dyna/bin/dynac-latest 0.3.8-r2538 optBST.dyna --driver=backtrace !!!
+########## dynac 0.3.8-r2538: /home/1/btsai/DM/hw5/optBST.dyna##########
+:- pragma(keep_best_antecedents(item)).
+:- structure(key(string,int,int)).
+:- item(item, double, inf).
+:- converges(goal, first_pop).
+
+sum(A, B)	min= key(String, A, B).
+sum(A, C)	min= sum(A, B) + key(String, B, C).
+sum(A, C)	min= key(String, A, B) + sum(B, C).
+sum(A, D)	min= sum(A, B) + key(String, B, C) + sum(C, D).
+
+cost(A, B)	min= key(String, A, B).
+cost(A, C)	min= cost(A, B) + sum(A, B) + key(String, B, C).
+cost(A, C)	min= key(String, A, B) + cost(B, C) + sum(B, C).
+cost(A, D)	min= cost(A, B) + sum(A, B) + key(String, B, C) + cost(C, D) + sum(C, D).
+
+goal		min= cost(0, N) whenever numkeys(N).
+##########dynac: end file ##########
+
+!!! Thu May 12 05:54:55 2005 /home/3/data/cs325/dyna/bin/dynac-latest 0.3.8-r2538 ancestor.dyna --driver=backtrace !!!
+########## dynac 0.3.8-r2538: /home/1/btsai/DM/hw5/ancestor.dyna##########
+:- pragma(keep_best_antecedents(item)).
+:- structure(child(string,string)).
+:- item(item, double, inf).
+pathto(Child,Ancestor)	min= child(Child,Ancestor).
+pathto(Child,Ancestor)	min= pathto(Child,Parent) + child(Parent,Ancestor).
+goal			min= person(1,First) + person(2,Second) + pathto(First,Ancestor) + pathto(Second,Ancestor).
+##########dynac: end file ##########
+
+!!! Thu May 12 06:14:52 2005 /home/3/data/cs325/dyna/bin/dynac-latest 0.3.8-r2538 ancestor.dyna --driver=backtrace !!!
+########## dynac 0.3.8-r2538: /home/1/btsai/DM/hw5/ancestor.dyna##########
+:- pragma(keep_best_antecedents(item)).
+:- structure(child(string,string)).
+:- item(item, double, inf).
+
+% There's a path from a child to an ancestor if the child's parent is the ancestor or a child of the ancestor
+pathto(Child,Ancestor)	min= child(Child,Ancestor).
+pathto(Child,Ancestor)	min= pathto(Child,ChildOfAncestor) + child(ChildOfAncestor,Ancestor).
+
+goal			min= person(1,First) + person(2,Second) + pathto(First,Ancestor) + pathto(Second,Ancestor).
+##########dynac: end file ##########
+
+!!! Thu May 12 06:17:51 2005 /home/3/data/cs325/dyna/bin/dynac-latest 0.3.8-r2538 lis.dyna --driver=backtrace !!!
+########## dynac 0.3.8-r2538: /home/1/btsai/DM/hw5/lis.dyna##########
+#include "lessthan.dyna"
+:- pragma(keep_best_antecedents(item)).
+:- structure(cons(int,list)).
+:- item(item, double, -inf).
+
+% Define interesting lists
+interesting(Xs)	max= input(Xs).
+interesting(Xs)	max= interesting([X|Xs]).
+
+% Define numbers we need
+zero		:= 0.
+one		:= 1.
+
+% Recursive definition of LIS
+lis([], K)	max= zero whenever succ(K,_).
+lis([X|Xs], K)	max= lessthan(K,X) + lis(Xs, X) + one whenever interesting([X|Xs]).
+lis([X|Xs], K)	max= lis(Xs, K) whenever interesting([X|Xs]).
+
+goal		max= lis(X, -1) whenever input(X).
+##########dynac: end file ##########

@@ -1,0 +1,6 @@
+#!/bin/sh
+zcat $1 | ./build_standards > standards.txt
+zcat $1 | ./build_features > train_extended
+gzip train_extended
+zcat $2 | ./build_features > test_extended
+gzip test_extended

@@ -1,0 +1,19 @@
+POST http://tickets.amtrak.com/Amtrak/availability
+DATA storefront=1003&pageID=main&departMonth1=Jul&departDay1=26&inputDepartureDate=Jul 26, 2003&inputDepartureStation=Baltimore, MD&inputDestinationStation=Boston, MA&inputDepartureTime=1200&inputNumberOfTravelers=1
+Code = 302
+Base = http://tickets.amtrak.com/Amtrak/availability
+
+GET http://tickets.amtrak.com/Amtrak/sid=D543F9A454E7C6274716F08B3D6F0669/main;jsessionid=7bd0%3A3efb2089%3A5429f4bf75c63ef3?storefront=1003&pageID=availability
+Code = 200
+Base = http://tickets.amtrak.com/Amtrak/sid=D543F9A454E7C6274716F08B3D6F0669/main;jsessionid=7bd0%3A3efb2089%3A5429f4bf75c63ef3?storefront=1003&pageID=availability
+
+POST http://tickets.amtrak.com/Amtrak/availability
+DATA storefront=1003&pageID=main&inputDepartureDate=Jul 26, 2003&inputDepartureStation=BAL&inputDestinationStation=BOS&inputDepartureTime=1200&inputNumberOfTravelers=1&inputReturnDate=Aug 26, 2003&inputReturnTime=1200
+Code = 200
+Base = http://tickets.amtrak.com/Amtrak/availability
+
+POST http://tickets.amtrak.com/Amtrak/sid=43FAAF4282FA9E1C669BD8A6FDE473CB/pricing;jsessionid=7bd4%3A3efb208b%3Adc188f51d4b77d9?storefront=1003&pageID=availability
+DATA selectedTripOption0=0&selectedTripOption1=0&passengerType0=ADU
+Code = 200
+Base = http://tickets.amtrak.com/Amtrak/sid=43FAAF4282FA9E1C669BD8A6FDE473CB/pricing;jsessionid=7bd4%3A3efb208b%3Adc188f51d4b77d9?storefront=1003&pageID=availability
+

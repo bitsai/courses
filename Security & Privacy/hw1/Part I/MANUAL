@@ -1,0 +1,34 @@
+Benny Tsai
+benny.tsai@gmail.com
+600.443
+Assignment 1
+
+*** You can access a running version of the program at: <http://hops.cs.jhu.edu/cgi-bin/cgiwrap/~btsai/index.pl>. ***
+
+How to use: Once you've accessed the main page (index.pl), you may do any of the following...
+
+	- Register a new account.  You'll need to specify your user name and password.
+
+	- View your stock portfolio.  You'll need to specify your user name and password.
+
+	- View your trade history.  You'll need to specify your user name and password.
+
+	- Buy stock.  You'll need to specify the stock you wish to buy, the desired quantity, your user name and password.
+
+ 	- Sell stock.  You'll need to specify the stock you wish to sell, the desired quantity, your user name and password.
+
+*** I was a bit pressed for time, so you can do some funky things like sell stocks not in your portfolio and own negative quantities of stock.  These "features" have nothing to do with the backdoor.  Scout's Honor. ***
+
+Security: Ways in which I toyed with application security...
+
+ 	- After playing around with the interface a bit, you're probably really annoyed by how you have to specify a user name and password every time you want to do something.  I'm sorry about that.  My goal was to make this program as secure as possible (except for my backdoor), and since I didn't know how to do cookies, SSL, or anything cool like that, I force the user to re-authenticate for every action.
+
+	- I was unable to avoid sending the password in the clear.  Yet another "feature" due to lack of time and lack of web programming savvy.  This has nothing to do with the backdoor; even if the password was not sent in the clear (SSL, challenge/response, etc.), the backdoor would still work perfectly.
+
+	- The user passwords are stored in salted hashed form on the server.  The salt is specified in controller.pl.  You can change it to anything you want, but please do so before any accounts are created.  If you do so after someone registers, his account will become inaccessible, because the server's salted hash of his password (salted with the old salt) will no longer match the salted hash of their password (salted with the new salt).  This has nothing to do with the backdoor, just the mechanics of this implementation of storing salted hashes.
+
+	- No SQL databases used, so no SQL-injection attacks.  Rigorous input checking is implemented, because you never know what values will get submitted to a script.  As an example, when buying/selling, if the user tries to trade a stock not in the database, or specifies a non-numeric quantity of stock, the scripts automatically rejects the transaction.
+
+	- Input checking also done on user names, since the scripts use user names to decide what files to pipe open on multiple occassions.  There are many powerful attacks possible when you let user input near the shell like this, so good filtering must be done.  Taint-mode is turned on so we don't accidentally let something slip by unchecked.  And this regular expression (/^([^\&;\`\\\"\|*\?\~\<\>\^\(\)\[\]\{\}\$\n\r\0]+)$/) is used to ensure the user name does not contain any evil meta-characters; if any of these characters are detected we automatically fail authentication (See controller.pl for details).  In particular, we reject if a null-byte is found, to defeat the evil evil null-byte attack.
+
+*** Please feel free to direct any comments, questions, or criticisms to my email address at the top of the page. ***

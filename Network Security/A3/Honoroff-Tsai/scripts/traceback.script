@@ -1,0 +1,30 @@
+# Simnet, version 0.8
+# COPYRIGHT Seny Kamara, Darren Davis, Fabian Monrose, 2002-2003
+# Please read the DISCLAIMER
+
+# Use IP traceback to find the source of packets.
+
+verbose 1 
+
+load networks/test.net
+start all
+usp
+slp all all 0 0 0 0
+
+# Traceback Test
+plug in all A2.TracebackRouter
+s JHU
+plug in A2.Traceback 100
+start_tb
+
+# start the attack
+s FLORAM
+flood MIT 1111 JHU 80 17 1000 100 0 0
+
+# see the results
+wait 2000
+s JHU
+tb
+
+# see the actual path
+tr FLORAM

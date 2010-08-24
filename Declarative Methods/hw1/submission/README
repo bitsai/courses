@@ -1,0 +1,102 @@
+Benny Tsai
+600.425
+Declarative Methods
+Homework 1
+
+1)	a.	(A) ^ (B v C)
+	b.	(A v B) ^ (C v D)
+	c.	(~A v B)
+	d.	(~C v D) ^ (~D v C)
+	e.	(A) ^ (~B v ~C)
+	f.	(~A v ~B v ~C v ~D) ^ (A v B) ^ (A v C) ^ (A v D)
+
+2)	Nothing required.
+
+3) 	As suggested in the problem, for each person p we define logical variable P
+	corresponding to the proposition that "p is a Knight."  In general, each 
+	statement S uttered by person P can be encoded as "(P <=> S)", as S will be 
+	true iff P is a Knight.  This is used for each problem.
+	a.	(A <=> B) ^ (B <=> (A v B))
+		(A -> B) ^ (B -> A) ^ (B -> (A v B)) ^ ((A v B) -> B)
+		(~A v B) ^ (~B v A) ^ (~B v A v B) ^ ((~A ^ B) v B)
+		(~A v B) ^ (~B v A) ^ (~B v A v B) ^ (~A v B) ^ (B v B)
+		(~A v B) ^ (~B v A) ^ (~A v B) ^ (B)
+
+	b.	(C <=> (D -> E)) ^ (D <=> ~E) ^ (E <=> (C xor E))
+		(~C v (~D v E)) ^ (~(~D v E) v C) ^ (~D v ~E) ^ (E v D) ^ (~E v (C xor E)) ^ (~(C xor E) v E)
+		(~C v ~D v ~E) ^ ((D ^ ~E) v C) ^ (~D v ~E) ^ (E v D) ^ (~E v ((~C v ~E) ^ (C v E))) ^ (((~C v E) ^ (C v ~E)) v E)
+		(~C v ~D v ~E) ^ (D v C) ^ (~E v C) ^ (~D v ~E) ^ (E v D) ^ (~C v ~E v ~E) ^ (C v E v ~E) ^ (~C v E v E) ^ (C v ~E v E)
+		(~C v ~D v ~E) ^ (D v C) ^ (~E v C) ^ (~D v ~E) ^ (E v D) ^ (~C v ~E) ^ (~C v E)
+
+	c.	*** Did this for the original version, where Irene and Hal were referenced ***
+		(F <=> (F xor ~I)) ^ (G <=> H)
+		(~F v (F xor ~I)) ^ (~(F xor ~I) v F) ^ (~G v H) ^ (~H v G)
+		(~F v ((~F v I) ^ (~I v F))) ^ (((~F v ~I) ^ (F v I)) v F) ^ (~G v H) ^ (~H v G)
+		(~F v ~F v I) ^ (~F v ~I v F) ^ (~F v ~I v F) ^ (F v I v F) ^ (G v H) ^ (~H v G)
+		(~F v I) ^ (F v I) ^ (G v H) ^ (~H v G)
+
+	d.	*** Define new variable Y corresponding to the proposition that "Irene answered Yes."
+		(H <=> (H ^ I)) ^ ((I ^ Y) -> H) ^ ((I ^ ~Y) -> ~H) ^ ((~I ^ Y) -> ~H) ^ ((~I ^ ~Y) -> H)
+		(~H v (H ^ I)) ^ (~(H ^ I) v H) ^ (~(I ^ Y) v H) ^ (~(I ^ ~Y) v ~H) ^ (~(~I ^ Y) v ~H) ^ (~(~I ^ ~Y) v H)
+		(~H v H) ^ (~H v I) ^ (~H v ~I v H) ^ (~I v ~Y v H) ^ (~I v Y v ~H) ^ (I v ~Y v ~H) ^ (I v Y v H)
+		(~H v I) ^ (~I v ~Y v H) ^ (~I v Y v ~H) ^ (I v ~Y v ~H) ^ (I v Y v H)
+	
+4)	a.	A, B
+	b.	~C, D, ~E
+	c.	~F, G, H, I
+	d.	~H, I, ~Y
+	
+5)	"Are you a Knight?"  Both person types would answer "yes", giving you no information about either of them.
+	Even if eventually you figure out that the second person was a Knave, this still does not give you
+	enough information to figure out what the first person was.
+	
+6)	How to run: Both encode and decode are perl scripts, so you should be able to invoke them from the command line.
+		Or use the crossword script, which can be run as "./crossword <name>", where <name> is the name of some .puzzle
+		file.  The script will return the answer to a file named "<name>.ans", as specified in the problem.
+		
+	Details:	A variable of the form <S>_<C>_<R> is used to represent the proposition that symbol S is present
+			at column C and row R.
+			
+			To encode the constraint(s) that all words in the puzzle must be in the dictionary, I used the following
+			approach:
+			
+			- When reading in the puzzle file, we arrange cells where words go as a series of spaces.  If on row 0 we
+			had tiles #_0_0, ._1_0, ._2_0, ._3_0, #_4_0, then we create a series (1_0, 2_0, 3_0).  Do the same thing
+			for each row and column.
+			
+			- Maintain a hash of hashes for letters and prefixes.  When reading in the dictionary file, for each letter 
+			in each word, add the letter to the hash indexed by length of the word and its prefix, and add the prefix to 
+			the hash indexed by length of word and length of prefix. For example, if we're reading the word "cat", and 
+			we're processing the last letter, we would add "t" to the "3 ca" letters hash, and add "ca" to the "3 2"
+			prefix hash.
+			
+			- To create the dictionary constraints, we simply process each series of spaces iteratively as shown in the
+			following example.  Suppose our dictionary has the words "bob", "cat" and "cab", and we're processing the series
+			(1_0, 2_0, 3_0).  Since the series has 3 spaces we know we only need to worry about words of length 3.  For
+			1_0, the prefix length is 0, so the only possibilities for 1_0 are the letters that can start a 3-letter word, 
+			"b" and "c"; we add the rule "b_1_0 v c_1_0". For 2_0, we look at prefixes of length 1 for words of length 3, 
+			which are "b" and "c".  "o" can follow "b", and "a" can follow "c", so we add the rules "~b_1_0 v o_2_0" and
+			"~c_1_0 v a_2_0".  For 3_0, we have prefixes "bo" and "ca".  "b" follows "bo", "b" and "t" follow "ca", so we add
+			the rules "~b_1_0 v ~o_2_0 v b_3_0" and "~c_1_0 v ~a_2_0 v b_3_0 v t_3_0".
+			
+			We also write constraints so that each empty tile is filled by a letter, no tile can be more than one letter,
+			and force each non-empty tile to retain its symbol from the puzzle file.
+			
+			Fun fact: I originally thought it would be a clever optimization to omit the explicit constraints that force each 
+			empty tile to be filled by a letter.  My reasoning was that the dictionary constraints alone will be able to force 
+			the empty tiles to be filled by a letter (the first tile in each series of spaces must be filled with a letter, and 
+			then the subsequent tiles will be forced by that first constraint to take on letters as well).  It works, but zChaff 
+			actually runs slower in this configuration.  Maybe it has to do with that threshold clauses-to-variables ratio?
+
+7)	In part 6, we needed constraints to prevent words from ending in the middle.  I didn't know how to write such constraints,
+	so I decided to write in length constraints to limit the tries instead, inadvertently doing the first suggested speed-up.  
+	As such, I don't have a baseline for judging whether significant speed-up was obtained.  The only thing I can offer in comparison 
+	is number of clauses generated: Blatz said his program generates a DIMACS CNF for normal.puzzle in 3458 variables and 401560 clauses.
+	Mine does so in 3458 variables and 208994 clauses.
+	
+8)	The program seems to run faster using UBCSat.  However, it doesn't always return a satisfactory solution.  Both may be 
+	caused by the fact that with default settings, UBCSat only runs the specified algorithm for a fixed number of steps, after 
+	which it terminates.  So, UBCSat will always terminate, and it will do so faster than zChaff (more noticeable as problem
+	size increases), but it may not have enough time to find a completely satisfactory solution before terminating.
+	
+9)	Not yet completed.

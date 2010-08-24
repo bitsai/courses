@@ -1,0 +1,78 @@
+Benny Tsai
+600.465
+Intro to NLP
+Assignment 4
+
+1)
+k.	The given transducer non-deterministically breaks up the input into substrings and applies the previously defined BracketNP transducer on the substrings.
+
+ni.	Verb<ArtAdjNmodNmodNoun>Prep<ArtAdjNoun>
+
+nii.	define NoMarks ~$"{";
+
+niii.	The transducer defined in part m sometimes skips over NP's marked for processing without actually processing them, so that in addition to the correct result we also get back extra, unwanted strings marked by the intermediate symbols "{" and "}".  Adding ".o. NoMarks" to the transducer passes the results from that transducer through the NoMarks acceptor, which accepts only strings without the "{" character to pass.  This allows us to eliminate the unwanted extra results.
+
+3)
+a.	define InsertSpaces [0:" " Words 0:" "]+;
+	define RemoveExtraSpaces " "+ @-> " ";
+	define RemoveEdgeSpaces " ":0 ?+ " ":0;
+	define Segment InsertSpaces .o. RemoveExtraSpaces .o. RemoveEdgeSpaces;
+
+b.	define InsertSpaces [0:" " Words 0:" "]+;
+	define RemoveExtraSpaces " "+ @-> " ";
+	define SingleCharCheck ~$[" "\a" "&" "\i" "];
+	define RemoveEdgeSpaces " ":0 ?+ " ":0;
+	define Segment InsertSpaces .o. RemoveExtraSpaces .o. SingleCharCheck .o. RemoveEdgeSpaces;
+	
+4)
+a.	Surface form: water
+	Lexical form 1: water, Noun, Attributive, Mass
+	Lexical form 2: water, Verb, Transitive/Intransitive
+
+b.	Surface form: kaboom
+
+c.	ripotulozkon: rip+Dim+Pl+Gen+Inalien
+	k'opuzmepog: k'op+Obv+NoNum+Com+Neg
+	poskugizmilek: posk+Aug+Obv+Pl+Ben
+	natot'opotul'otol: nat+Dim+All+Pl+Ela+Int
+
+d.	ripotulozkon: "my own little arms"
+	k'opuzmepog: "without (the) obvious nuclear reactor(s)"
+	poskugizmilek: "for (the) obvious girls"
+	natot'opotul'otol: "out of (the) alleged little houses"
+
+e.	ripetilozken
+	ripetilozkon
+	ripetulozken
+	ripetulozkon
+	ripotilozken
+	ripotilozkon
+	ripotulozken
+	ripotulozkon
+	Even though there are multiple possible intermediate representations for "ripotulozkon", it has only one lexical representation because only one of theses intermediate representations can be correctly parsed into a lexical representation.
+
+f.	define FSA NounMorphPhon.l;
+
+g.	Morpheme: it, "from"
+	In k'opakojakut, "from (the) few awful nuclear reactors", "it" becomes "ut" because the morpheme is preceeded by "k".
+	In k'opakulit, "from (the) awful nuclear reactors", "it" remains unchanged.
+
+h.	Bambona's lexicon is contained in the definitions for NounRoot, Attitude, Confidence, Number and Case.
+
+5)
+a.	See "porter.scr".  
+	My Stemmer has 6800 arcs and 326 states.
+
+bi.	13
+
+bii.	60
+
+biii.	137
+
+biv.	3182
+
+bv.	6352
+	My favorite? "gleefullism"
+
+c.	define FST Stemmer .o. Stemmer.i;
+	This transducer also has 45521 arcs and 7449 states.

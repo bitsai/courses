@@ -1,0 +1,176 @@
+# Simnet, version 0.8
+# COPYRIGHT Seny Kamara, Darren Davis, Fabian Monrose, 2002-2003
+# Please read the DISCLAIMER
+
+verbose 4
+
+# Basic startup script for testing DNS.  Load a topology and start the nodes.
+
+load networks/a3.net
+start all
+usp
+
+# select a node
+s BLAZE
+plug in simnet.PacketDump 1
+dump any any
+setMaxDataLength 9999
+
+
+
+#regular old DNS
+#the last argument is the simulator's DNS file
+#plug in all A3.DNS networks/dnssec/a3.dns
+
+#DNSSEC
+#plug in all A3.DNSSEC networks/dnssec/a3.dns
+
+verbose add DNS
+# verbose 5
+
+
+# plug in all A3.DNS networks/dnssec/a3.dns
+wait 1500
+
+slp CORE-1 CORE-2 -1 -1 -1 40
+slp CORE-1 CORE-3 -1 -1 -1 40
+slp CORE-1 CORE-4 -1 -1 -1 40
+
+slp CORE-2 JHU-GW -1 -1 -1 20
+slp CORE-2 CMU-GW -1 -1 -1 20
+slp CORE-3 VS-GW -1 -1 -1 20
+slp CORE-3 NORM -1 -1 -1 20
+slp CORE-4 AKADNS -1 -1 -1 20
+slp CORE-4 GOOGLE-GW -1 -1 -1 20
+slp CORE-4 APPLE-GW -1 -1 -1 20
+slp CORE-2 YAHOO-GW -1 -1 -1 20
+
+slp CMU-GW EDU-NS -1 -1 -1 10
+slp CMU-GW ANDREW -1 -1 -1 10
+
+slp VS-GW DNS-ROOT -1 -1 -1 10
+slp VS-GW COM-NS -1 -1 -1 10
+
+slp JHU-GW JHNAME -1 -1 -1 10
+slp JHU-GW JHUNIVERSE -1 -1 -1 10
+slp JHU-GW CS-GW -1 -1 -1 10
+
+slp CS-GW BLAZE -1 -1 -1 10
+slp CS-GW RTFM -1 -1 -1 10
+slp CS-GW WWW -1 -1 -1 10
+
+slp ISI-GW SPAR -1 -1 -1 10
+slp ISI-GW SIMNET -1 -1 -1 10
+slp ISI-GW JHU-GW -1 -1 -1 10
+
+slp NORM SAM -1 -1 -1 10
+slp NORM LILITH -1 -1 -1 10
+slp NORM FRASIER -1 -1 -1 10
+
+slp APPLE-GW APPLE -1 -1 -1 10
+slp APPLE-GW DEV -1 -1 -1 10
+
+slp GOOGLE-GW GOOGLE -1 -1 -1 10
+slp GOOGLE-GW GMAIL -1 -1 -1 10
+
+
+slp YAHOO-GW YAHOO-NS -1 -1 -1 10
+slp YAHOO-GW YAHOO -1 -1 -1 10
+slp YAHOO-GW GAMES -1 -1 -1 10
+slp YAHOO-GW SPORTS -1 -1 -1 10
+
+
+
+slp CORE-2 CORE-1 -1 -1 -1 40
+slp CORE-3 CORE-1 -1 -1 -1 40
+slp CORE-4 CORE-1 -1 -1 -1 40
+
+slp JHU-GW CORE-2 -1 -1 -1 20
+slp CMU-GW CORE-2 -1 -1 -1 20
+slp VS-GW CORE-3 -1 -1 -1 20
+slp NORM CORE-3 -1 -1 -1 20
+slp AKADNS CORE-4 -1 -1 -1 20
+slp GOOGLE-GW CORE-4 -1 -1 -1 20
+slp APPLE-GW CORE-4 -1 -1 -1 20
+slp YAHOO-GW CORE-2 -1 -1 -1 20
+
+slp EDU-NS CMU-GW -1 -1 -1 10
+slp ANDREW CMU-GW -1 -1 -1 10
+
+slp DNS-ROOT VS-GW -1 -1 -1 10
+slp COM-NS VS-GW -1 -1 -1 10
+
+slp JHNAME JHU-GW -1 -1 -1 10
+slp JHUNIVERSE JHU-GW -1 -1 -1 10
+slp CS-GW JHU-GW -1 -1 -1 10
+
+slp BLAZE CS-GW -1 -1 -1 10
+slp RTFM CS-GW -1 -1 -1 10
+slp WWW CS-GW -1 -1 -1 10
+
+slp SPAR ISI-GW -1 -1 -1 10
+slp SIMNET ISI-GW -1 -1 -1 10
+slp JHU-GW ISI-GW -1 -1 -1 10
+
+slp SAM NORM -1 -1 -1 10
+slp LILITH NORM -1 -1 -1 10
+slp FRASIER NORM -1 -1 -1 10
+
+slp APPLE APPLE-GW -1 -1 -1 10
+slp DEV APPLE-GW -1 -1 -1 10
+
+slp GOOGLE GOOGLE-GW -1 -1 -1 10
+slp GMAIL GOOGLE-GW -1 -1 -1 10
+
+
+slp YAHOO-NS YAHOO-GW -1 -1 -1 10
+slp YAHOO YAHOO-GW -1 -1 -1 10
+slp GAMES YAHOO-GW -1 -1 -1 10
+slp SPORTS YAHOO-GW -1 -1 -1 10
+
+s WWW
+plug in all A3.DNSEval networks/dnssec/a3.dns
+# plug in all A3.DNSEval 50
+wait 1500
+# plug in A3.DNSEval 50
+
+s VS-GW
+evaldns
+s CMU-GW
+evaldns
+s ANDREW
+evaldns
+s JHUNIVERSE
+evaldns
+s RTFM
+evaldns
+s WWW
+evaldns
+s ISI-GW
+evaldns
+s SPAR
+evaldns
+s SIMNET
+evaldns
+s NORM
+evaldns
+s SAM
+evaldns
+s LILITH
+evaldns
+s APPLE
+evaldns
+s DEV
+evaldns
+s GOOGLE
+evaldns
+s GMAIL
+evaldns
+s YAHOO
+evaldns
+s GAMES
+evaldns
+s SPORTS
+evaldns
+# exit
+

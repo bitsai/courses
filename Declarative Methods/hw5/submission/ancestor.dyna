@@ -1,0 +1,9 @@
+:- pragma(keep_best_antecedents(item)).
+:- structure(child(string,string)).
+:- item(item, double, inf).
+
+% There's a path from a child to an ancestor if the child's parent is the ancestor or a child of the ancestor
+pathto(Child,Ancestor)	min= child(Child,Ancestor).
+pathto(Child,Ancestor)	min= pathto(Child,ChildOfAncestor) + child(ChildOfAncestor,Ancestor).
+
+goal			min= person(1,First) + person(2,Second) + pathto(First,Ancestor) + pathto(Second,Ancestor).

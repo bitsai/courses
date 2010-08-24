@@ -1,0 +1,39 @@
+Benny Tsai
+600.448
+Theory of Network Communication
+Final Project
+
+This project builds a chat client around a supervised tree network.  
+
+The supervised tree network code is based on the pseudocode outlined in the Lecture 7 (Supervised Overlay Networks) notes.
+
+The GUI code is based on the eChat.e-awt file provided with the E languege.
+
+To run the supervisor: rune supervisor.e <name> <passwords file location>
+
+The passwords file should be of the following format, with no blank lines:
+
+<user 1 name>:<user 1 password>
+<user 2 name>:<user 2 password>
+...
+
+To run the peer: rune peer.e-awt
+
+After GUI initiates, you must tell the system where your supervisor's .cap file can be found.
+
+After supervisor has been found, you may chat via the following commands:
+
+"/login <name> <password>" - Log into network
+"/who" - Gets list of logged in users
+"/logout" - Log off network
+"/knock <name>" - Sends invitation for private, point-to-point messaging to designated user
+"/knockers" - See who has sent you a private messaging invitation
+"/accept <name>" - Accept designated knocker's private messaging invitation
+"/deny <name>" - Reject designated knocker's private messaging invitation
+"/friends" - See who you have established private messaging with
+"/msg <name> <message>" - Send private message to designated user
+"/endprivate <name>" - End private messaging with designated user
+"/squelch <name>" - Tell system to not display message (public and private) from designated user
+"/squelched" - See who you have squelched
+"/unsquelch <name>" - Tell system to stop squelching designated user
+*** Anything else that's entered is treated as a public message to be broadcasted, including malformed commands ***

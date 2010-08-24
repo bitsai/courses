@@ -1,0 +1,16 @@
+#!/bin/sh
+./knn_1_classify
+mv test_error knn_1_new_test_error
+mv training_error knn_1_new_training_error
+./knn_3_classify
+mv test_error knn_3_new_test_error
+mv training_error knn_3_new_training_error
+./knn_25_classify
+mv test_error knn_25_new_test_error
+mv training_error knn_25_new_training_error
+./mlp_classify
+mv test_error mlp_new_test_error
+mv training_error mlp_new_training_error
+./svm_classify
+mv test_error svm_new_test_error
+mv training_error svm_new_training_error

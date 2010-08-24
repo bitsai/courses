@@ -1,0 +1,15 @@
+#!/bin/sh
+
+#####################################################################
+#
+# Usage:  do_make_hist filename
+#
+#    Input:   filename        (tokenized file)
+#    Output:  filename.hist   (histogram of file)
+#
+#####################################################################
+
+./make_hist.prl < $1 |
+sort -nr > $1.hist
+
+

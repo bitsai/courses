@@ -1,0 +1,415 @@
+#!/usr/local/bin/perl -w
+
+use strict;
+
+############################################################
+##  Benny Tsai bitsai@hotmail.com
+############################################################
+
+my @correct;
+my @incorrect;
+my $rules = 11;
+
+my @test_lines = ( );    # the current line that we are testing
+my @real_lines = ( );    # the correct classification for the current line
+my $numb_lines = 0;      # the number of lines in the block that we testing
+
+my $correct   = 0;       # number of correct classifications
+my $incorrect = 0;       # number of incorrect classifications
+my $line      = undef;
+
+my %output;
+
+while (defined ($line = <>)) 
+{
+	chomp $line;
+
+	if ($line =~ /^#BLANK#/) 
+	{
+		&process_segment if $numb_lines;     # if we are at a blank line then
+                                                 # it is time to process the pre-
+                                                 # vious block
+#		print $line, "\n";
+
+		@test_lines  = ( );   # make sure that we clear memory here or else
+		@real_lines  = ( );   #  these arrays may hold old data which will
+		$numb_lines  = 0;     #  screw up calculations of their length
+	}
+	else 
+	{
+		($test_lines[ $numb_lines ]) = ($line =~ m/^[^\t]+\t(.*)/);
+		($real_lines[ $numb_lines ]) = ($line =~ m/^([^\t]+)\t/  );
+		$numb_lines += 1;
+	}
+}
+
+for (my $count = 1; $count <= $rules; $count++)
+{
+	if (!defined ($correct[$count])) { $correct[$count] = 0; }
+	if (!defined ($incorrect[$count])) { $incorrect[$count] = 0; }
+
+	print "-RULE ", $count, " UTILIZATION- USED: ", $correct[$count] + $incorrect[$count], " = ", ($correct[$count] + $incorrect[$count]) / ($correct + $incorrect) * 100, "%\n";
+
+	print "-RULE ", $count, " EFFECTIVENESS- CORRECT: ", $correct[$count], " = ", $correct[$count] / ($correct[$count] + $incorrect[$count]) * 100, "% INCORRECT: ", $incorrect[$count], " = ", $incorrect[$count] / ($correct[$count] + $incorrect[$count]) * 100, "%\n";
+}
+
+while ((my $key, my $val) = each %output)
+{
+	print $key, " MISSED: ", $val, "\n";
+}
+
+print "### HW1B BTSAI- OVERALL CORRECT: ", $correct, " = ", $correct / ($correct + $incorrect) * 100, "% INCORRECT: ", $incorrect, " = ", $incorrect / ($correct + $incorrect) * 100, "%";
+
+############################################################
+## Process segments by applying specialized detectors/
+## classifiers to the array of the text lines in the segment 
+############################################################
+
+sub process_segment 
+{
+	my $cnt;
+
+	if ( $test_lines[0] =~ /^\s*From/ ) # If the first line begins with From, this chunk is NNHEAD
+	{
+		for ($cnt = 0; $cnt < scalar @test_lines; $cnt++) 
+		{ &ret( 1, $real_lines[$cnt], "NNHEAD", $test_lines[$cnt] ); }
+	}
+	elsif ( &table_detector1 )
+	{
+		for ($cnt = 0; $cnt < scalar @test_lines; $cnt++) 
+		{ &ret( 2, $real_lines[$cnt], "TABLE", $test_lines[$cnt] ); }	
+	}
+	elsif ( &quoted_detector )
+	{
+		for ($cnt = 0; $cnt < scalar @test_lines; $cnt++) 
+		{ &ret( 3, $real_lines[$cnt], "QUOTED", $test_lines[$cnt] ); }
+	}
+	elsif ( $test_lines[0] =~ /^\s*--/ || $test_lines[0] =~ /^\s*[A-Z]{3}$/) # If the first line begins with -- or 3 capital letters, then this chunk is SIG
+	{
+		for ($cnt = 0; $cnt < scalar @test_lines; $cnt++) 
+		{ &ret( 4, $real_lines[$cnt], "SIG", $test_lines[$cnt] ); }	
+	}
+	elsif ( &address_detector )
+	{
+		for ($cnt = 0; $cnt < scalar @test_lines; $cnt++) 
+		{ &ret( 5, $real_lines[$cnt], "ADDRESS", $test_lines[$cnt] ); }
+	}
+	elsif ( &item_detector )
+	{
+		for ($cnt = 0; $cnt < scalar @test_lines; $cnt++) 
+		{ &ret( 6, $real_lines[$cnt], "ITEM", $test_lines[$cnt] ); }
+	}
+	elsif ( &head_detector )
+	{
+		for ($cnt = 0; $cnt < scalar @test_lines; $cnt++) 
+		{ &ret( 7, $real_lines[$cnt], "HEADL", $test_lines[$cnt] ); }
+	}
+	elsif ( &table_detector2 )
+	{
+		for ($cnt = 0; $cnt < scalar @test_lines; $cnt++) 
+		{ &ret( 8, $real_lines[$cnt], "TABLE", $test_lines[$cnt] ); }	
+	}
+	elsif ( &graphic_detector )
+	{
+		for ($cnt = 0; $cnt < scalar @test_lines; $cnt++) 
+		{ &ret( 9, $real_lines[$cnt], "GRAPHIC", $test_lines[$cnt] );	}
+	}
+	elsif ( &table_detector3 )
+	{
+		for ($cnt = 0; $cnt < scalar @test_lines; $cnt++) 
+		{ &ret( 10, $real_lines[$cnt], "TABLE", $test_lines[$cnt] ); }	
+	}
+	else # Default to PTEXT
+	{
+		for($cnt = 0; $cnt < scalar @test_lines ; $cnt++) 
+		{ &ret( 11, $real_lines[$cnt], "PTEXT" , $test_lines[$cnt] ); }
+	}
+}
+
+############################################################
+## Quoted_detector
+##
+## Looks for combinations of @, >, :, and |> at start of lines.
+## Also looks for "wrote" and "writes".
+## Has special case to look for cases where initials precede quoted symbols.
+##
+############################################################
+    
+sub quoted_detector 
+{
+	my $score  = 0;
+	my $weight = 0.25;
+	my $cnt;
+
+	my $quote0 = "@";
+	my $quote1 = ">";
+	my $quote2 = ":";
+	my $quote3 = "\\|>";
+
+	my $block_quote = "$quote0|$quote1|$quote2|$quote3";
+
+	my $test_quote0 = "($block_quote)($block_quote)*";
+	my $test_quote1 = ".+wrote|writes:";
+    
+	for ($cnt = 0; $cnt < scalar @test_lines; $cnt++) 
+	{
+		if ( $test_lines[$cnt] =~ /^\s*[A-Z]{2,3}\s*$test_quote0/ )
+		{
+			$score++;
+		}
+		elsif ( $test_lines[$cnt] =~ /^\s*$test_quote0/ || $test_lines[$cnt] =~ /^\s*$test_quote1/ )
+		{
+			$score++;
+		}
+	}
+
+	return (($score / (scalar @test_lines)) > $weight);
+}
+
+############################################################
+## Table_detector1
+##
+## If numeric characters are greater than preset percentage of
+## all characters then this chunk is a table.
+##
+############################################################
+
+sub table_detector1
+{
+	my $weight = 0.25;
+	my $num_count = 0;
+	my $total_count = 0;
+    
+	for (my $cnt = 0; $cnt < scalar @test_lines; $cnt++) 
+	{
+		my @chars = split(//, $test_lines[$cnt]);
+		foreach my $c (@chars)
+		{
+			if ($c =~ /[0-9]/) { $num_count++; }
+			$total_count++;
+		}
+	}
+
+	return (($num_count / ($total_count)) > $weight);
+}
+
+############################################################
+## Table_detector2
+##
+## Stores positions where a non-space character is followed by two
+## or more spaces.  If a preset percent of lines all have the same
+## transition position(s), then this chunk is a table.
+##
+############################################################
+
+sub table_detector2
+{
+	my %positions;
+	my $weight = 0.75;
+	my $table = 0;
+
+	for (my $cnt = 0; $cnt < scalar @test_lines; $cnt++) 
+	{
+		my @chars = split(//, $test_lines[$cnt]);
+		for (my $count = 2; $count < scalar @chars; $count++)
+		{
+			if ($chars[$count - 2] =~ /[^\s]/ && $chars[$count - 1] =~ /\s/ && $chars[$count] =~ /\s/)
+			{ $positions{$count + 1}++; }
+		}
+	}
+
+	while ((my $key, my $val) = each %positions)
+	{
+		if (($val / scalar @test_lines) > $weight)
+		{ $table = 1; }
+	}
+
+	return ($table);
+}
+
+############################################################
+## Table_detector3
+##
+## Looks for a pattern of characters, tab, followed by more
+## characters.  If some preset percentage of lines all have
+## this pattern, this chunk is a table.
+##
+############################################################
+
+sub table_detector3
+{
+	my $weight = 0.75;
+	my $tabs = 0;
+    
+	for (my $cnt = 0; $cnt < scalar @test_lines; $cnt++) 
+	{
+		if ( $test_lines[$cnt] =~ /.+\t.+/ )
+		{ $tabs++; }
+	}
+
+	return (( $tabs / scalar @test_lines ) > $weight );
+}
+
+############################################################
+## Address_detector
+##
+## Looks for pattern of city, state zipcode.  If found, then
+## this chunk is an address.
+##
+############################################################
+
+sub address_detector
+{
+	my $city = "[A-Z]+[a-z]*";
+	my $state = "[A-Z]{2}";
+	my $zip1 = "[0-9]{5}";
+	my $zip2 = "[0-9]{5}-[0-9]{4}";
+	my $address = 0;
+
+	for (my $cnt = 0; $cnt < scalar @test_lines; $cnt++) 
+	{
+		if ( $test_lines[$cnt] =~ /$city, $state $zip1|$zip2/ )
+		{ $address = 1; }
+	}
+
+	return ($address);
+}
+
+############################################################
+## Graphic_detector
+##
+## If alphanumeric characters are less than preset percentage
+## of all characters, then this chunk is a graphic.
+##
+############################################################
+
+sub graphic_detector
+{
+	my $weight = .25;
+	my $alphanum_count = 0;
+	my $total_count = 0;
+    
+	for (my $cnt = 0; $cnt < scalar @test_lines; $cnt++) 
+	{
+		my @chars = split(//, $test_lines[$cnt]);
+		foreach my $c (@chars)
+		{
+			if ($c =~ /[A-Za-z0-9]/) { $alphanum_count++; }
+			$total_count++;
+		}
+	}
+
+	return (($alphanum_count / ($total_count)) < $weight);
+}
+
+############################################################
+## Item_detector
+##
+## Looks to see if the first line begins with -, #), #., or (#).
+## If not, then move on.
+## If so, see if preset percentage of lines are indentation.
+## If so, then this chunk is an item list.
+##
+############################################################
+
+sub item_detector
+{
+	my $item = 0;
+	my $weight = 0.5;
+	my $count = 0;
+
+	my $num1 = "^[0-9]\\)";
+	my $num2 = "^[0-9]\\.";
+	my $num3 = "\\([0-9]\\)";
+
+	if ( $test_lines[0] =~ /^\s*-/ || $test_lines[0] =~ /$num1|$num2|$num3/ )
+	{ $item = 1; }
+    
+	for (my $cnt = 0; $cnt < scalar @test_lines; $cnt++) 
+	{
+		if ( $test_lines[$cnt] =~ /^\s+/ )
+		{ $count++; }
+	}
+
+	return (( $item ) && (($count / scalar @test_lines) > $weight));
+}
+
+############################################################
+## Head_detector
+##
+## Looks for preset percentage of lines having 3 or more spaces
+## or tabs.  If so, this chunk is a head.  This is a weak detector,
+## so it only comes into effect after most other detectors have
+## been tried.
+##
+############################################################
+
+sub head_detector
+{
+	my $weight = .5;
+	my $count = 0;
+	my $head = 0;
+
+	if ((scalar @test_lines) <= 3) { $head = 1; }
+    
+	for (my $cnt = 0; $cnt < scalar @test_lines; $cnt++) 
+	{
+		if ( $test_lines[$cnt] =~ /^\s{3,}/ )
+		{ $count++; }
+	}
+
+	return ( $head  && ( $count / scalar @test_lines > $weight ));
+}
+
+############################################################
+## Sig_detector
+##
+## Looks for email-like pattern of something@something.something. 
+## If found, then this chunk is a signature.
+##
+############################################################
+
+sub sig_detector
+{
+	my $sig = 0;
+    
+	for (my $cnt = 0; $cnt < scalar @test_lines; $cnt++) 
+	{
+		if ( $test_lines[$cnt] =~ /^.+@.+\..+$/ )
+		{ $sig = 1; }
+	}
+
+	return ($sig);
+}
+
+############################################################
+## RET - prints full line for errors and keeps score $rule
+##     - indicates the rule number responsible for the 
+##     - classification
+##
+##  This is a useful debugging tool, as after each change in
+##  the program one can identify the remaining misclassified
+##  training examples and the patterns responsible for them. 
+############################################################
+ 
+sub ret 
+{
+	my $rule       = shift;   # which rule did I use here
+	my $trueclass  = shift;   # what is the true sentence class ('NEOS','EOS')
+	my $givenclass = shift;   # what is the sentence class my rule gives
+	my $line       = shift;   # the actual line tested
+
+	if ($trueclass eq $givenclass) 
+	{
+#		printf(".. (%2d) %s\t%s\t%s\n",$rule,$givenclass,$trueclass,$line);
+		$correct++;
+		$correct[$rule]++;
+	}
+	else 
+	{
+#		printf("XX (%2d) %s\t%s\t%s\n",$rule,$givenclass,$trueclass,$line);
+		$incorrect++;
+		$incorrect[$rule]++;
+		$output{$trueclass}++;
+	}
+}

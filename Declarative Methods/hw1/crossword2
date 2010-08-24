@@ -1,0 +1,9 @@
+#!/bin/sh
+
+echo "Encoding...."
+./encode2 $1.puzzle /usr/dict/words > $1.cnf
+
+./solve2 $1
+
+echo "Decoding...."
+./decode2 $1.puzzle $1.output > $1.ans

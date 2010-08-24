@@ -1,0 +1,314 @@
+# Unstemmed tokens
+
+  ************************************************************
+  Documents Most Similar To Query number 12
+  ************************************************************
+  Similarity   Doc#  Author      Title
+  ==========   ==== ========     =============================
+* 0.32893547   2246 Brown        #  Levels of Language for Por
+  0.22668788   1750 Fuchel       #  Considerations in the Desi
+* 0.21422147   3127 Cheriton     #  Thoth, a Portable Real-Tim
+  0.20458195   2317 Rosen        #  Programming Systems and La
+  0.18437973   1728 Coffman      #  Further Experimental Data 
+  0.16956806   2777 Parnas       #  On a Solution to the Cigar
+  0.16131685   1751 Denning      #  The Working Set Model for 
+  0.16055620   2621 Purdy        #  A High Security Log-in Pro
+  0.15218137   2482 Howard       #  Mixed Solutions for the De
+  0.14208924   2311 Benjamin     #  A Generational Perspective
+  0.13774133   2522 Rodriguez    #  The Design, Implementation
+  0.13484135   1680 Engvold      #  A General-Purpose Display 
+  0.13211355   2372 Conway       #  On the Implementation of S
+  0.13085018   2151 Nemeth       #  User Program Measurement i
+  0.13004435   2345 Ashenhurst   #  Curriculum Recommendations
+  0.12877724   1747 Van          #  Three Criteria for Designi
+  0.12015992   2424 Fabry        #  Dynamic Verification of Op
+  0.11987405   2111 Morgan       #  Spelling Correction in Sys
+  0.11875137   3141 Chang        #  An Improved Algorithm for 
+  0.11859572   2597 Hoare        #  Monitors: An Operating Sys
+
+============================================================
+Term		12			2246			Docfreq
+============================================================
+portable	12.9254347915083	32.3135869787707	5
+============================================================
+Term		12			1750			Docfreq
+============================================================
+systems	4.4630273016297	26.7781638097782	344
+operating	6.55272952518302	39.3163771510981	121
+============================================================
+Term		12			3127			Docfreq
+============================================================
+systems	4.4630273016297	8.92605460325941	344
+operating	6.55272952518302	16.3818238129575	121
+portable	12.9254347915083	12.9254347915083	5
+============================================================
+Term		12			2317			Docfreq
+============================================================
+systems	4.4630273016297	20.0836228573337	344
+operating	6.55272952518302	19.6581885755491	121
+============================================================
+Term		12			1728			Docfreq
+============================================================
+systems	4.4630273016297	29.0096774605931	344
+operating	6.55272952518302	29.4872828633236	121
+============================================================
+Term		12			2777			Docfreq
+============================================================
+systems	4.4630273016297	8.92605460325941	344
+operating	6.55272952518302	26.2109181007321	121
+============================================================
+Term		12			1751			Docfreq
+============================================================
+systems	4.4630273016297	11.1575682540743	344
+operating	6.55272952518302	26.2109181007321	121
+============================================================
+Term		12			2621			Docfreq
+============================================================
+systems	4.4630273016297	20.0836228573337	344
+operating	6.55272952518302	13.105459050366	121
+============================================================
+Term		12			2482			Docfreq
+============================================================
+systems	4.4630273016297	17.8521092065188	344
+operating	6.55272952518302	16.3818238129575	121
+============================================================
+Term		12			2311			Docfreq
+============================================================
+systems	4.4630273016297	44.630273016297	344
+
+  ************************************************************
+  Documents Most Similar To Query number 8
+  ************************************************************
+  Similarity   Doc#  Author      Title
+  ==========   ==== ========     =============================
+* 0.28518139   2625 Fabry        #  Capability-Based Addressin
+  0.26910800   1685 Schurmann    #  GAN, a System for Generati
+  0.20662129   2499 Hamlet       #  Efficient Multiprogramming
+  0.19828693   2482 Howard       #  Mixed Solutions for the De
+  0.19735583   2858 Frieder      #  A Process for the Determin
+  0.19191461   1751 Denning      #  The Working Set Model for 
+  0.18945867   2776 Chambers     #  Computer Networks in Highe
+  0.18649105   2500 Frailey      #  A Practical Approach to Ma
+  0.18230464   2371 Walden       #  A System for Interprocess 
+  0.17103825   1877 Habermann    #  Prevention of System Deadl
+  0.17098698   2951 Mamrak       #  Dynamic Response Time Pred
+  0.17068661   1785 Morris       #  Scatter Storage Techniques
+  0.16938235   2949 Tajibnapis   #  A Correctness Proof of a T
+  0.16572691   1869 Kain         #  Block Structures, Indirect
+  0.16554488   2197 Nielsen      #  The Merit of Regional Comp
+  0.16162547   492  Schay        #  Analysis of a File Address
+  0.15988756   2194 Richards     #  How To Keep the Addresses 
+  0.15713541   2614 Crandall     #  Arrow to Precedence Networ
+  0.15560176   2522 Rodriguez    #  The Design, Implementation
+  0.14793190   912  Garber       #  Addressing an Array Yi in 
+
+============================================================
+Term		8			2625			Docfreq
+============================================================
+systems	4.4630273016297	13.3890819048891	344
+Addressing	11.5391404303884	17.3087106455826	10
+operating	6.55272952518302	13.105459050366	121
+schemes	9.96222570965987	9.96222570965987	22
+addressing	9.21283881077705	50.6706134592738	32
+============================================================
+Term		8			1685			Docfreq
+============================================================
+network	7.82654444965716	117.398166744857	64
+networks	8.57593134853998	21.4398283713499	44
+============================================================
+Term		8			2499			Docfreq
+============================================================
+resources	9.96222570965987	19.9244514193197	22
+resource	8.86913829692373	48.7802606330805	38
+============================================================
+Term		8			2482			Docfreq
+============================================================
+resource	8.86913829692373	26.6074148907712	38
+systems	4.4630273016297	17.8521092065188	344
+operating	6.55272952518302	16.3818238129575	121
+============================================================
+Term		8			2858			Docfreq
+============================================================
+Addressing	11.5391404303884	17.3087106455826	10
+addressing	9.21283881077705	23.0320970269426	32
+============================================================
+Term		8			1751			Docfreq
+============================================================
+resource	8.86913829692373	26.6074148907712	38
+systems	4.4630273016297	11.1575682540743	344
+operating	6.55272952518302	26.2109181007321	121
+============================================================
+Term		8			2776			Docfreq
+============================================================
+network	7.82654444965716	11.7398166744857	64
+networks	8.57593134853998	42.8796567426999	44
+operating	6.55272952518302	3.27636476259151	121
+============================================================
+Term		8			2500			Docfreq
+============================================================
+resources	9.96222570965987	14.9433385644898	22
+resource	8.86913829692373	39.9111223361568	38
+operating	6.55272952518302	3.27636476259151	121
+============================================================
+Term		8			2371			Docfreq
+============================================================
+network	7.82654444965716	7.82654444965716	64
+networks	8.57593134853998	17.15186269708	44
+resource	8.86913829692373	17.7382765938475	38
+============================================================
+Term		8			1877			Docfreq
+============================================================
+resources	9.96222570965987	9.96222570965987	22
+resource	8.86913829692373	22.1728457423093	38
+systems	4.4630273016297	2.23151365081485	344
+operating	6.55272952518302	3.27636476259151	121
+
+  ************************************************************
+  Documents Most Similar To Query number 18
+  ************************************************************
+  Similarity   Doc#  Author      Title
+  ==========   ==== ========     =============================
+  0.15365490   2714 Gavril       #  Merging with Parallel Proc
+* 0.14076667   1811 Rosenfeld    #  A Case Study in Programmin
+  0.11558747   2495 Stockhausen  #  Adapting Optimal Code Gene
+  0.10880576   249  Gorn         #  Specification Languages fo
+  0.10720063   2491 Bell         #  Threaded Code 
+  0.10253830   1655 --           #  Code Extension Procedures 
+* 0.10170083   2175 Ramamoorthy  #  Subexpression Ordering in 
+  0.09900964   2973 Thompson     #  Sorting on a Mesh-Connecte
+  0.09448539   2748 Dewar        #  Indirect Threaded Code 
+  0.09166855   2819 Rubin        #  Experiments in Text File C
+  0.09059354   2112 Vere         #  Translation Equations 
+  0.09025578   2633 Adams        #  Compact Representation of 
+  0.08854134   651  Grems        #  A Survey of Languages and 
+  0.08842782   1947 Lowry        #  Object code Optimization 
+  0.08692871   2814 Sammet       #  Roster of Programming Lang
+  0.08686481   1466 --           #  Discussion Summary on Grap
+  0.08610610   2706 Kou          #  A Note on the Set Basis Pr
+  0.08451339   2897 Carter       #  A Case Study of a New Code
+  0.08447958   3156 Hirschberg   #  Computing Connected Compon
+  0.08415248   1828 Shoshani     #  Synchronization in a Paral
+
+============================================================
+Term		18			2714			Docfreq
+============================================================
+parallel	7.76500113232365	58.2375084924274	66
+processors	9.34191585305219	9.34191585305219	30
+============================================================
+Term		18			1811			Docfreq
+============================================================
+parallel	7.76500113232365	38.8250056616182	66
+processors	9.34191585305219	32.6967054856827	30
+============================================================
+Term		18			2495			Docfreq
+============================================================
+compilers	8.02342459528366	16.0468491905673	58
+code		7.14469127571597	28.5787651028639	90
+============================================================
+Term		18			249			Docfreq
+============================================================
+Languages	8.24182317921364	24.7254695376409	52
+============================================================
+Term		18			2491			Docfreq
+============================================================
+code		7.14469127571597	53.5851845678698	90
+============================================================
+Term		18			1655			Docfreq
+============================================================
+code		7.14469127571597	57.1575302057278	90
+============================================================
+Term		18			2175			Docfreq
+============================================================
+parallel	7.76500113232365	23.2950033969709	66
+compilers	8.02342459528366	16.0468491905673	58
+processors	9.34191585305219	4.67095792652609	30
+============================================================
+Term		18			2973			Docfreq
+============================================================
+parallel	7.76500113232365	46.5900067939419	66
+============================================================
+Term		18			2748			Docfreq
+============================================================
+code		7.14469127571597	35.7234563785798	90
+============================================================
+Term		18			2819			Docfreq
+============================================================
+compaction	11.9854275330168	23.9708550660337	8
+
+  ************************************************************
+  Documents Most Similar To Document number 1616
+  ************************************************************
+  Similarity   Doc#  Author      Title
+  ==========   ==== ========     =============================
+  1.00000000   1616 Walton       #  Tensor Calculations on Com
+  0.53504002   1345 Waltons      #  Tensor Calculations on the
+  0.16901569   1543 Howard       #  Computer Formulation of th
+  0.15250738   828  Cantrell     #  Incompressible flow Networ
+  0.13465065   2804 Marcus       #  Elementary Divisors of Ten
+  0.10693603   1664 Howard       #  An Algorithm for Deriving 
+  0.09666124   1295 Lass         #  PERT Time Calculations Wit
+  0.09314357   1796 --           #  Index by Subject to Algori
+  0.08626924   1623 Neidleman    #  An Application of FORMAC 
+  0.06887480   1392 Tobey        #  Experience with FORMAC Alg
+  0.06088378   1365 Tobey        #  Eliminating Monotonous Mat
+  0.05961293   57   --           #  J.E.I.D.A. and Its Compute
+  0.05801932   1120 --           #  "ALCOR Group Representatio
+  0.05690301   1205 A            #  An Undergraduate Program i
+  0.05569247   3197 Gorn         #  Structures of Standards-Pr
+  0.05203365   1248 Nievergelt   #  On the Automatic Simplific
+  0.04610265   252  Dow          #  Programming a Duplex Compu
+  0.04531668   768  Thoro        #  Certification of Algorithm
+  0.04517338   2850 King         #  Symbolic Execution and Pro
+  0.04442460   2105 Robins       #  An Interactive Computer Sy
+
+  ************************************************************
+  Documents Most Similar To Document number 1221
+  ************************************************************
+  Similarity   Doc#  Author      Title
+  ==========   ==== ========     =============================
+  1.00000000   1220 Gunn         #  9-J Symbols (Algorithm 261
+  1.00000000   1221 Gunn         #  6-J Symbols (Algorithm 260
+  0.40146910   1607 Gunn         #  Coulomb Wave Functions (Al
+  0.38337566   1287 Gunn         #  Vector Coupling or Clebsch
+  0.25224385   56   --           #  Proposed Standard Flow Cha
+  0.24967199   722  --           #  ALCOR Group Representation
+  0.22295028   969  Boothroyd    #  Graycode (Algorithm 246 [Z
+  0.20986557   721  Rossheim     #  Report on Proposed America
+  0.20376673   1250 --           #  Graphic Symbols for Proble
+  0.20336183   211  Grems        #  Share Standard Flow Chart 
+  0.20239416   1233 --           #  Conventions for the Use of
+  0.19678670   449  Ingerman     #  Matrix Inversion(Algorithm
+  0.18755669   448  Ingerman     #  Path Matrix (Algorithm 141
+  0.18436427   1120 --           #  "ALCOR Group Representatio
+  0.17969989   356  Ingerman     #  INTEREST (Algorithm 45) 
+  0.17878285   82   Williams     #  Handling Identifiers as In
+  0.16906591   1239 Allen        #  Graycode (Algorithm 246 [Z
+  0.16183803   402  Ingerman     #  Dynamic Declarations 
+  0.16077865   980  Maer         #  Multiple-Precision Arithme
+  0.14930275   136  Ingerman     #  A Note on the Calculation 
+
+  ************************************************************
+  Documents Most Similar To Document number 2100
+  ************************************************************
+  Similarity   Doc#  Author      Title
+  ==========   ==== ========     =============================
+  1.00000000   2100 Barrodale    #  Ortho (Algorithm 127 $F5))
+  0.16300255   2806 Birkhoff     #  Two Hadamard Numbers for M
+  0.14799510   2642 Barrodale    #  Solution of an Overdetermi
+  0.14465359   2600 Eidson       #  Computation of g-Splines v
+  0.14267579   1977 LaFata       #  An Interactive Display for
+  0.14181604   2094 Watson       #  On an Algorithm for Nonlin
+  0.13653992   2159 Phillips     #  A Note on Best One-Sided A
+  0.13549834   2352 Dunham       #  Minimax Nonlinear Approxim
+  0.11930621   2488 Ferguson     #  Least Squares Piecewise Cu
+  0.11748232   2143 Bolub        #  Chebyshev Approximation of
+  0.10630008   2431 Robers       #  Discrete Linear L1 Approxi
+  0.08559094   2403 Herriot      #  Procedures for Natural Spl
+  0.08425160   2029 Paciorek     #  Exponential Integral $S13)
+  0.08224958   1995 Abdali       #  Special Series Summation w
+  0.08160608   2332 Sale         #  Special Series Summation w
+  0.07462939   2098 Hill         #  t-Test Probabilities (Algo
+  0.07298350   3059 Towsley      #  Models for Parallel Proces
+  0.07237415   1832 Dunham       #  Minimax Logarithmic Error 
+  0.07200970   1987 Hill         #  Student's t-Distribution $
+  0.07122547   2609 Lagerlof     #  Interpolation with Rounded

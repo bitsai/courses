@@ -1,0 +1,42 @@
+Benny Tsai
+600.449
+Internet Protocols
+Project 1
+
+*** Code compilation and execution ***
+
+	How to compile the code: Run Makefile via "make", which should work fine; else javac all .java files.
+
+	How to start the Server: java HiRCServer <port> <password file>
+
+	How to start the Client: java HiRCClient <host> <port> <direct-connect port>
+
+*** Program structure ***
+
+	An HiRCServer object runs continuously, listening for incoming connection requests.  If one is detected, a new socket is created and passed off to ...
+
+	An HiRCServerThread object, which handles all server-client communication with a particular client.
+
+	An HiRCClient object handles interaction with a particular user.  If an incoming direct-connection request is detected, and the user accepts, this client creates ...
+
+	An HiRCDCListener object, which listens for incoming direct-connection requests.  If one is detected, a new socket is created and passed off to ...
+
+	An HiRCDCThread object, which handles all client-client communications for a particular client.  This class can also be directly instantiated by an HiRCClient object, if that client is the initiator of a direct-connection and receives positive response from the recipient.
+
+*** Program behavior ***
+
+	The behavior for the normal, 349-level, functions is pretty much as prescribed in the assignment.  They are laid out in great detail, and I have Sam's server code to use as verification, so that was pretty easy.  The one thing I've decided to do that might be considered weird is that command inputs are processed as commands if and only if they are entered correctly.  If the user types "/who", it will be recognized as such and dealt with accordingly.  If the user mistakenly types "/who is there", though, it will be broadcast as if that were a message; I must admit to be really entertained by the idea that typos and so forth will be broadcast for all to see.
+	
+	The behavior for the 449-level direct-connect functionality is much less defined, so I've taken some liberty and written it as I would wish to see it implemented.
+	
+	/KNOCK <user>: The user can only knock after having signed on to the server.  You can't knock yourself, nor anyone that's not signed in.  You can't knock anyone that's already engaged in an established direct-connection.  You also can't knock an user that has sent a knock and is waiting for a response, nor an user that has received a knock and has not responded to it yet.  This is to avoid piling up of multiple knock requests at a particular client and other such craziness.
+	
+	/ACCEPT: The user can only accept if there is a valid incoming direct-connection request.
+	
+	/DENY <msg>:  The user can only deny if there is a valid incoming direct-connection request; you can deny and enter in a message about why you denied the request, or just let it return a default message.
+	
+	/MSG <msg>:  The user can only msg if there is an established direct-connection.
+	
+	/ENDPRIVATE:  The user can only endprivate if there is an established direct-connection.  The user that issued the endprivate command sends a BYE command to the other user, and commences tear-down of direct-connection only after getting an OK (whose sequence number corresponds to the issued BYE).  The other user does his tear-down actions as after sending an OK in response to the BYE command.
+	
+	I think that covers all the major salient points; comments are strewn about liberally throughout the code if you need to figure out what does what.

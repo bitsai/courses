@@ -1,0 +1,389 @@
+SQL> start /home/1/btsai/dbase2.sql
+1.
+
+FNAME        LNAME                                                              
+------------ ------------                                                       
+George       Andreou                                                            
+Lisa         Apap                                                               
+Paul         Brody                                                              
+Lisa         Cheng                                                              
+Mark         Goldman                                                            
+Paul         Gompers                                                            
+Tracy        Kim                                                                
+Derek        Lee                                                                
+Susan        Lee                                                                
+Michael      Leighton                                                           
+Jandy        Nelson                                                             
+
+FNAME        LNAME                                                              
+------------ ------------                                                       
+Charles      Norris                                                             
+Eric         Pang                                                               
+Stacy        Prater                                                             
+Mark         Schwartz                                                           
+David        Shieber                                                            
+Linda        Smith                                                              
+Eric         Tai                                                                
+Ian          Thornton                                                           
+Bruce        Wilson                                                             
+Michael      Woods                                                              
+
+21 rows selected.
+
+2.
+
+FNAME        LNAME                                                              
+------------ ------------                                                       
+Steven       Davis                                                              
+Mark         Goldman                                                            
+Paul         Gompers                                                            
+Michael      Leighton                                                           
+Charles      Norris                                                             
+Stacy        Prater                                                             
+Andy         Schultz                                                            
+Mark         Schwartz                                                           
+Linda        Smith                                                              
+Sarah        Smith                                                              
+Bruce        Wilson                                                             
+
+11 rows selected.
+
+3.
+
+FNAME        LNAME                                                              
+------------ ------------                                                       
+Charles      Norris                                                             
+Stacy        Prater                                                             
+Mark         Schwartz                                                           
+
+4.
+
+ALLERGYNAME          ALLERGYTYPE                                                
+-------------------- ---------------                                            
+Nuts                 Food                                                       
+Penicillin           Medicine                                                   
+Pollen               Environmental                                              
+Shellfish            Food                                                       
+
+5.
+
+FNAME        LNAME        FNAME        LNAME                                    
+------------ ------------ ------------ ------------                             
+George       Andreou      Ian          Thornton                                 
+Eric         Brown        Linda        Smith                                    
+Steven       Davis        Paul         Gompers                                  
+Mark         Goldman      David        Shieber                                  
+Sarah        Schmidt      Shiela       Jones                                    
+Sarah        Smith        Tracy        Kim                                      
+
+6 rows selected.
+
+9.
+
+FNAME        LNAME                                                              
+------------ ------------                                                       
+George       Andreou                                                            
+Mark         Goldman                                                            
+Stacy        Prater                                                             
+Mark         Schwartz                                                           
+David        Shieber                                                            
+
+10.
+
+FNAME        LNAME               AGE MAJOR                     FNAME            
+------------ ------------ ---------- ------------------------- ---------------  
+LNAME                                                                           
+---------------                                                                 
+Lisa         Apap                 18 Computer Science          Yair             
+Amir                                                                            
+                                                                                
+Paul         Gompers              26 Computer Science          Michael          
+Goodrich                                                                        
+                                                                                
+Shiela       Jones                21 Computer Science          Eric             
+Brill                                                                           
+                                                                                
+
+FNAME        LNAME               AGE MAJOR                     FNAME            
+------------ ------------ ---------- ------------------------- ---------------  
+LNAME                                                                           
+---------------                                                                 
+Tracy        Kim                  19 Computer Science          Baruch           
+Awerbuch                                                                        
+                                                                                
+Sarah        Schmidt              26 Cognitive Science         Robert           
+Frank                                                                           
+                                                                                
+Mark         Schwartz             17 Computer Science          David            
+Yarowsky                                                                        
+                                                                                
+
+6 rows selected.
+
+11. There happens to be 2 duplicate entries in the Enrolled_in relation, which i decided to eliminate.
+If they are not eliminated, the total enrollment for Engineering is higher by 2.
+
+DI   COUNT(*)                                                                   
+-- ----------                                                                   
+AS         18                                                                   
+EN        190                                                                   
+
+12.
+
+FNAME             COUNT(*)                                                      
+--------------- ----------                                                      
+Michael                  3                                                      
+John                     2                                                      
+Robert                   2                                                      
+William                  2                                                      
+
+13.
+
+FNAME                COUNT                                                      
+--------------- ----------                                                      
+Eric                     6                                                      
+
+14. I assumed that if no one is enrolled in any course in a given department, that department should get 0 enrollment.
+If that assumption is incorrect, then the department with the "lowest" enrollment is ECE with 14 students.
+
+DNAME                     ENROLLMENT                                            
+------------------------- ----------                                            
+Anthropology                       0                                            
+Biology                            0                                            
+Biomedical Engineering             0                                            
+Chemical Engineering               0                                            
+Chemistry                          0                                            
+Civil Engineering                  0                                            
+Classics                           0                                            
+Economics                          0                                            
+English                            0                                            
+French                             0                                            
+German                             0                                            
+
+DNAME                     ENROLLMENT                                            
+------------------------- ----------                                            
+Hispanic/Italian Studies           0                                            
+History                            0                                            
+History of Art                     0                                            
+History of Science                 0                                            
+Mathematics                        0                                            
+Mechanical Engineering             0                                            
+Near Eastern Studies               0                                            
+Philosophy                         0                                            
+Physics and Astronomy              0                                            
+Political Science                  0                                            
+Psychology                         0                                            
+
+22 rows selected.
+
+15.
+
+FNAME        LNAME        CNAME                                                 
+------------ ------------ ----------------------------------------              
+FNAME           LNAME           GR                                              
+--------------- --------------- --                                              
+Eric         Epp          INTRO TO PROGRAMMING IN JAVA                          
+Stacey          Jones           B+                                              
+                                                                                
+Eric         Epp          DATABASE SYSTEMS                                      
+David           Yarowsky        B                                               
+                                                                                
+Eric         Epp          SOUND STRUCTURES IN NATURAL LANGUAGE                  
+Luigi           Burzio          B                                               
+                                                                                
+
+FNAME        LNAME        CNAME                                                 
+------------ ------------ ----------------------------------------              
+FNAME           LNAME           GR                                              
+--------------- --------------- --                                              
+Eric         Epp          COGNITIVE NEUROSCIENCE                                
+Brenda          Rapp            B                                               
+                                                                                
+Eric         Epp          MIND, BRAIN, COMPUTERS                                
+Paul            Smolensky       B+                                              
+                                                                                
+Dinesh       Kumar        DATABASE SYSTEMS                                      
+David           Yarowsky        C-                                              
+                                                                                
+
+FNAME        LNAME        CNAME                                                 
+------------ ------------ ----------------------------------------              
+FNAME           LNAME           GR                                              
+--------------- --------------- --                                              
+Dinesh       Kumar        SUPERCOMPUTING                                        
+Arthur          Delcher         C-                                              
+                                                                                
+Dinesh       Kumar        ALGORITHMS I                                          
+Baruch          Awerbuch        A+                                              
+                                                                                
+Dinesh       Kumar        QUANTITATIVE MEDICAL COMPUTING                        
+Russell         Taylor          A-                                              
+                                                                                
+
+FNAME        LNAME        CNAME                                                 
+------------ ------------ ----------------------------------------              
+FNAME           LNAME           GR                                              
+--------------- --------------- --                                              
+Dinesh       Kumar        INTRO TO NATURAL LANGUAGE PROCESSING                  
+Eric            Brill           A                                               
+                                                                                
+Dinesh       Kumar        COMPUTER VISION                                       
+Ellie           Angelopoulou    C                                               
+                                                                                
+Dinesh       Kumar        DISTRIBUTED SYSTEMS                                   
+Yair            Amir            C-                                              
+                                                                                
+
+12 rows selected.
+
+16.
+
+FNAME        LNAME               AGE                                            
+------------ ------------ ----------                                            
+Bruce        Wilson               27                                            
+Susan        Lee                  16                                            
+
+17. With the elimination of duplicate entries in the Enrolled_in relation, the number of A's is reduced by 1,
+and the total enrollment reduced by 2.
+
+         A      TOTAL A/TOTAL*100 DNAME                     FNAME               
+---------- ---------- ----------- ------------------------- ---------------     
+LNAME                                                                           
+---------------                                                                 
+                    0             Anthropology                                  
+                                                                                
+                                                                                
+                    0             Biology                                       
+                                                                                
+                                                                                
+                    0             Biomedical Engineering                        
+                                                                                
+                                                                                
+
+         A      TOTAL A/TOTAL*100 DNAME                     FNAME               
+---------- ---------- ----------- ------------------------- ---------------     
+LNAME                                                                           
+---------------                                                                 
+                    0             Chemical Engineering                          
+                                                                                
+                                                                                
+                    0             Chemistry                                     
+                                                                                
+                                                                                
+                    0             Civil Engineering                             
+                                                                                
+                                                                                
+
+         A      TOTAL A/TOTAL*100 DNAME                     FNAME               
+---------- ---------- ----------- ------------------------- ---------------     
+LNAME                                                                           
+---------------                                                                 
+                    0             Classics                                      
+                                                                                
+                                                                                
+         5         18  27.7777778 Cognitive Science         Michael             
+McCloskey                                                                       
+                                                                                
+        55        131  41.9847328 Computer Science          Gerald              
+Masson                                                                          
+                                                                                
+
+         A      TOTAL A/TOTAL*100 DNAME                     FNAME               
+---------- ---------- ----------- ------------------------- ---------------     
+LNAME                                                                           
+---------------                                                                 
+         7         14          50 ECE                       Frederic            
+Davidson                                                                        
+                                                                                
+                    0             Economics                                     
+                                                                                
+                                                                                
+                    0             English                                       
+                                                                                
+                                                                                
+
+         A      TOTAL A/TOTAL*100 DNAME                     FNAME               
+---------- ---------- ----------- ------------------------- ---------------     
+LNAME                                                                           
+---------------                                                                 
+                    0             French                                        
+                                                                                
+                                                                                
+                    0             German                                        
+                                                                                
+                                                                                
+                    0             Hispanic/Italian Studies                      
+                                                                                
+                                                                                
+
+         A      TOTAL A/TOTAL*100 DNAME                     FNAME               
+---------- ---------- ----------- ------------------------- ---------------     
+LNAME                                                                           
+---------------                                                                 
+                    0             History                                       
+                                                                                
+                                                                                
+                    0             History of Art                                
+                                                                                
+                                                                                
+                    0             History of Science                            
+                                                                                
+                                                                                
+
+         A      TOTAL A/TOTAL*100 DNAME                     FNAME               
+---------- ---------- ----------- ------------------------- ---------------     
+LNAME                                                                           
+---------------                                                                 
+        18         45          40 Mathematical Sciences     John                
+Wierman                                                                         
+                                                                                
+                    0             Mathematics                                   
+                                                                                
+                                                                                
+                    0             Mechanical Engineering                        
+                                                                                
+                                                                                
+
+         A      TOTAL A/TOTAL*100 DNAME                     FNAME               
+---------- ---------- ----------- ------------------------- ---------------     
+LNAME                                                                           
+---------------                                                                 
+                    0             Near Eastern Studies                          
+                                                                                
+                                                                                
+                    0             Philosophy                                    
+                                                                                
+                                                                                
+                    0             Physics and Astronomy                         
+                                                                                
+                                                                                
+
+         A      TOTAL A/TOTAL*100 DNAME                     FNAME               
+---------- ---------- ----------- ------------------------- ---------------     
+LNAME                                                                           
+---------------                                                                 
+                    0             Political Science                             
+                                                                                
+                                                                                
+                    0             Psychology                                    
+                                                                                
+                                                                                
+
+26 rows selected.
+
+18. I chose not to display duplicate entries in the result relation here.
+
+FNAME        LNAME        FNAME        LNAME                                    
+------------ ------------ ------------ ------------                             
+Lisa         Cheng        Lisa         Apap                                     
+Eric         Epp          Eric         Brown                                    
+Paul         Gompers      Paul         Brody                                    
+Eric         Pang         Eric         Brown                                    
+Eric         Rugh         Eric         Brown                                    
+Eric         Rugh         Eric         Epp                                      
+Mark         Schwartz     Mark         Goldman                                  
+Michael      Woods        Michael      Leighton                                 
+
+8 rows selected.
+
+SQL> spool off

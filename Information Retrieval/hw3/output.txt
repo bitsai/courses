@@ -1,0 +1,405 @@
+
++ 1 1 26.179 3766  1  PERSON	   <s> `` We don't know , ''  .X-Marchuk rep
++ 1 1 23.437 3948  1  PERSON	         . '' </s> <s> Mrs .  .X-Rader , her
++ 1 1 22.648 3622  1  PERSON	ody equal billing , '' Mrs .  .X-Simms said 
++ 1 1 21.730 3852  1  PERSON	s> In addition , the younger  .X-Zumwalt has
++ 1 1 21.489 3921  1  PERSON	sult of the judge's ruling ,  .X-Milligan wa
++ 1 1 21.075 3615  1  PERSON	n the case throughout , Mr .  .X-Boyd wouldn
++ 1 1 20.768 3655  1  PERSON	ts on a case-by-case basis ,  .X-Ramsey said
++ 1 1 20.575 3773  1  PERSON	George Shultz recently wrote  .X-Nunn and By
++ 1 1 20.237 3864  1  PERSON	   <s> `` I asked ambassador  .X-Turk to wor
++ 1 1 19.497 3944  1  PERSON	       . '' </s> <s> Still ,  .X-Bucher isn'
++ 1 1 18.778 3911  1  PERSON	s> Boyle said an argument by  .X-Breguet tha
++ 1 1 17.979 3750  1  PERSON	/s> <s> `` We feel that Mr .  .X-Gros repres
++ 1 1 17.797 3638  1  PERSON	fun I've had , '' said Mrs .  .X-Hulbert , 8
++ 1 1 17.603 3989  1  PERSON	 to the floor and told Mrs .  .X-Macri to ge
++ 1 1 17.107 3805  1  PERSON	family was worried , '' says  .X-Bowers , ma
++ 1 1 16.104 3768  1  PERSON	t , and his decision to join  .X-Wolfensohn 
++ 1 1 15.949 3791  1  PERSON	ians wielding knives , Mrs .  .X-Tsur said i
++ 1 1 15.099 3767  1  PERSON	` We do understand that Mr .  .X-Awad has be
++ 1 1 15.004 3788  1  PERSON	tutes use safe sex , '' said  .X-Leigh . </s
++ 1 1 14.893 3764  1  PERSON	 `` We go to them , '' Mrs .  .X-Ross said .
++ 1 1 14.490 3724  1  PERSON	e to have the elections , ''  .X-Ly said . <
++ 1 1 14.286 3844  1  PERSON	wasn't too bad , really , ''  .X-Logan , a 2
+* 2 1 14.102 3840  2  PLACE	s truly delightful , '' said  .X-Ypsilanti bu
++ 1 1 13.903 3670  1  PERSON	d from the wound , but Mrs .  .X-Edmunds lap
++ 1 1 13.485 3982  1  PERSON	         in it . '' </s> <s>  .X-Hepburn was
++ 1 1 13.284 3842  1  PERSON	's not a bad substitute , ''  .X-Harris said
+* 2 1 13.269 3784  2  PLACE	tled among St . Petersburg ,  .X-Catania and 
++ 1 1 13.028 3726  1  PERSON	to authorities in May , said  .X-Bilak helpe
++ 1 1 12.946 3804  1  PERSON	older brothers , Mikhail and  .X-Viktor , we
++ 1 1 12.165 3827  1  PERSON	eader Mikhail S . Gorachev ,  .X-Arbatov , a
++ 1 1 11.780 3819  1  PERSON	ngeles , the investment firm  .X-Jefferies &
++ 1 1 11.642 3706  1  PERSON	volved in that campaign , ''  .X-Branstad to
++ 1 1 11.525 3741  1  PERSON	a committeehearing Feb . 4 ,  .X-Helms grill
++ 1 1 11.500 3740  1  PERSON	ith foreign correspondents ,  .X-Gutierrez w
++ 1 1 11.476 3701  1  PERSON	s the humanities , something  .X-Olmos said 
++ 1 1 11.384 3666  1  PERSON	the election and challenging  .X-Stroessner 
++ 1 1 11.141 3668  1  PERSON	marrow is a stem cell , said  .X-Weissman . 
++ 1 1 10.840 3972  1  PERSON	ually unfaithful to him , ''  .X-Glassman to
++ 1 1 10.575 3974  1  PERSON	irac is far behind , '' said  .X-Beregovoy .
++ 1 1 10.282 3866  1  PERSON	 am absolutely outraged , ''  .X-Rabby said 
++ 1 1 10.120 3941  1  PERSON	               . '' </s> <s>  .X-Caffrey add
++ 1 1 10.017 3700  1  PERSON	nt to see what the speaker (  .X-Wright ) pr
+* 2 1 9.9666 3997  2  PLACE	he New York Times , '' wrote  .X-Hawley , who
++ 1 1 9.8743 3983  1  PERSON	         in me . '' </s> <s>  .X-Hanks has m
++ 1 1 9.7908 3899  1  PERSON	</s> <s> Customers now greet  .X-Godoy with 
++ 1 1 9.7493 3854  1  PERSON	ost this guy , I'd feel like  .X-Abercrombie
+* 2 1 9.5788 3725  2  PLACE	sult of the advertisements ,  .X-Mize has bee
++ 1 1 9.5736 3735  1  PERSON	ting with Shultz next week ,  .X-Kenaan said
++ 1 1 9.3989 3853  1  PERSON	we learned anything from the  .X-Mondale per
+* 2 1 9.3744 3769  2  PLACE	 </s> <s> Victoria Fraser of  .X-Williston to
++ 1 1 9.3287 3922  1  PERSON	 `` All tires leak , '' said  .X-Pohl . </s>
++ 1 1 8.8473 3963  1  PERSON	 Robertson at 10 percent and  .X-Dupont at 7
++ 1 1 8.6020 3793  1  PERSON	b isn't sure what it is , ''  .X-Wilkens sai
++ 1 1 8.5953 3851  1  PERSON	n an Irish Radio interview ,  .X-Currie said
++ 1 1 8.5821 3696  1  PERSON	s remember these people , ''  .X-Toth said .
++ 1 1 8.4566 3699  1  PERSON	8 counts in the indictment ,  .X-Roche said 
++ 1 1 8.4201 3623  1  PERSON	et fishing is permitted , ''  .X-Gesell said
++ 1 1 8.0285 3855  1  PERSON	 I'm not going to Seoul , ''  .X-Wilander to
++ 1 1 7.9024 3644  1  PERSON	hat he is puzzling , '' said  .X-Bastian , w
++ 1 1 7.8554 3966  1  PERSON	is is just another step , ''  .X-Hawke said 
++ 1 1 7.8466 3648  1  PERSON	workers or the public , Ms .  .X-Mathews sai
++ 1 1 7.8433 3702  1  PERSON	f guilt , was prompted after  .X-Grossman ru
++ 1 1 7.8292 3776  1  PERSON	 <s> Some speakers , such as  .X-Caceres , s
++ 1 1 7.6693 3803  1  PERSON	aska , the blizzard buffeted  .X-Kimball , A
+* 2 1 7.6010 3900  2  PLACE	agg's wife , Kathy , 27 , of  .X-Hesperia , a
++ 1 1 7.5792 3727  1  PERSON	 to an earlier case in which  .X-Guenther ac
++ 1 1 7.5224 3665  1  PERSON	s we'll just never find , ''  .X-Weintraub s
++ 1 1 7.5190 3801  1  PERSON	ork still has a Morgan and a  .X-Schwab on i
++ 1 1 7.1398 3774  1  PERSON	d Deliver , '' a movie about  .X-Escalante .
++ 1 1 6.9915 3942  1  PERSON	               . '' </s> <s>  .X-Bingham ord
++ 1 1 6.9276 3619  1  PERSON	ystal should be , Hjelm told  .X-Hoglund , a
++ 1 1 6.8096 3943  1  PERSON	               . '' </s> <s>  .X-Adelman als
++ 1 1 6.7470 3625  1  PERSON	n the quota system , '' said  .X-Terzian . <
+* 2 1 6.6894 3902  2  PLACE	dictator ( Nicaraguan leader  .X-Daniel ) Ort
+* 2 1 6.5602 3814  2  PLACE	nd his guide , Jay Medore of  .X-Clewiston . 
++ 1 1 6.3470 3679  1  PERSON	re major policy changes , ''  .X-Weinberger 
++ 1 1 6.0374 3843  1  PERSON	been a miracle , so far , ''  .X-Winkler sai
++ 1 1 6.0362 3829  1  PERSON	il's wife Imjihad , daughter  .X-Hannan , 14
+* 2 1 6.0167 3756  2  PLACE	> <s> With 3,900 residents ,  .X-Lambertville
++ 1 1 5.9321 3809  1  PERSON	 </s> <s> Ms . Timerman said  .X-Porat was e
++ 1 1 5.9025 3755  1  PERSON	` I knew I had that one , ''  .X-Shane said 
++ 1 1 5.8373 3763  1  PERSON	e wrote it for the mice , ''  .X-Weill said 
+* 2 1 5.7394 3799  2  PLACE	coll says the success of the  .X-Perinet rese
++ 1 1 5.6214 3981  1  PERSON	         on it . '' </s> <s>  .X-Menninger s
++ 1 1 5.5590 3676  1  PERSON	 to help my family , '' said  .X-Rosales . <
++ 1 1 5.4075 3856  1  PERSON	` I was very lucky , '' said  .X-Berube , wh
++ 1 1 5.4017 3620  1  PERSON	 was reported in De Soto and  .X-Terrell . <
++ 1 1 5.3334 3630  1  PERSON	rt of expectations , '' like  .X-Muskie in 1
++ 1 1 5.2015 3656  1  PERSON	  <s> He cited as an example  .X-Richard `` 
++ 1 1 5.1971 3938  1  PERSON	               . '' </s> <s>  .X-Frey said h
++ 1 1 5.1148 3872  1  PERSON	i and the United States , ''  .X-Biamby said
+* 2 1 5.0747 3920  2  PLACE	Saturday and land instead in  .X-Brindisi , d
++ 1 1 4.9757 3958  1  PERSON	 lawmen when they challenged  .X-Carroll to 
++ 1 1 4.9540 3624  1  PERSON	 weekly reports from his son  .X-Igor , who 
++ 1 1 4.9488 3932  1  PERSON	               . '' </s> <s>  .X-Steinberg s
++ 1 1 4.9092 3626  1  PERSON	that is not easy to get , ''  .X-Koenig said
+* 2 1 4.8686 3889  2  PLACE	Europe `` the big gainer was  .X-Rumania , up
++ 1 1 4.7630 3684  1  PERSON	 step in this direction , ''  .X-Bronfman sa
++ 1 1 4.7583 3986  1  PERSON	         go 85 . '' </s> <s>  .X-Carruthers 
++ 1 1 4.6961 3887  1  PERSON	 translations , whether it's  .X-Prokofiev o
++ 1 1 4.6889 3717  1  PERSON	In a study of hemophiliacs ,  .X-Goedert fou
++ 1 1 4.6835 3663  1  PERSON	d his remarks by saying , ``  .X-Gruber was 
++ 1 1 4.6596 3733  1  PERSON	 conference on disarmament ,  .X-Baklanov po
+* 2 1 4.6051 3822  2  PLACE	n and Kabul and Tel Aviv and  .X-Abijan and i
++ 1 1 4.4678 3633  1  PERSON	support this assumption , ''  .X-Scowcroft s
++ 1 1 4.3828 3789  1  PERSON	ris sponsorship was raised ,  .X-Darnell , w
++ 1 1 4.3738 3753  1  PERSON	tigo , '' `` Play It Again ,  .X-Sam , '' ``
++ 1 1 4.3665 3660  1  PERSON	work sessions last year that  .X-Dannemeyer 
+* 2 1 4.2579 3816  2  PLACE	> <s> Marianne Shenefield of  .X-Agawam is on
++ 1 1 4.1073 3643  1  PERSON	 what he had to do , '' said  .X-Harrell . <
++ 1 1 4.0905 3940  1  PERSON	               . '' </s> <s>  .X-Carles is a
+* 2 1 4.0758 3875  2  PLACE	 said that during a visit to  .X-Tunis last w
++ 1 1 3.9588 3870  1  PERSON	e so close to making it , ''  .X-Hashim said
++ 1 1 3.8337 3936  1  PERSON	               . '' </s> <s>  .X-Nathan said
++ 1 1 3.7500 3782  1  PERSON	ion Corp . , a subsidiary of  .X-Compagnie d
++ 1 1 3.6970 3765  1  PERSON	n't need to supply , '' said  .X-Primakov . 
+* 2 1 3.6927 3970  2  PLACE	Ms . Porter , who grew up in  .X-Lenoir , N.C
++ 1 1 3.6597 3933  1  PERSON	               . '' </s> <s>  .X-Spence said
++ 1 1 3.6597 3935  1  PERSON	               . '' </s> <s>  .X-Pelletreau 
+* 2 1 3.4130 3795  2  PLACE	of the interesting things in  .X-Omak is we h
++ 1 1 3.4105 3761  1  PERSON	Electronics Die Corp . , and  .X-Neuberger o
++ 1 1 3.2983 3711  1  PERSON	 a wide range of topics , ''  .X-Slabbert sa
++ 1 1 3.2565 3754  1  PERSON	gh Guys Don't Dance '' ; and  .X-Stallone in
+* 2 1 3.1226 3680  2  PLACE	 to root out incompetence at  .X-Dartmouth . 
++ 1 1 3.1101 3950  1  PERSON	       . '' </s> <s> But for  .X-Murphy , an
++ 1 1 3.0807 3695  1  PERSON	d that during a meeting with  .X-Mahathir on
++ 1 1 3.0805 3858  1  PERSON	k I just got it on guts , ''  .X-Blair said 
++ 1 1 3.0805 3869  1  PERSON	verything going for him , ''  .X-Adamec said
+* 2 1 2.9875 3960  2  PLACE	 <s> In 1986 , a 26-year-old  .X-Pawtucket ma
++ 1 1 2.8564 3662  1  PERSON	 17th century masterpiece by  .X-Georges de 
++ 1 1 2.7275 3653  1  PERSON	nd to enhance oil recovery ,  .X-Ivanov said
++ 1 1 2.6811 3649  1  PERSON	  <s> Of course they do , ''  .X-Abram said 
++ 1 1 2.6586 3602  1  PERSON	 <s> On his feelings towards  .X-McCartney ,
++ 1 1 2.6407 3693  1  PERSON	he investment firm of Wood ,  .X-Mackenzie a
+* 2 1 2.6207 3751  2  PLACE	s> <s> `` We couldn't get to  .X-Orlando this
++ 1 1 2.6171 3945  1  PERSON	          . '' </s> <s> Ms .  .X-Loy and oth
++ 1 1 2.5013 3710  1  PERSON	l ) with the Mujahedeen , ''  .X-Mojaddedi s
+* 2 1 2.4961 3719  2  PLACE	 statement issued today from  .X-Dharamsala ,
++ 1 1 2.4243 3689  1  PERSON	s family will be afraid , ''  .X-Shaaban sai
++ 1 1 2.3466 3694  1  PERSON	 state of decomposition , ''  .X-Fleischer s
++ 1 1 2.3452 3946  1  PERSON	          . '' </s> <s> Ms .  .X-Flores , sa
+* 2 1 2.2993 3729  2  PLACE	or at the Free University of  .X-Berlin . </s
++ 1 1 2.2083 3820  1  PERSON	nson , chief producer for ``  .X-Donahue , '
+* 2 1 2.1205 3794  2  PLACE	her professional catchers in  .X-Bidor includ
++ 1 1 2.1169 3949  1  PERSON	        . '' </s> <s> He and  .X-Sagan , a C
++ 1 1 2.1035 3737  1  PERSON	in the Jewish community , ''  .X-Hier said .
++ 1 1 2.0458 3796  1  PERSON	`` One of Stalin's cars took  .X-Debov to St
++ 1 1 2.0437 3734  1  PERSON	 form of discrimination , ''  .X-Goldman sai
++ 1 1 2.0424 3862  1  PERSON	<s> `` I feel excellent , ''  .X-Alexandrov 
+* 2 1 2.0149 3691  2  PLACE	h Audit Investments Inc . of  .X-Montvale , N
++ 1 1 1.9319 3825  1  PERSON	ading a reporter on a tour ,  .X-Campisi cru
++ 1 1 1.9307 3675  1  PERSON	k-and-forth , Robertson told  .X-Evans : `` 
++ 1 1 1.6628 3884  1  PERSON	 For me , every night at the  .X-Schiller is
++ 1 1 1.6287 3686  1  PERSON	s tip Sunday night regarding  .X-Hodges ' wh
++ 1 1 1.5689 3834  1  PERSON	 3 , John Paul will canonize  .X-Simone de R
++ 1 1 1.5174 3650  1  PERSON	ouldn't say how much because  .X-Barrie stip
++ 1 1 1.5017 3732  1  PERSON	r in the Chicago law firm of  .X-Rudnick & W
++ 1 1 1.4822 3874  1  PERSON	ohn Waihee in a meeting with  .X-Webb last y
++ 1 1 1.4252 3705  1  PERSON	s> In addition to Milken and  .X-Maultasch ,
+* 2 1 1.3612 3977  2  PLACE	 Shelby , Walker , Autauga ,  .X-Elmore , Mon
++ 1 1 1.1292 3608  1  PERSON	dicts in the state , '' said  .X-Burke . </s
+* 2 1 1.0376 3971  2  PLACE	892 , Mrs . Bellamy moved to  .X-Sandoval whe
++ 1 1 1.0252 3687  1  PERSON	nd the other two who lost to  .X-Manigat cla
+* 2 1 0.9438 3925  2  PLACE	  <s> `` After the battle of  .X-Zion things 
+* 2 1 0.8970 3881  2  PLACE	 sent to Sue Terry , 43 , of  .X-Centralia . 
++ 1 1 0.8513 3674  1  PERSON	eted later this month , Ms .  .X-Gillespie s
+* 2 1 0.8504 3646  2  PLACE	 by a special police unit in  .X-Padua . </s>
++ 1 1 0.7056 3892  1  PERSON	on Quixote , '' by Miguel de  .X-Cervantes ,
++ 1 1 0.6363 3947  1  PERSON	          . '' </s> <s> Ms .  .X-Clemente , 
+* 2 1 0.5767 3908  2  PLACE	s> Bush later phoned WKNE in  .X-Keene to boa
++ 1 1 0.5583 3906  1  PERSON	s> <s> But Crosby , Stills &  .X-Nash , who 
+* 2 1 0.5143 3681  2  PLACE	in Vermont District Court in  .X-Rutland flan
+* 2 1 0.5027 3780  2  PLACE	<s> Scott Fetzlaff , 20 , of  .X-Manistee , s
+* 2 1 0.4705 3658  2  PLACE	from the First State Bank of  .X-Goltry befor
+* 2 1 0.2864 3841  2  PLACE	` It's real gentle , '' said  .X-Sebring poli
++ 1 1 0.1797 3797  1  PERSON	elevision he performed in ``  .X-Baryshnikov
++ 1 1 0.1341 3621  1  PERSON	to a particular country , ''  .X-Flanigan sa
++ 1 1 0.0011 3860  1  PERSON	st made up my mind , '' said  .X-Hibbard , w
++ 2 2 -0.124 3821  2  PLACE	y telephone from his home in  .X-Bedminster ,
+* 1 2 -0.156 3839  1  PERSON	 Simon , 10 Uncommitted , 10  .X-Ahern , 10 
+* 1 2 -0.226 3939  1  PERSON	               . '' </s> <s>  .X-Doherty , 3
++ 2 2 -0.308 3886  2  PLACE	n in south Alabama and knows  .X-Salo , said 
++ 2 2 -0.343 3627  2  PLACE	 , said Maureen Dalpe of the  .X-Woonsocket c
+* 1 2 -0.377 3697  1  PERSON	e our own universe , '' said  .X-Montesinos 
++ 2 2 -0.564 3923  2  PLACE	dria , Salem was governor of  .X-Asiut , Ghar
+* 1 2 -0.630 3707  1  PERSON	 the same moment , Symms and  .X-McClure spo
++ 2 2 -0.693 3824  2  PLACE	26-year-old pastry chef from  .X-Melbourne , 
+* 1 2 -0.796 3698  1  PERSON	 and people of all ages , ''  .X-Heinrich sa
+* 1 2 -0.832 3762  1  PERSON	e got a good crowd , '' said  .X-Polgar , wh
++ 2 2 -0.941 3979  2  PLACE	, was arrested at a motel in  .X-Flowood . </
+* 1 2 -0.985 3671  1  PERSON	rst to use nuclear weapons ,  .X-Andropov in
+* 1 2 -1.012 3898  1  PERSON	Shield use and injury , said  .X-Puckett , t
++ 2 2 -1.013 3632  2  PLACE	 France when he flew back to  .X-Bangui to vi
++ 2 2 -1.021 3837  2  PLACE	rome and Paulette Tedesco of  .X-Cahors , une
+* 1 2 -1.040 3937  1  PERSON	               . '' </s> <s>  .X-Kozyrev , a
+* 1 2 -1.077 3614  1  PERSON	ebred alpine goats , '' said  .X-Cahn , 66 .
++ 2 2 -1.158 3910  2  PLACE	 Orsetti Seed Co . , Inc . ,  .X-Watsonville 
+* 1 2 -1.161 3601  1  PERSON	and I went off the back , ''  .X-Haid said a
++ 2 2 -1.244 3811  2  PLACE	stly these days , I think of  .X-Lincoln - ` 
+* 1 2 -1.370 3980  1  PERSON	         to me . '' </s> <s>  .X-Ziolkowski 
+* 1 2 -1.376 3757  1  PERSON	 stars as J.L . `` Fatman ''  .X-McCabe , a 
+* 1 2 -1.404 3685  1  PERSON	nerator in the engine room ,  .X-Marrs said 
++ 2 2 -1.441 3728  2  PLACE	ic meeting in the village of  .X-Arwal . </s>
++ 2 2 -1.444 3664  2  PLACE	 Garden State Arts Center in  .X-Holmdel . --
+* 1 2 -1.464 3812  1  PERSON	On Monday is `` Eisenhower &  .X-Lutz , '' a
+* 1 2 -1.505 3857  1  PERSON	 we've lost a crop , '' said  .X-Nyberg , 62
+* 1 2 -1.677 3859  1  PERSON	 <s> `` I like this one , ''  .X-Jenkins say
+* 1 2 -1.698 3703  1  PERSON	ss the environment , '' Ms .  .X-Frase said 
+* 1 2 -1.798 3929  1  PERSON	t 30 people attacked me , ''  .X-Eliahu late
+* 1 2 -2.338 3752  1  PERSON	our Mother Gets Home , '' ``  .X-Goldie and 
++ 2 2 -2.431 3833  2  PLACE	Johnson and Glenne Headly as  .X-Elmira . .En
++ 2 2 -2.600 3918  2  PLACE	, was said to have worked at  .X-Monaghan in 
+* 1 2 -2.794 4000  1  PERSON	e ) is going first , '' said  .X-Macias , fl
++ 2 2 -2.986 3605  2  PLACE	 Liberal Democratic Party in  .X-Karuizawa , 
+* 1 2 -3.004 3704  1  PERSON	ion to sending the letter to  .X-Waites , Cl
+* 1 2 -3.025 3657  1  PERSON	He changed his cat's name to  .X-Tobias , ga
+* 1 2 -3.069 3613  1  PERSON	hese new compounds , '' said  .X-Muller , wh
++ 2 2 -3.070 3826  2  PLACE	ar , Robert Peterson Sr . of  .X-Dannebrog wa
++ 2 2 -3.182 3990  2  PLACE	missary of the Archbishop of  .X-Canterbury ,
+* 1 2 -3.281 3928  1  PERSON	<s> According to Gifford and  .X-Ellis , Bla
++ 2 2 -3.333 3618  2  PLACE	o guard the corridor between  .X-Harare and B
++ 2 2 -3.385 3916  2  PLACE	nning and a Feb . 24 rape in  .X-Hemet . </s>
++ 2 2 -3.411 3955  2  PLACE	ies : 33 in Peoria and 14 in  .X-Tazewell and
++ 2 2 -3.468 3661  2  PLACE	stophanes , women of warring  .X-Sparta and A
+* 1 2 -3.881 3835  1  PERSON	<s> Joining the Statlers and  .X-Travis as f
+* 1 2 -3.913 3677  1  PERSON	 with the Wilmington firm of  .X-Richards , 
+* 1 2 -3.958 3607  1  PERSON	ny questions asked , '' said  .X-Holley , pa
++ 2 2 -3.974 3800  2  PLACE	- Circulation Under 25,000 :  .X-Biddeford , 
+* 1 2 -4.009 3865  1  PERSON	s> `` I am sorry for it , ''  .X-Wisniewski 
+* 1 2 -4.053 3736  1  PERSON	l for dizziness and nausea ,  .X-Meidt said 
++ 2 2 -4.259 3798  2  PLACE	10 , it'll be an 8 or 9 , ''  .X-Breda farmer
+* 1 2 -4.275 3641  1  PERSON	bad states in the South , ''  .X-Griffith sa
++ 2 2 -4.529 3883  2  PLACE	 Pont , a former governor of  .X-Delaware , r
++ 2 2 -4.535 3760  2  PLACE	Publishing Co . who lives in  .X-Woodbury , g
+* 1 2 -4.638 3863  1  PERSON	 feel like we beat them , ''  .X-Moser said 
+* 1 2 -4.642 3640  1  PERSON	ely carry out the measures ,  .X-Chung said 
+* 1 2 -4.643 3894  1  PERSON	 Director Louis Malle called  .X-Montand `` 
+* 1 2 -4.695 3934  1  PERSON	               . '' </s> <s>  .X-Sokolov , 7
+* 1 2 -4.753 3669  1  PERSON	d the same flight Thursday ,  .X-Snelling sa
+* 1 2 -4.755 3690  1  PERSON	eapens '' the boy's memory ,  .X-Starzl said
++ 2 2 -4.813 3962  2  PLACE	 Ile-Jesus , now the city of  .X-Laval , has 
+* 1 2 -4.974 3919  1  PERSON	nta , in debt , according to  .X-Richey . .E
++ 2 2 -5.081 3888  2  PLACE	- at Cirencester , Chester ,  .X-Chichester a
++ 2 2 -5.245 3993  2  PLACE	ts junior history major from  .X-Edgemont , N
++ 2 2 -5.303 3770  2  PLACE	n Peterson , acting mayor of  .X-Amery , a fa
+* 1 2 -5.310 3861  1  PERSON	` I hope I live so long , ''  .X-Weddle said
++ 2 2 -5.389 3775  2  PLACE	Spanish , the teen-ager from  .X-Ensenada , M
++ 2 2 -5.552 3808  2  PLACE	e Regional Medical Center in  .X-Ocala after 
+* 1 2 -5.723 3882  1  PERSON	> On Friday in Los Angeles ,  .X-Dantley got
++ 2 2 -5.830 3743  2  PLACE	ivil uprising in the city of  .X-Kwangju , me
++ 2 2 -5.900 3930  2  PLACE	nion Free School District in  .X-Irvington , 
++ 2 2 -6.018 3637  2  PLACE	ic crowd at a high school in  .X-Wyandanch , 
++ 2 2 -6.211 3879  2  PLACE	 , a 26,400-foot peak in the  .X-Karakorum ra
++ 2 2 -6.449 3985  2  PLACE	         on it . '' </s> <s>  .X-Cary spoke t
++ 2 2 -6.509 3968  2  PLACE	n a sit-in at their plant in  .X-Pupyong near
++ 2 2 -6.556 3777  2  PLACE	 Path was shot and killed in  .X-Ayacucho , p
++ 2 2 -7.093 3832  2  PLACE	 and landed 96 days later at  .X-Clifden , Co
++ 2 2 -7.203 3987  2  PLACE	 jet engine repairman at the  .X-Alameda depo
++ 2 2 -7.274 3931  2  PLACE	<s> A severed cable left the  .X-Jacksonville
++ 2 2 -7.678 3897  2  PLACE	> David Brom , a 16-year-old  .X-Lourdes soph
++ 2 2 -7.688 3744  2  PLACE	 Service van as he rode into  .X-Shiprock alo
++ 2 2 -7.867 3913  2  PLACE	no is scheduled to leave for  .X-Deauville , 
++ 2 2 -7.887 3746  2  PLACE	d County warrant in Toledo ,  .X-Ohio , where
++ 2 2 -7.911 3759  2  PLACE	 , and a processing plant in  .X-Accomac that
++ 2 2 -8.010 3779  2  PLACE	, Wash . , and at WIXT-TV in  .X-Syracuse , N
+* 1 2 -8.076 3984  1  PERSON	        may be . '' </s> <s>  .X-Friedman an
++ 2 2 -8.124 3673  2  PLACE	 same way as you would do in  .X-Birmingham o
++ 2 2 -8.195 3720  2  PLACE	iper outside a courthouse in  .X-Lawrencevill
++ 2 2 -8.225 3954  2  PLACE	 . in the Balanza bar in the  .X-Bilbao neigh
++ 2 2 -8.257 3905  2  PLACE	a Hospital Medical Center in  .X-Inglewood ea
+* 1 2 -8.341 3927  1  PERSON	recent evening with Newman ,  .X-Redford sai
++ 2 2 -8.538 3848  2  PLACE	 tiny County Cork village of  .X-Kildorrery ,
++ 2 2 -8.861 3904  2  PLACE	d in the St . Paul suburb of  .X-Maplewood . 
++ 2 2 -8.881 3745  2  PLACE	 a NATO meeting last year in  .X-Reykjavik , 
++ 2 2 -9.140 3815  2  PLACE	len and Laredo as well as in  .X-Marfa , El P
+* 1 2 -9.336 3926  1  PERSON	 After a recent evening with  .X-Newman , Re
++ 2 2 -9.373 3634  2  PLACE	a federal trial that year in  .X-Roanoke , Va
++ 2 2 -9.625 3813  2  PLACE	odesto , San Francisco , and  .X-Monterey cal
++ 2 2 -9.640 3885  2  PLACE	 and Museum was dedicated in  .X-Cooperstown 
++ 2 2 -10.16 3642  2  PLACE	pposition political rally in  .X-Katutura , a
++ 2 2 -10.25 3831  2  PLACE	e , about 500 miles north of  .X-Rangoon . </
+* 1 2 -10.26 3849  1  PERSON	he strip , Gore is called ``  .X-Albert , pr
+* 1 2 -10.28 3823  1  PERSON	on , the Foreign Office said  .X-Mellor deli
++ 2 2 -10.39 3651  2  PLACE	 a snow-covered road between  .X-Pendleton an
+* 1 2 -10.45 3758  1  PERSON	`` What you saw tonight , ''  .X-Buckley sai
++ 2 2 -10.48 3609  2  PLACE	held at the truce village of  .X-Panmunjom on
+* 1 2 -10.52 3845  1  PERSON	s like a gigantic horse , ''  .X-Dunne said 
++ 2 2 -10.75 3961  2  PLACE	 is now the Yugoslav port of  .X-Rijeka , Kad
++ 2 2 -10.85 3659  2  PLACE	at a Civil Guard barracks in  .X-Zaragoza tha
++ 2 2 -11.04 3611  2  PLACE	n a telephone interview from  .X-Scottsdale ,
++ 2 2 -11.19 3893  2  PLACE	drowned in December 1986 off  .X-Rincon , a f
++ 2 2 -11.20 3802  2  PLACE	land clubs before buying his  .X-Warwick home
++ 2 2 -11.37 3878  2  PLACE	South Carolina , Tennessee ,  .X-Indiana and 
++ 2 2 -11.43 3952  2  PLACE	       . '' </s> <s> Born in  .X-Dordrecht , 
++ 2 2 -11.44 3896  2  PLACE	od , with 15 to 20 inches in  .X-Sturgis and 
++ 2 2 -11.47 3672  2  PLACE	day at the nearby village of  .X-Dunmoyle . <
++ 2 2 -11.74 3890  2  PLACE	<s> Dumaine , who grew up in  .X-Westfield , 
++ 2 2 -11.82 3901  2  PLACE	avings & Loan Association of  .X-Bethesda , M
++ 2 2 -12.18 3969  2  PLACE	 Dr . William K . Summers of  .X-Arcadia , Ca
++ 2 2 -12.35 3995  2  PLACE	Park . - Joseph `` Scoops ''  .X-Licata , 47 
+* 1 2 -12.37 3783  1  PERSON	e University of Alabama , ''  .X-Whipple sai
++ 2 2 -12.42 3818  2  PLACE	akis said in an interview at  .X-Avlon milita
++ 2 2 -13.24 3716  2  PLACE	 a survivalist conference in  .X-Dearborn , M
++ 2 2 -13.34 3817  2  PLACE	istribute mail flown in from  .X-Colonia , th
+* 1 2 -13.46 3846  1  PERSON	o be a burial site , '' said  .X-Zohar , sta
++ 2 2 -13.94 3978  2  PLACE	lm of Canterbury was born in  .X-Aosta in the
++ 2 2 -14.01 3603  2  PLACE	r's pharmacy in Dorgali near  .X-Nuoro on Sar
++ 2 2 -14.03 3635  2  PLACE	t Oral Roberts for two south  .X-Tulsa office
+* 1 2 -14.37 3739  1  PERSON	te with a rival group in the  .X-Dube sectio
++ 2 2 -14.94 3722  2  PLACE	hooting range six miles from  .X-Schoenau and
+* 1 2 -14.98 3628  1  PERSON	t I got used to it , '' said  .X-Faris , 18 
++ 2 2 -15.22 3652  2  PLACE	y in the Cleveland suburb of  .X-Berea , Ohio
++ 2 2 -15.37 3781  2  PLACE	e and its subsidiaries , the  .X-Atchison , T
++ 2 2 -15.65 3976  2  PLACE	e Hampers , who has homes in  .X-Weston , Mas
++ 2 2 -15.66 3747  2  PLACE	klyn hatmaker , had been the  .X-Chesterfield
++ 2 2 -15.74 3998  2  PLACE	 selective service office in  .X-Catonsville 
++ 2 2 -15.93 3891  2  PLACE	, Ariz . , with 11 degrees ,  .X-Paducah , Ky
++ 2 2 -16.11 3606  2  PLACE	e for Resource Management in  .X-Sundance , U
++ 2 2 -16.24 3790  2  PLACE	o an industrical center near  .X-Campinas whe
++ 2 2 -16.25 3988  2  PLACE	a prison on the outskirts of  .X-Parma , wher
+* 1 2 -16.33 3895  1  PERSON	nver scouting headquarters ,  .X-Kephart sai
+* 1 2 -16.34 3807  1  PERSON	 `` Murray Ohio is a typical  .X-Tomkins acq
++ 2 2 -16.53 3975  2  PLACE	Medical Center in the city's  .X-Bloomfield n
++ 2 2 -16.58 3610  2  PLACE	y Mountain State Prison near  .X-Petros , fro
++ 2 2 -16.69 3786  2  PLACE	rix International Airport in  .X-Oranjestad ,
++ 2 2 -16.71 3738  2  PLACE	t from Cotonou , Benin , via  .X-Abidjan , Iv
+* 1 2 -16.73 3785  1  PERSON	ts in Bakersfield and nearby  .X-Taft felt t
++ 2 2 -16.73 3973  2  PLACE	alski's parents , from rural  .X-Nashwauk , s
++ 2 2 -16.82 3907  2  PLACE	told high school students in  .X-Vandalia , O
++ 2 2 -16.95 3731  2  PLACE	ily in the farming region of  .X-Stavropol be
++ 2 2 -17.61 3806  2  PLACE	 Rochester , N.Y . , and the  .X-Interlochen 
++ 2 2 -17.61 3683  2  PLACE	nce at Denison University in  .X-Granville , 
++ 2 2 -17.70 3723  2  PLACE	block at the southern end of  .X-Beersheva , 
++ 2 2 -17.82 3708  2  PLACE	 of water four miles west of  .X-Anacortes an
++ 2 2 -18.11 3996  2  PLACE	 electronics technician , of  .X-Maumee , Ohi
++ 2 2 -18.49 3873  2  PLACE	 S.C . , and 7 below zero at  .X-Rockford , I
++ 2 2 -18.62 3877  2  PLACE	/s> <s> Golden , a native of  .X-Brewton , Al
++ 2 2 -18.69 3850  2  PLACE	</s> <s> In the community of  .X-Colma , sout
++ 2 2 -18.95 3951  2  PLACE	       . '' </s> <s> Born in  .X-Lucca , Ital
++ 2 2 -19.09 3654  2  PLACE	e parts of a highway between  .X-Mainz and Ko
++ 2 2 -19.29 3917  2  PLACE	 </s> <s> Bale , who is from  .X-Bournemouth 
++ 2 2 -19.41 3748  2  PLACE	acre site six miles north of  .X-Palatka off 
++ 2 2 -19.43 3867  2  PLACE	lulu , or 345 miles south of  .X-Lihue , Kaua
++ 2 2 -19.50 3836  2  PLACE	s> John Sheppard , 51 , is a  .X-Scio horse b
++ 2 2 -19.55 3828  2  PLACE	Knight , an iron worker from  .X-Palmyra , N.
++ 2 2 -19.67 3718  2  PLACE	tion in the northern city of  .X-Valladolid .
++ 2 2 -19.86 3604  2  PLACE	 Villa Favorita residence in  .X-Lugano , Swi
++ 2 2 -19.90 3830  2  PLACE	lls , 37 , a coal miner from  .X-Westover , W
++ 2 2 -20.01 3880  2  PLACE	 from Kandahar , Shinand and  .X-Herat in the
++ 2 2 -20.13 3909  2  PLACE	k Metz's chicken hatchery in  .X-Bellville , 
++ 2 2 -20.38 3742  2  PLACE	mine in the southern city of  .X-Jastrzebie w
++ 2 2 -20.45 3912  2  PLACE	laces were prison camps near  .X-Belgrade dur
++ 2 2 -20.62 3994  2  PLACE	e is an apprentice carver at  .X-Saxman , a T
++ 2 2 -20.71 3868  2  PLACE	His campaign headquarters in  .X-Chesapeake ,
++ 2 2 -20.74 3810  2  PLACE	 . Hauptmann , 89 , lives in  .X-Yeadon , Pa 
++ 2 2 -21.32 3924  2  PLACE	ec MacDonald , 17 , of rural  .X-Edwardsville
++ 2 2 -21.37 3915  2  PLACE	from company headquarters in  .X-Torrance , C
++ 2 2 -21.56 3778  2  PLACE	ional Forest Headquarters in  .X-Porterville 
++ 2 2 -21.58 3772  2  PLACE	 opposition demonstration in  .X-Nandaime , a
++ 2 2 -21.64 3682  2  PLACE	s Santa Maria , Santiago and  .X-Varadero , t
++ 2 2 -21.97 3956  2  PLACE	s fell in the mountains near  .X-Alamosa , Co
++ 2 2 -21.98 3847  2  PLACE	lam radio station , based in  .X-Baalbek , in
+* 1 2 -22.21 3967  1  PERSON	 Thursday it would close its  .X-Dumas , Tex
++ 2 2 -22.30 3838  2  PLACE	ry when officials placed the  .X-Goshen city 
++ 2 2 -22.36 3787  2  PLACE	d lower temperatures enabled  .X-Tidioute , P
++ 2 2 -22.52 3730  2  PLACE	Mrs . Maria Farris , 37 , of  .X-Londonderry 
++ 2 2 -22.60 3953  2  PLACE	p.m . , 3 1/2 miles north of  .X-Crofton , a 
++ 2 2 -22.61 3749  2  PLACE	the Beatles , '' was born in  .X-Compton , Ca
++ 2 2 -22.65 3617  2  PLACE	 after fighting broke out in  .X-Cuenca , 185
++ 2 2 -22.76 3999  2  PLACE	ral procession moved through  .X-Sohmor villa
++ 2 2 -23.67 3612  2  PLACE	ded a courthouse Thursday in  .X-Chimbote , a
++ 2 2 -23.71 3876  2  PLACE	had other scheduled stops in  .X-Beaumont , T
++ 2 2 -23.86 3688  2  PLACE	ubsidiaries , the Atchison ,  .X-Topeka and S
++ 2 2 -24.02 3678  2  PLACE	fugee camp in the village of  .X-Malema , in 
++ 2 2 -24.10 3991  2  PLACE	h Military Police Company in  .X-Pirmasens , 
++ 2 2 -24.24 3692  2  PLACE	Agri-Visor Services Inc . in  .X-Bloomington 
++ 2 2 -24.94 3616  2  PLACE	and was recaptured in nearby  .X-Dania , said
++ 2 2 -25.29 3871  2  PLACE	s> <s> He came here from his  .X-Jupiter , Fl
+* 1 2 -25.50 3667  1  PERSON	 Panama and Puerto Rico , ''  .X-Takiff said
++ 2 2 -25.66 3713  2  PLACE	ge near the northern town of  .X-Jaffna . </s
++ 2 2 -25.70 3629  2  PLACE	al grand juries in Miami and  .X-Tampa , Fla 
++ 2 2 -25.97 3712  2  PLACE	a volcanic peak northwest of  .X-Neuquen , th
++ 2 2 -26.26 3903  2  PLACE	lumbus in Union County , and  .X-Bellefontain
++ 2 2 -26.35 3645  2  PLACE	ts in an olive grove outside  .X-Kairouan , a
++ 2 2 -26.44 3631  2  PLACE	home in the affluent town of  .X-Koenigstein 
++ 2 2 -27.80 3709  2  PLACE	a.m . EST ) in the middle of  .X-Forst , a to
++ 2 2 -28.03 3959  2  PLACE	ST ranged from 11 degrees at  .X-Champaign , 
++ 2 2 -28.21 3771  2  PLACE	h Medical Center in suburban  .X-Englewood , 
++ 2 2 -29.25 3964  2  PLACE	s to Missoula or 90 miles to  .X-Sandpoint , 
++ 2 2 -30.00 3792  2  PLACE	<s> Outside a high school in  .X-Apopka , Fla
++ 2 2 -30.07 3636  2  PLACE	ed Monday from the prison in  .X-Jessup , abo
++ 2 2 -30.41 3715  2  PLACE	town near the Basque city of  .X-Vitoria , ab
++ 2 2 -31.16 3714  2  PLACE	track at Ay , a village near  .X-Epernay , 85
++ 2 2 -35.79 3957  2  PLACE	DT ranged from 30 degrees at  .X-Johnstown , 
++ 2 2 -36.21 3647  2  PLACE	nesday outside their home in  .X-Bradbury , 2
++ 2 2 -36.36 3639  2  PLACE	s to combat a forest fire in  .X-Orense provi
++ 2 2 -36.57 3721  2  PLACE	  <s> In a small building in  .X-Kutztown , a
++ 2 2 -37.36 3992  2  PLACE	 walked to his restaurant in  .X-Eibar , a to
++ 2 2 -52.25 3914  2  PLACE	ngol , Diyarbakir , Elazig ,  .X-Hakkari , Ma
++ 2 2 -54.06 3965  2  PLACE	es of snow fell overnight at  .X-Wakefield , 
+
+TOTAL CORRECT = 310
+TOTAL INCORRECT = 90
+PERCENT CORRECT = 0.775

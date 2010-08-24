@@ -1,0 +1,1754 @@
+#!/usr/local/bin/perl -w
+
+use strict;
+
+use Carp;
+use FileHandle;
+
+############################################################
+## Program Defaults and Global Variables
+############################################################
+
+my $DIR  = "/home/1/yarowsky/cs466/hw2";
+my $HOME = ".";
+
+my $token_docs = "$DIR/cacm";           # tokenized cacm journals
+my $corps_freq = "$DIR/cacm";           # frequency of each token in the journ.
+my $stoplist   = "$DIR/common_words";   # common uninteresting words
+my $titles     = "$DIR/titles.short";   # titles of each article in cacm 
+my $token_qrys = "$DIR/query";          # tokenized canned querys
+my $query_freq = "$DIR/query";          # frequency of each token in the querys
+my $query_relv = "$DIR/query\.rels";    # relevance of a journal entry to a
+                                        #    given query
+
+# these files are created in your $HOME directory
+
+my $token_intr = "$HOME/interactive";    # file created for interactive queries
+my $inter_freq = "$HOME/interactive";    # frequency of each token in above
+
+# @doc_vector
+#
+#   An array of hashes, each array index indicating a particular document's
+#   weight "vector". 
+
+my @doc_vector = ( );
+
+# @qry_vector
+#
+#   An array of hashes, each array index indicating a particular query's
+#   weight "vector".
+
+my @qry_vector = ( );
+
+# %docs_freq_hash
+#
+# associative array which holds <token, frequency> pairs where
+#
+#   token     = a particular word or tag found in the cacm corpus
+#   frequency = the total number of times the token appears in
+#               documents -- that is a token is counted only once
+#               per document if it is present (even if it appears 
+#               several times within that document).
+
+my %docs_freq_hash = ( );    
+
+# %corp_freq_hash
+#
+# associative array which holds <token, frequency> pairs where
+#
+#   token     = a particular word or tag found in the corpus
+#   frequency = the total number of times the token appears in
+#               the corpus.
+
+my %corp_freq_hash = ( );
+
+# %stoplist_hash
+#
+# common list of uninteresting words which are likely irrelvant
+# to any query.
+#
+#   Note: this is an associative array to provide fast lookups
+#         of these boring words
+
+my %stoplist_hash  = ( );
+
+# @titles_vector
+#
+# vector of the cacm journal titles. Indexed in order of apperance
+# within the corpus.
+
+my @titles_vector  = ( );
+
+# %relevance_hash
+#
+# a hash of hashes where each <key, value> pair consists of
+#
+#   key   = a query number
+#   value = a hash consisting of document number keys with associated
+#           numeric values indicating the degree of relevance the 
+#           document has to the particular query.
+
+my %relevance_hash = ( );
+
+# @doc_simula
+#
+# array used for storing query to document or document to document
+# similarity calculations (determined by cosine_similarity, etc. )
+
+my @doc_simula = ( );
+
+# @res_vector
+#
+# array used for storing the document numbers of the most relevant
+# documents in a query to document or document to document calculation.
+
+my @res_vector = ( );
+
+# %query_rel_docs
+#
+# a hash of hashes where each <key, value> pair consists of
+#
+# key = 	a query number
+# value = 	array of results whose format = i, rank, recall, precision
+
+my %query_rel_docs = ();
+
+# %query_rp
+#
+# a hash of hashes where each <key, value> pair consists of
+#
+# key = 	a query number
+# value = 	hash consisting of recall/precision measure names
+#		and their values for a given query
+
+my %query_rp = ();
+
+# Options
+
+my $TERM_WEIGHTING = "B";
+my $SIM_MEASURE = "A";
+my $STEMMING = "B";
+my $STOPWORDS = "A";
+my $REGION_WEIGHTING = "B";
+
+# start program
+
+&main_loop;
+
+##########################################################
+##  INIT_FILES
+##
+##  This function specifies the names and locations of
+##  input files used by the program. 
+##
+##  Parameter:  $type   ("stemmed" or "unstemmed")
+##
+##  If $type == "stemmed", the filenames are initialized
+##  to the versions stemmed with the Porter stemmer, while
+##  in the default ("unstemmed") case initializes to files
+##  containing raw, unstemmed tokens.
+##########################################################
+
+sub init_files 
+{
+	if ("stemmed" eq (shift || "")) 
+	{
+		$token_docs .= "\.stemmed";
+		$corps_freq .= "\.stemmed\.hist";
+		$stoplist   .= "\.stemmed";
+		$token_qrys .= "\.stemmed";
+		$query_freq .= "\.stemmed\.hist";
+		$token_intr .= "\.stemmed";
+		$inter_freq .= "\.stemmed\.hist";
+	}
+	else 
+	{
+		$token_docs .= "\.tokenized";
+		$corps_freq .= "\.tokenized\.hist";
+		$token_qrys .= "\.tokenized";
+		$query_freq .= "\.tokenized\.hist";
+		$token_intr .= "\.tokenized";
+		$inter_freq .= "\.tokenized\.hist";
+	}
+}
+
+##########################################################
+##  INIT_CORP_FREQ 
+##
+##  This function reads in corpus and document frequencies from
+##  the provided histogram file for both the document set
+##  and the query set. This information will be used in
+##  term weighting.
+##
+##  It also initializes the arrays representing the stoplist,
+##  title list and relevance of document given query.
+##########################################################
+
+sub init_corp_freq 
+{
+	my $corps_freq_fh = new FileHandle $corps_freq, "r" or croak "Failed $corps_freq";
+
+	my $query_freq_fh = new FileHandle $query_freq, "r" or croak "Failed $query_freq";
+
+	my $stoplist_fh = new FileHandle $stoplist, "r" or croak "Failed $stoplist";
+
+	my $titles_fh = new FileHandle $titles, "r" or croak "Failed $titles";
+
+	my $query_relv_fh = new FileHandle $query_relv, "r" or croak "Failed $query_relv";
+
+	my $line = undef;
+
+	while (defined( $line = <$corps_freq_fh> )) 
+	{
+		# so on my computer split will return a first element of undef 
+		# if the leading characters are white space, so I eat the white
+		# space to insure that the split works right.
+
+		my ($str) = ($line =~ /^\s*(\S.*)/);
+
+		my ($doc_freq, $cor_freq, $term) = split /\s+/, $str;
+
+		$docs_freq_hash{ $term } = $doc_freq;
+		$corp_freq_hash{ $term } = $cor_freq;
+	}
+    
+	while (defined( $line = <$query_freq_fh> )) 
+	{
+		my ($str) = ($line =~ /^\s*(\S.*)/);
+
+		my ($doc_freq, $cor_freq, $term) = split /\s+/, $str;
+
+		$docs_freq_hash{ $term } += $doc_freq;
+		$corp_freq_hash{ $term } += $cor_freq;
+	}
+
+	while (defined( $line = <$stoplist_fh> )) 
+	{
+		chomp $line;
+		$stoplist_hash{ $line } = 1;
+	}
+
+	push @titles_vector, "";       # push one empty value onto @titles_vector
+                                     # so that indices correspond with title
+                                     # numbers.
+
+	while (defined( $line = <$titles_fh> )) 
+	{
+		chomp $line;
+		push @titles_vector, $line;
+	}
+
+	while (defined( $line = <$query_relv_fh> )) 
+	{
+		my ($str) = ($line =~ /^\s*(\S.*)/);
+
+		my ($qry_num, $rel_doc) = split /\s+/, $str;
+
+		$relevance_hash{ "$qry_num" }{ "$rel_doc" } = 1;
+	}
+}
+
+##########################################################
+##  INIT_DOC_VECTORS
+##
+##  This function reads in tokens from the document file.
+##  When a .I token is encountered, indicating a document
+##  break, a new vector is begun. When individual terms
+##  are encountered, they are added to a running sum of
+##  term frequencies. To save time and space, it is possible
+##  to normalize these term frequencies by inverse document
+##  frequency (or whatever other weighting strategy is
+##  being used) while the terms are being summed or in
+##  a posthoc pass.  The 2D vector array 
+##
+##    $doc_vector[ $doc_num ]{ $term }
+##
+##  stores these normalized term weights.
+##
+##  It is possible to weight different regions of the document
+##  differently depending on likely importance to the classification.
+##  The relative base weighting factors can be set when 
+##  different segment boundaries are encountered.
+##
+##  This function is currently set up for simple TF weighting.
+##########################################################
+
+sub init_doc_vectors 
+{
+	my $TITLE_BASE_WEIGHT = 3;     # weight given a title token
+	my $KEYWD_BASE_WEIGHT = 4;     # weight given a key word token
+	my $AUTHR_BASE_WEIGHT = 3;     # weight given an an author token
+	my $ABSTR_BASE_WEIGHT = 1;     # weight given an abstract word token
+
+	my $DEFAULT_WEIGHT = 1;
+
+	my $token_docs_fh = new FileHandle $token_docs, "r" or croak "Failed $token_docs";
+
+	my $word = undef;
+
+	my $doc_num = 0;    # current document number and total docs at end
+	my $tweight = 0;    # current weight assigned to document token
+
+	push @doc_vector, { };     # push one empty value onto @doc_vector so that
+                                 # indices correspond with document numbers
+
+	while (defined( $word = <$token_docs_fh> )) 
+	{
+		chomp $word;
+		last if $word =~ /^\.I 0/; # indicates end of file so kick out
+	
+		if ($word =~ /^\.I/) # indicates start of a new document
+		{
+			push @doc_vector, { };
+			$doc_num++;
+
+			next;
+		}
+
+		if ($REGION_WEIGHTING =~ /[Aa]/)
+		{
+			$tweight = $DEFAULT_WEIGHT and next if $word =~ /^\.T/;
+			$tweight = $DEFAULT_WEIGHT and next if $word =~ /^\.K/;
+			$tweight = $DEFAULT_WEIGHT and next if $word =~ /^\.A/;
+			$tweight = $DEFAULT_WEIGHT and next if $word =~ /^\.W/;
+		}
+		elsif ($REGION_WEIGHTING =~ /[Cc]/)
+		{
+			$tweight = $DEFAULT_WEIGHT and next if $word =~ /^\.T/;
+			$tweight = $DEFAULT_WEIGHT and next if $word =~ /^\.K/;
+			$tweight = $DEFAULT_WEIGHT and next if $word =~ /^\.A/;
+			$tweight = $KEYWD_BASE_WEIGHT and next if $word =~ /^\.W/;
+		}
+		else
+		{
+			$tweight = $TITLE_BASE_WEIGHT and next if $word =~ /^\.T/;
+			$tweight = $KEYWD_BASE_WEIGHT and next if $word =~ /^\.K/;
+			$tweight = $AUTHR_BASE_WEIGHT and next if $word =~ /^\.A/;
+			$tweight = $ABSTR_BASE_WEIGHT and next if $word =~ /^\.W/;
+		}
+
+		if ($STOPWORDS =~ /[Aa]/ && exists $stoplist_hash{ $word }) # Exclude stopwords
+		{ next; }
+
+		if ($word =~ /[a-zA-Z]/)
+		{
+			if (defined( $docs_freq_hash{ $word } )) 
+			{
+				if ($TERM_WEIGHTING =~ /[Cc]/)
+				{ $doc_vector[$doc_num]{ $word } = 1; }
+				else
+				{ $doc_vector[$doc_num]{ $word } += $tweight; }
+			}
+			else 
+			{
+				print "ERROR: Document frequency of zero: ", $word, "\n";
+			}
+		}
+	}
+
+	if ($TERM_WEIGHTING =~ /[Bb]/) # optionally normalize the raw term frequency
+	{
+		for (my $count = 1; $count < scalar @doc_vector; $count++)
+		{
+			foreach my $key (keys %{$doc_vector[$count]})
+			{
+				$doc_vector[$count]{$key} *= log( $doc_num / $docs_freq_hash{ $key });
+			}			
+		}
+	}
+
+	return $doc_num;
+}
+
+##########################################################
+##  INIT_QRY_VECTORS
+##
+##  This function should be nearly identical to the step
+##  for initializing document vectors.
+##
+##  This function is currently set up for simple TF weighting.
+##########################################################
+
+sub init_qry_vectors 
+{
+	my $QUERY_BASE_WEIGHT = 2;
+	my $QUERY_AUTH_WEIGHT = 2;
+
+	my $token_qrys_fh = new FileHandle $token_qrys, "r" or croak "Failed $token_qrys";
+
+	my $word = undef;
+
+	my $tweight =  0;
+	my $qry_num =  0;
+
+	push @qry_vector, { };    # push one empty value onto @qry_vectors so that
+                                # indices correspond with query numbers
+
+	while (defined( $word = <$token_qrys_fh> )) 
+	{
+		chomp $word;
+
+		if ($word =~ /^\.I/) 
+		{
+			push @qry_vector, { };
+			$qry_num++;
+
+			next;
+		}
+
+		$tweight = $QUERY_BASE_WEIGHT and next if $word =~ /^\.W/;
+		$tweight = $QUERY_AUTH_WEIGHT and next if $word =~ /^\.A/;
+
+		if ($STOPWORDS =~ /[Aa]/ && exists $stoplist_hash{ $word }) # Exclude stopwords
+		{ next; }
+
+		if ($word =~ /[a-zA-Z]/) 
+		{
+			if (defined $docs_freq_hash{ $word })
+			{
+				if ($TERM_WEIGHTING =~ /[Cc]/)
+				{ $qry_vector[$qry_num]{ $word } = 1; }
+				else
+				{ $qry_vector[$qry_num]{ $word } += $tweight; }
+			}
+			else
+			{
+				print "ERROR: Document frequency of zero: ", $word, "\n";
+			} 
+		}
+	}
+
+	if ($TERM_WEIGHTING =~ /[Bb]/) # optionally normalize the raw term frequency
+	{
+		for (my $count = 1; $count < scalar @qry_vector; $count++)
+		{
+			foreach my $key (keys %{$qry_vector[$count]})
+			{
+				$qry_vector[$count]{$key} *= log( (scalar @doc_vector - 1) / $docs_freq_hash{ $key });
+			}
+		}
+	}
+
+	return $qry_num;
+}
+
+##########################################################
+## MAIN_LOOP
+##
+## Parameters: currently no explicit parameters.
+##             performance dictated by user imput.
+## 
+## Initializes document and query vectors using the
+## input files specified in &init_files. Then offers
+## a menu and switch to appropriate functions in an
+## endless loop.
+## 
+## Possible extensions at this level:  prompt the user
+## to specify additional system parameters, such as the
+## similarity function to be used.
+##
+## Currently, the key parameters to the system (stemmed/unstemmed,
+## stoplist/no-stoplist, term weighting functions, vector
+## similarity functions) are hardwired in.
+##
+## Initializing the document vectors is clearly the
+## most time consuming section of the program, as 213334 
+## to 258429 tokens must be processed, weighted and added
+## to dynamically growing vectors.
+## 
+##########################################################
+
+sub main_loop 
+{
+	&set_options;
+
+	print "\nINITIALIZING VECTORS ... \n";
+
+	if ($STEMMING =~ /[Aa]/) { &init_files ( "unstemmed" ); }
+	else { &init_files ( "stemmed" ); }
+
+	&init_corp_freq;
+    
+	my $total_docs = &init_doc_vectors;
+	my $total_qrys = &init_qry_vectors;
+
+	while (1) 
+	{
+		print <<"EndOfMenu";
+
+	============================================================
+	==     Welcome to the 600.466 Vector-based IR Engine
+	==                                                  
+	== Total Documents: $total_docs                     
+	== Total Queries:   $total_qrys                     
+	============================================================
+
+	OPTIONS:
+	  1 = Find documents most similar to a given query or document
+	  2 = Compute precision/recall for the full query set
+	  3 = Compute cosine similarity between two queries/documents
+	  4 = Quit
+
+	============================================================
+
+EndOfMenu
+;
+
+		print "Enter Option: ";
+		my $option = <STDIN>;
+		chomp $option;
+		exit 0 if $option == 4;
+
+		&full_precision_recall_test and next if $option == 2;
+		&do_full_cosine_similarity  and next if $option == 3;
+
+		# default and choice 1 is
+
+		&get_and_show_retrieved_set;
+	}
+}
+
+##########################################################
+## GET_AND_SHOW_RETRIEVED_SET
+##   
+##  This function requests key retrieval parameters,
+##  including:
+##  
+##  A) Is a query vector or document vector being used
+##     as the retrieval seed? Both are vector representations
+##     but they are stored in different data structures,
+##     and one may optionally want to treat them slightly
+##     differently.
+##
+##  B) Enter the number of the query or document vector to
+##     be used as the retrieval seed.
+##
+##     Alternately, one may wish to request a new query
+##     from standard input here (and call the appropriate
+##     tokenization, stemming and term-weighting routines).
+##
+##  C) Request the maximum number of retrieved documents
+##     to display.
+##
+##  Perl note: one reads a line from a file <FILE> or <STDIN>
+##             by the assignment $string=<STDIN>; Beware of
+##             string equality testing, as these strings 
+##             will have a newline (\n) attached.
+##########################################################
+
+sub get_and_show_retrieved_set 
+{
+	print << "EndOfMenu";
+
+    Find documents similar to:
+	(1) a query from 'query.raw'
+	(2) an interactive query
+	(3) another document
+
+EndOfMenu
+;
+
+	print "Choice: ";
+
+	my $comp_type = <STDIN>;
+	chomp $comp_type;
+
+	if ($comp_type !~ /^[1-3]$/) { $comp_type = 1; }
+
+	print "\n";
+
+	# if not an interactive query than we need to retrieve which
+	# query/document we want to use from the corpus
+    
+	my $vect_num = 1;
+
+	if ($comp_type != 2) 
+	{
+		print "Target Document/Query number: ";
+
+	      $vect_num  = <STDIN>;
+		chomp $vect_num;
+
+		if ($vect_num !~ /^[1-9]/) { $vect_num  = 1; }
+
+		print "\n";
+	}
+
+	print "Show how many matching documents (20): ";
+    
+	my $max_show  = <STDIN>;
+	chomp $max_show;
+
+	if ($max_show !~ /[0-9]/) { $max_show  = 20; }
+
+	if ($comp_type == 3) 
+	{
+		print "Document to Document comparison\n";
+	
+		&get_retrieved_set( $doc_vector[$vect_num] );
+		&shw_retrieved_set( $max_show, $vect_num, $doc_vector[$vect_num], "Document" );
+	}
+	elsif ($comp_type == 2) 
+	{
+		print "Interactive Query to Document comparison\n";
+
+		my $int_vector = &set_interact_vec;  # vector created by interactive query
+
+		&get_retrieved_set( $int_vector );
+		&shw_retrieved_set( $max_show, 0, $int_vector, "Interactive Query" );
+	}
+	else 
+	{
+		print "Query to Document comparison\n";
+
+		&get_retrieved_set( $qry_vector[$vect_num] );
+		&shw_retrieved_set( $max_show, $vect_num, $qry_vector[$vect_num], "Query" );
+	
+		&comp_recall( $vect_num );
+		
+		print "\nShow relevant docs (y/n): ";
+		my $relvnt = <STDIN>;
+		if ($relvnt !~ /[nN]/) { &show_relvnt( $vect_num ) }
+		
+		print "\nShow recall/precision (y/n): ";
+		my $rp = <STDIN>;
+		if ($rp !~ /[nN]/) { &display( $vect_num ); }
+	}
+}
+
+##########################################################
+## SET_INTERACT_VEC
+##########################################################
+
+sub set_interact_vec 
+{
+#	system "$DIR/interactive.prl" and die "Failed $DIR/interactive.prl: $!\n";
+	system "perl interactive.prl" and die "Failed perl interactive.prl: $!\n";
+
+	my $QUERY_BASE_WEIGHT = 2;
+	my $QUERY_AUTH_WEIGHT = 2;
+
+	my $token_qrys_fh = new FileHandle $token_intr, "r" or croak "Failed $token_intr";
+
+	my $int_vector = { };
+	my $word = undef;
+
+	my $tweight = 0;
+	my $qry_num = 0;
+
+	while (defined( $word = <$token_qrys_fh> )) 
+	{
+		chomp $word;
+		print $word, "\n";
+
+		next if $word =~ /^\.I/;   # start of query tokens
+
+		$tweight = $QUERY_BASE_WEIGHT and next if $word =~ /^\.W/;
+		$tweight = $QUERY_AUTH_WEIGHT and next if $word =~ /^\.A/;
+
+		if ($STOPWORDS =~ /[Aa]/ && exists $stoplist_hash{ $word }) # Exclude stopwords
+		{ next; }
+
+		if ($word =~ /[a-zA-Z]/)
+		{
+			if (defined $docs_freq_hash{ $word })
+			{
+				if ($TERM_WEIGHTING =~ /[Cc]/)
+				{ $$int_vector{ $word } = 1; }
+				else
+				{ $$int_vector{ $word } += $tweight; }
+			}
+			else
+			{
+				print "ERROR: Document frequency of zero: ", $word, "\n";
+			}
+		}
+	}
+
+	if ($TERM_WEIGHTING =~ /[Bb]/) # optionally normalize the raw term frequency
+	{
+		foreach my $key (keys %{ $int_vector }) 
+		{
+			$$int_vector{$key} *= log( (scalar @doc_vector - 1) / $docs_freq_hash{ $key });
+		}
+	}
+
+	return $int_vector
+}
+
+###########################################################
+## GET_RETRIEVED_SET
+##
+##  Parameters:
+## 
+##  $qry_vector{} - the query vector to be compared with the
+##                  document set. May also be another document 
+##                  vector.
+##
+##  This function computes the document similarity between the
+##  given vector $qry_vector{} and all vectors in the document
+##  collection storing these values in the array @doc_simula
+##
+##  An array of the document numbers is then sorted by this
+##  similarity function, forming the rank order of documents
+##  for use in the retrieval set.  
+##
+##  The -1 in the simcomp similarity comparision function
+##  makes the sorted list in descending order.
+##########################################################
+ 
+sub get_retrieved_set 
+{
+	my $qry_vector = shift;
+	my $tot_number = (scalar @doc_vector) - 1;
+	my $index = 0;
+
+	@doc_simula = ( );   # insure that storage vectors are empty before we
+	@res_vector = ( );   # calculate vector similarities
+
+	push @doc_simula, 0.0;    # push one empty value so that indices 
+                                # correspond with document values
+
+	for $index ( 1 .. $tot_number) 
+	{
+		if ($SIM_MEASURE =~ /[Bb]/)
+		{ push @doc_simula, &jaccard( $qry_vector, $doc_vector[$index] ); }
+		else
+		{ push @doc_simula, &cosine_sim_a( $qry_vector, $doc_vector[$index] ); }
+	}
+
+	@res_vector = sort { -1 * ($doc_simula[$a] <=> $doc_simula[$b]); } 1 .. $tot_number;
+}
+    
+############################################################
+## SHW_RETRIEVED_SET
+##
+## Assumes the following global data structures have been
+## initialized, based on the results of &get_retrieved_set.
+##
+## 1) @res_vector - contains the document numbers sorted in 
+##                  rank order
+## 2) @doc_simula - The similarity measure for each document, 
+##                  computed by &get_retrieved_set.
+##
+## Also assumes that the following have been initialized in
+## advance:
+##
+##       $titles[ $doc_num ]    - the document title for a 
+##                                document number, $doc_num
+##       $relevance_hash{ $qry_num }{ $doc_num }
+##                              - is $doc_num relevant given
+##                                query number, $qry_num
+##
+## Parameters:
+##   $max_show   - the maximum number of matched documents 
+##                 to display.
+##   $qry_num    - the vector number of the query
+##   $qry_vect   - the query vector (passed by reference)
+##   $comparison - "Query" or "Document" (type of vector 
+##                 being compared to)
+##
+## In the case of "Query"-based retrieval, the relevance 
+## judgements for the returned set are displayed. This is 
+## ignored when doing document-to-document comparisons, as 
+## there are nor relevance judgements.
+##
+############################################################
+
+sub shw_retrieved_set 
+{
+	my $max_show = shift;
+	my $qry_num = shift;
+	my $qry_vect = shift;
+	my $comparison = shift;
+
+	my $similarity;
+	my $title;
+
+	open(OUT, ">>output.txt");
+	syswrite(OUT, "  ************************************************************\n");
+	syswrite(OUT, "  Documents Most Similar To $comparison number $qry_num\n");
+	syswrite(OUT, "  ************************************************************\n");
+	syswrite(OUT, "  Similarity   Doc#  Author      Title\n");
+	syswrite(OUT, "  ==========   ==== ========     =============================\n");
+
+	print << "EndOfList";
+
+    ************************************************************
+	Documents Most Similar To $comparison number $qry_num
+    ************************************************************
+    Similarity   Doc#  Author      Title
+    ==========   ==== ========     =============================
+
+EndOfList
+    ;
+
+	my $rel_num = ($qry_num =~ /^\d$/) ? "0$qry_num" : $qry_num;
+	my $index = 0;
+
+	for $index ( 0 .. $max_show - 1 ) 
+	{
+		my $ind = $res_vector[$index];
+
+		if (($comparison =~ /Query/) and ($relevance_hash{ $rel_num }{ $ind })) 
+		{
+			syswrite(OUT, "\* ");
+			print "\* ";
+		}
+		else 
+		{
+			syswrite(OUT, "  ");
+			print "  ";
+		}
+
+		if ($doc_simula[$ind] == 1)
+		{ $similarity = "1.00000000"; }
+		elsif ($doc_simula[$ind] == 0)
+		{ $similarity = "0.00000000"; }
+		else 
+		{ ($similarity) = ($doc_simula[$ind] =~ /^([0-9]+\.\d{0,8})/); }
+		$title = substr $titles_vector[$ind], 0, 47;
+
+		syswrite(OUT, $similarity."   ".$title."\n");
+		print "  ", $similarity, "   ", $title, "\n";
+	}
+
+	syswrite(OUT, "\n");
+	close(OUT);
+
+	print "\nShow the terms that overlap between the query and ";
+	print "retrieved docs (y/n): ";
+
+	my $show_terms = <STDIN>;
+	if ($show_terms !~ /[nN]/) 
+	{
+		my $index = 0;
+
+		for $index ( 0 .. $max_show - 1)
+		{
+			my $ind = $res_vector[$index];
+			show_overlap( $qry_vect, $doc_vector[$ind], $qry_num, $ind );
+
+			if ($index % 10 == 9) 
+			{
+				print "\nContinue (y/n)? ";
+				my $cont = <STDIN>;
+				
+				if ($cont =~ /[nN]/) 
+				{ last; }
+			}
+		}
+	}
+
+	print "\nCluster retrieved docs (y/n): ";
+	my $cluster = <STDIN>;
+	if ($cluster !~ /[nN]/) 
+	{ &do_cluster( $rel_num ); }
+}
+
+##########################################################
+## COMPUTE_PREC_RECALL
+##
+## Like &shw_retrieved_set, this function makes use of the following
+## data structures which may either be passed as parameters or
+## used as global variables. These values are set by the function
+## &get_retrieved_set.
+##
+## 1) doc_simila[ $rank ] - The similarity measure for each document, 
+##                          relative to the query vector ( computed by 
+##                          &get_retrieved_set).
+##
+## 2) res_vector[ $docn ] - contains the document numbers sorted 
+##                          in rank order based on the results of 
+##                          the similarity function
+##
+## Also assumes that the following have been initialzied in advance:
+##       $titles[ $docn ]       - the document title for a document 
+##                                number $docn
+##       $relevance_hash{ $qvn }{ $docn } 
+##                              - is $docn relevant given query number 
+##                                $qvn
+##
+##  The first step of this function should be to take the rank ordering
+##  of the documents given a similarity measure to a query 
+##  (i.e. the list docs_sorted_by_similarity[$rank]) and make a list 
+##  of the ranks of just the relevant documents. In an ideal world,
+##  if there are k=8 relevant documents for a query, for example, the list 
+##  of rank orders should be (1 2 3 4 5 6 7 8) - i.e. the relevant documents
+##  are the top 8 entries of all documents sorted by similarity.
+##  However, in real life the relevant documents may be ordered
+##  much lower in the similarity list, with rank orders of
+##  the 8 relevant of, for example, (3 27 51 133 159 220 290 1821).
+##  
+##  Given this list, compute the k (e.g. 8) recall/precison pairs for
+##  the list (as discussed in class). Then to determine precision
+##  at fixed levels of recall, either identify the closest recall
+##  level represented in the list and use that precision, or
+##  do linear interpolation between the closest values.
+##
+##  This function should also either return the various measures
+##  of precision/recall specified in the assignment, or store
+##  these values in a cumulative sum for later averaging.
+##########################################################
+
+sub comp_recall 
+{
+	my $query_num = shift;
+	my $index_num = ($query_num =~ /^\d$/) ? "0$query_num" : $query_num;
+	my $rel_docs = $relevance_hash{$index_num};
+	my $num_rel_docs = 0;
+
+	my ($i, $rank, $recall, $precision);
+
+	my $rel_ranks = []; # array of rank of relevant docs
+	my $sum = 0;
+
+	while ((my $key, my $val) = each %{$rel_docs}) # get number of relevant documents
+	{ $num_rel_docs++; }
+
+	for (my $count = 0; scalar @{$rel_ranks} < $num_rel_docs; $count++) # store rank of relevant docs in an array
+	{
+		if ( $relevance_hash{$index_num}{$res_vector[$count]})
+		{ push @{$rel_ranks}, $count + 1; }
+	}
+
+	for (my $count = 0; $count < scalar @{$rel_ranks}; $count++) # Compute recall and precision
+	{
+		$i = $count + 1;
+		$rank = $$rel_ranks[$count];
+		$recall = $i / $num_rel_docs;
+		$precision = $i / $rank;
+
+		$query_rel_docs{$query_num}[$count] = $i."\t".$rank."\t".$recall."\t".$precision;
+	}
+
+	$query_rp{$query_num}{"P0.25"} = &inter_extra($query_num, 0.25);
+	$query_rp{$query_num}{"P0.50"} = &inter_extra($query_num, 0.50);
+	$query_rp{$query_num}{"P0.75"} = &inter_extra($query_num, 0.75);
+	$query_rp{$query_num}{"P1.00"} = &inter_extra($query_num, 1.00);
+
+	$query_rp{$query_num}{"PMean1"} = ($query_rp{$query_num}{"P0.25"} + $query_rp{$query_num}{"P0.50"} + 
+		$query_rp{$query_num}{"P0.75"}) / 3;
+
+	for (my $count = 1; $count <= 10; $count++)
+	{
+		$sum += &inter_extra($query_num, $count / 10);
+	}
+
+	$query_rp{$query_num}{"PMean2"} = $sum / 10;
+
+	$query_rp{$query_num}{"PNorm"} = &pnorm($query_num, $num_rel_docs);
+	$query_rp{$query_num}{"RNorm"} = &rnorm($query_num, $num_rel_docs);
+}
+
+##########################################################
+## SHOW_RELVNT
+##
+## This function should take the rank orders and similarity
+## arrays described in &show_retrieved_set and &comp_recall
+## and print out only the relevant documents, in an order
+## and manner of presentation very similar to &show_retrieved_set.
+##########################################################
+
+sub show_relvnt 
+{
+	my $qry_num = shift;
+	my $rel_docs = $query_rel_docs{$qry_num};
+
+	my ($i, $rank, $R, $P);
+	my ($similarity, $title);
+
+	print << "EndOfList";
+
+    ************************************************************
+	Documents Relevant To Query number $qry_num
+    ************************************************************
+    Similarity   Doc#  Author      Title
+    ==========   ==== ========     =============================
+
+EndOfList
+    ;
+
+	for (my $count = 0; $count < scalar @{$rel_docs}; $count++)
+	{
+		($i, $rank, $R, $P) = split(/\s/, $$rel_docs[$count]);
+		my $ind = $res_vector[$rank - 1];
+
+		if ($doc_simula[$ind] == 1)
+		{ $similarity = "1.00000000"; }
+		elsif ($doc_simula[$ind] == 0)
+		{ $similarity = "0.00000000"; }
+		else
+		{ ($similarity) = ($doc_simula[$ind] =~ /^([0-9]+\.\d{0,8})/); }
+		$title = substr $titles_vector[$ind], 0, 47;
+
+		print "    ", $similarity, "   ", $title, "\n";
+	}
+}
+
+########################################################
+## SHOW_OVERLAP
+## 
+## Parameters:
+##  - Two vectors ($qry_vect and $doc_vect), passed by
+##    reference.
+##  - The number of the vectors for display purposes
+## 
+## This function should show the terms that two vectors
+## have in common, the relative weights of these terms
+## in the two vectors, and any additional useful information
+## such as the document frequency of the terms, etc.
+##
+## Useful for understanding the reason why documents
+## are judged as relevant. 
+##
+## Present in a sorted order most informative to the user.
+##
+########################################################
+
+sub show_overlap 
+{
+	my $qry_vect = shift;
+	my $doc_vect = shift;
+	my $qry_num  = shift;
+	my $doc_num  = shift;
+
+	open(OUT, ">>output.txt");
+
+	syswrite(OUT, "============================================================\n");
+	syswrite(OUT, "Term\t\t".$qry_num."\t\t\t".$doc_num."\t\t\tDocfreq\n" );
+	syswrite(OUT, "============================================================\n");
+
+	print "============================================================\n";
+	printf( "%-15s  %8d   %8d\t%s\n", "Term", $qry_num, 
+		$doc_num, "Docfreq" );
+	print "============================================================\n";
+
+	my $term_one   = undef;
+	my $weight_one = undef;
+
+	while (($term_one, $weight_one) = each %{ $qry_vect }) 
+	{
+		if (exists $$doc_vect{ $term_one }) 
+		{
+			syswrite(OUT, $term_one."\t".$weight_one."\t".$$doc_vect{ $term_one }."\t".$docs_freq_hash{ $term_one }."\n" );
+
+			printf( "%-15s  %8d   %8d\t%d\n", $term_one, $weight_one, 
+			$$doc_vect{ $term_one }, $docs_freq_hash{ $term_one } );
+		}
+	}
+
+	close(OUT);
+}
+
+########################################################
+## DO_FULL_COSINE_SIMILARITY
+## 
+##  Prompts for a document number and query number,
+##  and then calls a function to show similarity.
+##
+##  Could/should be expanded to handle a variety of
+##  similarity measures.
+########################################################
+
+sub do_full_cosine_similarity 
+{
+	print << "EndOfMenu";
+
+	Choose:
+	(1) Query to Query
+	(2) Document to Document
+	(3) Query to Document
+
+EndOfMenu
+;
+
+	print "Choice: ";
+	my $comp_type = <STDIN>;
+	chomp $comp_type;
+	if ($comp_type !~ /^[1-3]$/) { $comp_type = 1; }
+
+	print "\n1st Document/Query number: ";
+	my $num_one = <STDIN>;
+	chomp $num_one;
+	$num_one = 1 if $num_one !~ /[0-9]/;
+
+	print "\n2nd Document/Query number: ";
+	my $num_two = <STDIN>;
+	chomp $num_two;
+	$num_two = 1 if $num_two !~ /[0-9]/;
+
+	if ($comp_type == 1)
+	{
+		print "\nCosine Similarity = ", &cosine_sim_a($qry_vector[$num_one], $qry_vector[$num_two]). "\n";
+	}
+	elsif ($comp_type == 2)
+	{
+		print "\nCosine Similarity = ", &cosine_sim_a($doc_vector[$num_one], $doc_vector[$num_two]). "\n";
+	}
+	elsif ($comp_type == 3)
+	{
+		print "\nCosine Similarity = ", &cosine_sim_a($qry_vector[$num_one], $doc_vector[$num_two]). "\n";
+	}
+}
+
+########################################################
+## FULL_COSINE_SIMILARITY
+## 
+## UNIMPLEMENTED
+## 
+## This function should compute cosine similarity between
+## two vectors and display the information that went into
+## this calculation, useful for debugging purposes.
+## Similar in structure to &show_overlap.
+########################################################
+ 
+sub full_cosine_similarity {
+
+    my $qry_vect = shift;
+    my $doc_vect = shift;
+    my $qry_indx = shift;
+    my $doc_indx = shift;
+
+    print "The rest is up to you . . . \n";
+}
+
+##########################################################
+##  FULL_PRECISION_RECALL_TEST
+##
+##  This function should test the various precision/recall 
+##  measures discussed in the assignment and store cumulative
+##  statistics over all queries.
+##
+##  As each query takes a few seconds to process, print
+##  some sort of feedback for each query so the user
+##  has something to watch.
+##
+##  It is helpful to also log this information to a file.
+##########################################################
+
+sub full_precision_recall_test 
+{
+	my $P025_sum = 0;
+	my $P050_sum = 0;
+	my $P075_sum = 0;
+	my $P100_sum = 0;
+	my $PMean1_sum = 0;
+	my $PMean2_sum = 0;
+	my $PNorm_sum = 0;
+	my $RNorm_sum = 0;
+
+	print "\nProcessing...\n";
+
+	for (my $count = 1; $count < scalar @qry_vector; $count++)
+	{
+		print "Query ", $count, "...\n";
+		&get_retrieved_set($qry_vector[$count]);
+		&comp_recall($count);
+	}
+
+	for (my $count = 1; $count < scalar @qry_vector; $count++)
+	{
+		$P025_sum += $query_rp{$count}{"P0.25"};
+		$P050_sum += $query_rp{$count}{"P0.50"};
+		$P075_sum += $query_rp{$count}{"P0.75"};
+		$P100_sum += $query_rp{$count}{"P1.00"};
+		$PMean1_sum += $query_rp{$count}{"PMean1"};
+		$PMean2_sum += $query_rp{$count}{"PMean2"};
+		$PNorm_sum += $query_rp{$count}{"PNorm"};
+		$RNorm_sum += $query_rp{$count}{"RNorm"};
+	}
+
+	open(OUT, ">>output.txt");
+	syswrite(OUT, "\nRESULTS\n");
+	syswrite(OUT, "Options = ".$TERM_WEIGHTING." ".$SIM_MEASURE." ".$STEMMING." ".$STOPWORDS." ".$REGION_WEIGHTING."\n");
+	syswrite(OUT, "P0.25 = ".$P025_sum / (scalar @qry_vector - 1)."\n");
+	syswrite(OUT, "P0.50 = ".$P050_sum / (scalar @qry_vector - 1)."\n");
+	syswrite(OUT, "P0.75 = ".$P075_sum / (scalar @qry_vector - 1)."\n");
+	syswrite(OUT, "P1.00 = ".$P100_sum / (scalar @qry_vector - 1)."\n");
+	syswrite(OUT, "PMean1 = ".$PMean1_sum / (scalar @qry_vector - 1)."\n");
+	syswrite(OUT, "PMean2 = ".$PMean2_sum / (scalar @qry_vector - 1)."\n");
+	syswrite(OUT, "PNorm = ".$PNorm_sum / (scalar @qry_vector - 1)."\n");
+	syswrite(OUT, "RNorm = ".$RNorm_sum / (scalar @qry_vector - 1)."\n");
+	close(OUT);
+
+	print "\nRESULTS\n";
+	print "Options = ", $TERM_WEIGHTING, " ", $SIM_MEASURE, " ", $STEMMING, " ", $STOPWORDS, " ", $REGION_WEIGHTING, "\n";
+	print "P0.25 = ", $P025_sum / (scalar @qry_vector - 1), "\n";
+	print "P0.50 = ", $P050_sum / (scalar @qry_vector - 1), "\n";
+	print "P0.75 = ", $P075_sum / (scalar @qry_vector - 1), "\n";
+	print "P1.00 = ", $P100_sum / (scalar @qry_vector - 1), "\n";
+	print "PMean1 = ", $PMean1_sum / (scalar @qry_vector - 1), "\n";
+	print "PMean2 = ", $PMean2_sum / (scalar @qry_vector - 1), "\n";
+	print "PNorm = ", $PNorm_sum / (scalar @qry_vector - 1), "\n";
+	print "RNorm = ", $RNorm_sum / (scalar @qry_vector - 1), "\n";
+}
+
+########################################################
+## COSINE_SIM_A
+## 
+## Computes the cosine similarity for two vectors
+## represented as associate arrays.
+########################################################
+
+sub cosine_sim_a 
+{
+	my $vec1 = shift;
+	my $vec2 = shift;
+
+	my $num = 0;
+	my $sum_sq1 = 0;
+	my $sum_sq2 = 0;
+
+	my @val1 = values %{ $vec1 };
+	my @val2 = values %{ $vec2 };
+
+	# determine shortest length vector. This should speed 
+	# things up if one vector is considerable longer than
+	# the other (i.e. query vector to document vector).
+
+	if ((scalar @val1) > (scalar @val2)) 
+	{
+		my $tmp = $vec1;
+		$vec1 = $vec2;
+		$vec2 = $tmp;
+	}
+
+	# calculate the cross product
+
+	my $key = undef;
+	my $val = undef;
+
+	while (($key, $val) = each %{ $vec1 }) 
+	{
+		$num += $val * ($$vec2{ $key } || 0);
+	}
+
+	# calculate the sum of squares
+
+	my $term = undef;
+
+	foreach $term (@val1) { $sum_sq1 += $term * $term; }
+	foreach $term (@val2) { $sum_sq2 += $term * $term; }
+
+	return ( $num / sqrt( $sum_sq1 * $sum_sq2 ));
+}
+
+########################################################
+##  COSINE_SIM_B
+##  
+##  This function assumes that the sum of the squares
+##  of the term weights have been stored in advance for
+##  each document and are passed as arguments.
+########################################################
+
+sub cosine_sim_b 
+{
+	my $vec1 = shift;
+	my $vec2 = shift;
+
+	my $sum_sq1 = shift;
+	my $sum_sq2 = shift;
+
+	my $num = 0;
+	my $key = undef;
+	my $val = undef;
+
+	while (($key, $val) = each %{ $vec1 }) 
+	{
+		$num += $val * $$vec2{ $key };
+	}
+
+	return ( $num / sqrt( $sum_sq1 * $sum_sq2 ));
+}
+
+##########################################################
+## SET_OPTIONS
+##########################################################
+
+sub set_options
+{
+	print << "EndOfMenu"; # Term Weighting Menu
+
+	Term Weighting Options
+	(a) Raw TF
+	(b) * TF IDF
+	(c) Boolean
+
+EndOfMenu
+;
+
+	print "\tChoice: ";
+	my $option = <STDIN>;
+	chomp $option;
+	$TERM_WEIGHTING = $option;
+
+	print << "EndOfMenu"; # Sim Function Menu
+
+	Similarity Measure Options
+	(a) * Cosine similarity
+	(b) Jaccard
+
+EndOfMenu
+;
+
+	print "\tChoice: ";
+	$option = <STDIN>;
+	chomp $option;
+	$SIM_MEASURE = $option;
+
+	print << "EndOfMenu"; # Stemming Menu
+
+	Stemming Options
+	(a) Unstemmed
+	(b) * Stemmed
+
+EndOfMenu
+;
+
+	print "\tChoice: ";
+	$option = <STDIN>;
+	chomp $option;
+	$STEMMING = $option;
+
+	print << "EndOfMenu"; # Stopwords Menu
+
+	Term Weighting Options
+	(a) * Exclude stopwords
+	(b) Include all
+
+EndOfMenu
+;
+
+	print "\tChoice: ";
+	$option = <STDIN>;
+	chomp $option;
+	$STOPWORDS = $option;
+
+	print << "EndOfMenu"; # Region Weighting Menu
+
+	Region Weighting Options
+	(a) Weight equally
+	(b) * 3 4 3 1
+	(c) 1 1 1 4
+
+EndOfMenu
+;
+
+	print "\tChoice: ";
+	$option = <STDIN>;
+	chomp $option;
+	$REGION_WEIGHTING = $option;
+}
+
+##########################################################
+## DISPLAY
+##########################################################
+
+sub display
+{
+	my $query_num = shift;
+
+	print "\ni\tRank\tRecall\tPrecision\n";
+
+	for (my $count = 0; $count < scalar @{$query_rel_docs{$query_num}}; $count++)
+	{ print $query_rel_docs{$query_num}[$count], "\n"; }
+
+	print "\nP0.25 = ", $query_rp{$query_num}{"P0.25"}, "\n";
+	print "P0.50 = ", $query_rp{$query_num}{"P0.50"}, "\n";
+	print "P0.75 = ", $query_rp{$query_num}{"P0.75"}, "\n";
+	print "P1.00 = ", $query_rp{$query_num}{"P1.00"}, "\n";
+
+	print "PMean1 = ", $query_rp{$query_num}{"PMean1"}, "\n";
+	print "PMean2 = ", $query_rp{$query_num}{"PMean2"}, "\n";
+
+	print "PNorm = ", $query_rp{$query_num}{"PNorm"}, "\n";
+	print "RNorm = ", $query_rp{$query_num}{"RNorm"}, "\n";
+}
+
+##########################################################
+## INTER_EXTRA
+##
+## Handles interpolation/extrapolation of precision
+##
+##########################################################
+
+sub inter_extra
+{
+	my $query_num = shift;
+	my $DR = shift;
+
+	my ($i1, $rank1, $R1, $P1);
+	my ($i2, $rank2, $R2, $P2);
+
+	if (scalar @{$query_rel_docs{$query_num}} == 1) # Only 1 relevant document
+	{
+		($i1, $rank1, $R1, $P1) = split(/\s/, $query_rel_docs{$query_num}[0]);
+
+		if (($P1 * ($R1 / $DR)) > 1.0) { return 1.0; }
+		return ($P1 * ($R1 / $DR));
+	}
+
+	$R2 = 0.0;
+
+	for (my $count = 0; $R2 < $DR; $count++) # Find $R2 that is just bigger than $DR
+	{
+		($i2, $rank2, $R2, $P2) = split(/\s/, $query_rel_docs{$query_num}[$count]);
+	}
+
+	if ($R2 == $DR) { return $P2; } # Easy base case
+	if ($i2 == 1) # Extrapolate
+	{
+		($i1, $rank1, $R1, $P1) = split(/\s/, $query_rel_docs{$query_num}[0]);
+		($i2, $rank2, $R2, $P2) = split(/\s/, $query_rel_docs{$query_num}[1]);
+
+		if (($P2 - ((($R2 - $DR) / ($R2 - $R1)) * ($P2 - $P1))) > 1.0) { return 1.0; }
+		return ($P2 - ((($R2 - $DR) / ($R2 - $R1)) * ($P2 - $P1)));
+	}
+
+	# Interpolate
+
+	($i1, $rank1, $R1, $P1) = split(/\s/, $query_rel_docs{$query_num}[$i2 - 2]);
+
+	if (($P1 + ((($DR - $R1) / ($R2 - $R1)) * ($P2 - $P1))) > 1.0) { return 1.0; }
+	return ($P1 + ((($DR - $R1) / ($R2 - $R1)) * ($P2 - $P1)));
+}
+
+##########################################################
+## RNORM
+##########################################################
+
+sub rnorm
+{
+	my $query_num = shift;
+	my $Rel = shift;
+
+	my $N = scalar @doc_vector - 1;
+	my $i_sum = 0;
+	my $rank_sum = 0;
+	my ($i, $rank, $R, $P);
+
+	for (my $count = 0; $count < $Rel; $count++)
+	{
+		($i, $rank, $R, $P) = split(/\s/, $query_rel_docs{$query_num}[$count]);
+		$i_sum += $i;
+		$rank_sum += $rank;
+	}
+
+	return (1 - (($rank_sum - $i_sum)/($Rel * ($N - $Rel))));
+}
+
+##########################################################
+## PNORM
+##########################################################
+
+sub pnorm
+{
+	my $query_num = shift;
+	my $Rel = shift;
+
+	my $N = scalar @doc_vector - 1;
+	my $log_i_sum = 0;
+	my $log_rank_sum = 0;
+	my ($i, $rank, $R, $P);
+
+	my $bottom = ($N * log($N)) - (($N - $Rel) * log($N - $Rel)) - ($Rel * log($Rel));
+
+	for (my $count = 0; $count < $Rel; $count++)
+	{
+		($i, $rank, $R, $P) = split(/\s/, $query_rel_docs{$query_num}[$count]);
+		$log_i_sum += log($i);
+		$log_rank_sum += log($rank);
+	}
+
+	return (1 - (($log_rank_sum - $log_i_sum)/$bottom));
+}
+
+##########################################################
+## JACCARD
+##########################################################
+
+sub jaccard
+{
+	my $vec1 = shift;
+	my $vec2 = shift;
+
+	my $cross_product = 0;
+	my $sum1 = 0;
+	my $sum2 = 0;
+
+	my @val1 = values %{ $vec1 };
+	my @val2 = values %{ $vec2 };
+
+	my $key = undef;
+	my $val = undef;
+	my $term = undef;
+
+	if ((scalar @val1) > (scalar @val2)) 
+	{
+		my $tmp = $vec1;
+		$vec1 = $vec2;
+		$vec2 = $tmp;
+	}
+
+	while (($key, $val) = each %{ $vec1 }) 
+	{
+		$cross_product += $val * ($$vec2{ $key } || 0);
+	}
+
+	foreach $term (@val1) { $sum1 += $term; }
+	foreach $term (@val2) { $sum2 += $term; }
+
+	return ($cross_product / ($sum1 + $sum2 - $cross_product));
+}
+
+##########################################################
+## DO_CLUSTER
+##########################################################
+
+sub do_cluster
+{
+	my $rel_num = shift;
+	my ($k, $s, $sim, $cutoff);
+	my $done = 0;
+	my ($doc_num, $doc_vector);
+	my ($docs, $clusters);		# clusters stored as array of arrays
+					# in 2ndary arrays, 1st element is centroid
+					# rest of elements are doc numbers
+
+	print << "EndOfMenu";
+
+	Clustering Options
+	(a) Cluster top k returned docs
+	(b) Cluster returned docs above similarity s
+
+EndOfMenu
+;
+	print "\tChoose option: ";
+	my $input = <STDIN>;
+
+	if ($input =~ /[Bb]/)
+	{
+		print "\n\tEnter similarity s: ";
+		$s = <STDIN>;
+
+		for (my $count = 0; $done == 0; $count++)
+		{
+			if ($doc_simula[$res_vector[$count]] < $s)
+			{ $done = 1; }
+			else
+			{ $$docs[$count] = $res_vector[$count]; }
+		}
+	}
+	else
+	{
+		print "\n\tEnter rank k: ";
+		$k = <STDIN>;
+
+		for (my $count = 0; $count < $k; $count++)
+		{
+			$$docs[$count] = $res_vector[$count];
+		}
+	}
+
+	$cutoff = $doc_simula[$$docs[0]]; # cutoff similarity = similarity of first doc to be clustered
+
+	$doc_num = shift(@{$docs});
+	$doc_vector = $doc_vector[$doc_num];
+
+	$$clusters[0][0] = $doc_vector; # make new cluster, whose centroid is first returned doc
+	$$clusters[0][1] = $doc_num; # new cluster has first returned doc as member
+
+	while (scalar @{$docs} > 0)
+	{
+		$doc_num = shift(@{$docs});
+		$doc_vector = $doc_vector[$doc_num];
+		$done = 0;
+
+		for (my $cluster_num = 0; ($cluster_num < scalar @{$clusters}) && ($done == 0); $cluster_num++)
+		{
+			if ($SIM_MEASURE =~ /[Bb]/)
+			{ $sim = &jaccard( $doc_vector, $$clusters[$cluster_num][0] ); }
+			else
+			{ $sim = &cosine_sim_a( $doc_vector, $$clusters[$cluster_num][0] ); }
+
+			if ($sim > $cutoff) # add doc to current cluster
+			{
+				push( @{$$clusters[$cluster_num]}, $doc_num );
+				$$clusters[$cluster_num][0] = &calculate_centroid( $$clusters[$cluster_num] );
+				$done = 1;
+			}
+		}
+
+		if ($done == 0) # make new cluster
+		{
+			my $last = $#$clusters;
+			$$clusters[$last + 1][0] = $doc_vector;
+			$$clusters[$last + 1][1] = $doc_num;
+		}
+	}
+
+	&display_clusters( $rel_num, $clusters );
+}
+
+##########################################################
+## CALCULATE_CENTROID
+##########################################################
+
+sub calculate_centroid
+{
+	my $input = shift;
+	my @cluster = @{$input}; # Cluster is array whose first element is old centroid, rest are doc nums
+	
+	my ($key, $val, $sum);
+	my ($largest_vector, $vector, $centroid); # Largest vector = vector with most non-zero terms
+	
+	shift( @cluster ); # discard the old centroid vector
+	$largest_vector = $doc_vector[$cluster[0]]; # Set the first vector as the largest vector
+
+	for (my $count = 0; $count < scalar @cluster; $count++) # Find largest vector
+	{
+		$vector = $doc_vector[$cluster[$count]];
+
+		if (scalar keys(%{$vector}) > scalar keys(%{$largest_vector}))
+		{ $largest_vector = $vector; }
+	}
+
+	while (($key, $val) = each %{$largest_vector}) # Give centroid averaged terms
+	{
+		$sum = 0;
+
+		for (my $count = 0; $count < scalar @cluster; $count++)
+		{
+			$vector = $doc_vector[$cluster[$count]];
+			$sum += $$vector{$key} || 0;
+		}
+
+		$$centroid{$key} = $sum / (scalar @cluster);
+	}
+
+	return $centroid;
+}
+
+##########################################################
+## GET_SALIENT_TERMS
+##########################################################
+
+sub get_salient_terms
+{
+	my $input = shift;
+	my @cluster = @{$input};
+	my ($largest_vector, $vector);
+	my ($sum, $temp);
+	my ($key, $val);
+	
+	my $term1 = "";
+	my $term2 = "";
+	my $term3 = "";
+	
+	my $weight1 = 0;
+	my $weight2 = 0;
+	my $weight3 = 0;
+
+	shift @cluster;
+	$largest_vector = $doc_vector[$cluster[0]];
+	
+	for (my $count = 0; $count < scalar @cluster; $count++) # Find largest vector
+	{
+		$vector = $doc_vector[$cluster[$count]];
+
+		if (scalar keys(%{$vector}) > scalar keys(%{$largest_vector}))
+		{ $largest_vector = $vector; }
+	}
+	
+	while (($key, $val) = each %{$largest_vector}) # Find 3 "heaviest" terms
+	{
+		$sum = 0;
+
+		for (my $count = 0; $count < scalar @cluster; $count++)
+		{
+			$vector = $doc_vector[$cluster[$count]];
+			$sum += $$vector{$key} || 0;
+		}
+
+		if ($sum > $weight1)
+		{
+			$term3 = $term2;
+			$weight3 = $weight2;
+			
+			$term2 = $term1;
+			$weight2 = $weight1;
+		
+			$term1 = $key;
+			$weight1 = $sum;
+		}
+		elsif ($sum > $weight2)
+		{
+			$term3 = $term2;
+			$weight3 = $weight2;
+		
+			$term2 = $key;
+			$weight2 = $sum;
+		}
+		elsif ($sum > $weight3)
+		{
+			$term3 = $key;
+			$weight3 = $sum;
+		}
+	}
+
+	return($term1, $term2, $term3);
+}
+
+##########################################################
+## DISPLAY_CLUSTERS
+##########################################################
+
+sub display_clusters
+{
+	my $rel_num = shift;
+	my $clusters = shift;
+	my ($cluster, $cluster_num);
+	my ($term1, $term2, $term3);
+	my ($similarity, $title);
+
+	for(my $count = 0; $count < scalar @{$clusters}; $count++)
+	{
+		$cluster = $$clusters[$count];
+		($term1, $term2, $term3) = &get_salient_terms( $cluster );
+
+		$cluster_num = $count + 1;
+		print << "EndOfList";
+
+    ************************************************************
+	Cluster $cluster_num
+	Salient terms: $term1, $term2, $term3
+    ************************************************************
+    Similarity   Doc#  Author      Title
+    ==========   ==== ========     =============================
+
+EndOfList
+;
+		for (my $count = 1; $count < scalar @{$cluster}; $count++)
+		{
+			my $ind = $$cluster[$count];
+			
+		if ($relevance_hash{ $rel_num }{ $ind })
+		{
+			print "\* ";
+		}
+		else 
+		{
+			print "  ";
+		}
+
+			if ($doc_simula[$ind] == 1)
+			{ $similarity = "1.00000000"; }
+			else
+			{ ($similarity) = ($doc_simula[$ind] =~ /^([0-9]+\.\d{0,8})/); }
+			$title = substr $titles_vector[$ind], 0, 47;
+
+			print "  ", $similarity, "   ", $title, "\n";
+		}
+	}
+}

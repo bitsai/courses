@@ -1,0 +1,5 @@
+~A v B &
+~B v A &
+~B v A v B &
+~A v B &
+~B v B

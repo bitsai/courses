@@ -1,0 +1,51 @@
+% This file contains the English words that appeared most
+% frequently in the 100,000,000-word electronic text collection known
+% as the British National Corpus.
+% 
+% The words are alphabetized, and we give the frequency of each word.
+% 
+% The original data were downloaded from ftp://ftp.itri.bton.ac.uk/bnc/written.al.o5.gz
+% (see http://www.itri.brighton.ac.uk/~Adam.Kilgarriff/bnc-readme.html).
+% 
+% We then removed words with too much punctuation, summed over multiple
+% entries that represented different parts of speech for the same word,
+% and thresholded to take only high-frequency words.  By changing the
+% threshold, you could get more or fewer words.
+% 
+%   zcat written.al.o5.gz | perl -ne 'BEGIN {$threshold=300000; $i=0} ($count,$word)=split; next if $word =~ /[^A-Za-z_-]|^-/; if ($word eq $oldword) { $oldcount+=$count; } else { &pold if defined $oldword; $oldcount=$count; } $oldword=$word; END { &pold; print "numkeys($i):=0.\n" } sub pold { return if $oldcount < $threshold; $j=$i+1; print "key(\"$oldword\",$i,$j):=$oldcount.\n"; $i=$j; }'
+
+key("a",0,1):=1957278.
+key("an",1,2):=324185.
+key("and",2,3):=2421302.
+key("are",3,4):=422562.
+key("as",4,5):=489591.
+key("at",5,6):=435574.
+key("be",6,7):=604513.
+key("but",7,8):=390120.
+key("by",8,9):=495810.
+key("for",9,10):=786741.
+key("from",10,11):=390876.
+key("had",11,12):=415981.
+key("have",12,13):=395999.
+key("he",13,14):=605749.
+key("her",14,15):=312022.
+key("his",15,16):=419460.
+key("i",16,17):=594681.
+key("in",17,18):=1746885.
+key("is",18,19):=893362.
+key("it",19,20):=835203.
+key("not",20,21):=414079.
+key("of",21,22):=2789557.
+key("on",22,23):=645364.
+key("or",23,24):=335976.
+key("she",24,25):=337345.
+key("that",25,26):=891494.
+key("the",26,27):=5776397.
+key("they",27,28):=336599.
+key("this",28,29):=404752.
+key("to",29,30):=2332410.
+key("was",30,31):=839964.
+key("which",31,32):=349120.
+key("with",32,33):=606027.
+key("you",33,34):=426207.
+numkeys(34):=0.

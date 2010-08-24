@@ -1,0 +1,152 @@
+#!/usr/local/bin/perl -w
+
+use FileHandle;
+use strict;
+
+############################################################
+##  Benny Tsai bitsai@hotmail.com
+############################################################
+
+my @correct;
+my @incorrect;
+my $rules = 13;
+
+my $abbrvs = { };   # hash of common abbreviations
+my $interns = { };   # hash of common sentence_internals
+my $titles = { };   # hash of common titles
+
+my $line      = undef;   # used to store a line of input
+my $correct   = 0;       # the number of correct classifications made
+my $incorrect = 0;       # the number of incorrect classifications made
+
+&initialize_set( $abbrvs, "classes/abbrevs" );
+&initialize_set( $interns, "classes/sentence_internal" );
+&initialize_set( $titles, "classes/titles" );
+
+while (defined ($line = <>)) 
+{
+    my @words = split ' ', $line;
+
+    my $class   = shift @words;    # 'EOS' or 'NEOS'
+    my $id      = shift @words;    # sentence identifier
+    my $L3      = shift @words;    # 3rd word to the left of period
+    my $L2      = shift @words;    # 2nd word to the left of period
+    my $L1      = shift @words;    # 1st word to the left of period
+    my $C       = shift @words;    # the period
+    my $R1      = shift @words;    # 1st word to the right of period
+    my $R2      = shift @words;    # 2nd word to the right of period
+    my $R3      = shift @words;    # 3rd word to the right of period
+    my $Llength = shift @words;    # words to the left before a !,?, or <P>
+    my $Rlength = shift @words;    # words to the right before a !,?, or <P>
+    my $Nspaces = shift @words;    # number of spaces after the period
+
+    # Rule definitions
+    #
+    #    1) If the token immediately to the left is a ")" then EOS
+    #
+    #    2) If the token immediately to the left contains letters and periods then NEOS
+    #
+    #    3) If the word immediately to the right is not capitalized then NEOS
+    #
+    #    4) If the token immediately to the right is <P> then EOS
+    #
+    #    5) If the token immediately to the right is a comma or period then NEOS
+    #
+    #    6) If the token immediately to the left is a sentence_internal then NEOS
+    #
+    #    7) If the token immediately to the left is a common title then NEOS
+    #
+    #    8) If the token immediately to the right or the left are double quotation marks then EOS
+    #
+    #    9) If the token immediately to the left is a singular capital letter then NEOS
+    #
+    #    10) If the token immediately to the right is capitalized and spaces > 1 then EOS
+    #
+    #    11) If the word immediately to the right is capitalized then EOS
+    #
+    #    12) If the token immediately to the left is a common abbreviation then NEOS
+    #
+    #    13) Default to EOS
+
+    if ( $L1 eq ")" ) { &ret( 1, $class, $id, 'EOS', $line); }
+    elsif (( $L1 =~ /[A-Z]+[.]+/ ) || ( $L1 =~ /[a-z]+[.]+/ )) { &ret( 2, $class, $id, 'NEOS', $line); }
+    elsif ( $R1 =~ /^[a-z]/ ) { &ret( 3, $class, $id, 'NEOS', $line); }
+    elsif ( $R1 eq "<P>" ) { &ret( 4, $class, $id, 'EOS' , $line); }
+    elsif ( $R1 =~ /[.,]/  ) { &ret( 5, $class, $id, 'NEOS', $line); }
+    elsif ( exists $$interns{ "\L$L1" }) { &ret( 6, $class, $id, 'NEOS', $line); }
+    elsif ( exists $$titles{ "\L$L1" }) { &ret( 7, $class, $id, 'NEOS', $line); }
+    elsif (( $R1 =~ /^['`"]+$/ ) || ( $L1 =~ /^['`"]+$/ )) { &ret( 8, $class, $id, 'EOS', $line); }
+    elsif ( $L1 =~ /^[A-Z]$/ ) { &ret( 9, $class, $id, 'NEOS', $line); }
+    elsif (( $R1 =~ /^[A-Z]/ ) && ( $Nspaces > 1 )) { &ret( 10, $class, $id, 'EOS', $line); }
+    elsif ( $R1 =~ /^[A-Z]/ ) { &ret( 11, $class, $id, 'EOS', $line); }
+    elsif ( exists $$abbrvs{ "\L$L1" }) { &ret( 12, $class, $id, 'NEOS', $line); }
+
+    else { &ret( 13, $class, $id, 'EOS', $line); }
+}
+
+for (my $count = 1; $count <= $rules; $count++)
+{
+	if (!defined ($correct[$count])) { $correct[$count] = 0; }
+	if (!defined ($incorrect[$count])) { $incorrect[$count] = 0; }
+
+	print "-RULE ", $count, " UTILIZATION- USED: ", $correct[$count] + $incorrect[$count], " = ", ($correct[$count] + $incorrect[$count]) / ($correct + $incorrect) * 100, "%\n";
+
+	print "-RULE ", $count, " EFFECTIVENESS- CORRECT: ", $correct[$count], " = ", $correct[$count] / ($correct[$count] + $incorrect[$count]) * 100, "% INCORRECT: ", $incorrect[$count], " = ", $incorrect[$count] / ($correct[$count] + $incorrect[$count]) * 100, "%\n";
+}
+
+print "### HW1A BTSAI- OVERALL CORRECT: ", $correct, " = ", $correct / ($correct + $incorrect) * 100, "% INCORRECT: ", $incorrect, " = ", $incorrect / ($correct + $incorrect) * 100, "%";
+
+############################################################ 
+## RET - prints full line for errors and keeps score. $rule
+##     - indicates the rule number responsible for the 
+##     - classification
+##
+##  This is a useful debugging tool, as after each change in
+##  the program one can identify the remaining misclassified
+##  training examples and the patterns responsible for them. 
+############################################################
+ 
+sub ret {
+
+    my $rule       = shift;   # which rule did I use here
+    my $trueclass  = shift;   # what is the true sentence class ('NEOS','EOS')
+    my $id         = shift;   # sentence identifier
+    my $givenclass = shift;   # what is the sentence class my rule gives
+    my $line       = shift;   # the actual line tested
+
+    if ($trueclass eq $givenclass) {
+
+#	print ".. (at rule ", $rule, ") - ", $line;
+	$correct++;
+	$correct[$rule]++;
+    }
+    else {
+	
+#	print "XX (at rule ", $rule, ") - ", $line;
+	$incorrect++;
+	$incorrect[$rule]++;
+    }
+}
+
+############################################################
+## INITIALIZE_SET - loads named associative array with set 
+##                - members   
+############################################################
+    
+sub initialize_set {
+
+    my $hash   = shift;  # hash to initialize (hash reference)
+    my $file   = shift;  # file to retrieve words from
+
+    my $word   = undef;
+    my $handle = new FileHandle $file, "r";  # open file for reading only
+
+    if (defined $handle) {
+	while (defined ($word = <$handle>)) {
+	    
+	    chomp   $word;
+	    $$hash{ $word } = 1;
+	}
+    }
+    undef $handle;                           # close the file
+}

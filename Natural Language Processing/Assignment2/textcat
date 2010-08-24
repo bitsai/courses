@@ -1,0 +1,128 @@
+#!/usr/local/bin/perl
+
+use Probs;
+use strict;
+
+my($COURSE_DIR) = "/usr/local/data/cs465/";
+
+if (@ARGV < 2)
+{  # too few arguments; print usage message.
+	die <<EOM
+
+Text categorizer.
+
+Usage:   $0 smoother trainpath1 trainpath2 files...
+Example: $0 add1 ling spam foo.txt bar.txt baz.txt
+
+Possible values for smoother: uniform, add1, backoff_add1, backoff_wb
+  (the \"1\" in these names can be replaced with any real lambda >= 0)
+trainpath1 is the location of the first training corpus
+  (the search path for this includes "<<DEFAULT_TRAINING_DIR<<")
+trainpath2 is the location of the second training corpus
+  (the search path for this includes "<<DEFAULT_TRAINING_DIR<<")
+EOM
+}
+
+set_smoother(shift(@ARGV));
+my $trainpath1 = shift(@ARGV);
+my $trainpath2 = shift(@ARGV);
+warn "warning: no input files specified\n" unless @ARGV;
+
+set_vocab_size($trainpath1, $trainpath2);
+my @model1perp;
+my @model2perp;
+
+my $model1count = 0;
+my $model2count = 0;
+my $unknowncount = 0;
+
+train($trainpath1);
+for (my $count = 0; $count < scalar @ARGV; $count++)
+{ $model1perp[$count] = perplexity($ARGV[$count]); }
+
+train($trainpath2);
+for (my $count = 0; $count < scalar @ARGV; $count++)
+{ $model2perp[$count] = perplexity($ARGV[$count]); }
+
+print "\n";
+for (my $count = 0; $count < scalar @ARGV; $count++)
+{
+	if ($model1perp[$count] < $model2perp[$count])
+	{
+		print "$trainpath1\t$ARGV[$count]\n";
+		$model1count++;
+	}
+	elsif ($model2perp[$count] < $model1perp[$count])
+	{
+		print "$trainpath2\t$ARGV[$count]\n";
+		$model2count++;
+	}
+	else
+	{
+		print "Unknown\t$ARGV[$count]\n";
+		$unknowncount++;
+	}
+}
+
+my $total = $model1count + $model2count + $unknowncount;
+print "$model1count looked more like $trainpath1 (".($model1count/$total*100)."%)\n";
+print "$model2count looked more like $trainpath2 (".($model2count/$total*100)."%)\n";
+print "$unknowncount looked unknown (".($unknowncount/$total*100)."%)\n";
+
+# ======================================================================
+
+sub filelogprob
+{
+	my($filename) = @_;
+	open(TEST,$filename) || die "couldn't open file $filename";
+
+	my($logprob) = 0;
+	my($x,$y) = ($BOC, $BOC);
+
+	while (<TEST>)
+	{
+		foreach my $z (split)
+		{
+			$logprob += log2(prob($x,$y,$z));
+			$x=$y;
+			$y=$z;
+		}
+	}
+
+	$logprob += log2(prob($x,$y,$EOC));
+	close(TEST);
+	return $logprob;
+}
+
+sub log2
+{
+	my($x) = @_;
+	my($log2x) = log($x)/log(2);
+	return $log2x;
+}
+
+sub perplexity
+{
+	my($testfile) = @_;
+	my $filelogprob = filelogprob($testfile);
+	my $wordcount = filewordcount($testfile);
+	my $perplexity = 2**($filelogprob * -1 / $wordcount);
+
+	return $perplexity;
+}
+
+sub filewordcount
+{
+	my($filename) = @_;
+	my $word_count = 0;
+	open(TEST,$filename) || die "couldn't open file $filename";
+
+	while (<TEST>)
+	{
+		foreach my $z (split)
+		{ $word_count++; }
+	}
+
+	close(TEST);
+	return $word_count;
+}

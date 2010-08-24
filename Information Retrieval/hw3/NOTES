@@ -1,0 +1,159 @@
+
+
+EVALUATION
+==========
+
+Like in Assignment #2, you should report results
+for the following combinations of algorithm options.
+For each, you should report 3 accuracy (% correct) values,
+one for the 'tank' data, 'plant' data and person/place data
+respectively. For example:
+
+                       tank   plant  pers/place 
+   =============================================
+   COMBINATION 1        .90    .84     .83
+   COMBINATION 2        .84    .80     .78
+   .....
+
+
+Combinations you should use are:
+
+
+             Position       Local Collocation
+   stemming  Weighting      Modelling
+   ========================================
+1  unstemmed #0-uniform     #1-bag-of-words
+2  stemmed   #1-expndecay   #1-bag-of-words
+3  unstemmed #1-expndecay   #1-bag-of-words
+4  unstemmed #1-expndecay   #2-adjacent-separate-LR
+5  unstemmed #2-stepped     #1 or #2
+6  unstemmed #3-yours       #1 or #2
+7  Extra Credit: The results of your implemented extension
+
+The 4 types of Position Weightinb methods and
+the 2 kinds of proposed Local Collocation modelling
+are given in Part 2 of the assignment.
+
+
+============================================================
+
+
+        SUGGESTED EXTENSIONS FOR EXTRA CREDIT
+        =====================================
+
+You are strongly encourage to implement one or
+more of the following extensions for up to 50 points 
+extra credit (commensurate with the substance
+and quality of the work).
+
+(1) IMPLEMENT A SIMPLE BAYESIAN MODEL FOR SENSE DISAMBIGUATION
+
+Although superficially very different, it is relatively 
+straightforward to implement a simple Bayesian classifier
+assuming independence using the existing vector infrastructure.
+
+Below is a suggested outline of the steps you may follow:
+
+(a) create vectors for all of the 4000 contexts as in the
+    vector model, but DON'T weight the terms by TF*IDF.
+    Either use simple term frequency (TF) for the vector
+    values, or a region weighting of your choice.
+    You should exclude stopwords and stemming may be helpful.
+
+(b) create V_sum1 and V_sum2, containing the sum of all
+    the vectors assigned to sense 1 or 2 respectively.
+    This is identical to the process of computing
+    V_profile1 and V_profile2 in the vector model,
+    except that you don't divide by the number of vectors.
+    
+   
+(c) For all $term in V_sum2, compute the LogLikelihood ratio:
+
+       if ($Vsum1{$term} > 0)
+          $LLike{$term} = log ( $Vsum1{$term} / $Vsum2{$term} ) 
+       else
+          $LLike{$term} = log ( $EPSILON / $Vsum2{$term} ) 
+
+
+    For all $term in V_sum1 and NOT IN V_sum2 (i.e. the rest)
+
+          $LLike{$term} = log ( $Vsum1{$term} / $EPSILON) ) 
+
+       [ note that there is no need to test if $Vsum{$term} > 0
+         in this case, as this result is implied if
+         $V_sum2{$term} <= 0; ]
+
+     In this very simple smoothing model, set $EPSILON 
+     to a value such as .2. You may perform more sophisticated
+     smoothing procedures if you so choose.
+    
+
+(d)  A simple way to classify new test vectors ($vtest) is as follows:
+
+
+       For each $term in $Vtest:
+
+           $sumofLL += $LLike{$term} * $Vtest{$term};
+
+             (i.e. sum up the model's LogLikelihoods for those terms that
+              appear the new test vector (not used to create the model
+              initially).
+
+           if ($sumofLL > 0) then  assign class 1
+           if ($sumofLL < 0) then  assign class 2
+           if ($sumofLL = 0) then  both classes equally likely.
+
+           The larger the deviation of $sumofLL from 0, the larger
+           our confidence in the classification of this test vector. 
+         
+
+           When reporting the results of each of these test vectors,
+           print the true_class for the vector (found in .I <dn> <trueclass), 
+           the precicted_class for the vector, the $sumofLL, and 
+           the $titles[$dn] for that test case, much like you would
+           do for the vector model.
+
+
+If you have any questions about this procedure, please come see me.
+============================================================================
+
+
+(2) PERFORM WEAKLY SUPERVISED VARIANT OF THE PERSON/PLACE CLASSIFIER.
+
+      Assume that you have no labelled training data for the
+      person place classifier, but you WILL have large sets
+      of unlabelled data (e.g. persons or places in context)
+      AND a list of likely (and unambiguous) members of the
+      respective classes. Assume that these proper names
+      are indeed ambiguous and add as vectors to the training
+      data for $Vprofile_1 or $Vprofile_2, respectively,
+      just like for the fully supervised sense disambiguation
+      case. The major problem here is that there is noise in
+      this data, but if the example words are relatively
+      unambiguous then it should be tolerable. 
+
+      This is a simple but efficient learning procedure because
+      it does not require hand labelled training data of
+      persons or places in context, just lists of likely
+      (unambiguous) persons or places *without pretagged contxts*.
+     
+
+      There are several ways this approach can be extended through
+      the EM algorithm. If you are interested, please see me for
+      details. Such an extension is not required.
+     
+    
+============================================================================
+
+(3) PERFORM A HIERARCHICAL CLUSTERING OF THE SAMPLE SENSE VECTORS
+
+       (using a software package of your choice -e.g. S-Plus). 
+
+       Please see me for details.
+
+       Each induced cluster will correspond to one (hypothesized)
+       sense of subsense of the word.
+ 
+============================================================================
+
+

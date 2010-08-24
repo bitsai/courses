@@ -1,0 +1,42 @@
+<project name="OOS Project" basedir="." default="javadoc">
+	
+  <property name="dir.build"   value="${basedir}/build"/>
+  <property name="dir.src"     value="${basedir}/src"/>
+  <property name="dir.apidocs" value="${basedir}/documentation/api"/>
+
+  <path id="project.class.path">
+    <pathelement path="${java.class.path}"/>
+    <pathelement location="${dir.build}"/>
+  </path>
+
+  <target name="build">
+    <mkdir dir="${dir.build}"/>
+    <javac debug ="yes" srcdir="${dir.src}" destdir="${dir.build}"/>
+  </target>
+
+  <target name="run.Server" depends="build">
+    <java classname="ServerGUI" fork ="yes">
+      <classpath refid="project.class.path"/>
+    </java>
+  </target>
+
+  <target name="run.Client" depends="build">
+    <java classname="gameclient.Client" fork ="yes">
+      <classpath refid="project.class.path"/>
+    </java>
+  </target>
+
+  <target name="javadoc" depends="build">
+    <mkdir dir="${dir.apidocs}"/>
+    <javadoc sourcepath="${dir.src}" 
+             destdir="${dir.apidocs}"
+             packagenames="battletech.*,gameclient.*,gameserver.*,tictactoe.*"/>
+  </target>
+  <target name="clean">
+    <delete dir="${dir.build}"/>
+    <delete dir="${dir.apidocs}"/>
+  </target>
+
+</project>
+
+

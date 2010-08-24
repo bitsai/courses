@@ -1,0 +1,336 @@
+<html>
+  <head>
+    <title>Final</title>
+  </head>
+  <body>
+  <b><i>THE DIABLO 2 DATABASE</i></b>
+
+  <form method="POST" action="http://dbase.cs.jhu.edu:8080/pls/cs415/btsai_03.GetItemProperties">
+  <b>What are this item's magic properties?</b><br>Item Name = <input type="text" name="itemName"><input type="submit">
+  </form>
+
+  <form method="POST" action="http://dbase.cs.jhu.edu:8080/pls/cs415/btsai_03.GetMagicAffixes">
+  <b>What magic affixes can my character use?</b><br>
+  	Character Level = <input type="text" name="lvl">
+	Type =
+  		<select size="1" name="type">
+  		<option value="Prefix" selected>Prefix</option>
+  		<option value="Suffix">Suffix</option>
+  		</select>
+  	<input type="submit">
+  </form>
+
+  <form method="POST" action="http://dbase.cs.jhu.edu:8080/pls/cs415/btsai_03.GetCharmAffixes">
+  <b>What Charm affixes can my character use?</b><br>
+  	Character Level = <input type="text" name="lvl">
+	Type =
+  		<select size="1" name="type">
+  		<option value="Prefix" selected>Prefix</option>
+  		<option value="Suffix">Suffix</option>
+  		</select>
+  	Charm Size =
+  		<select size="1" name="charmSize">
+  		<option value="Small" selected>Small</option>
+  		<option value="Medium">Medium</option>
+  		<option value="Large">Large</option>
+  		</select>
+  	<input type="submit">
+  </form>
+
+  <form method="POST" action="http://dbase.cs.jhu.edu:8080/pls/cs415/btsai_03.GetJewelAffixes">
+  <b>What Jewel affixes can my character use?</b><br>
+  	Character Level = <input type="text" name="lvl">
+	Type =
+  		<select size="1" name="type">
+  		<option value="Prefix" selected>Prefix</option>
+  		<option value="Suffix">Suffix</option>
+  		</select>
+  	<input type="submit">
+  </form>
+
+  <form method="POST" action="http://dbase.cs.jhu.edu:8080/pls/cs415/btsai_03.GetRunes">
+  <b>What Runes can my character use?</b><br>Character Level = <input type="text" name="lvl"><input type="submit">
+  </form>
+
+  <form method="POST" action="http://dbase.cs.jhu.edu:8080/pls/cs415/btsai_03.GetGems">
+  <b>What Gems can my character use?</b><br>Character Level = <input type="text" name="lvl"><input type="submit">
+  </form>
+
+  <form method="POST" action="http://dbase.cs.jhu.edu:8080/pls/cs415/btsai_03.GetUniqueRings">
+  <b>What Unique Rings can my character use?</b><br>Character Level = <input type="text" name="lvl"><input type="submit">
+  </form>
+
+  <form method="POST" action="http://dbase.cs.jhu.edu:8080/pls/cs415/btsai_03.GetUniqueAmulets">
+  <b>What Unique Amulets can my character use?</b><br>Character Level = <input type="text" name="lvl"><input type="submit">
+  </form>
+
+  <form method="POST" action="http://dbase.cs.jhu.edu:8080/pls/cs415/btsai_03.GetUniqueCharms">
+  <b>What Unique Charms can my character use?</b><br>Character Level = <input type="text" name="lvl"><input type="submit">
+  </form>
+
+  <form method="POST" action="http://dbase.cs.jhu.edu:8080/pls/cs415/btsai_03.GetUniqueJewels">
+  <b>What Unique Jewels can my character use?</b><br>Character Level = <input type="text" name="lvl"><input type="submit">
+  </form>
+
+  <form method="POST" action="http://dbase.cs.jhu.edu:8080/pls/cs415/btsai_03.GetArmor">
+  <b>What are the Armor that my character can wear?</b><br>
+  	Character Level = <input type="text" name="lvl"> Strength = <input type="text" name="minStr"><br>
+  	Item Type =
+  		<select size="1" name="itemType">
+  		<option value="Circlet" selected>Circlet</option>
+		<option value="Helm">Helm</option>
+		<option value="Armor">Armor</option>
+		<option value="Shield">Shield</option>
+		<option value="Gloves">Gloves</option>
+		<option value="Boots">Boots</option>
+		<option value="Belt">Belt</option>
+		<option value="Barbarian Helm">Barbarian Helm</option>
+		<option value="Pelt">Druid Pelt</option>
+		<option value="Paladin Shield">Paladin Shield</option>
+		<option value="Shrunken Head">Shrunken Head</option>
+		</select>
+  	Item Quality =
+	  	<select size="1" name="itemQuality">
+		<option value="Normal" selected>Normal</option>
+		<option value="Exceptional">Exceptional</option>
+		<option value="Elite">Elite</option>
+		</select>
+  	<input type="submit">
+  </form>
+
+  <form method="POST" action="http://dbase.cs.jhu.edu:8080/pls/cs415/btsai_03.GetBestDefenseArmor">
+  <b>What is the highest Defense Armor that my character can wear?</b><br>
+  	Character Level = <input type="text" name="lvl"> Strength = <input type="text" name="minStr"><br>
+  	Item Type =
+  		<select size="1" name="itemType">
+  		<option value="Circlet" selected>Circlet</option>
+		<option value="Helm">Helm</option>
+		<option value="Armor">Armor</option>
+		<option value="Shield">Shield</option>
+		<option value="Gloves">Gloves</option>
+		<option value="Boots">Boots</option>
+		<option value="Belt">Belt</option>
+		<option value="Barbarian Helm">Barbarian Helm</option>
+		<option value="Pelt">Druid Pelt</option>
+		<option value="Paladin Shield">Paladin Shield</option>
+		<option value="Shrunken Head">Shrunken Head</option>
+		</select>
+  	Item Quality =
+	  	<select size="1" name="itemQuality">
+		<option value="Normal" selected>Normal</option>
+		<option value="Exceptional">Exceptional</option>
+		<option value="Elite">Elite</option>
+		</select>
+  	<input type="submit">
+  </form>
+
+  <form method="POST" action="http://dbase.cs.jhu.edu:8080/pls/cs415/btsai_03.GetBestBlockShield">
+  <b>What is the highest Block Shield that my character can wear?</b><br>
+  	Character Level = <input type="text" name="lvl"> Strength = <input type="text" name="minStr"><br>
+  	Item Type =
+  		<select size="1" name="itemType">
+		<option value="Shield" selected>Shield</option>
+		<option value="Paladin Shield">Paladin Shield</option>
+		</select>
+  	Item Quality =
+  		<select size="1" name="itemQuality">
+		<option value="Normal" selected>Normal</option>
+		<option value="Exceptional">Exceptional</option>
+		<option value="Elite">Elite</option>
+		</select>
+	<input type="submit">
+  </form>
+
+  <form method="POST" action="http://dbase.cs.jhu.edu:8080/pls/cs415/btsai_03.GetBestSmiteShield">
+  <b>What is the highest Smite Damage Shield that my character can wear?</b><br>
+  	Character Level = <input type="text" name="lvl"> Strength = <input type="text" name="minStr"><br>
+  	Item Type =
+  		<select size="1" name="itemType">
+		<option value="Shield" selected>Shield</option>
+		<option value="Paladin Shield">Paladin Shield</option>
+		</select>
+  	Item Quality =
+  		<select size="1" name="itemQuality">
+		<option value="Normal" selected>Normal</option>
+		<option value="Exceptional">Exceptional</option>
+		<option value="Elite">Elite</option>
+		</select>
+	<input type="submit">
+  </form>
+
+  <form method="POST" action="http://dbase.cs.jhu.edu:8080/pls/cs415/btsai_03.GetBestKickBoots">
+  <b>What are the highest Kick Damage Boots that my character can wear?</b><br>
+  	Character Level = <input type="text" name="lvl"> Strength = <input type="text" name="minStr"><br>
+  	Item Quality =
+	  	<select size="1" name="itemQuality">
+		<option value="Normal" selected>Normal</option>
+		<option value="Exceptional">Exceptional</option>
+		<option value="Elite">Elite</option>
+		</select>
+  	<input type="submit">
+  </form>
+
+  <form method="POST" action="http://dbase.cs.jhu.edu:8080/pls/cs415/btsai_03.GetWeapons">
+  <b>What are the Weapons that my character can wield?</b><br>
+  	Character Level = <input type="text" name="lvl"> Strength = <input type="text" name="minStr"> Dexterity = <input type="text" name="minDex"><br>
+  	Item Type =
+  		<select size="1" name="itemType">
+		<option value="Ax" selected>Ax</option>
+		<option value="Bow">Bow</option>
+		<option value="Crossbow">Crossbow</option>
+		<option value="Dagger">Dagger</option>
+		<option value="Javelin">Javelin</option>
+		<option value="Mace">Mace</option>
+		<option value="Polearm">Polearm</option>
+		<option value="Scepter">Scepter</option>
+		<option value="Spear">Spear</option>
+		<option value="Staff">Staff</option>
+		<option value="Sword">Sword</option>
+		<option value="Throwing">Throwing</option>
+		<option value="Wand">Wand</option>
+		<option value="Amazon Weapon">Amazon Weapon</option>
+		<option value="Katar">Assassin Katar</option>
+		<option value="Orb">Sorceress Orb</option>
+		</select>
+	Hands =
+		<select size="1" name="hands">
+		<option value="1" selected>1</option>
+		<option value="2">2</option>
+		</select>
+  	Item Quality =
+	  	<select size="1" name="itemQuality">
+		<option value="Normal" selected>Normal</option>
+		<option value="Exceptional">Exceptional</option>
+		<option value="Elite">Elite</option>
+		</select>
+  	<input type="submit">
+  </form>
+
+  <form method="POST" action="http://dbase.cs.jhu.edu:8080/pls/cs415/btsai_03.GetFastestWeapon">
+  <b>What is the highest Speed Weapon that my character can wield?</b><br>
+  	Character Level = <input type="text" name="lvl"> Strength = <input type="text" name="minStr"> Dexterity = <input type="text" name="minDex"><br>
+  	Item Type =
+  		<select size="1" name="itemType">
+		<option value="Ax" selected>Ax</option>
+		<option value="Bow">Bow</option>
+		<option value="Crossbow">Crossbow</option>
+		<option value="Dagger">Dagger</option>
+		<option value="Javelin">Javelin</option>
+		<option value="Mace">Mace</option>
+		<option value="Polearm">Polearm</option>
+		<option value="Scepter">Scepter</option>
+		<option value="Spear">Spear</option>
+		<option value="Staff">Staff</option>
+		<option value="Sword">Sword</option>
+		<option value="Throwing">Throwing</option>
+		<option value="Wand">Wand</option>
+		<option value="Amazon Weapon">Amazon Weapon</option>
+		<option value="Katar">Assassin Katar</option>
+		<option value="Orb">Sorceress Orb</option>
+		</select>
+	Hands =
+		<select size="1" name="hands">
+		<option value="1" selected>1</option>
+		<option value="2">2</option>
+		</select>
+  	Item Quality =
+	  	<select size="1" name="itemQuality">
+		<option value="Normal" selected>Normal</option>
+		<option value="Exceptional">Exceptional</option>
+		<option value="Elite">Elite</option>
+		</select>
+  	<input type="submit">
+  </form>
+
+  <form method="POST" action="http://dbase.cs.jhu.edu:8080/pls/cs415/btsai_03.GetLongestWeapon">
+  <b>What is the highest Range Weapon that my character can wield?</b><br>
+  	Character Level = <input type="text" name="lvl"> Strength = <input type="text" name="minStr"> Dexterity = <input type="text" name="minDex"><br>
+  	Item Type =
+  		<select size="1" name="itemType">
+		<option value="Ax" selected>Ax</option>
+		<option value="Bow">Bow</option>
+		<option value="Crossbow">Crossbow</option>
+		<option value="Dagger">Dagger</option>
+		<option value="Javelin">Javelin</option>
+		<option value="Mace">Mace</option>
+		<option value="Polearm">Polearm</option>
+		<option value="Scepter">Scepter</option>
+		<option value="Spear">Spear</option>
+		<option value="Staff">Staff</option>
+		<option value="Sword">Sword</option>
+		<option value="Throwing">Throwing</option>
+		<option value="Wand">Wand</option>
+		<option value="Amazon Weapon">Amazon Weapon</option>
+		<option value="Katar">Assassin Katar</option>
+		<option value="Orb">Sorceress Orb</option>
+		</select>
+	Hands =
+		<select size="1" name="hands">
+		<option value="1" selected>1</option>
+		<option value="2">2</option>
+		</select>
+  	Item Quality =
+	  	<select size="1" name="itemQuality">
+		<option value="Normal" selected>Normal</option>
+		<option value="Exceptional">Exceptional</option>
+		<option value="Elite">Elite</option>
+		</select>
+  	<input type="submit">
+  </form>
+
+  <form method="POST" action="http://dbase.cs.jhu.edu:8080/pls/cs415/btsai_03.GetBestMeleeDamageWeapon">
+  <b>What is the highest Melee Damage Weapon that my character can wield?</b><br>
+  	Character Level = <input type="text" name="lvl"> Strength = <input type="text" name="minStr"> Dexterity = <input type="text" name="minDex"><br>
+  	Item Type =
+  		<select size="1" name="itemType">
+		<option value="Ax" selected>Ax</option>
+		<option value="Bow">Bow</option>
+		<option value="Crossbow">Crossbow</option>
+		<option value="Dagger">Dagger</option>
+		<option value="Javelin">Javelin</option>
+		<option value="Mace">Mace</option>
+		<option value="Polearm">Polearm</option>
+		<option value="Scepter">Scepter</option>
+		<option value="Spear">Spear</option>
+		<option value="Staff">Staff</option>
+		<option value="Sword">Sword</option>
+		<option value="Throwing">Throwing</option>
+		<option value="Wand">Wand</option>
+		<option value="Amazon Weapon">Amazon Weapon</option>
+		<option value="Katar">Assassin Katar</option>
+		<option value="Orb">Sorceress Orb</option>
+		</select>
+	Hands =
+		<select size="1" name="hands">
+		<option value="1" selected>1</option>
+		<option value="2">2</option>
+		</select>
+  	Item Quality =
+	  	<select size="1" name="itemQuality">
+		<option value="Normal" selected>Normal</option>
+		<option value="Exceptional">Exceptional</option>
+		<option value="Elite">Elite</option>
+		</select>
+  	<input type="submit">
+  </form>
+
+  <form method="POST" action="http://dbase.cs.jhu.edu:8080/pls/cs415/btsai_03.GetBestThrowDamageWeapon">
+  <b>What is the highest Throw Damage Weapon that my character can wield?</b><br>
+  	Character Level = <input type="text" name="lvl"> Strength = <input type="text" name="minStr"> Dexterity = <input type="text" name="minDex"><br>
+  	Item Type =
+  		<select size="1" name="itemType">
+		<option value="Javelin" selected>Javelin</option>
+		<option value="Throwing">Throwing</option>
+		<option value="Amazon Weapon">Amazon Weapon</option>
+		</select>
+  	Item Quality =
+	  	<select size="1" name="itemQuality">
+		<option value="Normal" selected>Normal</option>
+		<option value="Exceptional">Exceptional</option>
+		<option value="Elite">Elite</option>
+		</select>
+  	<input type="submit">
+  </form>
+
+  </body>
+</html>

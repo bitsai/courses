@@ -1,0 +1,23 @@
+load networks/test.net
+start all
+usp
+v 4
+
+#plug in the echo client
+s CMU
+plug in A2.KerberosEvilEchoClient 17
+plug in simnet.PacketDump 18
+dump any any
+
+#plug in kerberos
+s ISI
+plug in A2.KerberosAuthenticationServers 17
+wait 500
+dumpState
+
+#let Alice login
+s CMU
+login ISI alice apples
+crack 400
+
+#exit

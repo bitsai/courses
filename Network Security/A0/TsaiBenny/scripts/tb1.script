@@ -1,0 +1,37 @@
+# Use edge sampling traceback to reconstruct multiple attack paths.
+
+# Initialize network.
+load networks/test.net
+start all
+usp
+
+# Initialize traceback routers.
+plug in all A0.TracebackRouter
+
+# Initialize traceback at PARC.
+s PARC
+plug in A0.Traceback 100
+start_tb
+
+# Launch DoS attack from MIT.
+s MIT
+flood FLORAM 1111 PARC 80 17 1000 100 0 0
+
+# Launch DoS attack from JHU.
+s JHU
+flood FLORAM 1111 PARC 80 17 1000 100 0 0
+
+# Launch DoS attack from CMU.
+s CMU
+flood FLORAM 1111 PARC 80 17 1000 100 0 0
+
+# Reconstruct attack paths.
+wait 2000
+s PARC
+tb
+
+# Verify paths with traceroute.
+tr MIT
+tr JHU
+tr CMU
+

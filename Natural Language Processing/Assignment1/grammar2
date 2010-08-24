@@ -1,0 +1,82 @@
+# This grammar uses a convention that
+#    - terminals are lowercase          (president)
+#    - preterminals are capitalized     (Noun)
+#    - other nonterminals are all-caps  (NP)
+# 
+# This convention just makes grammars more readable to humans.  Thus:
+#
+#    - When *you* are writing grammars in questions 3 and 6, you should 
+#      follow this convention unless you have a good reason not to.  
+#
+#    - But your *program* should still work with grammars that don't 
+#      follow this convention.  It should not pay any attention to
+#      upper/lower case.  From your program's point of view, 
+#      if there is at least one rule for rewriting a symbol, then
+#      that symbol is a nonterminal and should be rewritten.
+#######################
+
+# Rules for creating full sentences.
+
+4 ROOT	S .
+1 ROOT	S !
+2 ROOT	is it true that S ?     # mixing terminals and nonterminals is ok.
+
+# The basic grammar rules.  Here's what the abbreviations stand for:
+#    S  = sentence
+#    NP = noun phrase
+#    VP = verb phrase
+#    PP = prepositional phrase
+#    Det = determiner (sometimes called "article")
+#    Prep = preposition
+#    Adj = adjective
+
+1 S	NP VP
+1 VP	Verb NP
+3 NP	Det Noun
+1 NP	NP PP
+1 PP	Prep NP
+3 Noun	Adj Noun
+
+# Vocabulary.  Your program can see that "ate" is a terminal
+# symbol because there exists no rule for rewriting it.
+# Any symbol that can rewrite as a terminal (or a string of 
+# terminals, like "chief of staff") is called a "preterminal."  Notice 
+# that a preterminal is a special kind of nonterminal.
+
+5.0 Verb	ate
+45.4 Verb	wanted
+2.7 Verb	kissed
+8.9 Verb	understood
+0.4 Verb	pickled
+
+1 Det	the
+1 Det	a
+1 Det	every
+
+52.2 Noun	president
+4.5 Noun	sandwich
+.8	Noun	pickle
+52.2 Noun	chief of staff
+31.5 Noun	floor
+
+1 Adj	fine
+1 Adj	delicious
+1 Adj	perplexed
+1 Adj	pickled
+
+1 Prep	with
+1 Prep	on
+1 Prep	under
+1 Prep	in
+
+# Changes i made:
+#
+# Increased frequency of statements and questions relative to exclamations, since
+# exclamations are relatively rare in most bodies of text.
+#
+# Increased frequency of the "NP -> Det Noun" and "Noun -> Adj Noun" rules to avoid
+# long sentences and increase usage of adjectives.
+#
+# I looked up the number of times (in millions) each verb and noun appeared when
+# put into a google search, and used the results as frequencies; this should theoretically
+# produce sentences that approximiate most real-life sentences.

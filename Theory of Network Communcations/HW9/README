@@ -1,0 +1,20 @@
+Benny Tsai
+600.448
+Theory of Net. Comm.
+Homework 9
+
+To set up for the test script, have a supervisor, 3 peers, and an interactive rune window running as follows:
+
+rune supervisor.e S
+rune peer.e A
+rune peer.e B
+rune peer.e C
+rune
+
+The interactive rune window must be started in the same directory where you ran the above commands, as otherwise the *.cap files will not be found.
+
+Ping displays will be in the individual supervisor/peer windows.
+
+Enqueue/dequeue displays will always be in the supervisor's window.
+
+Should hopefully work in Barley :)

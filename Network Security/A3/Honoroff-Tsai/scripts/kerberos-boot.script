@@ -1,0 +1,64 @@
+load networks/test.net
+start all
+usp
+v 6
+
+#plug in the Admin interface
+s CMU
+plug in A2.KerberosAdmin 17
+
+s JHU
+#plug in the Admin interface and a Kerberized-Echo client
+plug in A2.KerberosAdmin 17
+plug in A2.KerberosEchoClient 18
+
+s ISI
+#plug in Kerberos
+plug in A2.KerberosAuthenticationServers 17
+wait 500
+#print out our keys
+dumpState
+
+
+s CMU
+#Administrator login to Kerberos
+login ISI admin nimda
+wait 500
+
+#add a new user
+addClient fred foobar
+wait 500
+
+#add a new service
+addService echo@FLORAM barfoo
+wait 500
+#logout as administrator
+17.logout
+
+s FLORAM
+#start up a new service
+plug in A2.KerberosEchoServer 17
+setPrivateKey barfoo
+wait 500
+
+s JHU
+#let the new user change his password
+17.login ISI fred foobar
+chClientPass fred secret
+wait 500
+17.logout
+
+#let the new user login to Kerberos
+18.login ISI fred secret
+#connect to the Kerberized echo server
+18.connect FLORAM
+#echo some stuff (fred is a proud guy)
+echo fred_is_the_best
+wait 500
+echo he_is_cool
+wait 500
+close
+wait 500
+#logout
+18.logout
+exit

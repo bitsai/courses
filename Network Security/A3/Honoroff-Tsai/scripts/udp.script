@@ -1,0 +1,33 @@
+# Simnet, version 0.8
+# COPYRIGHT Seny Kamara, Darren Davis, Fabian Monrose, 2002-2003
+# Please read the DISCLAIMER
+
+# Example UDP Echo Client/Server
+
+verbose 6
+
+load networks/test.net
+start all
+usp
+slp all all 0 0 0 0
+
+plug in all submission.Demo.UDPEchoClient 2
+
+s JHU
+
+s MIT
+plug in submission.Demo.UDPEchoServer 1
+setPrefix udp_echo_server_test
+open 80
+
+s JHU
+echo MIT test1
+wait 1000
+
+s CMU
+echo MIT test2
+wait 1000
+
+s MIT
+dump_udp_state
+close 80

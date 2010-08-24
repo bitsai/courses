@@ -1,0 +1,18 @@
+:- pragma(keep_best_antecedents(item)).
+:- structure(key(string,int,int)).
+:- item(item, double, inf).
+:- converges(goal, first_pop).
+
+% Computes sum of frequencies in a subtree
+sum(A, B)	min= key(String, A, B).
+sum(A, C)	min= sum(A, B) + key(String, B, C).
+sum(A, C)	min= key(String, A, B) + sum(B, C).
+sum(A, D)	min= sum(A, B) + key(String, B, C) + sum(C, D).
+
+% Calculate total cost of a tree based on weight of subtrees and frequency of root key
+cost(A, B)	min= key(String, A, B).
+cost(A, C)	min= cost(A, B) + sum(A, B) + key(String, B, C).
+cost(A, C)	min= key(String, A, B) + cost(B, C) + sum(B, C).
+cost(A, D)	min= cost(A, B) + sum(A, B) + key(String, B, C) + cost(C, D) + sum(C, D).
+
+goal		min= cost(0, N) whenever numkeys(N).

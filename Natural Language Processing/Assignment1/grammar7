@@ -1,0 +1,48 @@
+# The grammar God may have used to generate the 10 Commandments
+1 ROOT	Thou shalt VP .
+1 ROOT	Thou shalt not VP .
+1 ROOT	Verb NP .
+
+1 VP	Verb NP
+1 VP	Verb NP Adverb
+1 VP	Verb Adverb NP
+1 VP	Verb_Complete
+
+1 NP	Noun
+1 NP	NP PP
+1 NP	Noun and Noun
+1 NP	Noun or Noun
+
+1 Adverb	unto thee
+1 Adverb	in vain
+
+1 PP	Prep NP
+
+1 Prep	before
+
+1 Verb	have
+1 Verb	make
+1 Verb	take
+1 Verb	remember
+1 Verb	honour
+1 Verb	covet
+1 Verb	bear false witness against
+
+1 Verb_Complete	kill
+1 Verb_Complete	commit adultery
+1 Verb_Complete	steal
+
+1 Noun	no other gods
+1 Noun	Me
+1 Noun	any graven image
+1 Noun	the name of the Lord thy God
+1 Noun	the sabbath day
+1 Noun	thy father
+1 Noun	thy mother
+1 Noun	thy neighbor
+1 Noun	thy neighbor's house
+1 Noun	thy neighbor's wife
+1 Noun	thy neighbor's manservent
+1 Noun	thy neighbor's maidservant
+1 Noun	thy neighbor's ox
+1 Noun	thy neighbor's ass
